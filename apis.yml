@@ -1,4 +1,4 @@
----
+
 name: Airtable
 description: >-
   We help organizations achieve their most ambitious goals and move with greater
@@ -56,4 +56,3 @@ overlays:
   - type: API Evangelist Ratings
     url: overlays/apis-io-search.yml
 aid: airtable
----

@@ -1,5 +1,5 @@
 # Airtable (airtable)
-We help organizations achieve their most ambitious goals and move with greater agility. With our next-generation app platform, teams easily design and deploy flexible and engaging apps that power critical workflows and make valuable data actionable across the enterprise.
+Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity of a database. It provides APIs for managing bases, tables, records, and more.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/apis-json/artisanal/main/apis/airtable.yml)
 
@@ -9,11 +9,9 @@ We help organizations achieve their most ambitious goals and move with greater a
 - **Position:** Consumer 
 - **Access:** 3rd-Party 
 
-## Tags
+## Tags:
 
-- Data
-- Applications
-- Productivity
+ - Applications, Data, Productivity
 
 ## Timestamps
 
@@ -26,10 +24,6 @@ We help organizations achieve their most ambitious goals and move with greater a
 he Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes.
 
 **Human URL:** [https://airtable.com/developers/web/api/introduction](https://airtable.com/developers/web/api/introduction)
-**Base URL:** [https://api.example.com](https://api.example.com)
-
-#### Tags
-
 
 #### Properties
 
@@ -45,10 +39,21 @@ he Airtable API can be used to integrate your data in Airtable with any external
 - [Newsletter](http://eepurl.com/gVD-df)
 - [Extensions](https://airtable.com/developers/extensions)
 - [Forum](https://community.airtable.com/c/developers/55)
+- [Portal](https://airtable.com/developers)
+- [Status](https://status.airtable.com)
+- [Support](https://support.airtable.com)
+- [Terms of Service](https://airtable.com/tos)
+- [Privacy Policy](https://airtable.com/privacy)
+- [Pricing](https://airtable.com/pricing)
+- [Blog](https://blog.airtable.com)
+- [Community](https://community.airtable.com)
+- [GitHub](https://github.com/airtable)
 
 ## Maintainers
 
 **FN:** API Evangelist
 
 **Email:** info@apievangelist.com
+**FN:** Airtable
 
+**Email:** support@airtable.com

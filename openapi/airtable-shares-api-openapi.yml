@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: Airtable Shares API
+  description: >-
+    The Airtable Shares API allows enterprise administrators to list, manage,
+    and delete share links across an organization. It provides programmatic
+    control over base sharing and access management, enabling enforcement of
+    sharing policies at scale.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+externalDocs:
+  description: Airtable Shares API Documentation
+  url: https://airtable.com/developers/web/api/list-shares
+servers:
+  - url: https://api.airtable.com/v0
+    description: Airtable API v0 production server
+security:
+  - bearerAuth: []
+tags:
+  - name: Shares
+    description: Manage share links for bases within the enterprise
+paths:
+  /meta/bases/{baseId}/shares:
+    get:
+      operationId: listShares
+      summary: List share links for a base
+      description: >-
+        Returns a list of all active share links for the specified base. Each
+        share includes its type, state, and the user who created it. This
+        endpoint is available to enterprise administrators.
+      tags:
+        - Shares
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+      responses:
+        '200':
+          description: A list of share links for the base.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shares:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Share'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/bases/{baseId}/shares/{shareId}:
+    patch:
+      operationId: manageShare
+      summary: Manage a share link
+      description: >-
+        Updates the configuration of an existing share link for a base. Can
+        be used to enable or disable the share link, or update its access
+        settings.
+      tags:
+        - Shares
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/shareId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+                  description: The desired state of the share link.
+                  enum:
+                    - enabled
+                    - disabled
+                isPasswordEnabled:
+                  type: boolean
+                  description: Whether password protection is enabled for the share link.
+                password:
+                  type: string
+                  description: The password to set for the share link. Only applicable when isPasswordEnabled is true.
+      responses:
+        '200':
+          description: The updated share link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Share'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteShare
+      summary: Delete a share link
+      description: >-
+        Permanently deletes a share link for a base. Anyone who previously
+        had access through this share link will immediately lose access.
+      tags:
+        - Shares
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/shareId'
+      responses:
+        '200':
+          description: Confirmation that the share link was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Requires an enterprise admin-level personal access token or service
+        account token.
+  parameters:
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+    shareId:
+      name: shareId
+      in: path
+      required: true
+      description: The unique identifier of the share link (starts with 'shr').
+      schema:
+        type: string
+        pattern: ^shr[a-zA-Z0-9]+$
+  schemas:
+    Share:
+      type: object
+      description: A share link that provides external access to a base or view.
+      properties:
+        shareId:
+          type: string
+          description: The unique identifier of the share link.
+          example: shrABC123def456
+        type:
+          type: string
+          description: The type of share link.
+          enum:
+            - view
+            - base
+            - form
+        state:
+          type: string
+          description: The current state of the share link.
+          enum:
+            - enabled
+            - disabled
+        createdByUserId:
+          type: string
+          description: The ID of the user who created the share link.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the share link was created.
+        baseId:
+          type: string
+          description: The ID of the base this share link provides access to.
+        viewId:
+          type: string
+          description: The ID of the view this share link provides access to (for view-type shares).
+        isPasswordEnabled:
+          type: boolean
+          description: Whether the share link is password-protected.
+        effectivePermissionLevel:
+          type: string
+          description: The effective permission level granted by this share.
+          enum:
+            - read
+            - comment
+            - edit
+      required:
+        - shareId
+        - type
+        - state
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+          required:
+            - type
+            - message
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

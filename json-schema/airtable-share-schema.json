@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.airtable.com/share.json",
+  "title": "Airtable Share",
+  "description": "A share link that provides external access to an Airtable base, view, or form. Share links can be enabled or disabled and optionally protected with a password.",
+  "type": "object",
+  "properties": {
+    "shareId": {
+      "type": "string",
+      "description": "The unique identifier for the share link (starts with 'shr').",
+      "pattern": "^shr[a-zA-Z0-9]+$",
+      "examples": ["shrABC123def456"]
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of resource being shared.",
+      "enum": ["view", "base", "form"]
+    },
+    "state": {
+      "type": "string",
+      "description": "The current state of the share link.",
+      "enum": ["enabled", "disabled"]
+    },
+    "createdByUserId": {
+      "type": "string",
+      "description": "The ID of the user who created the share link."
+    },
+    "createdTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the share link was created."
+    },
+    "baseId": {
+      "type": "string",
+      "description": "The ID of the base this share link provides access to."
+    },
+    "viewId": {
+      "type": ["string", "null"],
+      "description": "The ID of the specific view this share link provides access to. Null for base-level shares."
+    },
+    "isPasswordEnabled": {
+      "type": "boolean",
+      "description": "Whether the share link requires a password to access."
+    },
+    "effectivePermissionLevel": {
+      "type": "string",
+      "description": "The effective permission level granted to anyone accessing through this share link.",
+      "enum": ["read", "comment", "edit"]
+    }
+  },
+  "required": ["shareId", "type", "state"],
+  "additionalProperties": false
+}

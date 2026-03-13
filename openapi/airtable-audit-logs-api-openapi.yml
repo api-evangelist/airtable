@@ -1,0 +1,479 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs API
+  description: >-
+    The Airtable Audit Logs API provides programmatic access to enterprise
+    audit logs for compliance monitoring and security tracking. It supports
+    creating and retrieving audit log requests with event filtering by user,
+    event type, model ID, category, and date range. Events are returned in
+    JSON format with up to 180 days of retention.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+externalDocs:
+  description: Airtable Audit Logs API Documentation
+  url: https://airtable.com/developers/web/api/audit-logs-overview
+servers:
+  - url: https://api.airtable.com/v0
+    description: Airtable API v0 production server
+security:
+  - bearerAuth: []
+tags:
+  - name: Audit Logs
+    description: Create, retrieve, and list audit log requests and events
+paths:
+  /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogEvents:
+    get:
+      operationId: listAuditLogEvents
+      summary: List audit log events
+      description: >-
+        Returns a paginated list of audit log events for the specified
+        enterprise account. Events can be filtered by user ID, event type,
+        model ID, category, and time range. By default, returns up to 180
+        days of events in reverse chronological order.
+      tags:
+        - Audit Logs
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+        - name: startTime
+          in: query
+          required: false
+          description: >-
+            The start of the time range to filter events, in ISO 8601 format.
+            Events on or after this time will be included.
+          schema:
+            type: string
+            format: date-time
+        - name: endTime
+          in: query
+          required: false
+          description: >-
+            The end of the time range to filter events, in ISO 8601 format.
+            Events before this time will be included.
+          schema:
+            type: string
+            format: date-time
+        - name: originatingUserId
+          in: query
+          required: false
+          description: Filter events to those performed by a specific user.
+          schema:
+            type: string
+        - name: eventType
+          in: query
+          required: false
+          description: Filter events by event type.
+          schema:
+            type: string
+        - name: modelId
+          in: query
+          required: false
+          description: Filter events by the ID of the affected model (base, table, etc.).
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: false
+          description: Filter events by category.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          description: The number of events per page. Default is 100.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+        - name: cursor
+          in: query
+          required: false
+          description: Pagination cursor from a previous response to fetch the next or previous page.
+          schema:
+            type: string
+        - name: sortOrder
+          in: query
+          required: false
+          description: The order in which to return events. Default is desc.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+        - name: previous
+          in: query
+          required: false
+          description: Pagination cursor for the previous page of results.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of audit log events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogEventList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogRequests:
+    get:
+      operationId: listAuditLogRequests
+      summary: List audit log export requests
+      description: >-
+        Returns a list of all audit log export requests that have been
+        created for the enterprise account. Each request includes its status
+        and download URLs when complete.
+      tags:
+        - Audit Logs
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      responses:
+        '200':
+          description: A list of audit log export requests.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auditLogRequests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuditLogRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createAuditLogRequest
+      summary: Create an audit log export request
+      description: >-
+        Creates a new audit log export request for the enterprise account.
+        The request specifies a time range and optional filters. Once
+        processing is complete, the audit log data can be downloaded from
+        the provided URLs.
+      tags:
+        - Audit Logs
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAuditLogRequestBody'
+      responses:
+        '200':
+          description: The newly created audit log export request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogRequests/{requestId}:
+    get:
+      operationId: getAuditLogRequest
+      summary: Get an audit log export request
+      description: >-
+        Retrieves the status and details of a specific audit log export
+        request. When the request is complete, the response includes download
+        URLs for the exported data.
+      tags:
+        - Audit Logs
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+        - name: requestId
+          in: path
+          required: true
+          description: The unique identifier of the audit log export request.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The audit log export request details and status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Requires an enterprise admin-level personal access token or service
+        account token with audit log access.
+  parameters:
+    enterpriseAccountId:
+      name: enterpriseAccountId
+      in: path
+      required: true
+      description: The unique identifier of the enterprise account (starts with 'ent').
+      schema:
+        type: string
+        pattern: ^ent[a-zA-Z0-9]+$
+  schemas:
+    AuditLogEvent:
+      type: object
+      description: A single audit log event recording an action in the enterprise.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the audit log event.
+        timestamp:
+          type: string
+          format: date-time
+          description: The time when the action was performed.
+        action:
+          type: string
+          description: >-
+            The type of action that was performed (e.g., created, updated,
+            deleted).
+        actor:
+          type: object
+          description: The user or system that performed the action.
+          properties:
+            type:
+              type: string
+              description: The type of actor (user, system, anonymous).
+              enum:
+                - user
+                - system
+                - anonymous
+            userId:
+              type: string
+              description: The ID of the user who performed the action.
+            email:
+              type: string
+              format: email
+              description: The email of the user who performed the action.
+            name:
+              type: string
+              description: The display name of the actor.
+        modelId:
+          type: string
+          description: >-
+            The ID of the model (base, table, field, etc.) that was affected
+            by the action.
+        modelType:
+          type: string
+          description: The type of model affected (e.g., base, table, field, record, view).
+        category:
+          type: string
+          description: The category of the event (e.g., app, user, share, enterprise).
+        context:
+          type: object
+          description: Additional context about the event.
+          properties:
+            baseId:
+              type: string
+              description: The ID of the base where the event occurred.
+            tableId:
+              type: string
+              description: The ID of the table where the event occurred.
+            viewId:
+              type: string
+              description: The ID of the view involved in the event.
+            workspaceId:
+              type: string
+              description: The ID of the workspace where the event occurred.
+            interfaceId:
+              type: string
+              description: The ID of the interface involved in the event.
+            actionId:
+              type: string
+              description: The ID of the specific action taken.
+            ipAddress:
+              type: string
+              description: The IP address from which the action was performed.
+        payloadVersion:
+          type: string
+          description: The version of the event payload format.
+      required:
+        - id
+        - timestamp
+        - action
+    AuditLogEventList:
+      type: object
+      description: A paginated list of audit log events.
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLogEvent'
+        pagination:
+          type: object
+          description: Pagination cursors for navigating through results.
+          properties:
+            next:
+              type: string
+              description: Cursor for the next page of results.
+            previous:
+              type: string
+              description: Cursor for the previous page of results.
+      required:
+        - events
+    AuditLogRequest:
+      type: object
+      description: An audit log export request with status and download information.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the audit log request.
+        status:
+          type: string
+          description: The processing status of the request.
+          enum:
+            - pending
+            - processing
+            - done
+            - failed
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the request was created.
+        filter:
+          type: object
+          description: The filters applied to this request.
+          properties:
+            startTime:
+              type: string
+              format: date-time
+            endTime:
+              type: string
+              format: date-time
+            originatingUserId:
+              type: string
+            eventType:
+              type: string
+            modelId:
+              type: string
+            category:
+              type: string
+        downloadUrls:
+          type: array
+          description: >-
+            URLs to download the exported audit log data. Available when
+            status is done.
+          items:
+            type: string
+            format: uri
+        expirationTime:
+          type: string
+          format: date-time
+          description: The time when the download URLs will expire.
+      required:
+        - id
+        - status
+        - createdTime
+    CreateAuditLogRequestBody:
+      type: object
+      description: Request body for creating an audit log export request.
+      properties:
+        filter:
+          type: object
+          description: Filters to apply to the exported audit log data.
+          properties:
+            startTime:
+              type: string
+              format: date-time
+              description: Start of the time range in ISO 8601 format.
+            endTime:
+              type: string
+              format: date-time
+              description: End of the time range in ISO 8601 format.
+            originatingUserId:
+              type: string
+              description: Filter to events by a specific user.
+            eventType:
+              type: string
+              description: Filter to a specific event type.
+            modelId:
+              type: string
+              description: Filter to events affecting a specific model.
+            category:
+              type: string
+              description: Filter to a specific event category.
+          required:
+            - startTime
+            - endTime
+      required:
+        - filter
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+          required:
+            - type
+            - message
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

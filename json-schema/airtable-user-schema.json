@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.airtable.com/user.json",
+  "title": "Airtable User",
+  "description": "An Airtable user account within an enterprise organization. Users have identity attributes, management states, and permission levels across workspaces and bases.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the user (starts with 'usr').",
+      "pattern": "^usr[a-zA-Z0-9]+$",
+      "examples": ["usrABC123def456"]
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address of the user."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the user."
+    },
+    "state": {
+      "type": "string",
+      "description": "The management state of the user within the enterprise.",
+      "enum": ["managed", "unmanaged", "deactivated"]
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "description": "Whether the user has enterprise administrator privileges."
+    },
+    "createdTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the user account was created."
+    },
+    "lastActivityTime": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "The time of the user's most recent activity. Null if the user has never been active."
+    },
+    "collaborations": {
+      "type": "object",
+      "description": "The user's collaboration details across workspaces, bases, and interfaces.",
+      "properties": {
+        "workspaceCollaborations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "workspaceId": {
+                "type": "string"
+              },
+              "permissionLevel": {
+                "type": "string",
+                "enum": ["owner", "creator", "editor", "commenter", "read"]
+              }
+            }
+          }
+        },
+        "baseCollaborations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseId": {
+                "type": "string"
+              },
+              "permissionLevel": {
+                "type": "string",
+                "enum": ["owner", "creator", "editor", "commenter", "read"]
+              }
+            }
+          }
+        },
+        "interfaceCollaborations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseId": {
+                "type": "string"
+              },
+              "interfaceId": {
+                "type": "string"
+              },
+              "permissionLevel": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["id", "email", "state"],
+  "additionalProperties": false
+}

@@ -1,0 +1,970 @@
+openapi: 3.1.0
+info:
+  title: Airtable Enterprise API
+  description: >-
+    The Airtable Enterprise API allows enterprise teams to manage their account
+    programmatically outside of the Admin panel. It supports managing users,
+    updating access permissions, managing user groups, workspaces, and bases at
+    scale for enterprise deployments.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+externalDocs:
+  description: Airtable Enterprise API Documentation
+  url: https://support.airtable.com/docs/airtable-enterprise-api
+servers:
+  - url: https://api.airtable.com/v0
+    description: Airtable API v0 production server
+security:
+  - bearerAuth: []
+tags:
+  - name: Enterprise
+    description: Retrieve enterprise account information
+  - name: Users
+    description: Manage enterprise users, permissions, and access
+  - name: Groups
+    description: Manage user groups within the enterprise
+  - name: Workspaces
+    description: Manage enterprise workspaces
+paths:
+  /meta/enterpriseAccounts/{enterpriseAccountId}:
+    get:
+      operationId: getEnterpriseAccount
+      summary: Get enterprise account information
+      description: >-
+        Returns information about the specified enterprise account, including
+        the enterprise name, creation time, and optionally aggregated usage
+        data and descendant accounts.
+      tags:
+        - Enterprise
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+        - name: include
+          in: query
+          required: false
+          description: Additional information to include in the response.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - collaborators
+                - groupCollaborators
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: The enterprise account information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/users:
+    get:
+      operationId: listEnterpriseUsers
+      summary: List enterprise users
+      description: >-
+        Returns a list of users within the enterprise account. Results can be
+        filtered by user IDs or email addresses, and can include collaboration
+        details.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+        - name: email
+          in: query
+          required: false
+          description: Filter by one or more email addresses.
+          schema:
+            type: array
+            items:
+              type: string
+              format: email
+          style: form
+          explode: true
+        - name: id
+          in: query
+          required: false
+          description: Filter by one or more user IDs.
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        - name: include
+          in: query
+          required: false
+          description: Additional information to include for each user.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - collaborations
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: A list of enterprise users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnterpriseUser'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteUsersById
+      summary: Delete users by ID
+      description: >-
+        Deletes one or more users from the enterprise account by their user
+        IDs. This permanently removes the users and their data.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userIds:
+                  type: array
+                  description: The IDs of the users to delete.
+                  items:
+                    type: string
+              required:
+                - userIds
+      responses:
+        '200':
+          description: Confirmation of user deletion.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deletedUsers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        email:
+                          type: string
+                          format: email
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/users/{userId}/remove:
+    post:
+      operationId: removeUserFromEnterprise
+      summary: Remove a user from enterprise
+      description: >-
+        Removes a user from the enterprise account. Optionally, a replacement
+        user can be specified to take over shared resources. The response
+        includes details about affected shared and unshared resources.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+        - name: userId
+          in: path
+          required: true
+          description: The unique identifier of the user to remove.
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                replacementOwnerId:
+                  type: string
+                  description: >-
+                    The ID of the user who will take ownership of the removed
+                    user's resources.
+      responses:
+        '200':
+          description: Details of the removal including affected resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRemoved'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/claim/users:
+    post:
+      operationId: claimUsers
+      summary: Claim users into enterprise
+      description: >-
+        Claims one or more users into the enterprise account, setting their
+        management status to either managed or unmanaged.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: object
+                  description: >-
+                    A mapping of user IDs or emails to their desired
+                    management status (managed or unmanaged).
+                  additionalProperties:
+                    type: object
+                    properties:
+                      state:
+                        type: string
+                        enum:
+                          - managed
+                          - unmanaged
+              required:
+                - users
+      responses:
+        '200':
+          description: The result of the claim operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageUsersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/users/manageUserMembership:
+    post:
+      operationId: manageUserMembership
+      summary: Manage user membership status
+      description: >-
+        Updates the managed or unmanaged status for one or more users in the
+        enterprise account.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: object
+                  description: A mapping of user identifiers to their desired management status.
+                  additionalProperties:
+                    type: object
+                    properties:
+                      state:
+                        type: string
+                        enum:
+                          - managed
+                          - unmanaged
+              required:
+                - users
+      responses:
+        '200':
+          description: The result of the membership management operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageUsersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/users/grantAdminAccess:
+    post:
+      operationId: grantAdminAccess
+      summary: Grant admin access to users
+      description: >-
+        Grants enterprise admin access to one or more users, allowing them
+        to manage the enterprise account through the Admin panel and API.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userIds:
+                  type: array
+                  description: The IDs of the users to grant admin access.
+                  items:
+                    type: string
+              required:
+                - userIds
+      responses:
+        '200':
+          description: The result of the admin grant operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageUsersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/users/revokeAdminAccess:
+    post:
+      operationId: revokeAdminAccess
+      summary: Revoke admin access from users
+      description: >-
+        Revokes enterprise admin access from one or more users. The users
+        retain their regular enterprise membership but lose admin privileges.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userIds:
+                  type: array
+                  description: The IDs of the users to revoke admin access from.
+                  items:
+                    type: string
+              required:
+                - userIds
+      responses:
+        '200':
+          description: The result of the admin revocation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageUsersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/groups/{groupId}:
+    get:
+      operationId: getUserGroup
+      summary: Get a user group
+      description: >-
+        Returns details about a specific user group, including its members
+        and configuration.
+      tags:
+        - Groups
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          description: The unique identifier of the user group.
+          schema:
+            type: string
+        - name: include
+          in: query
+          required: false
+          description: Additional information to include.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - collaborations
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: The user group details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/moveGroups:
+    post:
+      operationId: moveUserGroups
+      summary: Move user groups between enterprises
+      description: >-
+        Moves one or more user groups from this enterprise account to a
+        target enterprise account.
+      tags:
+        - Groups
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupIds:
+                  type: array
+                  description: The IDs of the groups to move.
+                  items:
+                    type: string
+                targetEnterpriseAccountId:
+                  type: string
+                  description: The ID of the target enterprise account.
+              required:
+                - groupIds
+                - targetEnterpriseAccountId
+      responses:
+        '200':
+          description: Result of the group move operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movedGroups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        groupId:
+                          type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/workspaces:
+    post:
+      operationId: createWorkspace
+      summary: Create a workspace
+      description: >-
+        Creates a new workspace within the enterprise account.
+      tags:
+        - Workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the new workspace.
+              required:
+                - name
+      responses:
+        '200':
+          description: The newly created workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/workspaces/{workspaceId}:
+    delete:
+      operationId: deleteWorkspace
+      summary: Delete a workspace
+      description: >-
+        Permanently deletes the specified workspace and all its contents.
+        This action cannot be undone.
+      tags:
+        - Workspaces
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          description: The unique identifier of the workspace (starts with 'wsp').
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Confirmation that the workspace was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/workspaces/{workspaceId}/collaborators:
+    get:
+      operationId: getWorkspaceCollaborators
+      summary: Get workspace collaborators
+      description: >-
+        Returns a list of all collaborators on the specified workspace,
+        including individual users and user groups with their permission
+        levels.
+      tags:
+        - Workspaces
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          description: The unique identifier of the workspace.
+          schema:
+            type: string
+        - name: include
+          in: query
+          required: false
+          description: Additional information to include in the response.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - groupCollaborators
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: The list of workspace collaborators.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceCollaborators'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/enterpriseAccounts/{enterpriseAccountId}/moveWorkspaces:
+    post:
+      operationId: moveWorkspaces
+      summary: Move workspaces between enterprises
+      description: >-
+        Moves one or more workspaces from this enterprise account to a
+        target enterprise account.
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workspaceIds:
+                  type: array
+                  description: The IDs of the workspaces to move.
+                  items:
+                    type: string
+                targetEnterpriseAccountId:
+                  type: string
+                  description: The ID of the target enterprise account.
+              required:
+                - workspaceIds
+                - targetEnterpriseAccountId
+      responses:
+        '200':
+          description: Result of the workspace move operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movedWorkspaces:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        workspaceId:
+                          type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Airtable Enterprise API uses Bearer token authentication. Requires
+        an enterprise admin-level personal access token or service account
+        token.
+  parameters:
+    enterpriseAccountId:
+      name: enterpriseAccountId
+      in: path
+      required: true
+      description: The unique identifier of the enterprise account (starts with 'ent').
+      schema:
+        type: string
+        pattern: ^ent[a-zA-Z0-9]+$
+  schemas:
+    EnterpriseAccount:
+      type: object
+      description: Enterprise account information and configuration.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the enterprise account.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the enterprise account was created.
+        groupIds:
+          type: array
+          description: The IDs of user groups in the enterprise.
+          items:
+            type: string
+        userIds:
+          type: array
+          description: The IDs of users in the enterprise.
+          items:
+            type: string
+        workspaceIds:
+          type: array
+          description: The IDs of workspaces in the enterprise.
+          items:
+            type: string
+        emailDomains:
+          type: array
+          description: The email domains associated with the enterprise.
+          items:
+            type: object
+            properties:
+              emailDomain:
+                type: string
+              isVerified:
+                type: boolean
+      required:
+        - id
+    EnterpriseUser:
+      type: object
+      description: A user within the enterprise account.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the user.
+        email:
+          type: string
+          format: email
+          description: The email address of the user.
+        name:
+          type: string
+          description: The display name of the user.
+        state:
+          type: string
+          description: The management state of the user.
+          enum:
+            - managed
+            - unmanaged
+            - deactivated
+        isAdmin:
+          type: boolean
+          description: Whether the user has admin privileges.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the user was created.
+        lastActivityTime:
+          type: string
+          format: date-time
+          description: The time of the user's last activity.
+        collaborations:
+          type: object
+          description: The user's collaborations across workspaces and bases.
+          properties:
+            workspaceCollaborations:
+              type: array
+              items:
+                type: object
+                properties:
+                  workspaceId:
+                    type: string
+                  permissionLevel:
+                    type: string
+            baseCollaborations:
+              type: array
+              items:
+                type: object
+                properties:
+                  baseId:
+                    type: string
+                  permissionLevel:
+                    type: string
+            interfaceCollaborations:
+              type: array
+              items:
+                type: object
+                properties:
+                  baseId:
+                    type: string
+                  interfaceId:
+                    type: string
+                  permissionLevel:
+                    type: string
+      required:
+        - id
+        - email
+        - state
+    UserGroup:
+      type: object
+      description: A user group within the enterprise.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the user group.
+        name:
+          type: string
+          description: The name of the user group.
+        description:
+          type: string
+          description: The description of the user group.
+        members:
+          type: array
+          description: The members of the user group.
+          items:
+            type: object
+            properties:
+              userId:
+                type: string
+              email:
+                type: string
+                format: email
+              firstName:
+                type: string
+              lastName:
+                type: string
+              role:
+                type: string
+                enum:
+                  - member
+                  - owner
+        collaborations:
+          type: object
+          description: The group's collaborations across workspaces and bases.
+      required:
+        - id
+        - name
+    Workspace:
+      type: object
+      description: An Airtable workspace.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the workspace.
+        name:
+          type: string
+          description: The name of the workspace.
+      required:
+        - id
+        - name
+    WorkspaceCollaborators:
+      type: object
+      description: The collaborators on a workspace.
+      properties:
+        collaborators:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: string
+              email:
+                type: string
+                format: email
+              permissionLevel:
+                type: string
+                enum:
+                  - owner
+                  - creator
+                  - editor
+                  - commenter
+                  - read
+        groupCollaborators:
+          type: array
+          items:
+            type: object
+            properties:
+              groupId:
+                type: string
+              name:
+                type: string
+              permissionLevel:
+                type: string
+    ManageUsersResponse:
+      type: object
+      description: Response from a user management operation.
+      properties:
+        errors:
+          type: array
+          description: Errors encountered during the operation.
+          items:
+            $ref: '#/components/schemas/Error'
+    UserRemoved:
+      type: object
+      description: Details of a user removal from the enterprise.
+      properties:
+        id:
+          type: string
+          description: The ID of the removed user.
+        sharedBases:
+          type: array
+          description: Bases that were shared and reassigned.
+          items:
+            type: object
+            properties:
+              baseId:
+                type: string
+        unsharedBases:
+          type: array
+          description: Bases that were unshared as a result of removal.
+          items:
+            type: object
+            properties:
+              baseId:
+                type: string
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+          required:
+            - type
+            - message
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

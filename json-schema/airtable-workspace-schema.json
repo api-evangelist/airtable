@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.airtable.com/workspace.json",
+  "title": "Airtable Workspace",
+  "description": "An Airtable workspace is an organizational container that groups related bases together. Workspaces provide a shared collaboration boundary with configurable permissions for team members.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the workspace (starts with 'wsp').",
+      "pattern": "^wsp[a-zA-Z0-9]+$",
+      "examples": ["wspABC123def456"]
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the workspace."
+    },
+    "collaborators": {
+      "type": "array",
+      "description": "The individual user collaborators on this workspace.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "The unique identifier of the collaborator."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The email address of the collaborator."
+          },
+          "permissionLevel": {
+            "type": "string",
+            "description": "The permission level of the collaborator.",
+            "enum": ["owner", "creator", "editor", "commenter", "read"]
+          }
+        },
+        "required": ["userId", "permissionLevel"]
+      }
+    },
+    "groupCollaborators": {
+      "type": "array",
+      "description": "The user group collaborators on this workspace.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string",
+            "description": "The unique identifier of the user group."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the user group."
+          },
+          "permissionLevel": {
+            "type": "string",
+            "description": "The permission level of the group.",
+            "enum": ["owner", "creator", "editor", "commenter", "read"]
+          }
+        },
+        "required": ["groupId", "permissionLevel"]
+      }
+    }
+  },
+  "required": ["id", "name"],
+  "additionalProperties": false
+}

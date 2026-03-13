@@ -1,0 +1,673 @@
+openapi: 3.1.0
+info:
+  title: Airtable Metadata API
+  description: >-
+    The Airtable Metadata API provides access to base and schema management
+    operations. You can list bases, retrieve base schemas with table and field
+    definitions, create new bases, tables, and fields, and update table and
+    field configurations programmatically. This API enables developers to
+    introspect and modify the structure of their Airtable data.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+externalDocs:
+  description: Airtable Metadata API Documentation
+  url: https://airtable.com/developers/web/api/list-bases
+servers:
+  - url: https://api.airtable.com/v0
+    description: Airtable API v0 production server
+security:
+  - bearerAuth: []
+tags:
+  - name: Bases
+    description: List and create bases, retrieve base schemas
+  - name: Tables
+    description: Create and update table definitions within a base
+  - name: Fields
+    description: Create and update field definitions within a table
+paths:
+  /meta/bases:
+    get:
+      operationId: listBases
+      summary: List all bases
+      description: >-
+        Returns a paginated list of all bases that the authenticated user has
+        access to. Each base includes its ID, name, and permission level. Use
+        the offset parameter from the response to paginate through all
+        available bases.
+      tags:
+        - Bases
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: Pagination cursor from a previous response to fetch the next page.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of bases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createBase
+      summary: Create a new base
+      description: >-
+        Creates a new base in the specified workspace. The request must include
+        the workspace ID, base name, and at least one table definition with
+        fields. Returns the newly created base with its schema.
+      tags:
+        - Bases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBaseRequest'
+      responses:
+        '200':
+          description: The newly created base with its schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/bases/{baseId}/tables:
+    get:
+      operationId: getBaseSchema
+      summary: Get base schema
+      description: >-
+        Returns the schema of the specified base, including all tables, their
+        fields (with type and configuration), and views. This endpoint
+        provides a complete structural overview of the base.
+      tags:
+        - Bases
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - name: include
+          in: query
+          required: false
+          description: >-
+            Additional information to include in the response. Pass
+            visibleFieldIds to include visible field IDs for each view.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - visibleFieldIds
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: The base schema with tables, fields, and views.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tables:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TableSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createTable
+      summary: Create a table in a base
+      description: >-
+        Creates a new table within the specified base. The table must include
+        a name and at least one field definition. Optionally include a
+        description for the table.
+      tags:
+        - Tables
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTableRequest'
+      responses:
+        '200':
+          description: The newly created table with its schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/bases/{baseId}/tables/{tableId}:
+    patch:
+      operationId: updateTable
+      summary: Update a table
+      description: >-
+        Updates the name and/or description of an existing table. Only the
+        provided fields will be modified.
+      tags:
+        - Tables
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name for the table.
+                description:
+                  type: string
+                  description: The new description for the table.
+      responses:
+        '200':
+          description: The updated table schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/bases/{baseId}/tables/{tableId}/fields:
+    post:
+      operationId: createField
+      summary: Create a field in a table
+      description: >-
+        Creates a new field in the specified table. The field must include a
+        name and type. Some field types (like singleSelect, multipleSelects)
+        accept additional options for configuration. Note that formula and
+        some computed field types cannot be created via the API.
+      tags:
+        - Fields
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFieldRequest'
+      responses:
+        '200':
+          description: The newly created field definition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/bases/{baseId}/tables/{tableId}/fields/{fieldId}:
+    patch:
+      operationId: updateField
+      summary: Update a field
+      description: >-
+        Updates the name, description, or configuration options of an existing
+        field. Only the provided properties will be modified. Not all field
+        properties can be updated after creation.
+      tags:
+        - Fields
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableId'
+        - name: fieldId
+          in: path
+          required: true
+          description: The unique identifier of the field (starts with 'fld').
+          schema:
+            type: string
+            pattern: ^fld[a-zA-Z0-9]+$
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name for the field.
+                description:
+                  type: string
+                  description: The new description for the field.
+                options:
+                  type: object
+                  description: Updated configuration options for the field.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The updated field definition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /meta/whoami:
+    get:
+      operationId: whoami
+      summary: Get current user and scopes
+      description: >-
+        Returns the ID and scopes of the currently authenticated user or
+        service account. Useful for verifying authentication and checking
+        available permissions.
+      tags:
+        - Bases
+      responses:
+        '200':
+          description: The current user ID and authorized scopes.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the authenticated user or service account.
+                  scopes:
+                    type: array
+                    description: The list of scopes authorized for this token.
+                    items:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Airtable uses Bearer token authentication. Provide a personal access
+        token or OAuth access token with schema.bases:read or
+        schema.bases:write scopes.
+  parameters:
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+    tableId:
+      name: tableId
+      in: path
+      required: true
+      description: The unique identifier of the table (starts with 'tbl').
+      schema:
+        type: string
+        pattern: ^tbl[a-zA-Z0-9]+$
+  schemas:
+    BaseList:
+      type: object
+      description: A paginated list of bases accessible to the authenticated user.
+      properties:
+        bases:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseSummary'
+        offset:
+          type: string
+          description: Pagination cursor for the next page of results.
+      required:
+        - bases
+    BaseSummary:
+      type: object
+      description: Summary information about an Airtable base.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the base (starts with 'app').
+          example: appABC123def456
+        name:
+          type: string
+          description: The name of the base.
+        permissionLevel:
+          type: string
+          description: The permission level the authenticated user has on this base.
+          enum:
+            - none
+            - read
+            - comment
+            - edit
+            - create
+      required:
+        - id
+        - name
+        - permissionLevel
+    BaseSchema:
+      type: object
+      description: The full schema of a base including all tables.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the base.
+        name:
+          type: string
+          description: The name of the base.
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableSchema'
+      required:
+        - id
+        - tables
+    TableSchema:
+      type: object
+      description: The schema definition of a table within a base.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the table (starts with 'tbl').
+          example: tblABC123def456
+        name:
+          type: string
+          description: The name of the table.
+        description:
+          type: string
+          description: The description of the table.
+        primaryFieldId:
+          type: string
+          description: The ID of the primary field for this table.
+        fields:
+          type: array
+          description: The list of field definitions in the table.
+          items:
+            $ref: '#/components/schemas/FieldSchema'
+        views:
+          type: array
+          description: The list of view definitions in the table.
+          items:
+            $ref: '#/components/schemas/ViewSchema'
+      required:
+        - id
+        - name
+        - fields
+        - views
+    FieldSchema:
+      type: object
+      description: The schema definition of a field within a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the field (starts with 'fld').
+          example: fldABC123def456
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field.
+          enum:
+            - singleLineText
+            - email
+            - url
+            - multilineText
+            - number
+            - percent
+            - currency
+            - singleSelect
+            - multipleSelects
+            - singleCollaborator
+            - multipleCollaborators
+            - multipleRecordLinks
+            - date
+            - dateTime
+            - phoneNumber
+            - multipleAttachments
+            - checkbox
+            - formula
+            - createdTime
+            - rollup
+            - count
+            - lookup
+            - multipleLookupValues
+            - autoNumber
+            - barcode
+            - rating
+            - richText
+            - duration
+            - lastModifiedTime
+            - button
+            - createdBy
+            - lastModifiedBy
+            - externalSyncSource
+            - aiText
+        description:
+          type: string
+          description: The description of the field.
+        options:
+          type: object
+          description: >-
+            Configuration options for the field. The structure depends on the
+            field type.
+          additionalProperties: true
+      required:
+        - id
+        - name
+        - type
+    ViewSchema:
+      type: object
+      description: The schema definition of a view within a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the view (starts with 'viw').
+          example: viwABC123def456
+        name:
+          type: string
+          description: The name of the view.
+        type:
+          type: string
+          description: The type of the view.
+          enum:
+            - grid
+            - form
+            - calendar
+            - gallery
+            - kanban
+            - timeline
+            - block
+        personalForUserId:
+          type: string
+          description: If set, this is a personal view only visible to the specified user.
+        visibleFieldIds:
+          type: array
+          description: >-
+            The IDs of fields visible in this view. Only included if
+            visibleFieldIds is requested via the include parameter.
+          items:
+            type: string
+      required:
+        - id
+        - name
+        - type
+    CreateBaseRequest:
+      type: object
+      description: Request body for creating a new base.
+      properties:
+        name:
+          type: string
+          description: The name of the new base.
+        workspaceId:
+          type: string
+          description: The ID of the workspace where the base will be created (starts with 'wsp').
+        tables:
+          type: array
+          description: The initial table definitions for the base.
+          minItems: 1
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the table.
+              description:
+                type: string
+                description: The description of the table.
+              fields:
+                type: array
+                description: The field definitions for the table.
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/CreateFieldRequest'
+            required:
+              - name
+              - fields
+      required:
+        - name
+        - workspaceId
+        - tables
+    CreateTableRequest:
+      type: object
+      description: Request body for creating a new table within a base.
+      properties:
+        name:
+          type: string
+          description: The name of the new table.
+        description:
+          type: string
+          description: The description of the new table.
+        fields:
+          type: array
+          description: The field definitions for the table. At least one field is required.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateFieldRequest'
+      required:
+        - name
+        - fields
+    CreateFieldRequest:
+      type: object
+      description: Request body for creating a new field.
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: >-
+            The type of the field. Some types like formula and autoNumber
+            cannot be created via the API.
+        description:
+          type: string
+          description: A description of the field.
+        options:
+          type: object
+          description: >-
+            Configuration options for the field. Required for some field types
+            like singleSelect and multipleSelects.
+          additionalProperties: true
+      required:
+        - name
+        - type
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+            - type
+            - message
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

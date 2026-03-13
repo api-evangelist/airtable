@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.airtable.com/view.json",
+  "title": "Airtable View",
+  "description": "An Airtable view provides a filtered, sorted, and formatted perspective on the records in a table. Views control which fields are visible, how records are ordered, and which records meet the view's filter criteria.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the view. View IDs always start with the 'viw' prefix.",
+      "pattern": "^viw[a-zA-Z0-9]+$",
+      "examples": ["viwABC123def456"]
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the view."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of view, which determines the layout and interaction model.",
+      "enum": [
+        "grid",
+        "form",
+        "calendar",
+        "gallery",
+        "kanban",
+        "timeline",
+        "block"
+      ]
+    },
+    "personalForUserId": {
+      "type": ["string", "null"],
+      "description": "If set, this is a personal view visible only to the specified user. Null indicates a shared view."
+    },
+    "visibleFieldIds": {
+      "type": "array",
+      "description": "The IDs of fields visible in this view, in display order. Only included when explicitly requested via the include parameter.",
+      "items": {
+        "type": "string",
+        "pattern": "^fld[a-zA-Z0-9]+$"
+      }
+    }
+  },
+  "required": ["id", "name", "type"],
+  "additionalProperties": false
+}

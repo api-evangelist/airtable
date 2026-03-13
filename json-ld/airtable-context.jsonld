@@ -1,0 +1,225 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "airtable": "https://api.airtable.com/v0/schema#",
+    "scim": "urn:ietf:params:scim:schemas:core:2.0:",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "sec": "https://w3id.org/security#",
+
+    "Record": {
+      "@id": "airtable:Record",
+      "@context": {
+        "id": "@id",
+        "fields": "airtable:fields",
+        "createdTime": {
+          "@id": "dcterms:created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        }
+      }
+    },
+
+    "Base": {
+      "@id": "airtable:Base",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "permissionLevel": "airtable:permissionLevel",
+        "tables": {
+          "@id": "schema:hasPart",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Table": {
+      "@id": "airtable:Table",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "primaryFieldId": "airtable:primaryFieldId",
+        "fields": {
+          "@id": "schema:hasPart",
+          "@type": "@id"
+        },
+        "views": {
+          "@id": "airtable:hasView",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Field": {
+      "@id": "airtable:Field",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "type": "airtable:fieldType",
+        "description": "schema:description",
+        "options": "airtable:fieldOptions"
+      }
+    },
+
+    "View": {
+      "@id": "airtable:View",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "type": "airtable:viewType",
+        "personalForUserId": "airtable:personalForUserId",
+        "visibleFieldIds": "airtable:visibleFieldIds"
+      }
+    },
+
+    "Comment": {
+      "@id": "schema:Comment",
+      "@context": {
+        "id": "@id",
+        "text": "schema:text",
+        "author": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "createdTime": {
+          "@id": "dcterms:created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "lastUpdatedTime": {
+          "@id": "dcterms:modified",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        }
+      }
+    },
+
+    "Webhook": {
+      "@id": "airtable:Webhook",
+      "@context": {
+        "id": "@id",
+        "notificationUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "isHookEnabled": "airtable:isHookEnabled",
+        "createdTime": {
+          "@id": "dcterms:created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "expirationTime": {
+          "@id": "schema:expires",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "specification": "airtable:webhookSpecification"
+      }
+    },
+
+    "User": {
+      "@id": "foaf:Person",
+      "@context": {
+        "id": "@id",
+        "email": "foaf:mbox",
+        "name": "foaf:name",
+        "state": "airtable:managementState",
+        "isAdmin": "airtable:isAdmin",
+        "createdTime": {
+          "@id": "dcterms:created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "lastActivityTime": {
+          "@id": "airtable:lastActivityTime",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        }
+      }
+    },
+
+    "Workspace": {
+      "@id": "airtable:Workspace",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "collaborators": "airtable:collaborators",
+        "groupCollaborators": "airtable:groupCollaborators"
+      }
+    },
+
+    "AuditLogEvent": {
+      "@id": "airtable:AuditLogEvent",
+      "@context": {
+        "id": "@id",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "action": "schema:actionStatus",
+        "actor": {
+          "@id": "schema:agent",
+          "@type": "@id"
+        },
+        "modelId": "airtable:modelId",
+        "modelType": "airtable:modelType",
+        "category": "schema:category",
+        "context": "airtable:eventContext"
+      }
+    },
+
+    "Share": {
+      "@id": "airtable:Share",
+      "@context": {
+        "shareId": "@id",
+        "type": "airtable:shareType",
+        "state": "airtable:shareState",
+        "createdByUserId": {
+          "@id": "dcterms:creator",
+          "@type": "@id"
+        },
+        "createdTime": {
+          "@id": "dcterms:created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "baseId": "airtable:baseId",
+        "viewId": "airtable:viewId",
+        "isPasswordEnabled": "airtable:isPasswordEnabled",
+        "effectivePermissionLevel": "airtable:effectivePermissionLevel"
+      }
+    },
+
+    "ScimUser": {
+      "@id": "scim:User",
+      "@context": {
+        "id": "@id",
+        "userName": "foaf:accountName",
+        "name": "foaf:name",
+        "emails": "vcard:hasEmail",
+        "active": "airtable:isActive"
+      }
+    },
+
+    "ScimGroup": {
+      "@id": "scim:Group",
+      "@context": {
+        "id": "@id",
+        "displayName": "schema:name",
+        "members": {
+          "@id": "schema:member",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "EnterpriseAccount": {
+      "@id": "airtable:EnterpriseAccount",
+      "@context": {
+        "id": "@id",
+        "createdTime": {
+          "@id": "dcterms:created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "emailDomains": "airtable:emailDomains",
+        "userIds": "airtable:userIds",
+        "groupIds": "airtable:groupIds",
+        "workspaceIds": "airtable:workspaceIds"
+      }
+    }
+  }
+}

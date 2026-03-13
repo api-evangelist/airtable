@@ -1,0 +1,1113 @@
+openapi: 3.1.0
+info:
+  title: Airtable API
+  description: >-
+    The Airtable API can be used to integrate your data in Airtable with any
+    external system. The API closely follows REST semantics, uses JSON to encode
+    objects, and relies on standard HTTP codes to signal operation outcomes. It
+    provides full CRUD operations on records, comment management, and webhook
+    subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction
+servers:
+  - url: https://api.airtable.com/v0
+    description: Airtable API v0 production server
+security:
+  - bearerAuth: []
+tags:
+  - name: Records
+    description: Create, read, update, and delete records in a table
+  - name: Comments
+    description: Manage comments on individual records
+  - name: Webhooks
+    description: Subscribe to real-time change notifications on bases
+paths:
+  /{baseId}/{tableIdOrName}:
+    get:
+      operationId: listRecords
+      summary: List records in a table
+      description: >-
+        Returns a paginated list of records in the specified table. Records can
+        be filtered using an Airtable formula, sorted by specific fields, and
+        limited to specific fields. The maximum page size is 100 records. Use
+        the offset parameter from the response to fetch the next page.
+      tags:
+        - Records
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - name: fields[]
+          in: query
+          description: Only return data for the specified field names or IDs.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        - name: filterByFormula
+          in: query
+          description: >-
+            An Airtable formula used to filter records. The formula is evaluated
+            for each record, and if the result is not 0, false, "", NaN, [], or
+            #Error!, the record will be included in the response.
+          required: false
+          schema:
+            type: string
+        - name: maxRecords
+          in: query
+          description: The maximum total number of records that will be returned.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: >-
+            The number of records returned in each request. Must be less than or
+            equal to 100. Default is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+        - name: sort
+          in: query
+          description: >-
+            A list of sort objects that specifies how the records will be
+            ordered. Each sort object must have a field key and an optional
+            direction key (asc or desc).
+          required: false
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                direction:
+                  type: string
+                  enum:
+                    - asc
+                    - desc
+          style: deepObject
+          explode: true
+        - name: view
+          in: query
+          description: The name or ID of a view in the table. If set, only the records in that view will be returned.
+          required: false
+          schema:
+            type: string
+        - name: cellFormat
+          in: query
+          description: >-
+            The format that should be used for cell values. Supported values are
+            json (default) and string.
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - string
+        - name: timeZone
+          in: query
+          description: The time zone to use for formatting dates when using string cell format.
+          required: false
+          schema:
+            type: string
+        - name: userLocale
+          in: query
+          description: The user locale to use for formatting dates when using string cell format.
+          required: false
+          schema:
+            type: string
+        - name: returnFieldsByFieldId
+          in: query
+          description: >-
+            If true, the response will use field IDs as object keys instead of
+            field names.
+          required: false
+          schema:
+            type: boolean
+        - name: offset
+          in: query
+          description: >-
+            A pagination cursor returned from a previous request. Pass this
+            value to fetch the next page of results.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createRecords
+      summary: Create records in a table
+      description: >-
+        Creates up to 10 records in the specified table. Each record must
+        include a fields object mapping field names (or IDs) to values. If
+        typecast is enabled, the API will attempt to convert string values to
+        the appropriate cell value.
+      tags:
+        - Records
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                records:
+                  type: array
+                  maxItems: 10
+                  items:
+                    type: object
+                    properties:
+                      fields:
+                        $ref: '#/components/schemas/FieldValues'
+                    required:
+                      - fields
+                typecast:
+                  type: boolean
+                  description: If true, the API will attempt to convert string values to the appropriate cell value type.
+                returnFieldsByFieldId:
+                  type: boolean
+                  description: If true, the response will use field IDs as keys instead of field names.
+              required:
+                - records
+      responses:
+        '200':
+          description: The created records.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /{baseId}/{tableIdOrName}/{recordId}:
+    get:
+      operationId: getRecord
+      summary: Retrieve a single record
+      description: >-
+        Retrieves a single record by its ID from the specified table. Returns
+        the record's fields, creation time, and ID.
+      tags:
+        - Records
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+        - name: returnFieldsByFieldId
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: If true, the response will use field IDs as keys instead of field names.
+      responses:
+        '200':
+          description: The requested record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateRecord
+      summary: Update a record (partial)
+      description: >-
+        Updates specific fields of an existing record. Only the fields included
+        in the request body will be updated; all other fields will remain
+        unchanged. Up to 10 records can be updated in a single request when
+        using the batch endpoint.
+      tags:
+        - Records
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  $ref: '#/components/schemas/FieldValues'
+                typecast:
+                  type: boolean
+                  description: If true, the API will attempt to convert string values to the appropriate cell value type.
+                returnFieldsByFieldId:
+                  type: boolean
+              required:
+                - fields
+      responses:
+        '200':
+          description: The updated record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    put:
+      operationId: replaceRecord
+      summary: Update a record (full replacement)
+      description: >-
+        Replaces all fields of an existing record. Fields that are not included
+        in the request body will be cleared. This is a destructive update that
+        overwrites the entire record.
+      tags:
+        - Records
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  $ref: '#/components/schemas/FieldValues'
+                typecast:
+                  type: boolean
+                returnFieldsByFieldId:
+                  type: boolean
+              required:
+                - fields
+      responses:
+        '200':
+          description: The replaced record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteRecord
+      summary: Delete a record
+      description: >-
+        Deletes a single record from the specified table. The record is
+        permanently removed and cannot be recovered through the API.
+      tags:
+        - Records
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+      responses:
+        '200':
+          description: Confirmation of deletion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordDeleted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /{baseId}/{tableIdOrName}/{recordId}/comments:
+    get:
+      operationId: listComments
+      summary: List comments on a record
+      description: >-
+        Returns a paginated list of comments on the specified record. Comments
+        are returned in reverse chronological order.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+        - name: offset
+          in: query
+          required: false
+          description: Pagination cursor from a previous response to fetch the next page.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          description: The number of comments to return per page.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: A paginated list of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createComment
+      summary: Create a comment on a record
+      description: >-
+        Creates a new comment on the specified record. Comments can include
+        user mentions using the @[usrXXXXXXXX] syntax. Requires OAuth
+        authentication with the comment:write scope.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The text content of the comment. Supports @[usrXXXXXXXX] syntax for mentions.
+              required:
+                - text
+      responses:
+        '200':
+          description: The created comment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /{baseId}/{tableIdOrName}/{recordId}/comments/{commentId}:
+    patch:
+      operationId: updateComment
+      summary: Update a comment
+      description: >-
+        Updates the text of an existing comment on a record. Only the author
+        of the comment can update it.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+        - name: commentId
+          in: path
+          required: true
+          description: The unique identifier of the comment.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The updated text content of the comment.
+              required:
+                - text
+      responses:
+        '200':
+          description: The updated comment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteComment
+      summary: Delete a comment
+      description: >-
+        Deletes a comment from a record. Only the author of the comment can
+        delete it.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/baseId'
+        - $ref: '#/components/parameters/tableIdOrName'
+        - $ref: '#/components/parameters/recordId'
+        - name: commentId
+          in: path
+          required: true
+          description: The unique identifier of the comment.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Confirmation that the comment was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the deleted comment.
+                  deleted:
+                    type: boolean
+                    description: Always true when the deletion succeeds.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /bases/{baseId}/webhooks:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks for a base
+      description: >-
+        Returns a list of all webhooks registered for the specified base.
+        Includes webhook configuration, status, and expiration information.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/baseIdPath'
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook for a base
+      description: >-
+        Creates a new webhook subscription for the specified base. Webhooks
+        expire after 7 days and must be refreshed. The response includes a
+        MAC secret used to verify webhook notification payloads. Requires
+        OAuth authentication with the webhook:manage scope.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/baseIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookCreateRequest'
+      responses:
+        '200':
+          description: The created webhook with MAC secret.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /bases/{baseId}/webhooks/{webhookId}:
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: >-
+        Deletes an existing webhook subscription. The webhook will no longer
+        send notifications after deletion.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/baseIdPath'
+        - name: webhookId
+          in: path
+          required: true
+          description: The unique identifier of the webhook.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Confirmation that the webhook was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /bases/{baseId}/webhooks/{webhookId}/refresh:
+    post:
+      operationId: refreshWebhook
+      summary: Refresh a webhook
+      description: >-
+        Extends the expiration time of an existing webhook. Webhooks expire
+        after 7 days of inactivity and must be periodically refreshed to
+        remain active.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/baseIdPath'
+        - name: webhookId
+          in: path
+          required: true
+          description: The unique identifier of the webhook.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The refreshed webhook with new expiration time.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expirationTime:
+                    type: string
+                    format: date-time
+                    description: The new expiration time for the webhook.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /bases/{baseId}/webhooks/{webhookId}/payloads:
+    get:
+      operationId: listWebhookPayloads
+      summary: List webhook payloads
+      description: >-
+        Returns a list of payloads that have been generated for the specified
+        webhook. Payloads are returned in chronological order and can be
+        paginated using a cursor.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/baseIdPath'
+        - name: webhookId
+          in: path
+          required: true
+          description: The unique identifier of the webhook.
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          required: false
+          description: A cursor for pagination. Pass the cursor from the previous response to get the next page.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of webhook payloads.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookPayloadList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Airtable uses Bearer token authentication. Provide a personal access
+        token or OAuth access token in the Authorization header.
+  parameters:
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+    baseIdPath:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
+  schemas:
+    Record:
+      type: object
+      description: An Airtable record representing a single row in a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the record (starts with 'rec').
+          example: recABC123def456
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the record was created in ISO 8601 format.
+        fields:
+          $ref: '#/components/schemas/FieldValues'
+      required:
+        - id
+        - createdTime
+        - fields
+    FieldValues:
+      type: object
+      description: >-
+        A mapping of field names (or field IDs when returnFieldsByFieldId is
+        true) to their cell values. The structure depends on the field types
+        defined in the table schema.
+      additionalProperties: true
+    RecordList:
+      type: object
+      description: A paginated list of records from a table.
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+        offset:
+          type: string
+          description: >-
+            A pagination cursor. If present, pass this value in the offset
+            query parameter to fetch the next page of results.
+      required:
+        - records
+    RecordDeleted:
+      type: object
+      description: Confirmation that a record was deleted.
+      properties:
+        id:
+          type: string
+          description: The ID of the deleted record.
+        deleted:
+          type: boolean
+          description: Always true when the deletion succeeds.
+      required:
+        - id
+        - deleted
+    Comment:
+      type: object
+      description: A comment on an Airtable record.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the comment.
+        author:
+          type: object
+          description: The user who created the comment.
+          properties:
+            id:
+              type: string
+              description: The user ID of the comment author.
+            email:
+              type: string
+              format: email
+              description: The email address of the comment author.
+            name:
+              type: string
+              description: The display name of the comment author.
+        text:
+          type: string
+          description: The text content of the comment.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the comment was created.
+        lastUpdatedTime:
+          type: string
+          format: date-time
+          description: The time when the comment was last updated.
+      required:
+        - id
+        - text
+        - createdTime
+    CommentList:
+      type: object
+      description: A paginated list of comments on a record.
+      properties:
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        offset:
+          type: string
+          description: Pagination cursor for the next page of results.
+      required:
+        - comments
+    Webhook:
+      type: object
+      description: A webhook subscription on an Airtable base.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the webhook.
+        type:
+          type: string
+          description: The type of the webhook (e.g., client).
+        isHookEnabled:
+          type: boolean
+          description: Whether the webhook is currently active.
+        notificationUrl:
+          type: string
+          format: uri
+          description: The URL that receives webhook notifications.
+        cursorForNextPayload:
+          type: integer
+          description: The cursor position for the next unread payload.
+        areNotificationsEnabled:
+          type: boolean
+          description: Whether notifications are currently being sent.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the webhook was created.
+        expirationTime:
+          type: string
+          format: date-time
+          description: The time when the webhook will expire if not refreshed.
+        specification:
+          $ref: '#/components/schemas/WebhookSpecification'
+      required:
+        - id
+        - type
+    WebhookSpecification:
+      type: object
+      description: The specification defining what changes the webhook monitors.
+      properties:
+        options:
+          type: object
+          properties:
+            filters:
+              type: object
+              description: Filters to narrow down which changes trigger the webhook.
+              properties:
+                sourceOptions:
+                  type: object
+                  properties:
+                    formSubmission:
+                      type: object
+                      properties:
+                        tableId:
+                          type: string
+                        viewId:
+                          type: string
+                    formPageSubmission:
+                      type: object
+                      properties:
+                        pageId:
+                          type: string
+                dataTypes:
+                  type: array
+                  description: The types of data changes to monitor.
+                  items:
+                    type: string
+                    enum:
+                      - tableData
+                      - tableFields
+                      - tableMetadata
+                recordChangeScope:
+                  type: string
+                  description: The scope of record changes to monitor.
+                watchDataInFieldIds:
+                  type: array
+                  description: Specific field IDs to watch for changes.
+                  items:
+                    type: string
+                watchSchemasOfFieldIds:
+                  type: array
+                  description: Specific field IDs whose schema changes to watch.
+                  items:
+                    type: string
+    WebhookCreateRequest:
+      type: object
+      description: Request body for creating a new webhook.
+      properties:
+        notificationUrl:
+          type: string
+          format: uri
+          description: The URL that will receive POST notifications when changes occur.
+        specification:
+          $ref: '#/components/schemas/WebhookSpecification'
+      required:
+        - notificationUrl
+    WebhookCreateResponse:
+      type: object
+      description: Response after creating a new webhook, including the MAC secret.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the newly created webhook.
+        macSecretBase64:
+          type: string
+          description: >-
+            The Base64-encoded MAC secret used to verify the authenticity of
+            webhook notification payloads.
+        expirationTime:
+          type: string
+          format: date-time
+          description: The time when the webhook will expire if not refreshed.
+      required:
+        - id
+        - macSecretBase64
+    WebhookPayloadList:
+      type: object
+      description: A paginated list of webhook payloads.
+      properties:
+        payloads:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookPayload'
+        cursor:
+          type: integer
+          description: The cursor for fetching the next page of payloads.
+        mightHaveMore:
+          type: boolean
+          description: Whether there may be more payloads to fetch.
+      required:
+        - payloads
+    WebhookPayload:
+      type: object
+      description: A single webhook payload representing a batch of changes.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The time when the payload was generated.
+        baseTransactionNumber:
+          type: integer
+          description: The transaction number for this batch of changes.
+        payloadFormat:
+          type: string
+          description: The format version of the payload.
+        actionMetadata:
+          type: object
+          description: Metadata about the action that triggered the webhook.
+          properties:
+            source:
+              type: string
+              description: The source of the action (e.g., client, publicApi, formSubmission).
+            sourceMetadata:
+              type: object
+              description: Additional metadata about the source.
+        changedTablesById:
+          type: object
+          description: A mapping of table IDs to their changes.
+          additionalProperties:
+            type: object
+            properties:
+              changedRecordsById:
+                type: object
+                additionalProperties:
+                  type: object
+              createdRecordsById:
+                type: object
+                additionalProperties:
+                  type: object
+              destroyedRecordIds:
+                type: array
+                items:
+                  type: string
+              changedFieldsById:
+                type: object
+                additionalProperties:
+                  type: object
+              createdFieldsById:
+                type: object
+                additionalProperties:
+                  type: object
+              destroyedFieldIds:
+                type: array
+                items:
+                  type: string
+              changedViewsById:
+                type: object
+                additionalProperties:
+                  type: object
+              createdViewsById:
+                type: object
+                additionalProperties:
+                  type: object
+              destroyedViewIds:
+                type: array
+                items:
+                  type: string
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error (e.g., AUTHENTICATION_REQUIRED, NOT_FOUND, INVALID_REQUEST).
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+            - type
+            - message
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

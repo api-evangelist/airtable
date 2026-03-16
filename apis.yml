@@ -334,7 +334,7 @@ common:
 - url: https://www.npmjs.com/package/airtable
   type: SDK Package
 created: '2023-11-21T00:00:00.000Z'
-modified: '2026-03-04'
+modified: '2026-03-16'
 description: Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity of a database. It provides APIs for managing bases, tables, records, and more.
 maintainers:
 - FN: Kin Lane
@@ -343,7 +343,7 @@ maintainers:
 - FN: Airtable
   email: support@airtable.com
   url: https://airtable.com
-specificationVersion: '0.18'
+specificationVersion: '0.19'
 type: Index
 position: Consumer
 access: 3rd-Party

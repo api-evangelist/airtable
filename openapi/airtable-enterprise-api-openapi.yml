@@ -26,10 +26,10 @@ security:
 tags:
   - name: Enterprise
     description: Retrieve enterprise account information
-  - name: Users
-    description: Manage enterprise users, permissions, and access
   - name: Groups
     description: Manage user groups within the enterprise
+  - name: Users
+    description: Manage enterprise users, permissions, and access
   - name: Workspaces
     description: Manage enterprise workspaces
 paths:

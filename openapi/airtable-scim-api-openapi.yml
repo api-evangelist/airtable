@@ -26,10 +26,10 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: Users
-    description: SCIM user provisioning and management
   - name: Groups
     description: SCIM group provisioning and management
+  - name: Users
+    description: SCIM user provisioning and management
 paths:
   /Users:
     get:

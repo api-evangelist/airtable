@@ -27,10 +27,10 @@ security:
 tags:
   - name: Bases
     description: List and create bases, retrieve base schemas
-  - name: Tables
-    description: Create and update table definitions within a base
   - name: Fields
     description: Create and update field definitions within a table
+  - name: Tables
+    description: Create and update table definitions within a base
 paths:
   /meta/bases:
     get:

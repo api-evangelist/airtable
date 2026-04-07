@@ -35,7 +35,7 @@ paths:
   /meta/bases:
     get:
       operationId: listBases
-      summary: List all bases
+      summary: Airtable List all bases
       description: >-
         Returns a paginated list of all bases that the authenticated user has
         access to. Each base includes its ID, name, and permission level. Use
@@ -63,7 +63,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: createBase
-      summary: Create a new base
+      summary: Airtable Create a new base
       description: >-
         Creates a new base in the specified workspace. The request must include
         the workspace ID, base name, and at least one table definition with
@@ -94,7 +94,7 @@ paths:
   /meta/bases/{baseId}/tables:
     get:
       operationId: getBaseSchema
-      summary: Get base schema
+      summary: Airtable Get base schema
       description: >-
         Returns the schema of the specified base, including all tables, their
         fields (with type and configuration), and views. This endpoint
@@ -139,7 +139,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: createTable
-      summary: Create a table in a base
+      summary: Airtable Create a table in a base
       description: >-
         Creates a new table within the specified base. The table must include
         a name and at least one field definition. Optionally include a
@@ -174,7 +174,7 @@ paths:
   /meta/bases/{baseId}/tables/{tableId}:
     patch:
       operationId: updateTable
-      summary: Update a table
+      summary: Airtable Update a table
       description: >-
         Updates the name and/or description of an existing table. Only the
         provided fields will be modified.
@@ -216,7 +216,7 @@ paths:
   /meta/bases/{baseId}/tables/{tableId}/fields:
     post:
       operationId: createField
-      summary: Create a field in a table
+      summary: Airtable Create a field in a table
       description: >-
         Creates a new field in the specified table. The field must include a
         name and type. Some field types (like singleSelect, multipleSelects)
@@ -253,7 +253,7 @@ paths:
   /meta/bases/{baseId}/tables/{tableId}/fields/{fieldId}:
     patch:
       operationId: updateField
-      summary: Update a field
+      summary: Airtable Update a field
       description: >-
         Updates the name, description, or configuration options of an existing
         field. Only the provided properties will be modified. Not all field
@@ -307,7 +307,7 @@ paths:
   /meta/whoami:
     get:
       operationId: whoami
-      summary: Get current user and scopes
+      summary: Airtable Get current user and scopes
       description: >-
         Returns the ID and scopes of the currently authenticated user or
         service account. Useful for verifying authentication and checking

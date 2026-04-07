@@ -31,7 +31,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogEvents:
     get:
       operationId: listAuditLogEvents
-      summary: List audit log events
+      summary: Airtable List audit log events
       description: >-
         Returns a paginated list of audit log events for the specified
         enterprise account. Events can be filtered by user ID, event type,
@@ -131,7 +131,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogRequests:
     get:
       operationId: listAuditLogRequests
-      summary: List audit log export requests
+      summary: Airtable List audit log export requests
       description: >-
         Returns a list of all audit log export requests that have been
         created for the enterprise account. Each request includes its status
@@ -162,7 +162,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: createAuditLogRequest
-      summary: Create an audit log export request
+      summary: Airtable Create an audit log export request
       description: >-
         Creates a new audit log export request for the enterprise account.
         The request specifies a time range and optional filters. Once
@@ -198,7 +198,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogRequests/{requestId}:
     get:
       operationId: getAuditLogRequest
-      summary: Get an audit log export request
+      summary: Airtable Get an audit log export request
       description: >-
         Retrieves the status and details of a specific audit log export
         request. When the request is complete, the response includes download

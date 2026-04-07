@@ -30,7 +30,7 @@ paths:
   /meta/bases/{baseId}/shares:
     get:
       operationId: listShares
-      summary: List share links for a base
+      summary: Airtable List share links for a base
       description: >-
         Returns a list of all active share links for the specified base. Each
         share includes its type, state, and the user who created it. This
@@ -62,7 +62,7 @@ paths:
   /meta/bases/{baseId}/shares/{shareId}:
     patch:
       operationId: manageShare
-      summary: Manage a share link
+      summary: Airtable Manage a share link
       description: >-
         Updates the configuration of an existing share link for a base. Can
         be used to enable or disable the share link, or update its access
@@ -110,7 +110,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: deleteShare
-      summary: Delete a share link
+      summary: Airtable Delete a share link
       description: >-
         Permanently deletes a share link for a base. Anyone who previously
         had access through this share link will immediately lose access.

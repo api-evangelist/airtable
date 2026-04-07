@@ -36,7 +36,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}:
     get:
       operationId: getEnterpriseAccount
-      summary: Get enterprise account information
+      summary: Airtable Get enterprise account information
       description: >-
         Returns information about the specified enterprise account, including
         the enterprise name, creation time, and optionally aggregated usage
@@ -76,7 +76,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/users:
     get:
       operationId: listEnterpriseUsers
-      summary: List enterprise users
+      summary: Airtable List enterprise users
       description: >-
         Returns a list of users within the enterprise account. Results can be
         filtered by user IDs or email addresses, and can include collaboration
@@ -140,7 +140,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: deleteUsersById
-      summary: Delete users by ID
+      summary: Airtable Delete users by ID
       description: >-
         Deletes one or more users from the enterprise account by their user
         IDs. This permanently removes the users and their data.
@@ -195,7 +195,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/{userId}/remove:
     post:
       operationId: removeUserFromEnterprise
-      summary: Remove a user from enterprise
+      summary: Airtable Remove a user from enterprise
       description: >-
         Removes a user from the enterprise account. Optionally, a replacement
         user can be specified to take over shared resources. The response
@@ -240,7 +240,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/claim/users:
     post:
       operationId: claimUsers
-      summary: Claim users into enterprise
+      summary: Airtable Claim users into enterprise
       description: >-
         Claims one or more users into the enterprise account, setting their
         management status to either managed or unmanaged.
@@ -290,7 +290,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/manageUserMembership:
     post:
       operationId: manageUserMembership
-      summary: Manage user membership status
+      summary: Airtable Manage user membership status
       description: >-
         Updates the managed or unmanaged status for one or more users in the
         enterprise account.
@@ -338,7 +338,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/grantAdminAccess:
     post:
       operationId: grantAdminAccess
-      summary: Grant admin access to users
+      summary: Airtable Grant admin access to users
       description: >-
         Grants enterprise admin access to one or more users, allowing them
         to manage the enterprise account through the Admin panel and API.
@@ -378,7 +378,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/revokeAdminAccess:
     post:
       operationId: revokeAdminAccess
-      summary: Revoke admin access from users
+      summary: Airtable Revoke admin access from users
       description: >-
         Revokes enterprise admin access from one or more users. The users
         retain their regular enterprise membership but lose admin privileges.
@@ -418,7 +418,7 @@ paths:
   /meta/groups/{groupId}:
     get:
       operationId: getUserGroup
-      summary: Get a user group
+      summary: Airtable Get a user group
       description: >-
         Returns details about a specific user group, including its members
         and configuration.
@@ -461,7 +461,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/moveGroups:
     post:
       operationId: moveUserGroups
-      summary: Move user groups between enterprises
+      summary: Airtable Move user groups between enterprises
       description: >-
         Moves one or more user groups from this enterprise account to a
         target enterprise account.
@@ -517,7 +517,7 @@ paths:
   /meta/workspaces:
     post:
       operationId: createWorkspace
-      summary: Create a workspace
+      summary: Airtable Create a workspace
       description: >-
         Creates a new workspace within the enterprise account.
       tags:
@@ -552,7 +552,7 @@ paths:
   /meta/workspaces/{workspaceId}:
     delete:
       operationId: deleteWorkspace
-      summary: Delete a workspace
+      summary: Airtable Delete a workspace
       description: >-
         Permanently deletes the specified workspace and all its contents.
         This action cannot be undone.
@@ -583,7 +583,7 @@ paths:
   /meta/workspaces/{workspaceId}/collaborators:
     get:
       operationId: getWorkspaceCollaborators
-      summary: Get workspace collaborators
+      summary: Airtable Get workspace collaborators
       description: >-
         Returns a list of all collaborators on the specified workspace,
         including individual users and user groups with their permission
@@ -627,7 +627,7 @@ paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}/moveWorkspaces:
     post:
       operationId: moveWorkspaces
-      summary: Move workspaces between enterprises
+      summary: Airtable Move workspaces between enterprises
       description: >-
         Moves one or more workspaces from this enterprise account to a
         target enterprise account.

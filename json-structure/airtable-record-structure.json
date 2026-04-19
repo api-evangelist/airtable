@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/json-structure/airtable-record-structure.json",
+  "name": "Airtable Record",
+  "description": "An Airtable record representing a single row in a table. Records are the fundamental data units in Airtable, containing field values that correspond to the table's column definitions.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the record. Record IDs always start with the 'rec' prefix.",
+      "pattern": "^rec[a-zA-Z0-9]+$",
+      "examples": [
+        "recABC123def456"
+      ]
+    },
+    "createdTime": {
+      "type": "datetime",
+      "description": "The date and time when the record was created, in ISO 8601 format."
+    },
+    "fields": {
+      "type": "object",
+      "description": "A mapping of field names (or field IDs when returnFieldsByFieldId is enabled) to their cell values. The keys and value types depend on the table's schema definition.",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "id",
+    "createdTime",
+    "fields"
+  ],
+  "additionalProperties": false
+}

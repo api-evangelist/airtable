@@ -20,36 +20,36 @@ externalDocs:
   description: Airtable Metadata API Documentation
   url: https://airtable.com/developers/web/api/list-bases
 servers:
-  - url: https://api.airtable.com/v0
-    description: Airtable API v0 production server
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Bases
-    description: List and create bases, retrieve base schemas
-  - name: Fields
-    description: Create and update field definitions within a table
-  - name: Tables
-    description: Create and update table definitions within a base
+- name: Bases
+  description: List and create bases, retrieve base schemas
+- name: Fields
+  description: Create and update field definitions within a table
+- name: Tables
+  description: Create and update table definitions within a base
 paths:
   /meta/bases:
     get:
       operationId: listBases
-      summary: Airtable List all bases
+      summary: Airtable List All Bases
       description: >-
         Returns a paginated list of all bases that the authenticated user has
         access to. Each base includes its ID, name, and permission level. Use
         the offset parameter from the response to paginate through all
         available bases.
       tags:
-        - Bases
+      - Bases
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: Pagination cursor from a previous response to fetch the next page.
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: Pagination cursor from a previous response to fetch the next page.
+        schema:
+          type: string
       responses:
         '200':
           description: A paginated list of bases.
@@ -61,15 +61,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createBase
-      summary: Airtable Create a new base
+      summary: Airtable Create a New Base
       description: >-
         Creates a new base in the specified workspace. The request must include
         the workspace ID, base name, and at least one table definition with
         fields. Returns the newly created base with its schema.
       tags:
-        - Bases
+      - Bases
       requestBody:
         required: true
         content:
@@ -91,32 +94,35 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/bases/{baseId}/tables:
     get:
       operationId: getBaseSchema
-      summary: Airtable Get base schema
+      summary: Airtable Get Base Schema
       description: >-
         Returns the schema of the specified base, including all tables, their
         fields (with type and configuration), and views. This endpoint
         provides a complete structural overview of the base.
       tags:
-        - Bases
+      - Bases
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - name: include
-          in: query
-          required: false
-          description: >-
-            Additional information to include in the response. Pass
-            visibleFieldIds to include visible field IDs for each view.
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - visibleFieldIds
-          style: form
-          explode: true
+      - $ref: '#/components/parameters/baseId'
+      - name: include
+        in: query
+        required: false
+        description: >-
+          Additional information to include in the response. Pass
+          visibleFieldIds to include visible field IDs for each view.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - visibleFieldIds
+        style: form
+        explode: true
       responses:
         '200':
           description: The base schema with tables, fields, and views.
@@ -137,17 +143,20 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createTable
-      summary: Airtable Create a table in a base
+      summary: Airtable Create a Table in a Base
       description: >-
         Creates a new table within the specified base. The table must include
         a name and at least one field definition. Optionally include a
         description for the table.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/baseId'
       requestBody:
         required: true
         content:
@@ -171,18 +180,21 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/bases/{baseId}/tables/{tableId}:
     patch:
       operationId: updateTable
-      summary: Airtable Update a table
+      summary: Airtable Update a Table
       description: >-
         Updates the name and/or description of an existing table. Only the
         provided fields will be modified.
       tags:
-        - Tables
+      - Tables
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableId'
       requestBody:
         required: true
         content:
@@ -213,20 +225,23 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/bases/{baseId}/tables/{tableId}/fields:
     post:
       operationId: createField
-      summary: Airtable Create a field in a table
+      summary: Airtable Create a Field in a Table
       description: >-
         Creates a new field in the specified table. The field must include a
         name and type. Some field types (like singleSelect, multipleSelects)
         accept additional options for configuration. Note that formula and
         some computed field types cannot be created via the API.
       tags:
-        - Fields
+      - Fields
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableId'
       requestBody:
         required: true
         content:
@@ -250,26 +265,29 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/bases/{baseId}/tables/{tableId}/fields/{fieldId}:
     patch:
       operationId: updateField
-      summary: Airtable Update a field
+      summary: Airtable Update a Field
       description: >-
         Updates the name, description, or configuration options of an existing
         field. Only the provided properties will be modified. Not all field
         properties can be updated after creation.
       tags:
-        - Fields
+      - Fields
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableId'
-        - name: fieldId
-          in: path
-          required: true
-          description: The unique identifier of the field (starts with 'fld').
-          schema:
-            type: string
-            pattern: ^fld[a-zA-Z0-9]+$
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableId'
+      - name: fieldId
+        in: path
+        required: true
+        description: The unique identifier of the field (starts with 'fld').
+        schema:
+          type: string
+          pattern: ^fld[a-zA-Z0-9]+$
       requestBody:
         required: true
         content:
@@ -304,16 +322,19 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/whoami:
     get:
       operationId: whoami
-      summary: Airtable Get current user and scopes
+      summary: Airtable Get Current User and Scopes
       description: >-
         Returns the ID and scopes of the currently authenticated user or
         service account. Useful for verifying authentication and checking
         available permissions.
       tags:
-        - Bases
+      - Bases
       responses:
         '200':
           description: The current user ID and authorized scopes.
@@ -334,6 +355,9 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -373,7 +397,7 @@ components:
           type: string
           description: Pagination cursor for the next page of results.
       required:
-        - bases
+      - bases
     BaseSummary:
       type: object
       description: Summary information about an Airtable base.
@@ -389,15 +413,15 @@ components:
           type: string
           description: The permission level the authenticated user has on this base.
           enum:
-            - none
-            - read
-            - comment
-            - edit
-            - create
+          - none
+          - read
+          - comment
+          - edit
+          - create
       required:
-        - id
-        - name
-        - permissionLevel
+      - id
+      - name
+      - permissionLevel
     BaseSchema:
       type: object
       description: The full schema of a base including all tables.
@@ -413,8 +437,8 @@ components:
           items:
             $ref: '#/components/schemas/TableSchema'
       required:
-        - id
-        - tables
+      - id
+      - tables
     TableSchema:
       type: object
       description: The schema definition of a table within a base.
@@ -443,10 +467,10 @@ components:
           items:
             $ref: '#/components/schemas/ViewSchema'
       required:
-        - id
-        - name
-        - fields
-        - views
+      - id
+      - name
+      - fields
+      - views
     FieldSchema:
       type: object
       description: The schema definition of a field within a table.
@@ -462,40 +486,40 @@ components:
           type: string
           description: The type of the field.
           enum:
-            - singleLineText
-            - email
-            - url
-            - multilineText
-            - number
-            - percent
-            - currency
-            - singleSelect
-            - multipleSelects
-            - singleCollaborator
-            - multipleCollaborators
-            - multipleRecordLinks
-            - date
-            - dateTime
-            - phoneNumber
-            - multipleAttachments
-            - checkbox
-            - formula
-            - createdTime
-            - rollup
-            - count
-            - lookup
-            - multipleLookupValues
-            - autoNumber
-            - barcode
-            - rating
-            - richText
-            - duration
-            - lastModifiedTime
-            - button
-            - createdBy
-            - lastModifiedBy
-            - externalSyncSource
-            - aiText
+          - singleLineText
+          - email
+          - url
+          - multilineText
+          - number
+          - percent
+          - currency
+          - singleSelect
+          - multipleSelects
+          - singleCollaborator
+          - multipleCollaborators
+          - multipleRecordLinks
+          - date
+          - dateTime
+          - phoneNumber
+          - multipleAttachments
+          - checkbox
+          - formula
+          - createdTime
+          - rollup
+          - count
+          - lookup
+          - multipleLookupValues
+          - autoNumber
+          - barcode
+          - rating
+          - richText
+          - duration
+          - lastModifiedTime
+          - button
+          - createdBy
+          - lastModifiedBy
+          - externalSyncSource
+          - aiText
         description:
           type: string
           description: The description of the field.
@@ -506,9 +530,9 @@ components:
             field type.
           additionalProperties: true
       required:
-        - id
-        - name
-        - type
+      - id
+      - name
+      - type
     ViewSchema:
       type: object
       description: The schema definition of a view within a table.
@@ -524,13 +548,13 @@ components:
           type: string
           description: The type of the view.
           enum:
-            - grid
-            - form
-            - calendar
-            - gallery
-            - kanban
-            - timeline
-            - block
+          - grid
+          - form
+          - calendar
+          - gallery
+          - kanban
+          - timeline
+          - block
         personalForUserId:
           type: string
           description: If set, this is a personal view only visible to the specified user.
@@ -542,9 +566,9 @@ components:
           items:
             type: string
       required:
-        - id
-        - name
-        - type
+      - id
+      - name
+      - type
     CreateBaseRequest:
       type: object
       description: Request body for creating a new base.
@@ -575,12 +599,12 @@ components:
                 items:
                   $ref: '#/components/schemas/CreateFieldRequest'
             required:
-              - name
-              - fields
+            - name
+            - fields
       required:
-        - name
-        - workspaceId
-        - tables
+      - name
+      - workspaceId
+      - tables
     CreateTableRequest:
       type: object
       description: Request body for creating a new table within a base.
@@ -598,8 +622,8 @@ components:
           items:
             $ref: '#/components/schemas/CreateFieldRequest'
       required:
-        - name
-        - fields
+      - name
+      - fields
     CreateFieldRequest:
       type: object
       description: Request body for creating a new field.
@@ -622,8 +646,8 @@ components:
             like singleSelect and multipleSelects.
           additionalProperties: true
       required:
-        - name
-        - type
+      - name
+      - type
     Error:
       type: object
       description: An error response from the Airtable API.
@@ -638,8 +662,8 @@ components:
               type: string
               description: A human-readable description of the error.
           required:
-            - type
-            - message
+          - type
+          - message
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

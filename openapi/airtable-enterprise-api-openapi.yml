@@ -19,45 +19,45 @@ externalDocs:
   description: Airtable Enterprise API Documentation
   url: https://support.airtable.com/docs/airtable-enterprise-api
 servers:
-  - url: https://api.airtable.com/v0
-    description: Airtable API v0 production server
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Enterprise
-    description: Retrieve enterprise account information
-  - name: Groups
-    description: Manage user groups within the enterprise
-  - name: Users
-    description: Manage enterprise users, permissions, and access
-  - name: Workspaces
-    description: Manage enterprise workspaces
+- name: Enterprise
+  description: Retrieve enterprise account information
+- name: Groups
+  description: Manage user groups within the enterprise
+- name: Users
+  description: Manage enterprise users, permissions, and access
+- name: Workspaces
+  description: Manage enterprise workspaces
 paths:
   /meta/enterpriseAccounts/{enterpriseAccountId}:
     get:
       operationId: getEnterpriseAccount
-      summary: Airtable Get enterprise account information
+      summary: Airtable Get Enterprise Account Information
       description: >-
         Returns information about the specified enterprise account, including
         the enterprise name, creation time, and optionally aggregated usage
         data and descendant accounts.
       tags:
-        - Enterprise
+      - Enterprise
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
-        - name: include
-          in: query
-          required: false
-          description: Additional information to include in the response.
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - collaborators
-                - groupCollaborators
-          style: form
-          explode: true
+      - $ref: '#/components/parameters/enterpriseAccountId'
+      - name: include
+        in: query
+        required: false
+        description: Additional information to include in the response.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - collaborators
+            - groupCollaborators
+        style: form
+        explode: true
       responses:
         '200':
           description: The enterprise account information.
@@ -73,51 +73,54 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/users:
     get:
       operationId: listEnterpriseUsers
-      summary: Airtable List enterprise users
+      summary: Airtable List Enterprise Users
       description: >-
         Returns a list of users within the enterprise account. Results can be
         filtered by user IDs or email addresses, and can include collaboration
         details.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
-        - name: email
-          in: query
-          required: false
-          description: Filter by one or more email addresses.
-          schema:
-            type: array
-            items:
-              type: string
-              format: email
-          style: form
-          explode: true
-        - name: id
-          in: query
-          required: false
-          description: Filter by one or more user IDs.
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        - name: include
-          in: query
-          required: false
-          description: Additional information to include for each user.
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - collaborations
-          style: form
-          explode: true
+      - $ref: '#/components/parameters/enterpriseAccountId'
+      - name: email
+        in: query
+        required: false
+        description: Filter by one or more email addresses.
+        schema:
+          type: array
+          items:
+            type: string
+            format: email
+        style: form
+        explode: true
+      - name: id
+        in: query
+        required: false
+        description: Filter by one or more user IDs.
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      - name: include
+        in: query
+        required: false
+        description: Additional information to include for each user.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - collaborations
+        style: form
+        explode: true
       responses:
         '200':
           description: A list of enterprise users.
@@ -138,16 +141,19 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteUsersById
-      summary: Airtable Delete users by ID
+      summary: Airtable Delete Users by ID
       description: >-
         Deletes one or more users from the enterprise account by their user
         IDs. This permanently removes the users and their data.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -161,7 +167,7 @@ paths:
                   items:
                     type: string
               required:
-                - userIds
+              - userIds
       responses:
         '200':
           description: Confirmation of user deletion.
@@ -192,24 +198,27 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/{userId}/remove:
     post:
       operationId: removeUserFromEnterprise
-      summary: Airtable Remove a user from enterprise
+      summary: Airtable Remove a User from Enterprise
       description: >-
         Removes a user from the enterprise account. Optionally, a replacement
         user can be specified to take over shared resources. The response
         includes details about affected shared and unshared resources.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
-        - name: userId
-          in: path
-          required: true
-          description: The unique identifier of the user to remove.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/enterpriseAccountId'
+      - name: userId
+        in: path
+        required: true
+        description: The unique identifier of the user to remove.
+        schema:
+          type: string
       requestBody:
         required: false
         content:
@@ -237,17 +246,20 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/claim/users:
     post:
       operationId: claimUsers
-      summary: Airtable Claim users into enterprise
+      summary: Airtable Claim Users Into Enterprise
       description: >-
         Claims one or more users into the enterprise account, setting their
         management status to either managed or unmanaged.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -266,10 +278,10 @@ paths:
                       state:
                         type: string
                         enum:
-                          - managed
-                          - unmanaged
+                        - managed
+                        - unmanaged
               required:
-                - users
+              - users
       responses:
         '200':
           description: The result of the claim operation.
@@ -287,17 +299,20 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/manageUserMembership:
     post:
       operationId: manageUserMembership
-      summary: Airtable Manage user membership status
+      summary: Airtable Manage User Membership Status
       description: >-
         Updates the managed or unmanaged status for one or more users in the
         enterprise account.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -314,10 +329,10 @@ paths:
                       state:
                         type: string
                         enum:
-                          - managed
-                          - unmanaged
+                        - managed
+                        - unmanaged
               required:
-                - users
+              - users
       responses:
         '200':
           description: The result of the membership management operation.
@@ -335,17 +350,20 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/grantAdminAccess:
     post:
       operationId: grantAdminAccess
-      summary: Airtable Grant admin access to users
+      summary: Airtable Grant Admin Access to Users
       description: >-
         Grants enterprise admin access to one or more users, allowing them
         to manage the enterprise account through the Admin panel and API.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -359,7 +377,7 @@ paths:
                   items:
                     type: string
               required:
-                - userIds
+              - userIds
       responses:
         '200':
           description: The result of the admin grant operation.
@@ -375,17 +393,20 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/users/revokeAdminAccess:
     post:
       operationId: revokeAdminAccess
-      summary: Airtable Revoke admin access from users
+      summary: Airtable Revoke Admin Access from Users
       description: >-
         Revokes enterprise admin access from one or more users. The users
         retain their regular enterprise membership but lose admin privileges.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -399,7 +420,7 @@ paths:
                   items:
                     type: string
               required:
-                - userIds
+              - userIds
       responses:
         '200':
           description: The result of the admin revocation.
@@ -415,34 +436,37 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/groups/{groupId}:
     get:
       operationId: getUserGroup
-      summary: Airtable Get a user group
+      summary: Airtable Get a User Group
       description: >-
         Returns details about a specific user group, including its members
         and configuration.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - name: groupId
-          in: path
-          required: true
-          description: The unique identifier of the user group.
-          schema:
+      - name: groupId
+        in: path
+        required: true
+        description: The unique identifier of the user group.
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Additional information to include.
+        schema:
+          type: array
+          items:
             type: string
-        - name: include
-          in: query
-          required: false
-          description: Additional information to include.
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - collaborations
-          style: form
-          explode: true
+            enum:
+            - collaborations
+        style: form
+        explode: true
       responses:
         '200':
           description: The user group details.
@@ -458,17 +482,20 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/moveGroups:
     post:
       operationId: moveUserGroups
-      summary: Airtable Move user groups between enterprises
+      summary: Airtable Move User Groups Between Enterprises
       description: >-
         Moves one or more user groups from this enterprise account to a
         target enterprise account.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -485,8 +512,8 @@ paths:
                   type: string
                   description: The ID of the target enterprise account.
               required:
-                - groupIds
-                - targetEnterpriseAccountId
+              - groupIds
+              - targetEnterpriseAccountId
       responses:
         '200':
           description: Result of the group move operation.
@@ -514,14 +541,17 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/workspaces:
     post:
       operationId: createWorkspace
-      summary: Airtable Create a workspace
+      summary: Airtable Create a Workspace
       description: >-
         Creates a new workspace within the enterprise account.
       tags:
-        - Workspaces
+      - Workspaces
       requestBody:
         required: true
         content:
@@ -533,7 +563,7 @@ paths:
                   type: string
                   description: The name of the new workspace.
               required:
-                - name
+              - name
       responses:
         '200':
           description: The newly created workspace.
@@ -549,22 +579,25 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/workspaces/{workspaceId}:
     delete:
       operationId: deleteWorkspace
-      summary: Airtable Delete a workspace
+      summary: Airtable Delete a Workspace
       description: >-
         Permanently deletes the specified workspace and all its contents.
         This action cannot be undone.
       tags:
-        - Workspaces
+      - Workspaces
       parameters:
-        - name: workspaceId
-          in: path
-          required: true
-          description: The unique identifier of the workspace (starts with 'wsp').
-          schema:
-            type: string
+      - name: workspaceId
+        in: path
+        required: true
+        description: The unique identifier of the workspace (starts with 'wsp').
+        schema:
+          type: string
       responses:
         '200':
           description: Confirmation that the workspace was deleted.
@@ -580,35 +613,38 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/workspaces/{workspaceId}/collaborators:
     get:
       operationId: getWorkspaceCollaborators
-      summary: Airtable Get workspace collaborators
+      summary: Airtable Get Workspace Collaborators
       description: >-
         Returns a list of all collaborators on the specified workspace,
         including individual users and user groups with their permission
         levels.
       tags:
-        - Workspaces
+      - Workspaces
       parameters:
-        - name: workspaceId
-          in: path
-          required: true
-          description: The unique identifier of the workspace.
-          schema:
+      - name: workspaceId
+        in: path
+        required: true
+        description: The unique identifier of the workspace.
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Additional information to include in the response.
+        schema:
+          type: array
+          items:
             type: string
-        - name: include
-          in: query
-          required: false
-          description: Additional information to include in the response.
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - groupCollaborators
-          style: form
-          explode: true
+            enum:
+            - groupCollaborators
+        style: form
+        explode: true
       responses:
         '200':
           description: The list of workspace collaborators.
@@ -624,17 +660,20 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/enterpriseAccounts/{enterpriseAccountId}/moveWorkspaces:
     post:
       operationId: moveWorkspaces
-      summary: Airtable Move workspaces between enterprises
+      summary: Airtable Move Workspaces Between Enterprises
       description: >-
         Moves one or more workspaces from this enterprise account to a
         target enterprise account.
       tags:
-        - Workspaces
+      - Workspaces
       parameters:
-        - $ref: '#/components/parameters/enterpriseAccountId'
+      - $ref: '#/components/parameters/enterpriseAccountId'
       requestBody:
         required: true
         content:
@@ -651,8 +690,8 @@ paths:
                   type: string
                   description: The ID of the target enterprise account.
               required:
-                - workspaceIds
-                - targetEnterpriseAccountId
+              - workspaceIds
+              - targetEnterpriseAccountId
       responses:
         '200':
           description: Result of the workspace move operation.
@@ -680,6 +719,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -736,7 +778,7 @@ components:
               isVerified:
                 type: boolean
       required:
-        - id
+      - id
     EnterpriseUser:
       type: object
       description: A user within the enterprise account.
@@ -755,9 +797,9 @@ components:
           type: string
           description: The management state of the user.
           enum:
-            - managed
-            - unmanaged
-            - deactivated
+          - managed
+          - unmanaged
+          - deactivated
         isAdmin:
           type: boolean
           description: Whether the user has admin privileges.
@@ -803,9 +845,9 @@ components:
                   permissionLevel:
                     type: string
       required:
-        - id
-        - email
-        - state
+      - id
+      - email
+      - state
     UserGroup:
       type: object
       description: A user group within the enterprise.
@@ -837,14 +879,14 @@ components:
               role:
                 type: string
                 enum:
-                  - member
-                  - owner
+                - member
+                - owner
         collaborations:
           type: object
           description: The group's collaborations across workspaces and bases.
       required:
-        - id
-        - name
+      - id
+      - name
     Workspace:
       type: object
       description: An Airtable workspace.
@@ -856,8 +898,8 @@ components:
           type: string
           description: The name of the workspace.
       required:
-        - id
-        - name
+      - id
+      - name
     WorkspaceCollaborators:
       type: object
       description: The collaborators on a workspace.
@@ -875,11 +917,11 @@ components:
               permissionLevel:
                 type: string
                 enum:
-                  - owner
-                  - creator
-                  - editor
-                  - commenter
-                  - read
+                - owner
+                - creator
+                - editor
+                - commenter
+                - read
         groupCollaborators:
           type: array
           items:
@@ -935,8 +977,8 @@ components:
             message:
               type: string
           required:
-            - type
-            - message
+          - type
+          - message
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

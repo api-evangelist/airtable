@@ -1,0 +1,141 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Airtable Database Management"
+  description: "Unified workflow for managing Airtable databases — reading and writing records, browsing base schemas, managing webhooks, and administering tables. Used by developers and data teams integrating Airtable with external systems."
+  tags:
+    - Airtable
+    - Database
+    - Low-Code
+    - No-Code
+    - Records
+    - Schema
+    - Collaboration
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AIRTABLE_API_TOKEN: AIRTABLE_API_TOKEN
+
+capability:
+  consumes:
+    - import: airtable
+      location: ./shared/airtable-api.yaml
+    - import: airtable-meta
+      location: ./shared/airtable-metadata-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: airtable-db-api
+      description: "Unified REST API for Airtable database management."
+      resources:
+        - path: /v1/bases
+          name: bases
+          description: "Airtable bases and schemas."
+          operations:
+            - method: GET
+              name: list-bases
+              description: "List all accessible bases."
+              call: "airtable-meta.list-bases"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/records
+          name: records
+          description: "Airtable table records."
+          operations:
+            - method: GET
+              name: list-records
+              description: "List records from a table."
+              call: "airtable.list-records"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-records
+              description: "Create records in a table."
+              call: "airtable.create-records"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/records/{recordId}
+          name: record
+          description: "A specific Airtable record."
+          operations:
+            - method: PATCH
+              name: update-record
+              description: "Update a record."
+              call: "airtable.update-record"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-record
+              description: "Delete a record."
+              call: "airtable.delete-record"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: airtable-db-mcp
+      transport: http
+      description: "MCP server for AI-assisted Airtable database management."
+      tools:
+        - name: list-bases
+          description: "List all Airtable bases the user has access to."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "airtable-meta.list-bases"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-base-schema
+          description: "Get the schema of an Airtable base with all tables and fields."
+          hints:
+            readOnly: true
+          call: "airtable-meta.get-base-schema"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-records
+          description: "List records from an Airtable table with optional filtering."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "airtable.list-records"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-records
+          description: "Create one or more records in an Airtable table."
+          hints:
+            readOnly: false
+          call: "airtable.create-records"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-record
+          description: "Update specific fields in an Airtable record."
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "airtable.update-record"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-record
+          description: "Delete an Airtable record permanently."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "airtable.delete-record"
+          outputParameters:
+            - type: object
+              mapping: "$."

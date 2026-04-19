@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/json-structure/airtable-audit-log-event-structure.json",
+  "name": "Airtable Audit Log Event",
+  "description": "An audit log event recording an action performed within an Airtable enterprise account. Events capture who performed what action, on which resource, and when, for compliance and security monitoring purposes.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the audit log event."
+    },
+    "timestamp": {
+      "type": "datetime",
+      "description": "The exact date and time when the action was logged, in ISO 8601 format."
+    },
+    "action": {
+      "type": "string",
+      "description": "The type of action that was performed (e.g., created, updated, deleted, viewed, shared)."
+    },
+    "actor": {
+      "type": "object",
+      "description": "The entity that performed the action.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of actor that initiated the action.",
+          "enum": [
+            "user",
+            "system",
+            "anonymous"
+          ]
+        },
+        "userId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The ID of the user who performed the action. Null for system or anonymous actors."
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "email",
+          "description": "The email of the user who performed the action."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The display name of the actor."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "modelId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The ID of the model (base, table, field, record, view, etc.) that was affected by the action."
+    },
+    "modelType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The type of model affected by the action.",
+      "enum": [
+        "base",
+        "table",
+        "field",
+        "record",
+        "view",
+        "workspace",
+        "share",
+        "user",
+        "group",
+        "interface",
+        null
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "The category of the event for organizational and filtering purposes.",
+      "enum": [
+        "app",
+        "user",
+        "share",
+        "enterprise",
+        "workspace",
+        "interface"
+      ]
+    },
+    "context": {
+      "type": "object",
+      "description": "Additional context about the event, including related resource identifiers and request metadata.",
+      "properties": {
+        "baseId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The ID of the base where the event occurred."
+        },
+        "tableId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The ID of the table where the event occurred."
+        },
+        "viewId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The ID of the view involved in the event."
+        },
+        "workspaceId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The ID of the workspace where the event occurred."
+        },
+        "interfaceId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The ID of the interface involved in the event."
+        },
+        "actionId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A unique identifier for the specific action taken."
+        },
+        "ipAddress": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The IP address from which the action was performed."
+        }
+      }
+    },
+    "payloadVersion": {
+      "type": "string",
+      "description": "The version of the event payload format."
+    }
+  },
+  "required": [
+    "id",
+    "timestamp",
+    "action"
+  ],
+  "additionalProperties": false
+}

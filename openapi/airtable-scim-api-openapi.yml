@@ -21,51 +21,51 @@ externalDocs:
   description: Airtable SCIM API Documentation
   url: https://airtable.com/developers/web/api/scim-overview
 servers:
-  - url: https://airtable.com/scim/v2
-    description: Airtable SCIM v2 production server
+- url: https://airtable.com/scim/v2
+  description: Airtable SCIM v2 production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Groups
-    description: SCIM group provisioning and management
-  - name: Users
-    description: SCIM user provisioning and management
+- name: Groups
+  description: SCIM group provisioning and management
+- name: Users
+  description: SCIM user provisioning and management
 paths:
   /Users:
     get:
       operationId: listScimUsers
-      summary: Airtable List SCIM users
+      summary: Airtable List SCIM Users
       description: >-
         Returns a paginated list of SCIM user resources. Supports filtering
         by user attributes and pagination using startIndex and count
         parameters per the SCIM 2.0 specification.
       tags:
-        - Users
+      - Users
       parameters:
-        - name: filter
-          in: query
-          required: false
-          description: >-
-            SCIM filter expression (e.g., userName eq "user@example.com").
-            Supports eq operator on userName.
-          schema:
-            type: string
-        - name: startIndex
-          in: query
-          required: false
-          description: The 1-based index of the first result to return.
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: count
-          in: query
-          required: false
-          description: The maximum number of results to return per page.
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
+      - name: filter
+        in: query
+        required: false
+        description: >-
+          SCIM filter expression (e.g., userName eq "user@example.com").
+          Supports eq operator on userName.
+        schema:
+          type: string
+      - name: startIndex
+        in: query
+        required: false
+        description: The 1-based index of the first result to return.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: count
+        in: query
+        required: false
+        description: The maximum number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
       responses:
         '200':
           description: A SCIM ListResponse containing user resources.
@@ -79,15 +79,18 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createScimUser
-      summary: Airtable Create a SCIM user
+      summary: Airtable Create a SCIM User
       description: >-
         Provisions a new user in Airtable through the SCIM protocol. The
         user will be added to the enterprise account. SSO must be configured
         as Airtable does not allow setting passwords through SCIM.
       tags:
-        - Users
+      - Users
       requestBody:
         required: true
         content:
@@ -115,18 +118,21 @@ paths:
                 $ref: '#/components/schemas/ScimError'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Users/{userId}:
     get:
       operationId: getScimUser
-      summary: Airtable Get a SCIM user
+      summary: Airtable Get a SCIM User
       description: >-
         Retrieves a single SCIM user resource by its unique identifier.
         Returns the complete user profile including name, email, and active
         status.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/userId'
       responses:
         '200':
           description: The requested SCIM user resource.
@@ -142,17 +148,20 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceScimUser
-      summary: Airtable Replace a SCIM user
+      summary: Airtable Replace a SCIM User
       description: >-
         Replaces a SCIM user resource entirely. All attributes are
         overwritten with the values in the request body. This is a full
         replacement, not a partial update.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/userId'
       requestBody:
         required: true
         content:
@@ -176,17 +185,20 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateScimUser
-      summary: Airtable Update a SCIM user (partial)
+      summary: Airtable Update a SCIM User (partial)
       description: >-
         Partially updates a SCIM user resource using SCIM PATCH operations.
         Supports add, replace, and remove operations on user attributes.
         Commonly used to activate or deactivate users.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/userId'
       requestBody:
         required: true
         content:
@@ -210,17 +222,20 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteScimUser
-      summary: Airtable Delete a SCIM user
+      summary: Airtable Delete a SCIM User
       description: >-
         Permanently deletes a SCIM user resource from the enterprise account.
         The user will lose access to all Airtable resources associated with
         the enterprise.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/userId'
       responses:
         '204':
           description: The user was successfully deleted. No content returned.
@@ -232,39 +247,42 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Groups:
     get:
       operationId: listScimGroups
-      summary: Airtable List SCIM groups
+      summary: Airtable List SCIM Groups
       description: >-
         Returns a paginated list of SCIM group resources. Supports filtering
         by group display name and pagination using startIndex and count.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - name: filter
-          in: query
-          required: false
-          description: >-
-            SCIM filter expression (e.g., displayName eq "Engineering").
-          schema:
-            type: string
-        - name: startIndex
-          in: query
-          required: false
-          description: The 1-based index of the first result to return.
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: count
-          in: query
-          required: false
-          description: The maximum number of results to return per page.
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
+      - name: filter
+        in: query
+        required: false
+        description: >-
+          SCIM filter expression (e.g., displayName eq "Engineering").
+        schema:
+          type: string
+      - name: startIndex
+        in: query
+        required: false
+        description: The 1-based index of the first result to return.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: count
+        in: query
+        required: false
+        description: The maximum number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
       responses:
         '200':
           description: A SCIM ListResponse containing group resources.
@@ -278,14 +296,17 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createScimGroup
-      summary: Airtable Create a SCIM group
+      summary: Airtable Create a SCIM Group
       description: >-
         Creates a new SCIM group in the enterprise account. Groups can
         contain user members and are used for access management.
       tags:
-        - Groups
+      - Groups
       requestBody:
         required: true
         content:
@@ -313,17 +334,20 @@ paths:
                 $ref: '#/components/schemas/ScimError'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Groups/{groupId}:
     get:
       operationId: getScimGroup
-      summary: Airtable Get a SCIM group
+      summary: Airtable Get a SCIM Group
       description: >-
         Retrieves a single SCIM group resource by its unique identifier,
         including its member list.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupId'
+      - $ref: '#/components/parameters/groupId'
       responses:
         '200':
           description: The requested SCIM group resource.
@@ -339,16 +363,19 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceScimGroup
-      summary: Airtable Replace a SCIM group
+      summary: Airtable Replace a SCIM Group
       description: >-
         Replaces a SCIM group resource entirely with the provided data.
         The complete member list must be included in the request.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupId'
+      - $ref: '#/components/parameters/groupId'
       requestBody:
         required: true
         content:
@@ -372,17 +399,20 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateScimGroup
-      summary: Airtable Update a SCIM group (partial)
+      summary: Airtable Update a SCIM Group (partial)
       description: >-
         Partially updates a SCIM group resource using SCIM PATCH operations.
         Commonly used to add or remove members from the group without
         replacing the entire resource.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupId'
+      - $ref: '#/components/parameters/groupId'
       requestBody:
         required: true
         content:
@@ -406,16 +436,19 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteScimGroup
-      summary: Airtable Delete a SCIM group
+      summary: Airtable Delete a SCIM Group
       description: >-
         Permanently deletes a SCIM group from the enterprise account. Members
         are not deleted but are removed from the group.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupId'
+      - $ref: '#/components/parameters/groupId'
       responses:
         '204':
           description: The group was successfully deleted. No content returned.
@@ -427,6 +460,9 @@ paths:
           $ref: '#/components/responses/ScimNotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -461,7 +497,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:schemas:core:2.0:User
+          - urn:ietf:params:scim:schemas:core:2.0:User
         id:
           type: string
           description: The unique identifier for the SCIM user resource.
@@ -503,10 +539,10 @@ components:
         meta:
           $ref: '#/components/schemas/ScimMeta'
       required:
-        - schemas
-        - id
-        - userName
-        - active
+      - schemas
+      - id
+      - userName
+      - active
     ScimUserCreateRequest:
       type: object
       description: Request body for creating or replacing a SCIM user.
@@ -516,7 +552,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:schemas:core:2.0:User
+          - urn:ietf:params:scim:schemas:core:2.0:User
         userName:
           type: string
           description: The unique username for the user, typically an email address.
@@ -549,8 +585,8 @@ components:
           type: string
           description: The user's job title.
       required:
-        - schemas
-        - userName
+      - schemas
+      - userName
     ScimUserListResponse:
       type: object
       description: A SCIM 2.0 ListResponse containing user resources.
@@ -560,7 +596,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:api:messages:2.0:ListResponse
+          - urn:ietf:params:scim:api:messages:2.0:ListResponse
         totalResults:
           type: integer
           description: The total number of results matching the query.
@@ -576,9 +612,9 @@ components:
           items:
             $ref: '#/components/schemas/ScimUser'
       required:
-        - schemas
-        - totalResults
-        - Resources
+      - schemas
+      - totalResults
+      - Resources
     ScimGroup:
       type: object
       description: A SCIM 2.0 Group resource representing a user group.
@@ -588,7 +624,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:schemas:core:2.0:Group
+          - urn:ietf:params:scim:schemas:core:2.0:Group
         id:
           type: string
           description: The unique identifier for the SCIM group resource.
@@ -610,9 +646,9 @@ components:
         meta:
           $ref: '#/components/schemas/ScimMeta'
       required:
-        - schemas
-        - id
-        - displayName
+      - schemas
+      - id
+      - displayName
     ScimGroupCreateRequest:
       type: object
       description: Request body for creating or replacing a SCIM group.
@@ -622,7 +658,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:schemas:core:2.0:Group
+          - urn:ietf:params:scim:schemas:core:2.0:Group
         displayName:
           type: string
           description: The display name of the group.
@@ -636,8 +672,8 @@ components:
                 type: string
                 description: The ID of the member user.
       required:
-        - schemas
-        - displayName
+      - schemas
+      - displayName
     ScimGroupListResponse:
       type: object
       description: A SCIM 2.0 ListResponse containing group resources.
@@ -647,7 +683,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:api:messages:2.0:ListResponse
+          - urn:ietf:params:scim:api:messages:2.0:ListResponse
         totalResults:
           type: integer
           description: The total number of results matching the query.
@@ -663,9 +699,9 @@ components:
           items:
             $ref: '#/components/schemas/ScimGroup'
       required:
-        - schemas
-        - totalResults
-        - Resources
+      - schemas
+      - totalResults
+      - Resources
     ScimPatchRequest:
       type: object
       description: A SCIM 2.0 PATCH request with one or more operations.
@@ -675,7 +711,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:api:messages:2.0:PatchOp
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
         Operations:
           type: array
           description: The list of PATCH operations to apply.
@@ -686,19 +722,19 @@ components:
                 type: string
                 description: The operation type.
                 enum:
-                  - add
-                  - replace
-                  - remove
+                - add
+                - replace
+                - remove
               path:
                 type: string
                 description: The attribute path to operate on.
               value:
                 description: The value to set for add and replace operations.
             required:
-              - op
+            - op
       required:
-        - schemas
-        - Operations
+      - schemas
+      - Operations
     ScimMeta:
       type: object
       description: SCIM resource metadata.
@@ -723,7 +759,7 @@ components:
           items:
             type: string
           default:
-            - urn:ietf:params:scim:api:messages:2.0:Error
+          - urn:ietf:params:scim:api:messages:2.0:Error
         detail:
           type: string
           description: A human-readable description of the error.

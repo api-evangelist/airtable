@@ -1,0 +1,10 @@
+{
+  "id": "rec123abc456",
+  "email": "user@example.com",
+  "name": "Example Name",
+  "state": "managed",
+  "isAdmin": true,
+  "createdTime": "2026-04-19T10:30:00.000Z",
+  "lastActivityTime": "2026-04-19T10:30:00.000Z",
+  "collaborations": {}
+}

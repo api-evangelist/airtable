@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/json-structure/airtable-table-structure.json",
+  "name": "Airtable Table",
+  "description": "An Airtable table is a collection of records organized with a defined set of fields and views within a base. Tables define the structure and schema of the data they contain.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the table. Table IDs always start with the 'tbl' prefix.",
+      "pattern": "^tbl[a-zA-Z0-9]+$",
+      "examples": [
+        "tblABC123def456"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the table."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "An optional description of the table's purpose and contents."
+    },
+    "primaryFieldId": {
+      "type": "string",
+      "description": "The ID of the primary field for this table. The primary field serves as the main identifier for records.",
+      "pattern": "^fld[a-zA-Z0-9]+$"
+    },
+    "fields": {
+      "type": "array",
+      "description": "The field definitions (columns) in the table.",
+      "items": {
+        "$ref": "https://schemas.airtable.com/field.json"
+      }
+    },
+    "views": {
+      "type": "array",
+      "description": "The view definitions in the table.",
+      "items": {
+        "$ref": "https://schemas.airtable.com/view.json"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "fields",
+    "views"
+  ],
+  "additionalProperties": false
+}

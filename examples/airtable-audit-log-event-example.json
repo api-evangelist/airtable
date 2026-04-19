@@ -1,0 +1,11 @@
+{
+  "id": "rec123abc456",
+  "timestamp": "2026-04-19T10:30:00.000Z",
+  "action": "example-value",
+  "actor": {},
+  "modelId": "rec123abc456",
+  "modelType": "base",
+  "category": "app",
+  "context": {},
+  "payloadVersion": "example-value"
+}

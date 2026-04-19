@@ -1,0 +1,251 @@
+rules:
+  # INFO / METADATA
+  info-title-required:
+    description: Info title must be defined.
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: truthy
+
+  info-description-required:
+    description: Info description must be defined.
+    severity: warn
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    description: Info version must be defined.
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3:
+    description: OpenAPI version must be 3.x.
+    severity: error
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\."
+
+  # SERVERS
+  servers-defined:
+    description: Servers must be defined.
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  servers-https:
+    description: Server URLs must use HTTPS.
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-api-airtable-base:
+    description: Airtable API servers should use api.airtable.com.
+    severity: info
+    given: "$.servers[*]"
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "api\\.airtable\\.com"
+
+  # PATHS — NAMING CONVENTIONS
+  paths-v0-prefix:
+    description: Airtable API paths typically start with /v0/.
+    severity: info
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/v0/|/scim/)"
+
+  paths-kebab-or-base-id:
+    description: Path segments should use kebab-case or base IDs.
+    severity: info
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-zA-Z0-9{}_/-]+)+$"
+
+  # OPERATIONS
+  operation-summary-required:
+    description: Every operation must have a summary.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-description-required:
+    description: Every operation should have a description.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: description
+      function: truthy
+
+  operation-operationId-required:
+    description: Every operation must have an operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operationId-camelCase:
+    description: operationId should use camelCase.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  operation-tags-required:
+    description: Every operation must have at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  operation-summary-starts-with-airtable:
+    description: Operation summaries should start with "Airtable".
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Airtable "
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have a description.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  parameter-authorization-header:
+    description: Authorization should use Bearer token scheme.
+    severity: info
+    given: "$.components.securitySchemes[*]"
+    then:
+      field: scheme
+      function: truthy
+
+  # RESPONSES
+  response-success-required:
+    description: Every operation must have a success response.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: truthy
+
+  response-description-required:
+    description: All responses must have a description.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  response-422-for-validation:
+    description: Operations with request bodies should document 422 validation errors.
+    severity: info
+    given: "$.paths[*][post,put,patch].responses"
+    then:
+      function: truthy
+
+  # SCHEMAS — PROPERTY NAMING
+  schema-property-camelCase:
+    description: Schema properties in Airtable APIs use camelCase.
+    severity: info
+    given: "$.components.schemas[*].properties[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  schema-description-required:
+    description: Top-level schemas should have a description.
+    severity: info
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  # SECURITY
+  security-schemes-defined:
+    description: Security schemes must be defined.
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  security-bearer-required:
+    description: Airtable APIs use Bearer token authentication.
+    severity: warn
+    given: "$.components.securitySchemes[*]"
+    then:
+      field: type
+      function: truthy
+
+  # HTTP METHOD CONVENTIONS
+  get-no-request-body:
+    description: GET operations must not have a request body.
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: requestBody
+      function: falsy
+
+  post-list-uses-offset:
+    description: List operations should support cursor or offset pagination.
+    severity: info
+    given: "$.paths[*].get"
+    then:
+      field: parameters
+      function: truthy
+
+  # GENERAL QUALITY
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: "$..description"
+    then:
+      function: truthy
+
+  microcks-operation-extension:
+    description: Operations should include x-microcks-operation for mock compatibility.
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: x-microcks-operation
+      function: truthy
+
+  airtable-rate-limit-documented:
+    description: Rate limits should be documented in the API info.
+    severity: info
+    given: "$.info"
+    then:
+      field: description
+      function: truthy

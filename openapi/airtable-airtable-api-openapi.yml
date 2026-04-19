@@ -20,135 +20,135 @@ externalDocs:
   description: Airtable Web API Documentation
   url: https://airtable.com/developers/web/api/introduction
 servers:
-  - url: https://api.airtable.com/v0
-    description: Airtable API v0 production server
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Comments
-    description: Manage comments on individual records
-  - name: Records
-    description: Create, read, update, and delete records in a table
-  - name: Webhooks
-    description: Subscribe to real-time change notifications on bases
+- name: Comments
+  description: Manage comments on individual records
+- name: Records
+  description: Create, read, update, and delete records in a table
+- name: Webhooks
+  description: Subscribe to real-time change notifications on bases
 paths:
   /{baseId}/{tableIdOrName}:
     get:
       operationId: listRecords
-      summary: Airtable List records in a table
+      summary: Airtable List Records in a Table
       description: >-
         Returns a paginated list of records in the specified table. Records can
         be filtered using an Airtable formula, sorted by specific fields, and
         limited to specific fields. The maximum page size is 100 records. Use
         the offset parameter from the response to fetch the next page.
       tags:
-        - Records
+      - Records
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - name: fields[]
-          in: query
-          description: Only return data for the specified field names or IDs.
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        - name: filterByFormula
-          in: query
-          description: >-
-            An Airtable formula used to filter records. The formula is evaluated
-            for each record, and if the result is not 0, false, "", NaN, [], or
-            #Error!, the record will be included in the response.
-          required: false
-          schema:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - name: fields[]
+        in: query
+        description: Only return data for the specified field names or IDs.
+        required: false
+        schema:
+          type: array
+          items:
             type: string
-        - name: maxRecords
-          in: query
-          description: The maximum total number of records that will be returned.
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-        - name: pageSize
-          in: query
-          description: >-
-            The number of records returned in each request. Must be less than or
-            equal to 100. Default is 100.
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 100
-        - name: sort
-          in: query
-          description: >-
-            A list of sort objects that specifies how the records will be
-            ordered. Each sort object must have a field key and an optional
-            direction key (asc or desc).
-          required: false
-          schema:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                direction:
-                  type: string
-                  enum:
-                    - asc
-                    - desc
-          style: deepObject
-          explode: true
-        - name: view
-          in: query
-          description: The name or ID of a view in the table. If set, only the records in that view will be returned.
-          required: false
-          schema:
-            type: string
-        - name: cellFormat
-          in: query
-          description: >-
-            The format that should be used for cell values. Supported values are
-            json (default) and string.
-          required: false
-          schema:
-            type: string
-            enum:
-              - json
-              - string
-        - name: timeZone
-          in: query
-          description: The time zone to use for formatting dates when using string cell format.
-          required: false
-          schema:
-            type: string
-        - name: userLocale
-          in: query
-          description: The user locale to use for formatting dates when using string cell format.
-          required: false
-          schema:
-            type: string
-        - name: returnFieldsByFieldId
-          in: query
-          description: >-
-            If true, the response will use field IDs as object keys instead of
-            field names.
-          required: false
-          schema:
-            type: boolean
-        - name: offset
-          in: query
-          description: >-
-            A pagination cursor returned from a previous request. Pass this
-            value to fetch the next page of results.
-          required: false
-          schema:
-            type: string
+        style: form
+        explode: true
+      - name: filterByFormula
+        in: query
+        description: >-
+          An Airtable formula used to filter records. The formula is evaluated
+          for each record, and if the result is not 0, false, "", NaN, [], or
+          #Error!, the record will be included in the response.
+        required: false
+        schema:
+          type: string
+      - name: maxRecords
+        in: query
+        description: The maximum total number of records that will be returned.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+      - name: pageSize
+        in: query
+        description: >-
+          The number of records returned in each request. Must be less than or
+          equal to 100. Default is 100.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+      - name: sort
+        in: query
+        description: >-
+          A list of sort objects that specifies how the records will be
+          ordered. Each sort object must have a field key and an optional
+          direction key (asc or desc).
+        required: false
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              direction:
+                type: string
+                enum:
+                - asc
+                - desc
+        style: deepObject
+        explode: true
+      - name: view
+        in: query
+        description: The name or ID of a view in the table. If set, only the records in that view will be returned.
+        required: false
+        schema:
+          type: string
+      - name: cellFormat
+        in: query
+        description: >-
+          The format that should be used for cell values. Supported values are
+          json (default) and string.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - string
+      - name: timeZone
+        in: query
+        description: The time zone to use for formatting dates when using string cell format.
+        required: false
+        schema:
+          type: string
+      - name: userLocale
+        in: query
+        description: The user locale to use for formatting dates when using string cell format.
+        required: false
+        schema:
+          type: string
+      - name: returnFieldsByFieldId
+        in: query
+        description: >-
+          If true, the response will use field IDs as object keys instead of
+          field names.
+        required: false
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: >-
+          A pagination cursor returned from a previous request. Pass this
+          value to fetch the next page of results.
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: A paginated list of records.
@@ -166,19 +166,22 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createRecords
-      summary: Airtable Create records in a table
+      summary: Airtable Create Records in a Table
       description: >-
         Creates up to 10 records in the specified table. Each record must
         include a fields object mapping field names (or IDs) to values. If
         typecast is enabled, the API will attempt to convert string values to
         the appropriate cell value.
       tags:
-        - Records
+      - Records
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
       requestBody:
         required: true
         content:
@@ -195,7 +198,7 @@ paths:
                       fields:
                         $ref: '#/components/schemas/FieldValues'
                     required:
-                      - fields
+                    - fields
                 typecast:
                   type: boolean
                   description: If true, the API will attempt to convert string values to the appropriate cell value type.
@@ -203,7 +206,7 @@ paths:
                   type: boolean
                   description: If true, the response will use field IDs as keys instead of field names.
               required:
-                - records
+              - records
       responses:
         '200':
           description: The created records.
@@ -226,25 +229,28 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{baseId}/{tableIdOrName}/{recordId}:
     get:
       operationId: getRecord
-      summary: Airtable Retrieve a single record
+      summary: Airtable Retrieve a Single Record
       description: >-
         Retrieves a single record by its ID from the specified table. Returns
         the record's fields, creation time, and ID.
       tags:
-        - Records
+      - Records
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
-        - name: returnFieldsByFieldId
-          in: query
-          required: false
-          schema:
-            type: boolean
-          description: If true, the response will use field IDs as keys instead of field names.
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: returnFieldsByFieldId
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If true, the response will use field IDs as keys instead of field names.
       responses:
         '200':
           description: The requested record.
@@ -260,20 +266,23 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateRecord
-      summary: Airtable Update a record (partial)
+      summary: Airtable Update a Record (partial)
       description: >-
         Updates specific fields of an existing record. Only the fields included
         in the request body will be updated; all other fields will remain
         unchanged. Up to 10 records can be updated in a single request when
         using the batch endpoint.
       tags:
-        - Records
+      - Records
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
       requestBody:
         required: true
         content:
@@ -289,7 +298,7 @@ paths:
                 returnFieldsByFieldId:
                   type: boolean
               required:
-                - fields
+              - fields
       responses:
         '200':
           description: The updated record.
@@ -307,19 +316,22 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceRecord
-      summary: Airtable Update a record (full replacement)
+      summary: Airtable Update a Record (full Replacement)
       description: >-
         Replaces all fields of an existing record. Fields that are not included
         in the request body will be cleared. This is a destructive update that
         overwrites the entire record.
       tags:
-        - Records
+      - Records
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
       requestBody:
         required: true
         content:
@@ -334,7 +346,7 @@ paths:
                 returnFieldsByFieldId:
                   type: boolean
               required:
-                - fields
+              - fields
       responses:
         '200':
           description: The replaced record.
@@ -352,18 +364,21 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteRecord
-      summary: Airtable Delete a record
+      summary: Airtable Delete a Record
       description: >-
         Deletes a single record from the specified table. The record is
         permanently removed and cannot be recovered through the API.
       tags:
-        - Records
+      - Records
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
       responses:
         '200':
           description: Confirmation of deletion.
@@ -379,33 +394,36 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{baseId}/{tableIdOrName}/{recordId}/comments:
     get:
       operationId: listComments
-      summary: Airtable List comments on a record
+      summary: Airtable List Comments on a Record
       description: >-
         Returns a paginated list of comments on the specified record. Comments
         are returned in reverse chronological order.
       tags:
-        - Comments
+      - Comments
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
-        - name: offset
-          in: query
-          required: false
-          description: Pagination cursor from a previous response to fetch the next page.
-          schema:
-            type: string
-        - name: pageSize
-          in: query
-          required: false
-          description: The number of comments to return per page.
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: offset
+        in: query
+        required: false
+        description: Pagination cursor from a previous response to fetch the next page.
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        required: false
+        description: The number of comments to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
       responses:
         '200':
           description: A paginated list of comments.
@@ -421,19 +439,22 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createComment
-      summary: Airtable Create a comment on a record
+      summary: Airtable Create a Comment on a Record
       description: >-
         Creates a new comment on the specified record. Comments can include
         user mentions using the @[usrXXXXXXXX] syntax. Requires OAuth
         authentication with the comment:write scope.
       tags:
-        - Comments
+      - Comments
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
       requestBody:
         required: true
         content:
@@ -445,7 +466,7 @@ paths:
                   type: string
                   description: The text content of the comment. Supports @[usrXXXXXXXX] syntax for mentions.
               required:
-                - text
+              - text
       responses:
         '200':
           description: The created comment.
@@ -463,25 +484,28 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{baseId}/{tableIdOrName}/{recordId}/comments/{commentId}:
     patch:
       operationId: updateComment
-      summary: Airtable Update a comment
+      summary: Airtable Update a Comment
       description: >-
         Updates the text of an existing comment on a record. Only the author
         of the comment can update it.
       tags:
-        - Comments
+      - Comments
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
-        - name: commentId
-          in: path
-          required: true
-          description: The unique identifier of the comment.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: commentId
+        in: path
+        required: true
+        description: The unique identifier of the comment.
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -493,7 +517,7 @@ paths:
                   type: string
                   description: The updated text content of the comment.
               required:
-                - text
+              - text
       responses:
         '200':
           description: The updated comment.
@@ -509,24 +533,27 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteComment
-      summary: Airtable Delete a comment
+      summary: Airtable Delete a Comment
       description: >-
         Deletes a comment from a record. Only the author of the comment can
         delete it.
       tags:
-        - Comments
+      - Comments
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/tableIdOrName'
-        - $ref: '#/components/parameters/recordId'
-        - name: commentId
-          in: path
-          required: true
-          description: The unique identifier of the comment.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: commentId
+        in: path
+        required: true
+        description: The unique identifier of the comment.
+        schema:
+          type: string
       responses:
         '200':
           description: Confirmation that the comment was deleted.
@@ -549,17 +576,20 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bases/{baseId}/webhooks:
     get:
       operationId: listWebhooks
-      summary: Airtable List webhooks for a base
+      summary: Airtable List Webhooks for a Base
       description: >-
         Returns a list of all webhooks registered for the specified base.
         Includes webhook configuration, status, and expiration information.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/baseIdPath'
+      - $ref: '#/components/parameters/baseIdPath'
       responses:
         '200':
           description: A list of webhooks.
@@ -580,18 +610,21 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createWebhook
-      summary: Airtable Create a webhook for a base
+      summary: Airtable Create a Webhook for a Base
       description: >-
         Creates a new webhook subscription for the specified base. Webhooks
         expire after 7 days and must be refreshed. The response includes a
         MAC secret used to verify webhook notification payloads. Requires
         OAuth authentication with the webhook:manage scope.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/baseIdPath'
+      - $ref: '#/components/parameters/baseIdPath'
       requestBody:
         required: true
         content:
@@ -615,23 +648,26 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bases/{baseId}/webhooks/{webhookId}:
     delete:
       operationId: deleteWebhook
-      summary: Airtable Delete a webhook
+      summary: Airtable Delete a Webhook
       description: >-
         Deletes an existing webhook subscription. The webhook will no longer
         send notifications after deletion.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/baseIdPath'
-        - name: webhookId
-          in: path
-          required: true
-          description: The unique identifier of the webhook.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/baseIdPath'
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier of the webhook.
+        schema:
+          type: string
       responses:
         '200':
           description: Confirmation that the webhook was deleted.
@@ -647,24 +683,27 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bases/{baseId}/webhooks/{webhookId}/refresh:
     post:
       operationId: refreshWebhook
-      summary: Airtable Refresh a webhook
+      summary: Airtable Refresh a Webhook
       description: >-
         Extends the expiration time of an existing webhook. Webhooks expire
         after 7 days of inactivity and must be periodically refreshed to
         remain active.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/baseIdPath'
-        - name: webhookId
-          in: path
-          required: true
-          description: The unique identifier of the webhook.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/baseIdPath'
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier of the webhook.
+        schema:
+          type: string
       responses:
         '200':
           description: The refreshed webhook with new expiration time.
@@ -685,30 +724,33 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bases/{baseId}/webhooks/{webhookId}/payloads:
     get:
       operationId: listWebhookPayloads
-      summary: Airtable List webhook payloads
+      summary: Airtable List Webhook Payloads
       description: >-
         Returns a list of payloads that have been generated for the specified
         webhook. Payloads are returned in chronological order and can be
         paginated using a cursor.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/baseIdPath'
-        - name: webhookId
-          in: path
-          required: true
-          description: The unique identifier of the webhook.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          required: false
-          description: A cursor for pagination. Pass the cursor from the previous response to get the next page.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/baseIdPath'
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier of the webhook.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        required: false
+        description: A cursor for pagination. Pass the cursor from the previous response to get the next page.
+        schema:
+          type: string
       responses:
         '200':
           description: A list of webhook payloads.
@@ -724,6 +766,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -780,9 +825,9 @@ components:
         fields:
           $ref: '#/components/schemas/FieldValues'
       required:
-        - id
-        - createdTime
-        - fields
+      - id
+      - createdTime
+      - fields
     FieldValues:
       type: object
       description: >-
@@ -804,7 +849,7 @@ components:
             A pagination cursor. If present, pass this value in the offset
             query parameter to fetch the next page of results.
       required:
-        - records
+      - records
     RecordDeleted:
       type: object
       description: Confirmation that a record was deleted.
@@ -816,8 +861,8 @@ components:
           type: boolean
           description: Always true when the deletion succeeds.
       required:
-        - id
-        - deleted
+      - id
+      - deleted
     Comment:
       type: object
       description: A comment on an Airtable record.
@@ -851,9 +896,9 @@ components:
           format: date-time
           description: The time when the comment was last updated.
       required:
-        - id
-        - text
-        - createdTime
+      - id
+      - text
+      - createdTime
     CommentList:
       type: object
       description: A paginated list of comments on a record.
@@ -866,7 +911,7 @@ components:
           type: string
           description: Pagination cursor for the next page of results.
       required:
-        - comments
+      - comments
     Webhook:
       type: object
       description: A webhook subscription on an Airtable base.
@@ -901,8 +946,8 @@ components:
         specification:
           $ref: '#/components/schemas/WebhookSpecification'
       required:
-        - id
-        - type
+      - id
+      - type
     WebhookSpecification:
       type: object
       description: The specification defining what changes the webhook monitors.
@@ -935,9 +980,9 @@ components:
                   items:
                     type: string
                     enum:
-                      - tableData
-                      - tableFields
-                      - tableMetadata
+                    - tableData
+                    - tableFields
+                    - tableMetadata
                 recordChangeScope:
                   type: string
                   description: The scope of record changes to monitor.
@@ -962,7 +1007,7 @@ components:
         specification:
           $ref: '#/components/schemas/WebhookSpecification'
       required:
-        - notificationUrl
+      - notificationUrl
     WebhookCreateResponse:
       type: object
       description: Response after creating a new webhook, including the MAC secret.
@@ -980,8 +1025,8 @@ components:
           format: date-time
           description: The time when the webhook will expire if not refreshed.
       required:
-        - id
-        - macSecretBase64
+      - id
+      - macSecretBase64
     WebhookPayloadList:
       type: object
       description: A paginated list of webhook payloads.
@@ -997,7 +1042,7 @@ components:
           type: boolean
           description: Whether there may be more payloads to fetch.
       required:
-        - payloads
+      - payloads
     WebhookPayload:
       type: object
       description: A single webhook payload representing a batch of changes.
@@ -1078,8 +1123,8 @@ components:
               type: string
               description: A human-readable description of the error.
           required:
-            - type
-            - message
+          - type
+          - message
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

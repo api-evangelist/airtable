@@ -1,0 +1,273 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Airtable"
+  description: "Unified taxonomy of the Airtable platform covering the API surface (records, bases, tables, fields, webhooks, SCIM, audit logs) and capability workflows for database management and integration."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - name: Airtable API
+      namespace: airtable
+      version: "0"
+      baseUrl: https://api.airtable.com/v0
+      status: active
+    - name: Airtable Metadata API
+      namespace: airtable-meta
+      version: "0"
+      baseUrl: https://api.airtable.com/v0/meta
+      status: active
+    - name: Airtable Enterprise API
+      namespace: airtable-enterprise
+      version: "0"
+      baseUrl: https://api.airtable.com/v0
+      status: active
+    - name: Airtable SCIM API
+      namespace: airtable-scim
+      version: "2"
+      baseUrl: https://airtable.com/scim/v2
+      status: active
+    - name: Airtable Audit Logs API
+      namespace: airtable-audit
+      version: "0"
+      baseUrl: https://api.airtable.com/v0
+      status: active
+    - name: Airtable Shares API
+      namespace: airtable-shares
+      version: "0"
+      baseUrl: https://api.airtable.com/v0
+      status: active
+
+  resources:
+    - name: records
+      api: airtable
+      description: "Individual rows of data in an Airtable table."
+      actions: [list, create, get, update, delete]
+    - name: comments
+      api: airtable
+      description: "Comments on records for collaboration."
+      actions: [list, create, update, delete]
+    - name: webhooks
+      api: airtable
+      description: "Event webhooks for real-time change notifications."
+      actions: [list, create, delete]
+    - name: bases
+      api: airtable-meta
+      description: "Airtable workspace bases (databases)."
+      actions: [list, create, get]
+    - name: tables
+      api: airtable-meta
+      description: "Tables within a base."
+      actions: [list, create, get, update]
+    - name: fields
+      api: airtable-meta
+      description: "Fields (columns) within a table."
+      actions: [create, update]
+    - name: views
+      api: airtable-meta
+      description: "Filtered/sorted views of table data."
+      actions: [list, get]
+    - name: users
+      api: airtable-enterprise
+      description: "Enterprise user accounts."
+      actions: [list, get, update, delete]
+    - name: shares
+      api: airtable-shares
+      description: "Share links for bases and views."
+      actions: [list, update, delete]
+    - name: audit-logs
+      api: airtable-audit
+      description: "Enterprise audit log events for compliance."
+      actions: [list, create, get]
+
+  actions:
+    - name: list
+      methods: [GET]
+      pattern: read
+    - name: get
+      methods: [GET]
+      pattern: read
+    - name: create
+      methods: [POST]
+      pattern: write
+    - name: update
+      methods: [PATCH, PUT]
+      pattern: write
+    - name: delete
+      methods: [DELETE]
+      pattern: destructive
+
+  schemas:
+    core:
+      - name: Record
+        description: "An Airtable data record with field values."
+      - name: Comment
+        description: "A comment on an Airtable record."
+      - name: Webhook
+        description: "An Airtable webhook for change notifications."
+    schema:
+      - name: Base
+        description: "An Airtable base (database)."
+      - name: Table
+        description: "An Airtable table with fields and views."
+      - name: Field
+        description: "A column definition in an Airtable table."
+      - name: View
+        description: "A filtered/sorted view of table data."
+    admin:
+      - name: User
+        description: "An enterprise user account."
+      - name: Workspace
+        description: "An Airtable workspace."
+      - name: AuditLogEvent
+        description: "An enterprise audit log entry."
+      - name: Share
+        description: "A share link for a base or view."
+
+  parameters:
+    pagination:
+      - name: pageSize
+        type: integer
+        description: "Number of records per page (max 100)."
+      - name: offset
+        type: string
+        description: "Cursor for pagination to the next page."
+    filters:
+      - name: filterByFormula
+        type: string
+        description: "Airtable formula to filter records."
+      - name: view
+        type: string
+        description: "Name or ID of the view to use for filtering."
+      - name: sort
+        type: array
+        description: "Array of sort objects with field and direction."
+    identifiers:
+      - name: baseId
+        type: string
+        description: "Airtable base ID (appXXXXXXXXXXXXXX)."
+      - name: tableIdOrName
+        type: string
+        description: "Table ID or name."
+      - name: recordId
+        type: string
+        description: "Record ID (recXXXXXXXXXXXXXX)."
+
+  enums:
+    field_type:
+      - singleLineText
+      - multilineText
+      - richText
+      - singleSelect
+      - multipleSelects
+      - number
+      - currency
+      - percent
+      - date
+      - dateTime
+      - checkbox
+      - formula
+      - rollup
+      - count
+      - lookup
+      - attachment
+      - linkedRecords
+      - autoNumber
+      - createdTime
+      - createdBy
+      - lastModifiedTime
+      - lastModifiedBy
+    sort_direction:
+      - asc
+      - desc
+
+  authentication:
+    schemes:
+      - type: bearer
+        description: "Personal Access Token or OAuth 2.0 token as Bearer."
+        apis: [airtable, airtable-meta, airtable-enterprise, airtable-audit, airtable-shares]
+      - type: bearer
+        description: "Bearer token for SCIM provisioning."
+        apis: [airtable-scim]
+
+capability:
+  workflows:
+    - name: Database Management
+      file: capabilities/database-management.yaml
+      description: "Read/write Airtable records, browse schemas, manage webhooks. Used by developers and data teams integrating Airtable with external systems."
+      apis: [airtable, airtable-meta]
+      tools: 6
+      personas: [Developer, Data Analyst]
+      domains: [Records Management, Schema Management]
+
+  personas:
+    - id: developer
+      name: Developer
+      description: "Integrates Airtable with external systems via the REST API."
+      workflows: [Database Management]
+    - id: data-analyst
+      name: Data Analyst
+      description: "Reads and analyzes Airtable data programmatically."
+      workflows: [Database Management]
+    - id: enterprise-admin
+      name: Enterprise Admin
+      description: "Manages users, audit logs, and shares across the organization."
+      workflows: []
+
+  domains:
+    - name: Records Management
+      description: "Creating, reading, updating, and deleting data records."
+      resources: [records, comments]
+    - name: Schema Management
+      description: "Managing the structure of bases, tables, and fields."
+      resources: [bases, tables, fields, views]
+    - name: Administration
+      description: "User management, audit logs, and access control."
+      resources: [users, shares, audit-logs]
+    - name: Automation
+      description: "Real-time event-driven integrations via webhooks."
+      resources: [webhooks]
+
+  namespaces:
+    - name: airtable
+      type: consumed
+      baseUri: https://api.airtable.com/v0
+    - name: airtable-meta
+      type: consumed
+      baseUri: https://api.airtable.com/v0/meta
+    - name: airtable-db-api
+      type: rest
+      port: 8080
+    - name: airtable-db-mcp
+      type: mcp
+      port: 9090
+
+  binds:
+    - name: AIRTABLE_API_TOKEN
+      description: "Bearer token (Personal Access Token or OAuth 2.0) for Airtable API access."
+      workflows: [Database Management]
+
+crossReference:
+  - resource: records
+    operations: [listRecords, createRecords, updateRecord, deleteRecord]
+    workflows: [Database Management]
+    personas: [Developer, Data Analyst]
+  - resource: bases
+    operations: [listBases, getBaseSchema]
+    workflows: [Database Management]
+    personas: [Developer]
+  - resource: tables
+    operations: [listTables, createTable, updateTable]
+    workflows: [Database Management]
+    personas: [Developer]
+  - resource: webhooks
+    operations: [listWebhooks, createWebhook, deleteWebhook]
+    workflows: [Database Management]
+    personas: [Developer]
+  - resource: users
+    operations: [listUsers, getUser, updateUser, deleteUser]
+    personas: [Enterprise Admin]
+  - resource: audit-logs
+    operations: [listAuditLogs, getAuditLog]
+    personas: [Enterprise Admin]

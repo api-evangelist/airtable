@@ -1,0 +1,11 @@
+{
+  "id": "rec123abc456",
+  "type": "example-value",
+  "isHookEnabled": true,
+  "notificationUrl": "https://example.com",
+  "cursorForNextPayload": 1,
+  "areNotificationsEnabled": true,
+  "createdTime": "2026-04-19T10:30:00.000Z",
+  "expirationTime": "2026-04-19T10:30:00.000Z",
+  "specification": {}
+}

@@ -19,26 +19,26 @@ externalDocs:
   description: Airtable Shares API Documentation
   url: https://airtable.com/developers/web/api/list-shares
 servers:
-  - url: https://api.airtable.com/v0
-    description: Airtable API v0 production server
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Shares
-    description: Manage share links for bases within the enterprise
+- name: Shares
+  description: Manage share links for bases within the enterprise
 paths:
   /meta/bases/{baseId}/shares:
     get:
       operationId: listShares
-      summary: Airtable List share links for a base
+      summary: Airtable List Share Links for a Base
       description: >-
         Returns a list of all active share links for the specified base. Each
         share includes its type, state, and the user who created it. This
         endpoint is available to enterprise administrators.
       tags:
-        - Shares
+      - Shares
       parameters:
-        - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/baseId'
       responses:
         '200':
           description: A list of share links for the base.
@@ -59,19 +59,22 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /meta/bases/{baseId}/shares/{shareId}:
     patch:
       operationId: manageShare
-      summary: Airtable Manage a share link
+      summary: Airtable Manage a Share Link
       description: >-
         Updates the configuration of an existing share link for a base. Can
         be used to enable or disable the share link, or update its access
         settings.
       tags:
-        - Shares
+      - Shares
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/shareId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/shareId'
       requestBody:
         required: true
         content:
@@ -83,8 +86,8 @@ paths:
                   type: string
                   description: The desired state of the share link.
                   enum:
-                    - enabled
-                    - disabled
+                  - enabled
+                  - disabled
                 isPasswordEnabled:
                   type: boolean
                   description: Whether password protection is enabled for the share link.
@@ -108,17 +111,20 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteShare
-      summary: Airtable Delete a share link
+      summary: Airtable Delete a Share Link
       description: >-
         Permanently deletes a share link for a base. Anyone who previously
         had access through this share link will immediately lose access.
       tags:
-        - Shares
+      - Shares
       parameters:
-        - $ref: '#/components/parameters/baseId'
-        - $ref: '#/components/parameters/shareId'
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/shareId'
       responses:
         '200':
           description: Confirmation that the share link was deleted.
@@ -134,6 +140,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -172,15 +181,15 @@ components:
           type: string
           description: The type of share link.
           enum:
-            - view
-            - base
-            - form
+          - view
+          - base
+          - form
         state:
           type: string
           description: The current state of the share link.
           enum:
-            - enabled
-            - disabled
+          - enabled
+          - disabled
         createdByUserId:
           type: string
           description: The ID of the user who created the share link.
@@ -201,13 +210,13 @@ components:
           type: string
           description: The effective permission level granted by this share.
           enum:
-            - read
-            - comment
-            - edit
+          - read
+          - comment
+          - edit
       required:
-        - shareId
-        - type
-        - state
+      - shareId
+      - type
+      - state
     Error:
       type: object
       description: An error response from the Airtable API.
@@ -220,8 +229,8 @@ components:
             message:
               type: string
           required:
-            - type
-            - message
+          - type
+          - message
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

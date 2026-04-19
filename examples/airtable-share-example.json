@@ -1,0 +1,11 @@
+{
+  "shareId": "rec123abc456",
+  "type": "view",
+  "state": "enabled",
+  "createdByUserId": "rec123abc456",
+  "createdTime": "2026-04-19T10:30:00.000Z",
+  "baseId": "rec123abc456",
+  "viewId": "rec123abc456",
+  "isPasswordEnabled": true,
+  "effectivePermissionLevel": "read"
+}

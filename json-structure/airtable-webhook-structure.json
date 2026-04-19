@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/json-structure/airtable-webhook-structure.json",
+  "name": "Airtable Webhook",
+  "description": "An Airtable webhook subscription that monitors a base for changes and sends notifications to a specified URL. Webhooks expire after 7 days and must be periodically refreshed.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the webhook."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of webhook (e.g., client)."
+    },
+    "isHookEnabled": {
+      "type": "boolean",
+      "description": "Whether the webhook is currently active and will process events."
+    },
+    "notificationUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "description": "The URL that receives POST notifications when monitored changes occur."
+    },
+    "cursorForNextPayload": {
+      "type": "int32",
+      "description": "The cursor position indicating the next unread payload. Used when polling for payloads."
+    },
+    "areNotificationsEnabled": {
+      "type": "boolean",
+      "description": "Whether HTTP notifications are currently being sent to the notification URL."
+    },
+    "createdTime": {
+      "type": "datetime",
+      "description": "The time when the webhook was created."
+    },
+    "expirationTime": {
+      "type": "datetime",
+      "description": "The time when the webhook will expire if not refreshed. Webhooks expire 7 days after creation or last refresh."
+    },
+    "specification": {
+      "type": "object",
+      "description": "The specification defining which changes the webhook monitors, including data types, field filters, and source options.",
+      "properties": {
+        "options": {
+          "type": "object",
+          "properties": {
+            "filters": {
+              "type": "object",
+              "properties": {
+                "dataTypes": {
+                  "type": "array",
+                  "description": "The types of data changes to monitor.",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "tableData",
+                      "tableFields",
+                      "tableMetadata"
+                    ]
+                  }
+                },
+                "recordChangeScope": {
+                  "type": "string",
+                  "description": "The scope of record changes to monitor."
+                },
+                "watchDataInFieldIds": {
+                  "type": "array",
+                  "description": "Specific field IDs to watch for data changes.",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "watchSchemasOfFieldIds": {
+                  "type": "array",
+                  "description": "Specific field IDs to watch for schema changes.",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "type"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,101 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Airtable
+providerId: airtable
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Database
+  - Spreadsheet
+  - Low-Code
+description: Airtable per-user-per-month plans, annual billing pricing shown.
+sources:
+  - https://www.airtable.com/pricing
+plans:
+  - id: airtable-free
+    name: Free
+    type: freemium
+    description: Free for individuals and small teams.
+    entries:
+      - label: Per user
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: true
+    elements:
+      - name: Key building blocks for app development
+      - name: Best for individuals/small teams
+  - id: airtable-team
+    name: Team
+    type: paid
+    description: $20/user/month annual.
+    entries:
+      - label: Per user
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '20.00'
+        userMultiplied: true
+    elements:
+      - name: Enhanced capacity beyond Free
+      - name: More record limits
+      - name: More automations
+  - id: airtable-business
+    name: Business
+    type: paid
+    description: $45/user/month annual.
+    entries:
+      - label: Per user
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '45.00'
+        userMultiplied: true
+    elements:
+      - name: Advanced customization
+      - name: Increased data scale
+      - name: Enhanced admin
+  - id: airtable-enterprise
+    name: Enterprise Scale
+    type: enterprise
+    description: Custom pricing; up to 100M records.
+    entries:
+      - label: Per user (custom)
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: true
+      - label: Records
+        name: records
+        type: quota
+        metric: record
+        limit: 100000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Unlimited org units, workspaces, bases
+      - name: Up to 100M records
+      - name: Tailored to organization

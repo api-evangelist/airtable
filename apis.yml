@@ -386,10 +386,33 @@ common:
   - url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/vocabulary/airtable-vocabulary.yaml
     type: Vocabulary
     title: Airtable Vocabulary
+  - type: Integrations
+    url: https://www.airtable.com/integrations
 created: '2023-11-21T00:00:00.000Z'
 modified: '2026-05-04'
 description: Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet
   with the complexity of a database. It provides APIs for managing bases, tables, records, and more.
+integrations:
+  - name: Zendesk Simplify and streamline workflows
+  - name: Integrations Box
+  - name: Integrations Dropbox
+  - name: Integrations Facebook
+  - name: Integrations GitHub
+  - name: Integrations Gmail
+  - name: Integrations Google Calendar
+  - name: Integrations Instagram
+  - name: Integrations Jotform
+  - name: Integrations LinkedIn
+  - name: Integrations Miro
+  - name: Integrations Outlook Calendar
+  - name: Integrations Snowflake
+  - name: Integrations Stripe
+  - name: Integrations Tableau
+  - name: Integrations Twilio
+  - name: Integrations Typeform
+  - name: Integrations Unito
+  - name: Integrations WordPress
+  - name: Integrations Youtube
 maintainers:
   - FN: Kin Lane
     url: http://apievangelist.com

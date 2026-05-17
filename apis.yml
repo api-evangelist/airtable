@@ -53,7 +53,7 @@ apis:
       - url: json-schema/airtable-webhook-schema.json
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: The Airtable API can be used to integrate your data in Airtable with any external system.
       The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP
       codes to signal operation outcomes.
@@ -94,7 +94,7 @@ apis:
       - url: json-schema/airtable-view-schema.json
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: The Airtable Metadata API provides access to base and schema management operations. You
       can list bases, retrieve base schemas with table and field definitions, create new bases, tables,
       and fields, and update table and field configurations programmatically.
@@ -131,7 +131,7 @@ apis:
       - url: json-schema/airtable-workspace-schema.json
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: The Airtable Enterprise API allows enterprise teams to manage their account programmatically
       outside of the Admin panel. It supports managing users, updating access permissions, and managing
       bases, tables, and views at scale for enterprise deployments.
@@ -168,7 +168,7 @@ apis:
       - url: openapi/airtable-scim-api-openapi.yml
         type: OpenAPI
       - url: json-ld/airtable-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: The Airtable SCIM API supports the System for Cross-domain Identity Management specification
       for automated user and group provisioning. It enables identity providers like Okta and Microsoft
       Entra ID to manage user accounts and group memberships programmatically.
@@ -205,7 +205,7 @@ apis:
       - url: json-schema/airtable-audit-log-event-schema.json
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: The Airtable Audit Logs API provides programmatic access to enterprise audit logs for
       compliance monitoring and security tracking. It supports creating and retrieving audit log requests
       with event filtering by user, event type, and date range.
@@ -231,7 +231,7 @@ apis:
       - url: json-schema/airtable-share-schema.json
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: The Airtable Shares API allows enterprise administrators to list, manage, and delete
       share links across an organization. It provides programmatic control over base sharing and access
       management.

@@ -54,9 +54,7 @@ apis:
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
         type: JSONLD
-    description: The Airtable API can be used to integrate your data in Airtable with any external system.
-      The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP
-      codes to signal operation outcomes.
+    description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes.
   - aid: airtable:airtable-metadata-api
     name: Airtable Metadata API
     tags:
@@ -95,9 +93,7 @@ apis:
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
         type: JSONLD
-    description: The Airtable Metadata API provides access to base and schema management operations. You
-      can list bases, retrieve base schemas with table and field definitions, create new bases, tables,
-      and fields, and update table and field configurations programmatically.
+    description: The Airtable Metadata API provides access to base and schema management operations. You can list bases, retrieve base schemas with table and field definitions, create new bases, tables, and fields, and update table and field configurations programmatically.
   - aid: airtable:airtable-enterprise-api
     name: Airtable Enterprise API
     tags:
@@ -132,9 +128,7 @@ apis:
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
         type: JSONLD
-    description: The Airtable Enterprise API allows enterprise teams to manage their account programmatically
-      outside of the Admin panel. It supports managing users, updating access permissions, and managing
-      bases, tables, and views at scale for enterprise deployments.
+    description: The Airtable Enterprise API allows enterprise teams to manage their account programmatically outside of the Admin panel. It supports managing users, updating access permissions, and managing bases, tables, and views at scale for enterprise deployments.
   - aid: airtable:airtable-scim-api
     name: Airtable SCIM API
     tags:
@@ -169,9 +163,7 @@ apis:
         type: OpenAPI
       - url: json-ld/airtable-context.jsonld
         type: JSONLD
-    description: The Airtable SCIM API supports the System for Cross-domain Identity Management specification
-      for automated user and group provisioning. It enables identity providers like Okta and Microsoft
-      Entra ID to manage user accounts and group memberships programmatically.
+    description: The Airtable SCIM API supports the System for Cross-domain Identity Management specification for automated user and group provisioning. It enables identity providers like Okta and Microsoft Entra ID to manage user accounts and group memberships programmatically.
   - aid: airtable:airtable-audit-logs-api
     name: Airtable Audit Logs API
     tags:
@@ -206,9 +198,7 @@ apis:
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
         type: JSONLD
-    description: The Airtable Audit Logs API provides programmatic access to enterprise audit logs for
-      compliance monitoring and security tracking. It supports creating and retrieving audit log requests
-      with event filtering by user, event type, and date range.
+    description: The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring and security tracking. It supports creating and retrieving audit log requests with event filtering by user, event type, and date range.
   - aid: airtable:airtable-shares-api
     name: Airtable Shares API
     tags:
@@ -232,9 +222,7 @@ apis:
         type: JSONSchema
       - url: json-ld/airtable-context.jsonld
         type: JSONLD
-    description: The Airtable Shares API allows enterprise administrators to list, manage, and delete
-      share links across an organization. It provides programmatic control over base sharing and access
-      management.
+    description: The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across an organization. It provides programmatic control over base sharing and access management.
 name: Airtable
 tags:
   - Applications
@@ -388,10 +376,15 @@ common:
     title: Airtable Vocabulary
   - type: Integrations
     url: https://www.airtable.com/integrations
+  - name: MCP Server
+    url: https://github.com/Airtable/airtable-mcp-cli
+    type: MCPServer
+  - name: Agent Skills
+    url: https://github.com/Airtable/skills
+    type: AgentSkill
 created: '2023-11-21T00:00:00.000Z'
-modified: '2026-05-04'
-description: Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet
-  with the complexity of a database. It provides APIs for managing bases, tables, records, and more.
+modified: '2026-05-19'
+description: Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity of a database. It provides APIs for managing bases, tables, records, and more.
 integrations:
   - name: Zendesk Simplify and streamline workflows
   - name: Integrations Box

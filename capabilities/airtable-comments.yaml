@@ -1,0 +1,204 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable API — Comments
+  description: 'Airtable API — Comments. 4 operations. Lead operation: Airtable List Comments on a Record. Self-contained
+    Naftiko capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Comments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: airtable-comments
+    baseUri: https://api.airtable.com/v0
+    description: Airtable API — Comments business capability. Self-contained, no shared references.
+    resources:
+    - name: baseId-tableIdOrName-recordId-comments
+      path: /{baseId}/{tableIdOrName}/{recordId}/comments
+      operations:
+      - name: listcomments
+        method: GET
+        description: Airtable List Comments on a Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: string
+          description: Pagination cursor from a previous response to fetch the next page.
+        - name: pageSize
+          in: query
+          type: integer
+          description: The number of comments to return per page.
+      - name: createcomment
+        method: POST
+        description: Airtable Create a Comment on a Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: baseId-tableIdOrName-recordId-comments-commentId
+      path: /{baseId}/{tableIdOrName}/{recordId}/comments/{commentId}
+      operations:
+      - name: updatecomment
+        method: PATCH
+        description: Airtable Update a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: commentId
+          in: path
+          type: string
+          description: The unique identifier of the comment.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecomment
+        method: DELETE
+        description: Airtable Delete a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: commentId
+          in: path
+          type: string
+          description: The unique identifier of the comment.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: airtable-comments-rest
+    port: 8080
+    description: REST adapter for Airtable API — Comments. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/{baseid}/{tableidorname}/{recordid}/comments
+      name: baseid-tableidorname-recordid-comments
+      description: REST surface for baseId-tableIdOrName-recordId-comments.
+      operations:
+      - method: GET
+        name: listcomments
+        description: Airtable List Comments on a Record
+        call: airtable-comments.listcomments
+        with:
+          offset: rest.offset
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcomment
+        description: Airtable Create a Comment on a Record
+        call: airtable-comments.createcomment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{baseid}/{tableidorname}/{recordid}/comments/{commentid}
+      name: baseid-tableidorname-recordid-comments-commentid
+      description: REST surface for baseId-tableIdOrName-recordId-comments-commentId.
+      operations:
+      - method: PATCH
+        name: updatecomment
+        description: Airtable Update a Comment
+        call: airtable-comments.updatecomment
+        with:
+          commentId: rest.commentId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecomment
+        description: Airtable Delete a Comment
+        call: airtable-comments.deletecomment
+        with:
+          commentId: rest.commentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: airtable-comments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable API — Comments. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: airtable-list-comments-record
+      description: Airtable List Comments on a Record
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtable-comments.listcomments
+      with:
+        offset: tools.offset
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-create-comment-record
+      description: Airtable Create a Comment on a Record
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: airtable-comments.createcomment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-update-comment
+      description: Airtable Update a Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: airtable-comments.updatecomment
+      with:
+        commentId: tools.commentId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-delete-comment
+      description: Airtable Delete a Comment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: airtable-comments.deletecomment
+      with:
+        commentId: tools.commentId
+      outputParameters:
+      - type: object
+        mapping: $.

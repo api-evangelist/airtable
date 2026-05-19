@@ -1,0 +1,312 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable API — Records
+  description: 'Airtable API — Records. 6 operations. Lead operation: Airtable List Records in a Table. Self-contained Naftiko
+    capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Records
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: airtable-records
+    baseUri: https://api.airtable.com/v0
+    description: Airtable API — Records business capability. Self-contained, no shared references.
+    resources:
+    - name: baseId-tableIdOrName
+      path: /{baseId}/{tableIdOrName}
+      operations:
+      - name: listrecords
+        method: GET
+        description: Airtable List Records in a Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields[]
+          in: query
+          type: array
+          description: Only return data for the specified field names or IDs.
+        - name: filterByFormula
+          in: query
+          type: string
+          description: 'An Airtable formula used to filter records. The formula is evaluated for each record, and if the result
+            is not 0, false, "", NaN, [], or #Error!, the record wil'
+        - name: maxRecords
+          in: query
+          type: integer
+          description: The maximum total number of records that will be returned.
+        - name: pageSize
+          in: query
+          type: integer
+          description: The number of records returned in each request. Must be less than or equal to 100. Default is 100.
+        - name: sort
+          in: query
+          type: array
+          description: A list of sort objects that specifies how the records will be ordered. Each sort object must have a
+            field key and an optional direction key (asc or desc).
+        - name: view
+          in: query
+          type: string
+          description: The name or ID of a view in the table. If set, only the records in that view will be returned.
+        - name: cellFormat
+          in: query
+          type: string
+          description: The format that should be used for cell values. Supported values are json (default) and string.
+        - name: timeZone
+          in: query
+          type: string
+          description: The time zone to use for formatting dates when using string cell format.
+        - name: userLocale
+          in: query
+          type: string
+          description: The user locale to use for formatting dates when using string cell format.
+        - name: returnFieldsByFieldId
+          in: query
+          type: boolean
+          description: If true, the response will use field IDs as object keys instead of field names.
+        - name: offset
+          in: query
+          type: string
+          description: A pagination cursor returned from a previous request. Pass this value to fetch the next page of results.
+      - name: createrecords
+        method: POST
+        description: Airtable Create Records in a Table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: baseId-tableIdOrName-recordId
+      path: /{baseId}/{tableIdOrName}/{recordId}
+      operations:
+      - name: getrecord
+        method: GET
+        description: Airtable Retrieve a Single Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: returnFieldsByFieldId
+          in: query
+          type: boolean
+          description: If true, the response will use field IDs as keys instead of field names.
+      - name: updaterecord
+        method: PATCH
+        description: Airtable Update a Record (partial)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: replacerecord
+        method: PUT
+        description: Airtable Update a Record (full Replacement)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleterecord
+        method: DELETE
+        description: Airtable Delete a Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: airtable-records-rest
+    port: 8080
+    description: REST adapter for Airtable API — Records. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/{baseid}/{tableidorname}
+      name: baseid-tableidorname
+      description: REST surface for baseId-tableIdOrName.
+      operations:
+      - method: GET
+        name: listrecords
+        description: Airtable List Records in a Table
+        call: airtable-records.listrecords
+        with:
+          fields[]: rest.fields[]
+          filterByFormula: rest.filterByFormula
+          maxRecords: rest.maxRecords
+          pageSize: rest.pageSize
+          sort: rest.sort
+          view: rest.view
+          cellFormat: rest.cellFormat
+          timeZone: rest.timeZone
+          userLocale: rest.userLocale
+          returnFieldsByFieldId: rest.returnFieldsByFieldId
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrecords
+        description: Airtable Create Records in a Table
+        call: airtable-records.createrecords
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{baseid}/{tableidorname}/{recordid}
+      name: baseid-tableidorname-recordid
+      description: REST surface for baseId-tableIdOrName-recordId.
+      operations:
+      - method: GET
+        name: getrecord
+        description: Airtable Retrieve a Single Record
+        call: airtable-records.getrecord
+        with:
+          returnFieldsByFieldId: rest.returnFieldsByFieldId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updaterecord
+        description: Airtable Update a Record (partial)
+        call: airtable-records.updaterecord
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacerecord
+        description: Airtable Update a Record (full Replacement)
+        call: airtable-records.replacerecord
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterecord
+        description: Airtable Delete a Record
+        call: airtable-records.deleterecord
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: airtable-records-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable API — Records. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: airtable-list-records-table
+      description: Airtable List Records in a Table
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtable-records.listrecords
+      with:
+        fields[]: tools.fields[]
+        filterByFormula: tools.filterByFormula
+        maxRecords: tools.maxRecords
+        pageSize: tools.pageSize
+        sort: tools.sort
+        view: tools.view
+        cellFormat: tools.cellFormat
+        timeZone: tools.timeZone
+        userLocale: tools.userLocale
+        returnFieldsByFieldId: tools.returnFieldsByFieldId
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-create-records-table
+      description: Airtable Create Records in a Table
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: airtable-records.createrecords
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-retrieve-single-record
+      description: Airtable Retrieve a Single Record
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtable-records.getrecord
+      with:
+        returnFieldsByFieldId: tools.returnFieldsByFieldId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-update-record-partial
+      description: Airtable Update a Record (partial)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: airtable-records.updaterecord
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-update-record-full-replacement
+      description: Airtable Update a Record (full Replacement)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: airtable-records.replacerecord
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-delete-record
+      description: Airtable Delete a Record
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: airtable-records.deleterecord
+      outputParameters:
+      - type: object
+        mapping: $.

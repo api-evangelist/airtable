@@ -1,0 +1,188 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable Metadata API — Bases
+  description: 'Airtable Metadata API — Bases. 4 operations. Lead operation: Airtable List All Bases. Self-contained Naftiko
+    capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Bases
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: metadata-bases
+    baseUri: https://api.airtable.com/v0
+    description: Airtable Metadata API — Bases business capability. Self-contained, no shared references.
+    resources:
+    - name: meta-bases
+      path: /meta/bases
+      operations:
+      - name: listbases
+        method: GET
+        description: Airtable List All Bases
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: string
+          description: Pagination cursor from a previous response to fetch the next page.
+      - name: createbase
+        method: POST
+        description: Airtable Create a New Base
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: meta-bases-baseId-tables
+      path: /meta/bases/{baseId}/tables
+      operations:
+      - name: getbaseschema
+        method: GET
+        description: Airtable Get Base Schema
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include
+          in: query
+          type: array
+          description: Additional information to include in the response. Pass visibleFieldIds to include visible field IDs
+            for each view.
+    - name: meta-whoami
+      path: /meta/whoami
+      operations:
+      - name: whoami
+        method: GET
+        description: Airtable Get Current User and Scopes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: metadata-bases-rest
+    port: 8080
+    description: REST adapter for Airtable Metadata API — Bases. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/meta/bases
+      name: meta-bases
+      description: REST surface for meta-bases.
+      operations:
+      - method: GET
+        name: listbases
+        description: Airtable List All Bases
+        call: metadata-bases.listbases
+        with:
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbase
+        description: Airtable Create a New Base
+        call: metadata-bases.createbase
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/meta/bases/{baseid}/tables
+      name: meta-bases-baseid-tables
+      description: REST surface for meta-bases-baseId-tables.
+      operations:
+      - method: GET
+        name: getbaseschema
+        description: Airtable Get Base Schema
+        call: metadata-bases.getbaseschema
+        with:
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/meta/whoami
+      name: meta-whoami
+      description: REST surface for meta-whoami.
+      operations:
+      - method: GET
+        name: whoami
+        description: Airtable Get Current User and Scopes
+        call: metadata-bases.whoami
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: metadata-bases-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable Metadata API — Bases. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: airtable-list-all-bases
+      description: Airtable List All Bases
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metadata-bases.listbases
+      with:
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-create-new-base
+      description: Airtable Create a New Base
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: metadata-bases.createbase
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-get-base-schema
+      description: Airtable Get Base Schema
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metadata-bases.getbaseschema
+      with:
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-get-current-user-and
+      description: Airtable Get Current User and Scopes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metadata-bases.whoami
+      outputParameters:
+      - type: object
+        mapping: $.

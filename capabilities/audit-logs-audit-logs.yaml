@@ -1,0 +1,243 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable Audit Logs API — Audit Logs
+  description: 'Airtable Audit Logs API — Audit Logs. 4 operations. Lead operation: Airtable List Audit Log Events. Self-contained
+    Naftiko capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Audit Logs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: audit-logs-audit-logs
+    baseUri: https://api.airtable.com/v0
+    description: Airtable Audit Logs API — Audit Logs business capability. Self-contained, no shared references.
+    resources:
+    - name: meta-enterpriseAccounts-enterpriseAccountId-auditLogEvents
+      path: /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogEvents
+      operations:
+      - name: listauditlogevents
+        method: GET
+        description: Airtable List Audit Log Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startTime
+          in: query
+          type: string
+          description: The start of the time range to filter events, in ISO 8601 format. Events on or after this time will
+            be included.
+        - name: endTime
+          in: query
+          type: string
+          description: The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.
+        - name: originatingUserId
+          in: query
+          type: string
+          description: Filter events to those performed by a specific user.
+        - name: eventType
+          in: query
+          type: string
+          description: Filter events by event type.
+        - name: modelId
+          in: query
+          type: string
+          description: Filter events by the ID of the affected model (base, table, etc.).
+        - name: category
+          in: query
+          type: string
+          description: Filter events by category.
+        - name: pageSize
+          in: query
+          type: integer
+          description: The number of events per page. Default is 100.
+        - name: cursor
+          in: query
+          type: string
+          description: Pagination cursor from a previous response to fetch the next or previous page.
+        - name: sortOrder
+          in: query
+          type: string
+          description: The order in which to return events. Default is desc.
+        - name: previous
+          in: query
+          type: string
+          description: Pagination cursor for the previous page of results.
+    - name: meta-enterpriseAccounts-enterpriseAccountId-auditLogRequests
+      path: /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogRequests
+      operations:
+      - name: listauditlogrequests
+        method: GET
+        description: Airtable List Audit Log Export Requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createauditlogrequest
+        method: POST
+        description: Airtable Create an Audit Log Export Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: meta-enterpriseAccounts-enterpriseAccountId-auditLogRequests-requestId
+      path: /meta/enterpriseAccounts/{enterpriseAccountId}/auditLogRequests/{requestId}
+      operations:
+      - name: getauditlogrequest
+        method: GET
+        description: Airtable Get an Audit Log Export Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: requestId
+          in: path
+          type: string
+          description: The unique identifier of the audit log export request.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: audit-logs-audit-logs-rest
+    port: 8080
+    description: REST adapter for Airtable Audit Logs API — Audit Logs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/meta/enterpriseaccounts/{enterpriseaccountid}/auditlogevents
+      name: meta-enterpriseaccounts-enterpriseaccountid-auditlogevents
+      description: REST surface for meta-enterpriseAccounts-enterpriseAccountId-auditLogEvents.
+      operations:
+      - method: GET
+        name: listauditlogevents
+        description: Airtable List Audit Log Events
+        call: audit-logs-audit-logs.listauditlogevents
+        with:
+          startTime: rest.startTime
+          endTime: rest.endTime
+          originatingUserId: rest.originatingUserId
+          eventType: rest.eventType
+          modelId: rest.modelId
+          category: rest.category
+          pageSize: rest.pageSize
+          cursor: rest.cursor
+          sortOrder: rest.sortOrder
+          previous: rest.previous
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/meta/enterpriseaccounts/{enterpriseaccountid}/auditlogrequests
+      name: meta-enterpriseaccounts-enterpriseaccountid-auditlogrequests
+      description: REST surface for meta-enterpriseAccounts-enterpriseAccountId-auditLogRequests.
+      operations:
+      - method: GET
+        name: listauditlogrequests
+        description: Airtable List Audit Log Export Requests
+        call: audit-logs-audit-logs.listauditlogrequests
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createauditlogrequest
+        description: Airtable Create an Audit Log Export Request
+        call: audit-logs-audit-logs.createauditlogrequest
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/meta/enterpriseaccounts/{enterpriseaccountid}/auditlogrequests/{requestid}
+      name: meta-enterpriseaccounts-enterpriseaccountid-auditlogrequests-requestid
+      description: REST surface for meta-enterpriseAccounts-enterpriseAccountId-auditLogRequests-requestId.
+      operations:
+      - method: GET
+        name: getauditlogrequest
+        description: Airtable Get an Audit Log Export Request
+        call: audit-logs-audit-logs.getauditlogrequest
+        with:
+          requestId: rest.requestId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: audit-logs-audit-logs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable Audit Logs API — Audit Logs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: airtable-list-audit-log-events
+      description: Airtable List Audit Log Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: audit-logs-audit-logs.listauditlogevents
+      with:
+        startTime: tools.startTime
+        endTime: tools.endTime
+        originatingUserId: tools.originatingUserId
+        eventType: tools.eventType
+        modelId: tools.modelId
+        category: tools.category
+        pageSize: tools.pageSize
+        cursor: tools.cursor
+        sortOrder: tools.sortOrder
+        previous: tools.previous
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-list-audit-log-export
+      description: Airtable List Audit Log Export Requests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: audit-logs-audit-logs.listauditlogrequests
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-create-audit-log-export
+      description: Airtable Create an Audit Log Export Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: audit-logs-audit-logs.createauditlogrequest
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-get-audit-log-export
+      description: Airtable Get an Audit Log Export Request
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: audit-logs-audit-logs.getauditlogrequest
+      with:
+        requestId: tools.requestId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,128 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable Enterprise API — Groups
+  description: 'Airtable Enterprise API — Groups. 2 operations. Lead operation: Airtable Move User Groups Between Enterprises.
+    Self-contained Naftiko capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-groups
+    baseUri: https://api.airtable.com/v0
+    description: Airtable Enterprise API — Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: meta-enterpriseAccounts-enterpriseAccountId-moveGroups
+      path: /meta/enterpriseAccounts/{enterpriseAccountId}/moveGroups
+      operations:
+      - name: moveusergroups
+        method: POST
+        description: Airtable Move User Groups Between Enterprises
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: meta-groups-groupId
+      path: /meta/groups/{groupId}
+      operations:
+      - name: getusergroup
+        method: GET
+        description: Airtable Get a User Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupId
+          in: path
+          type: string
+          description: The unique identifier of the user group.
+          required: true
+        - name: include
+          in: query
+          type: array
+          description: Additional information to include.
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-groups-rest
+    port: 8080
+    description: REST adapter for Airtable Enterprise API — Groups. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/meta/enterpriseaccounts/{enterpriseaccountid}/movegroups
+      name: meta-enterpriseaccounts-enterpriseaccountid-movegroups
+      description: REST surface for meta-enterpriseAccounts-enterpriseAccountId-moveGroups.
+      operations:
+      - method: POST
+        name: moveusergroups
+        description: Airtable Move User Groups Between Enterprises
+        call: enterprise-groups.moveusergroups
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/meta/groups/{groupid}
+      name: meta-groups-groupid
+      description: REST surface for meta-groups-groupId.
+      operations:
+      - method: GET
+        name: getusergroup
+        description: Airtable Get a User Group
+        call: enterprise-groups.getusergroup
+        with:
+          groupId: rest.groupId
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable Enterprise API — Groups. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: airtable-move-user-groups-between
+      description: Airtable Move User Groups Between Enterprises
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: enterprise-groups.moveusergroups
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-get-user-group
+      description: Airtable Get a User Group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-groups.getusergroup
+      with:
+        groupId: tools.groupId
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.

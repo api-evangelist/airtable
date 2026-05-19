@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable Shares API — Shares
+  description: 'Airtable Shares API — Shares. 3 operations. Lead operation: Airtable List Share Links for a Base. Self-contained
+    Naftiko capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Shares
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shares-shares
+    baseUri: https://api.airtable.com/v0
+    description: Airtable Shares API — Shares business capability. Self-contained, no shared references.
+    resources:
+    - name: meta-bases-baseId-shares
+      path: /meta/bases/{baseId}/shares
+      operations:
+      - name: listshares
+        method: GET
+        description: Airtable List Share Links for a Base
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: meta-bases-baseId-shares-shareId
+      path: /meta/bases/{baseId}/shares/{shareId}
+      operations:
+      - name: manageshare
+        method: PATCH
+        description: Airtable Manage a Share Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteshare
+        method: DELETE
+        description: Airtable Delete a Share Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shares-shares-rest
+    port: 8080
+    description: REST adapter for Airtable Shares API — Shares. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/meta/bases/{baseid}/shares
+      name: meta-bases-baseid-shares
+      description: REST surface for meta-bases-baseId-shares.
+      operations:
+      - method: GET
+        name: listshares
+        description: Airtable List Share Links for a Base
+        call: shares-shares.listshares
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/meta/bases/{baseid}/shares/{shareid}
+      name: meta-bases-baseid-shares-shareid
+      description: REST surface for meta-bases-baseId-shares-shareId.
+      operations:
+      - method: PATCH
+        name: manageshare
+        description: Airtable Manage a Share Link
+        call: shares-shares.manageshare
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteshare
+        description: Airtable Delete a Share Link
+        call: shares-shares.deleteshare
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shares-shares-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable Shares API — Shares. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: airtable-list-share-links-base
+      description: Airtable List Share Links for a Base
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shares-shares.listshares
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-manage-share-link
+      description: Airtable Manage a Share Link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: shares-shares.manageshare
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-delete-share-link
+      description: Airtable Delete a Share Link
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: shares-shares.deleteshare
+      outputParameters:
+      - type: object
+        mapping: $.

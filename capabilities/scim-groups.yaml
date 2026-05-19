@@ -1,0 +1,253 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Airtable SCIM API — Groups
+  description: 'Airtable SCIM API — Groups. 6 operations. Lead operation: Airtable List SCIM Groups. Self-contained Naftiko
+    capability covering one Airtable business surface.'
+  tags:
+  - Airtable
+  - Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scim-groups
+    baseUri: https://airtable.com/scim/v2
+    description: Airtable SCIM API — Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: Groups
+      path: /Groups
+      operations:
+      - name: listscimgroups
+        method: GET
+        description: Airtable List SCIM Groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+          description: SCIM filter expression (e.g., displayName eq "Engineering").
+        - name: startIndex
+          in: query
+          type: integer
+          description: The 1-based index of the first result to return.
+        - name: count
+          in: query
+          type: integer
+          description: The maximum number of results to return per page.
+      - name: createscimgroup
+        method: POST
+        description: Airtable Create a SCIM Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Groups-groupId
+      path: /Groups/{groupId}
+      operations:
+      - name: getscimgroup
+        method: GET
+        description: Airtable Get a SCIM Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacescimgroup
+        method: PUT
+        description: Airtable Replace a SCIM Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatescimgroup
+        method: PATCH
+        description: Airtable Update a SCIM Group (partial)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletescimgroup
+        method: DELETE
+        description: Airtable Delete a SCIM Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AIRTABLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: scim-groups-rest
+    port: 8080
+    description: REST adapter for Airtable SCIM API — Groups. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/groups
+      name: groups
+      description: REST surface for Groups.
+      operations:
+      - method: GET
+        name: listscimgroups
+        description: Airtable List SCIM Groups
+        call: scim-groups.listscimgroups
+        with:
+          filter: rest.filter
+          startIndex: rest.startIndex
+          count: rest.count
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscimgroup
+        description: Airtable Create a SCIM Group
+        call: scim-groups.createscimgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/groups/{groupid}
+      name: groups-groupid
+      description: REST surface for Groups-groupId.
+      operations:
+      - method: GET
+        name: getscimgroup
+        description: Airtable Get a SCIM Group
+        call: scim-groups.getscimgroup
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacescimgroup
+        description: Airtable Replace a SCIM Group
+        call: scim-groups.replacescimgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatescimgroup
+        description: Airtable Update a SCIM Group (partial)
+        call: scim-groups.updatescimgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletescimgroup
+        description: Airtable Delete a SCIM Group
+        call: scim-groups.deletescimgroup
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scim-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Airtable SCIM API — Groups. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: airtable-list-scim-groups
+      description: Airtable List SCIM Groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-groups.listscimgroups
+      with:
+        filter: tools.filter
+        startIndex: tools.startIndex
+        count: tools.count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-create-scim-group
+      description: Airtable Create a SCIM Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scim-groups.createscimgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-get-scim-group
+      description: Airtable Get a SCIM Group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-groups.getscimgroup
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-replace-scim-group
+      description: Airtable Replace a SCIM Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scim-groups.replacescimgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-update-scim-group-partial
+      description: Airtable Update a SCIM Group (partial)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scim-groups.updatescimgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: airtable-delete-scim-group
+      description: Airtable Delete a SCIM Group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scim-groups.deletescimgroup
+      outputParameters:
+      - type: object
+        mapping: $.

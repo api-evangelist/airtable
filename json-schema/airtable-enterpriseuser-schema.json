@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EnterpriseUser",
+  "title": "EnterpriseUser",
+  "type": "object",
+  "description": "A user within the enterprise account.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the user."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address of the user."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the user."
+    },
+    "state": {
+      "type": "string",
+      "description": "The management state of the user.",
+      "enum": [
+        "managed",
+        "unmanaged",
+        "deactivated"
+      ]
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "description": "Whether the user has admin privileges."
+    },
+    "createdTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the user was created."
+    },
+    "lastActivityTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time of the user's last activity."
+    },
+    "collaborations": {
+      "type": "object",
+      "description": "The user's collaborations across workspaces and bases.",
+      "properties": {
+        "workspaceCollaborations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "workspaceId": {
+                "type": "string"
+              },
+              "permissionLevel": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "baseCollaborations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseId": {
+                "type": "string"
+              },
+              "permissionLevel": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "interfaceCollaborations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseId": {
+                "type": "string"
+              },
+              "interfaceId": {
+                "type": "string"
+              },
+              "permissionLevel": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "email",
+    "state"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimMeta",
+  "title": "ScimMeta",
+  "type": "object",
+  "description": "SCIM resource metadata.",
+  "properties": {
+    "resourceType": {
+      "type": "string",
+      "description": "The type of resource (User or Group)."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the resource was created."
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the resource was last modified."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WorkspaceCollaborators",
+  "title": "WorkspaceCollaborators",
+  "type": "object",
+  "description": "The collaborators on a workspace.",
+  "properties": {
+    "collaborators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "permissionLevel": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "creator",
+              "editor",
+              "commenter",
+              "read"
+            ]
+          }
+        }
+      }
+    },
+    "groupCollaborators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "permissionLevel": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

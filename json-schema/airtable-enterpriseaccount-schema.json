@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EnterpriseAccount",
+  "title": "EnterpriseAccount",
+  "type": "object",
+  "description": "Enterprise account information and configuration.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the enterprise account."
+    },
+    "createdTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the enterprise account was created."
+    },
+    "groupIds": {
+      "type": "array",
+      "description": "The IDs of user groups in the enterprise.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "userIds": {
+      "type": "array",
+      "description": "The IDs of users in the enterprise.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "workspaceIds": {
+      "type": "array",
+      "description": "The IDs of workspaces in the enterprise.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "emailDomains": {
+      "type": "array",
+      "description": "The email domains associated with the enterprise.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "emailDomain": {
+            "type": "string"
+          },
+          "isVerified": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id"
+  ]
+}

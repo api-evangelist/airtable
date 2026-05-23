@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookPayloadList",
+  "title": "WebhookPayloadList",
+  "type": "object",
+  "description": "A paginated list of webhook payloads.",
+  "properties": {
+    "payloads": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/WebhookPayload"
+      }
+    },
+    "cursor": {
+      "type": "integer",
+      "description": "The cursor for fetching the next page of payloads."
+    },
+    "mightHaveMore": {
+      "type": "boolean",
+      "description": "Whether there may be more payloads to fetch."
+    }
+  },
+  "required": [
+    "payloads"
+  ]
+}

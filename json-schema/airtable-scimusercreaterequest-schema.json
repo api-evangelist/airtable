@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimUserCreateRequest",
+  "title": "ScimUserCreateRequest",
+  "type": "object",
+  "description": "Request body for creating or replacing a SCIM user.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ]
+    },
+    "userName": {
+      "type": "string",
+      "description": "The unique username for the user, typically an email address."
+    },
+    "name": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "type": "string",
+          "description": "The user's first name."
+        },
+        "familyName": {
+          "type": "string",
+          "description": "The user's last name."
+        }
+      }
+    },
+    "emails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "format": "email"
+          },
+          "type": {
+            "type": "string"
+          },
+          "primary": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the user account should be active.",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "description": "The user's job title."
+    }
+  },
+  "required": [
+    "schemas",
+    "userName"
+  ]
+}

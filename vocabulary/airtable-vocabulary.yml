@@ -1,0 +1,11 @@
+name: Airtable Domain Vocabulary
+provider: Airtable
+providerId: airtable
+description: Tag-derived vocabulary for the Airtable API surface; sourced from openapi/ tags.
+terms:
+- term: Comments
+  description: Manage comments on individual records
+- term: Records
+  description: Create, read, update, and delete records in a table
+- term: Webhooks
+  description: Subscribe to real-time change notifications on bases

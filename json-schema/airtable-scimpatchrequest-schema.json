@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimPatchRequest",
+  "title": "ScimPatchRequest",
+  "type": "object",
+  "description": "A SCIM 2.0 PATCH request with one or more operations.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+      ]
+    },
+    "Operations": {
+      "type": "array",
+      "description": "The list of PATCH operations to apply.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "The operation type.",
+            "enum": [
+              "add",
+              "replace",
+              "remove"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "description": "The attribute path to operate on."
+          },
+          "value": {
+            "description": "The value to set for add and replace operations."
+          }
+        },
+        "required": [
+          "op"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemas",
+    "Operations"
+  ]
+}

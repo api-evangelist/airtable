@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CommentList",
+  "title": "CommentList",
+  "type": "object",
+  "description": "A paginated list of comments on a record.",
+  "properties": {
+    "comments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Comment"
+      }
+    },
+    "offset": {
+      "type": "string",
+      "description": "Pagination cursor for the next page of results."
+    }
+  },
+  "required": [
+    "comments"
+  ]
+}

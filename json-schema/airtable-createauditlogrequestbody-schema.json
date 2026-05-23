@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateAuditLogRequestBody",
+  "title": "CreateAuditLogRequestBody",
+  "type": "object",
+  "description": "Request body for creating an audit log export request.",
+  "properties": {
+    "filter": {
+      "type": "object",
+      "description": "Filters to apply to the exported audit log data.",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of the time range in ISO 8601 format."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of the time range in ISO 8601 format."
+        },
+        "originatingUserId": {
+          "type": "string",
+          "description": "Filter to events by a specific user."
+        },
+        "eventType": {
+          "type": "string",
+          "description": "Filter to a specific event type."
+        },
+        "modelId": {
+          "type": "string",
+          "description": "Filter to events affecting a specific model."
+        },
+        "category": {
+          "type": "string",
+          "description": "Filter to a specific event category."
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    }
+  },
+  "required": [
+    "filter"
+  ]
+}

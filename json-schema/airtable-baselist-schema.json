@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BaseList",
+  "title": "BaseList",
+  "type": "object",
+  "description": "A paginated list of bases accessible to the authenticated user.",
+  "properties": {
+    "bases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/BaseSummary"
+      }
+    },
+    "offset": {
+      "type": "string",
+      "description": "Pagination cursor for the next page of results."
+    }
+  },
+  "required": [
+    "bases"
+  ]
+}

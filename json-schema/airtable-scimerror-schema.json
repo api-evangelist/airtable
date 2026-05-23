@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimError",
+  "title": "ScimError",
+  "type": "object",
+  "description": "A SCIM 2.0 error response.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "urn:ietf:params:scim:api:messages:2.0:Error"
+      ]
+    },
+    "detail": {
+      "type": "string",
+      "description": "A human-readable description of the error."
+    },
+    "status": {
+      "type": "string",
+      "description": "The HTTP status code as a string."
+    },
+    "scimType": {
+      "type": "string",
+      "description": "The SCIM error type."
+    }
+  }
+}

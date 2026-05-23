@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RecordList",
+  "title": "RecordList",
+  "type": "object",
+  "description": "A paginated list of records from a table.",
+  "properties": {
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Record"
+      }
+    },
+    "offset": {
+      "type": "string",
+      "description": "A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results."
+    }
+  },
+  "required": [
+    "records"
+  ]
+}

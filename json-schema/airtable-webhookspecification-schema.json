@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookSpecification",
+  "title": "WebhookSpecification",
+  "type": "object",
+  "description": "The specification defining what changes the webhook monitors.",
+  "properties": {
+    "options": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "object",
+          "description": "Filters to narrow down which changes trigger the webhook.",
+          "properties": {
+            "sourceOptions": {
+              "type": "object",
+              "properties": {
+                "formSubmission": {
+                  "type": "object",
+                  "properties": {
+                    "tableId": {
+                      "type": "string"
+                    },
+                    "viewId": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "formPageSubmission": {
+                  "type": "object",
+                  "properties": {
+                    "pageId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "dataTypes": {
+              "type": "array",
+              "description": "The types of data changes to monitor.",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "tableData",
+                  "tableFields",
+                  "tableMetadata"
+                ]
+              }
+            },
+            "recordChangeScope": {
+              "type": "string",
+              "description": "The scope of record changes to monitor."
+            },
+            "watchDataInFieldIds": {
+              "type": "array",
+              "description": "Specific field IDs to watch for changes.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "watchSchemasOfFieldIds": {
+              "type": "array",
+              "description": "Specific field IDs whose schema changes to watch.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

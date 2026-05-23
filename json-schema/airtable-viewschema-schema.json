@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ViewSchema",
+  "title": "ViewSchema",
+  "type": "object",
+  "description": "The schema definition of a view within a table.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the view (starts with 'viw').",
+      "example": "viwABC123def456"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the view."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the view.",
+      "enum": [
+        "grid",
+        "form",
+        "calendar",
+        "gallery",
+        "kanban",
+        "timeline",
+        "block"
+      ]
+    },
+    "personalForUserId": {
+      "type": "string",
+      "description": "If set, this is a personal view only visible to the specified user."
+    },
+    "visibleFieldIds": {
+      "type": "array",
+      "description": "The IDs of fields visible in this view. Only included if visibleFieldIds is requested via the include parameter.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "type"
+  ]
+}

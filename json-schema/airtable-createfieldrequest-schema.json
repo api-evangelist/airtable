@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateFieldRequest",
+  "title": "CreateFieldRequest",
+  "type": "object",
+  "description": "Request body for creating a new field.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the field."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the field. Some types like formula and autoNumber cannot be created via the API."
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the field."
+    },
+    "options": {
+      "type": "object",
+      "description": "Configuration options for the field. Required for some field types like singleSelect and multipleSelects.",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ]
+}

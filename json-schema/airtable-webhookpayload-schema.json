@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookPayload",
+  "title": "WebhookPayload",
+  "type": "object",
+  "description": "A single webhook payload representing a batch of changes.",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the payload was generated."
+    },
+    "baseTransactionNumber": {
+      "type": "integer",
+      "description": "The transaction number for this batch of changes."
+    },
+    "payloadFormat": {
+      "type": "string",
+      "description": "The format version of the payload."
+    },
+    "actionMetadata": {
+      "type": "object",
+      "description": "Metadata about the action that triggered the webhook.",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "The source of the action (e.g., client, publicApi, formSubmission)."
+        },
+        "sourceMetadata": {
+          "type": "object",
+          "description": "Additional metadata about the source."
+        }
+      }
+    },
+    "changedTablesById": {
+      "type": "object",
+      "description": "A mapping of table IDs to their changes.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "changedRecordsById": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "createdRecordsById": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "destroyedRecordIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "changedFieldsById": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "createdFieldsById": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "destroyedFieldIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "changedViewsById": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "createdViewsById": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "destroyedViewIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

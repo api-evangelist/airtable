@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "description": "An error response from the Airtable API.",
+  "properties": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of error (e.g., AUTHENTICATION_REQUIRED, NOT_FOUND, INVALID_REQUEST)."
+        },
+        "message": {
+          "type": "string",
+          "description": "A human-readable description of the error."
+        }
+      },
+      "required": [
+        "type",
+        "message"
+      ]
+    }
+  }
+}

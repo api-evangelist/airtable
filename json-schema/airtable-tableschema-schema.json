@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TableSchema",
+  "title": "TableSchema",
+  "type": "object",
+  "description": "The schema definition of a table within a base.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the table (starts with 'tbl').",
+      "example": "tblABC123def456"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the table."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the table."
+    },
+    "primaryFieldId": {
+      "type": "string",
+      "description": "The ID of the primary field for this table."
+    },
+    "fields": {
+      "type": "array",
+      "description": "The list of field definitions in the table.",
+      "items": {
+        "$ref": "#/components/schemas/FieldSchema"
+      }
+    },
+    "views": {
+      "type": "array",
+      "description": "The list of view definitions in the table.",
+      "items": {
+        "$ref": "#/components/schemas/ViewSchema"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "fields",
+    "views"
+  ]
+}

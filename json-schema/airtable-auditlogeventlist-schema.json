@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuditLogEventList",
+  "title": "AuditLogEventList",
+  "type": "object",
+  "description": "A paginated list of audit log events.",
+  "properties": {
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AuditLogEvent"
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "description": "Pagination cursors for navigating through results.",
+      "properties": {
+        "next": {
+          "type": "string",
+          "description": "Cursor for the next page of results."
+        },
+        "previous": {
+          "type": "string",
+          "description": "Cursor for the previous page of results."
+        }
+      }
+    }
+  },
+  "required": [
+    "events"
+  ]
+}

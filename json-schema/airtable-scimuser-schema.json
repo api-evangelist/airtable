@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimUser",
+  "title": "ScimUser",
+  "type": "object",
+  "description": "A SCIM 2.0 User resource representing a provisioned user.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "description": "The SCIM schema URIs for this resource.",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the SCIM user resource."
+    },
+    "userName": {
+      "type": "string",
+      "description": "The unique username for the user, typically an email address."
+    },
+    "name": {
+      "type": "object",
+      "description": "The user's name components.",
+      "properties": {
+        "givenName": {
+          "type": "string",
+          "description": "The user's first name."
+        },
+        "familyName": {
+          "type": "string",
+          "description": "The user's last name."
+        }
+      }
+    },
+    "emails": {
+      "type": "array",
+      "description": "The user's email addresses.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "format": "email",
+            "description": "The email address."
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of email (e.g., work)."
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Whether this is the primary email."
+          }
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the user account is active."
+    },
+    "title": {
+      "type": "string",
+      "description": "The user's job title."
+    },
+    "meta": {
+      "$ref": "#/components/schemas/ScimMeta"
+    }
+  },
+  "required": [
+    "schemas",
+    "id",
+    "userName",
+    "active"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateBaseRequest",
+  "title": "CreateBaseRequest",
+  "type": "object",
+  "description": "Request body for creating a new base.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the new base."
+    },
+    "workspaceId": {
+      "type": "string",
+      "description": "The ID of the workspace where the base will be created (starts with 'wsp')."
+    },
+    "tables": {
+      "type": "array",
+      "description": "The initial table definitions for the base.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the table."
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the table."
+          },
+          "fields": {
+            "type": "array",
+            "description": "The field definitions for the table.",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/CreateFieldRequest"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "fields"
+        ]
+      }
+    }
+  },
+  "required": [
+    "name",
+    "workspaceId",
+    "tables"
+  ]
+}

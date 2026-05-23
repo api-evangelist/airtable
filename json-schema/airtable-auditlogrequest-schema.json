@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuditLogRequest",
+  "title": "AuditLogRequest",
+  "type": "object",
+  "description": "An audit log export request with status and download information.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the audit log request."
+    },
+    "status": {
+      "type": "string",
+      "description": "The processing status of the request.",
+      "enum": [
+        "pending",
+        "processing",
+        "done",
+        "failed"
+      ]
+    },
+    "createdTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the request was created."
+    },
+    "filter": {
+      "type": "object",
+      "description": "The filters applied to this request.",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "originatingUserId": {
+          "type": "string"
+        },
+        "eventType": {
+          "type": "string"
+        },
+        "modelId": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        }
+      }
+    },
+    "downloadUrls": {
+      "type": "array",
+      "description": "URLs to download the exported audit log data. Available when status is done.",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "expirationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the download URLs will expire."
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "createdTime"
+  ]
+}

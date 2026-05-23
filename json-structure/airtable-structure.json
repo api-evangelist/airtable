@@ -1,0 +1,250 @@
+{
+  "provider": "Airtable",
+  "providerId": "airtable",
+  "kind": "json-structure",
+  "description": "Structural overview of the Airtable API surface; extracted from openapi/.",
+  "schemaCount": 13,
+  "operationCount": 15,
+  "schemas": [
+    {
+      "name": "Record",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "createdTime",
+        "fields"
+      ]
+    },
+    {
+      "name": "FieldValues",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "RecordList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "records"
+      ]
+    },
+    {
+      "name": "RecordDeleted",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "id",
+        "deleted"
+      ]
+    },
+    {
+      "name": "Comment",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "id",
+        "text",
+        "createdTime"
+      ]
+    },
+    {
+      "name": "CommentList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "comments"
+      ]
+    },
+    {
+      "name": "Webhook",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "id",
+        "type"
+      ]
+    },
+    {
+      "name": "WebhookSpecification",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "WebhookCreateRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "notificationUrl"
+      ]
+    },
+    {
+      "name": "WebhookCreateResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "macSecretBase64"
+      ]
+    },
+    {
+      "name": "WebhookPayloadList",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "payloads"
+      ]
+    },
+    {
+      "name": "WebhookPayload",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/{baseId}/{tableIdOrName}",
+      "operationId": "listRecords",
+      "summary": "Airtable List Records in a Table",
+      "tags": [
+        "Records"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/{baseId}/{tableIdOrName}",
+      "operationId": "createRecords",
+      "summary": "Airtable Create Records in a Table",
+      "tags": [
+        "Records"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}",
+      "operationId": "getRecord",
+      "summary": "Airtable Retrieve a Single Record",
+      "tags": [
+        "Records"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}",
+      "operationId": "replaceRecord",
+      "summary": "Airtable Update a Record (full Replacement)",
+      "tags": [
+        "Records"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}",
+      "operationId": "deleteRecord",
+      "summary": "Airtable Delete a Record",
+      "tags": [
+        "Records"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}",
+      "operationId": "updateRecord",
+      "summary": "Airtable Update a Record (partial)",
+      "tags": [
+        "Records"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}/comments",
+      "operationId": "listComments",
+      "summary": "Airtable List Comments on a Record",
+      "tags": [
+        "Comments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}/comments",
+      "operationId": "createComment",
+      "summary": "Airtable Create a Comment on a Record",
+      "tags": [
+        "Comments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}/comments/{commentId}",
+      "operationId": "deleteComment",
+      "summary": "Airtable Delete a Comment",
+      "tags": [
+        "Comments"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/{baseId}/{tableIdOrName}/{recordId}/comments/{commentId}",
+      "operationId": "updateComment",
+      "summary": "Airtable Update a Comment",
+      "tags": [
+        "Comments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/bases/{baseId}/webhooks",
+      "operationId": "listWebhooks",
+      "summary": "Airtable List Webhooks for a Base",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bases/{baseId}/webhooks",
+      "operationId": "createWebhook",
+      "summary": "Airtable Create a Webhook for a Base",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/bases/{baseId}/webhooks/{webhookId}",
+      "operationId": "deleteWebhook",
+      "summary": "Airtable Delete a Webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bases/{baseId}/webhooks/{webhookId}/refresh",
+      "operationId": "refreshWebhook",
+      "summary": "Airtable Refresh a Webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/bases/{baseId}/webhooks/{webhookId}/payloads",
+      "operationId": "listWebhookPayloads",
+      "summary": "Airtable List Webhook Payloads",
+      "tags": [
+        "Webhooks"
+      ]
+    }
+  ]
+}

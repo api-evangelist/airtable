@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ManageUsersResponse",
+  "title": "ManageUsersResponse",
+  "type": "object",
+  "description": "Response from a user management operation.",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "description": "Errors encountered during the operation.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  }
+}

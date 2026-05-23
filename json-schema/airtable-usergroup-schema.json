@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserGroup",
+  "title": "UserGroup",
+  "type": "object",
+  "description": "A user group within the enterprise.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the user group."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the user group."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the user group."
+    },
+    "members": {
+      "type": "array",
+      "description": "The members of the user group.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "member",
+              "owner"
+            ]
+          }
+        }
+      }
+    },
+    "collaborations": {
+      "type": "object",
+      "description": "The group's collaborations across workspaces and bases."
+    }
+  },
+  "required": [
+    "id",
+    "name"
+  ]
+}

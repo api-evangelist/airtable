@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuditLogEvent",
+  "title": "AuditLogEvent",
+  "type": "object",
+  "description": "A single audit log event recording an action in the enterprise.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the audit log event."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the action was performed."
+    },
+    "action": {
+      "type": "string",
+      "description": "The type of action that was performed (e.g., created, updated, deleted)."
+    },
+    "actor": {
+      "type": "object",
+      "description": "The user or system that performed the action.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of actor (user, system, anonymous).",
+          "enum": [
+            "user",
+            "system",
+            "anonymous"
+          ]
+        },
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who performed the action."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email of the user who performed the action."
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the actor."
+        }
+      }
+    },
+    "modelId": {
+      "type": "string",
+      "description": "The ID of the model (base, table, field, etc.) that was affected by the action."
+    },
+    "modelType": {
+      "type": "string",
+      "description": "The type of model affected (e.g., base, table, field, record, view)."
+    },
+    "category": {
+      "type": "string",
+      "description": "The category of the event (e.g., app, user, share, enterprise)."
+    },
+    "context": {
+      "type": "object",
+      "description": "Additional context about the event.",
+      "properties": {
+        "baseId": {
+          "type": "string",
+          "description": "The ID of the base where the event occurred."
+        },
+        "tableId": {
+          "type": "string",
+          "description": "The ID of the table where the event occurred."
+        },
+        "viewId": {
+          "type": "string",
+          "description": "The ID of the view involved in the event."
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "The ID of the workspace where the event occurred."
+        },
+        "interfaceId": {
+          "type": "string",
+          "description": "The ID of the interface involved in the event."
+        },
+        "actionId": {
+          "type": "string",
+          "description": "The ID of the specific action taken."
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "The IP address from which the action was performed."
+        }
+      }
+    },
+    "payloadVersion": {
+      "type": "string",
+      "description": "The version of the event payload format."
+    }
+  },
+  "required": [
+    "id",
+    "timestamp",
+    "action"
+  ]
+}

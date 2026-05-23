@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookCreateResponse",
+  "title": "WebhookCreateResponse",
+  "type": "object",
+  "description": "Response after creating a new webhook, including the MAC secret.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the newly created webhook."
+    },
+    "macSecretBase64": {
+      "type": "string",
+      "description": "The Base64-encoded MAC secret used to verify the authenticity of webhook notification payloads."
+    },
+    "expirationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the webhook will expire if not refreshed."
+    }
+  },
+  "required": [
+    "id",
+    "macSecretBase64"
+  ]
+}

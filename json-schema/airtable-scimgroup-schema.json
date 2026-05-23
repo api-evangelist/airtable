@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimGroup",
+  "title": "ScimGroup",
+  "type": "object",
+  "description": "A SCIM 2.0 Group resource representing a user group.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the SCIM group resource."
+    },
+    "displayName": {
+      "type": "string",
+      "description": "The display name of the group."
+    },
+    "members": {
+      "type": "array",
+      "description": "The members of the group.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "The ID of the member user."
+          },
+          "display": {
+            "type": "string",
+            "description": "The display name of the member."
+          }
+        }
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/ScimMeta"
+    }
+  },
+  "required": [
+    "schemas",
+    "id",
+    "displayName"
+  ]
+}

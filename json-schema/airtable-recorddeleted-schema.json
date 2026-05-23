@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RecordDeleted",
+  "title": "RecordDeleted",
+  "type": "object",
+  "description": "Confirmation that a record was deleted.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the deleted record."
+    },
+    "deleted": {
+      "type": "boolean",
+      "description": "Always true when the deletion succeeds."
+    }
+  },
+  "required": [
+    "id",
+    "deleted"
+  ]
+}

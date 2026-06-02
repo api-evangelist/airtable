@@ -1,0 +1,361 @@
+asyncapi: 2.6.0
+info:
+  title: Airtable Webhooks API
+  description: >-
+    The Airtable Webhooks API delivers lightweight change notifications to a
+    subscriber's notification URL whenever data within a base or table changes.
+    Airtable sends a small "ping" via HTTP POST identifying the base and webhook
+    that produced the change; the receiver is expected to respond with HTTP 200
+    or 204 and an empty body, then poll the
+    `GET /v0/bases/{baseId}/webhooks/{webhookId}/payloads` endpoint to retrieve
+    the queued change payloads. Each payload includes a `baseTransactionNumber`
+    scoped to the webhook that increases sequentially, allowing receivers to
+    resume from a known cursor. Pings are authenticated using an
+    `X-Airtable-Content-MAC` header containing an HMAC-SHA256 hash of the request
+    body computed with the webhook's MAC secret base64 key.
+  version: '0.1.0'
+  contact:
+    name: Airtable Developers
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  license:
+    name: Airtable Terms of Service
+    url: https://airtable.com/tos
+externalDocs:
+  description: Airtable Webhooks Overview
+  url: https://airtable.com/developers/web/api/webhooks-overview
+defaultContentType: application/json
+servers:
+  notificationReceiver:
+    url: '{notificationUrl}'
+    protocol: https
+    description: >-
+      The subscriber's HTTPS notification URL registered when the webhook was
+      created. Airtable issues HTTP POST requests to this URL containing the
+      ping envelope. Receivers must reply with HTTP 200 or 204 and an empty
+      response body; non-success responses cause Airtable to retry with backoff.
+    variables:
+      notificationUrl:
+        description: >-
+          The full HTTPS URL registered as `notificationUrl` on the webhook
+          specification when the webhook was created.
+    security:
+    - hmacSignature: []
+  airtableApi:
+    url: api.airtable.com
+    protocol: https
+    description: >-
+      Airtable's REST API host used by receivers to poll for queued change
+      payloads after a ping has been received.
+    security:
+    - bearerToken: []
+channels:
+  '/{notificationPath}':
+    description: >-
+      The subscriber endpoint that receives ping notifications from Airtable.
+      The ping body is small and only identifies the base and webhook; the
+      actual change records are fetched separately via the payloads channel.
+    parameters:
+      notificationPath:
+        description: >-
+          The path portion of the registered `notificationUrl` for the webhook
+          subscription. Configured per-webhook on creation.
+        schema:
+          type: string
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveWebhookPing
+      summary: Receive a webhook ping notification
+      description: >-
+        Fired by Airtable when one or more change events matching the webhook's
+        specification have occurred. The body identifies the base and webhook
+        that produced the changes along with a timestamp; the receiver should
+        respond with HTTP 200 or 204 and then call the payloads channel to
+        retrieve the queued change payloads. Pings are signed using the
+        `X-Airtable-Content-MAC` header which contains an HMAC-SHA256 of the
+        raw body computed with the webhook's MAC secret base64 key.
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/WebhookPing'
+  '/v0/bases/{baseId}/webhooks/{webhookId}/payloads':
+    description: >-
+      Polled by the receiver after a ping to retrieve queued change payloads
+      for the webhook. Payloads are returned in transaction order and paginated
+      via the `cursor` query parameter. The response includes a new `cursor`
+      indicating the next transaction number to request and a `mightHaveMore`
+      flag indicating whether additional payloads remain.
+    parameters:
+      baseId:
+        description: The ID of the base the webhook is registered on.
+        schema:
+          type: string
+      webhookId:
+        description: The ID of the webhook.
+        schema:
+          type: string
+    bindings:
+      http:
+        type: request
+        method: GET
+    subscribe:
+      operationId: listWebhookPayloads
+      summary: List queued webhook payloads
+      description: >-
+        Retrieves the change payloads that have accumulated for a webhook since
+        the supplied cursor. Receivers should advance their stored cursor using
+        the returned `cursor` value and continue polling while `mightHaveMore`
+        is true. The query parameter `cursor` defaults to 1 on the first call
+        and `limit` is capped at 50.
+      bindings:
+        http:
+          type: request
+          method: GET
+          query:
+            type: object
+            properties:
+              cursor:
+                type: integer
+                description: >-
+                  Transaction number to start listing from. Defaults to 1 on
+                  the first call.
+              limit:
+                type: integer
+                maximum: 50
+                description: Maximum number of payloads per response. Capped at 50.
+      message:
+        $ref: '#/components/messages/WebhookPayloadList'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      name: X-Airtable-Content-MAC
+      in: header
+      description: >-
+        HMAC-SHA256 of the raw request body using the webhook's MAC secret
+        base64 key, prefixed with `hmac-sha256=` and encoded as a hex digest.
+        Used by the receiver to verify the ping came from Airtable.
+    bearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Personal Access Token or OAuth access token
+      description: >-
+        Personal access token or OAuth access token presented as a Bearer token
+        when polling the payloads endpoint. Requires the `webhook:manage` scope.
+  messages:
+    WebhookPing:
+      name: WebhookPing
+      title: Webhook Ping Notification
+      summary: Notifies the receiver that change payloads are queued.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPing'
+    WebhookPayloadList:
+      name: WebhookPayloadList
+      title: Webhook Payload Polling Response
+      summary: Envelope returned when listing queued webhook payloads.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayloadList'
+  schemas:
+    WebhookPing:
+      type: object
+      description: >-
+        Body of the ping POST sent to the registered notification URL. Contains
+        only enough information to identify the originating base and webhook
+        and when the ping was generated.
+      required:
+      - base
+      - webhook
+      - timestamp
+      properties:
+        base:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: The ID of the base that produced the change.
+              example: app00000000000000
+        webhook:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: The ID of the webhook that produced the change.
+              example: ach00000000000000
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the ping was generated.
+          example: '2022-02-01T21:25:05.663Z'
+    WebhookPayloadList:
+      type: object
+      description: >-
+        Envelope returned by the list payloads endpoint. Includes the next
+        cursor to poll from, a flag indicating whether more payloads exist,
+        and the array of payload objects.
+      required:
+      - cursor
+      - mightHaveMore
+      - payloads
+      properties:
+        cursor:
+          type: integer
+          description: >-
+            The transaction number of the payload that would immediately follow
+            the last payload returned. Use this value as the `cursor` query
+            parameter on the next poll.
+        mightHaveMore:
+          type: boolean
+          description: >-
+            True if additional payloads beyond the current response may be
+            available for retrieval.
+        payloads:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookPayload'
+    WebhookPayload:
+      type: object
+      description: >-
+        A single payload describing a transaction's worth of changes against
+        the base. Payloads may describe table/record/field/view changes or, in
+        error form, indicate that the webhook specification has become invalid.
+      required:
+      - timestamp
+      - baseTransactionNumber
+      - payloadFormat
+      - actionMetadata
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 time the action occurred.
+        baseTransactionNumber:
+          type: integer
+          description: >-
+            A monotonically increasing number identifying all changes within a
+            single transaction; scoped to this webhook.
+        payloadFormat:
+          type: string
+          enum:
+          - v0
+          description: >-
+            The payload format's version. Currently `v0`; may increment for
+            breaking changes.
+        actionMetadata:
+          $ref: '#/components/schemas/WebhookActionMetadata'
+        changedTablesById:
+          type: object
+          description: >-
+            Map of table IDs to the changes that occurred within each table
+            during this transaction.
+          additionalProperties:
+            $ref: '#/components/schemas/WebhookTableChanged'
+        createdTablesById:
+          type: object
+          description: Map of newly created table IDs to their initial state.
+          additionalProperties:
+            $ref: '#/components/schemas/WebhookTableCreated'
+        destroyedTableIds:
+          type: array
+          description: IDs of tables destroyed during the transaction.
+          items:
+            type: string
+        error:
+          type: boolean
+          description: >-
+            Present and `true` on error payloads. Signals the webhook's
+            specification has become invalid (for example, a referenced table,
+            view, or field was deleted) and the webhook will not auto-recover.
+        code:
+          type: string
+          enum:
+          - INVALID_FILTERS
+          - INVALID_HOOK
+          - INTERNAL_ERROR
+          description: >-
+            Error classification on error payloads. Additional codes may be
+            introduced in the future.
+    WebhookActionMetadata:
+      type: object
+      description: >-
+        Metadata describing the action that produced the change. Future
+        sources may be added without breaking changes.
+      properties:
+        source:
+          type: string
+          description: >-
+            The source of the action (for example, `client`, `publicApi`,
+            `formSubmission`).
+        sourceMetadata:
+          type: object
+          description: Additional context about the source, such as the acting user.
+          additionalProperties: true
+    WebhookTableChanged:
+      type: object
+      description: >-
+        Describes record, field, and view changes for a single existing table
+        within a transaction.
+      properties:
+        changedRecordsById:
+          type: object
+          additionalProperties:
+            type: object
+        createdRecordsById:
+          type: object
+          additionalProperties:
+            type: object
+        destroyedRecordIds:
+          type: array
+          items:
+            type: string
+        changedFieldsById:
+          type: object
+          additionalProperties:
+            type: object
+        createdFieldsById:
+          type: object
+          additionalProperties:
+            type: object
+        destroyedFieldIds:
+          type: array
+          items:
+            type: string
+        changedViewsById:
+          type: object
+          additionalProperties:
+            type: object
+        createdViewsById:
+          type: object
+          additionalProperties:
+            type: object
+        destroyedViewIds:
+          type: array
+          items:
+            type: string
+    WebhookTableCreated:
+      type: object
+      description: >-
+        Describes the initial records, fields, and views present on a table
+        created during the transaction.
+      properties:
+        recordsById:
+          type: object
+          additionalProperties:
+            type: object
+        fieldsById:
+          type: object
+          additionalProperties:
+            type: object
+        viewsById:
+          type: object
+          additionalProperties:
+            type: object

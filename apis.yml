@@ -27,6 +27,8 @@ apis:
   - url: https://airtable.com/developers/web/guides/oauth-integrations
     type: Authentication
   - url: https://airtable.com/developers/web/api/webhooks-overview
+    type: Documentation
+  - url: asyncapi/airtable-webhooks-asyncapi.yml
     type: AsyncAPI
   - url: https://github.com/Airtable/airtable.js
     type: SDK

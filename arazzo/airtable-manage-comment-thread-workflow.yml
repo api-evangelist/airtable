@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Manage Comment Thread
+  summary: List a record's comments, edit one, then delete one.
+  description: >-
+    Manages the comment thread on an Airtable record end to end. The workflow
+    lists the comments on a record, edits the text of the first comment in the
+    thread, and then deletes a comment. Only the author of a comment may edit or
+    delete it. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: manage-comment-thread
+  summary: List comments on a record, update one, then delete one.
+  description: >-
+    Lists the comments on a record, patches the text of the first comment, and
+    deletes the comment identified for removal.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    - recordId
+    - newText
+    - deleteCommentId
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name containing the record.
+      recordId:
+        type: string
+        description: The record id whose comment thread is being managed.
+      newText:
+        type: string
+        description: The replacement text for the comment being edited.
+      deleteCommentId:
+        type: string
+        description: The id of the comment to delete from the thread.
+  steps:
+  - stepId: listThread
+    description: >-
+      List the comments on the record in reverse chronological order to locate
+      the comment to edit.
+    operationId: listComments
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $inputs.recordId
+    - name: pageSize
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      comments: $response.body#/comments
+      firstCommentId: $response.body#/comments/0/id
+      offset: $response.body#/offset
+  - stepId: editComment
+    description: >-
+      Update the text of the first comment in the thread. Only the author of
+      the comment can update it.
+    operationId: updateComment
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $inputs.recordId
+    - name: commentId
+      in: path
+      value: $steps.listThread.outputs.firstCommentId
+    requestBody:
+      contentType: application/json
+      payload:
+        text: $inputs.newText
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commentId: $response.body#/id
+      text: $response.body#/text
+  - stepId: removeComment
+    description: >-
+      Delete the comment identified for removal from the thread. Only the
+      author of the comment can delete it.
+    operationId: deleteComment
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $inputs.recordId
+    - name: commentId
+      in: path
+      value: $inputs.deleteCommentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deletedId: $response.body#/id
+      deleted: $response.body#/deleted
+  outputs:
+    editedCommentId: $steps.editComment.outputs.commentId
+    deletedCommentId: $steps.removeComment.outputs.deletedId

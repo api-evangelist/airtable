@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Paginate All Records
+  summary: Page through every record in a table using the offset cursor.
+  description: >-
+    Walks the full set of records in an Airtable table one page at a time. The
+    first step requests a page of up to one hundred records, and the second
+    step uses the offset cursor returned in that response to fetch the next
+    page. The offset is passed forward via a runtime expression, demonstrating
+    the cursor-passing pattern needed to drain an entire table. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: paginate-all-records
+  summary: Fetch the first page of records, then the next page via the offset.
+  description: >-
+    Requests the first page of records with a page size of one hundred, then
+    uses the offset cursor from that response to retrieve the following page.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name to page through.
+  steps:
+  - stepId: firstPage
+    description: >-
+      Request the first page of records using the maximum page size of one
+      hundred records.
+    operationId: listRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: pageSize
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      records: $response.body#/records
+      offset: $response.body#/offset
+  - stepId: nextPage
+    description: >-
+      Fetch the next page of records by passing the offset cursor returned by
+      the first page into the offset query parameter.
+    operationId: listRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: pageSize
+      in: query
+      value: 100
+    - name: offset
+      in: query
+      value: $steps.firstPage.outputs.offset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      records: $response.body#/records
+      offset: $response.body#/offset
+  outputs:
+    firstPageRecords: $steps.firstPage.outputs.records
+    nextPageRecords: $steps.nextPage.outputs.records
+    nextOffset: $steps.nextPage.outputs.offset

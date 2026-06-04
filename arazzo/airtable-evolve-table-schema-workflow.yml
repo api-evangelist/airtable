@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Evolve a Table Schema
+  summary: Rename a table and update one of its fields within an existing base.
+  description: >-
+    Evolves the structure of an existing Airtable base by first reading the
+    base schema to confirm the target table and field, then renaming (and
+    optionally re-describing) the table, and finally updating a field's name,
+    description, or configuration options. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: evolve-table-schema
+  summary: Rename a table and update one of its fields.
+  description: >-
+    Reads the base schema to confirm the target table and field, updates the
+    table's name and description, and then updates a field's name, description,
+    or options.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableId
+    - fieldId
+    - tableName
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableId:
+        type: string
+        description: The identifier of the table to rename (e.g. tblXXXXXXXXXXXXXX).
+      fieldId:
+        type: string
+        description: The identifier of the field to update (e.g. fldXXXXXXXXXXXXXX).
+      tableName:
+        type: string
+        description: The new name for the table.
+      tableDescription:
+        type: string
+        description: An optional new description for the table.
+      fieldName:
+        type: string
+        description: An optional new name for the field.
+      fieldDescription:
+        type: string
+        description: An optional new description for the field.
+      fieldOptions:
+        type: object
+        description: Optional updated configuration options for the field.
+  steps:
+  - stepId: confirmSchema
+    description: >-
+      Read the base schema to confirm the target table and field exist before
+      modifying them.
+    operationId: getBaseSchema
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/tables
+  - stepId: renameTable
+    description: >-
+      Update the table's name and optional description. Only the supplied
+      properties are changed.
+    operationId: updateTable
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableId
+      in: path
+      value: $inputs.tableId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.tableName
+        description: $inputs.tableDescription
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableId: $response.body#/id
+      name: $response.body#/name
+  - stepId: updateField
+    description: >-
+      Update the target field's name, description, or configuration options.
+      Only the supplied properties are changed.
+    operationId: updateField
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableId
+      in: path
+      value: $inputs.tableId
+    - name: fieldId
+      in: path
+      value: $inputs.fieldId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.fieldName
+        description: $inputs.fieldDescription
+        options: $inputs.fieldOptions
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fieldId: $response.body#/id
+      name: $response.body#/name
+  outputs:
+    tableId: $steps.renameTable.outputs.tableId
+    fieldId: $steps.updateField.outputs.fieldId

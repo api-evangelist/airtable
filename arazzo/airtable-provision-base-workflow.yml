@@ -1,0 +1,73 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Provision a Base
+  summary: Create a new base with its initial tables and read back the resulting schema.
+  description: >-
+    Stands up a brand new Airtable base in a workspace, supplying the base name
+    and at least one table definition with fields, and then immediately reads
+    the base schema back so the caller can confirm the tables and fields were
+    created as expected. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-base
+  summary: Create a new Airtable base and confirm its schema.
+  description: >-
+    Creates a new base in the supplied workspace with its initial tables and
+    fields, then retrieves the freshly created base schema to verify the
+    resulting structure.
+  inputs:
+    type: object
+    required:
+    - name
+    - workspaceId
+    - tables
+    properties:
+      name:
+        type: string
+        description: The name of the new base.
+      workspaceId:
+        type: string
+        description: The ID of the workspace where the base will be created (e.g. wspXXXXXXXXXXXXXX).
+      tables:
+        type: array
+        description: The initial table definitions (each with a name and at least one field) for the base.
+        items:
+          type: object
+  steps:
+  - stepId: createBase
+    description: >-
+      Create a new base in the supplied workspace, providing the base name and
+      its initial table and field definitions.
+    operationId: createBase
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        workspaceId: $inputs.workspaceId
+        tables: $inputs.tables
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      baseId: $response.body#/id
+      tables: $response.body#/tables
+  - stepId: readSchema
+    description: >-
+      Read the schema of the newly created base to confirm its tables, fields,
+      and views were provisioned as expected.
+    operationId: getBaseSchema
+    parameters:
+    - name: baseId
+      in: path
+      value: $steps.createBase.outputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/tables
+  outputs:
+    baseId: $steps.createBase.outputs.baseId
+    tables: $steps.readSchema.outputs.tables

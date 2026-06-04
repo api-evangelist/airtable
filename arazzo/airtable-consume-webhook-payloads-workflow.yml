@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Consume Webhook Payloads
+  summary: Discover a webhook and drain its payloads using cursor pagination.
+  description: >-
+    Consumes the change payloads queued for an Airtable webhook. The workflow
+    lists the base's webhooks to resolve a webhook id, reads the first page of
+    payloads, and then reads the next page by passing the cursor returned from
+    the first page. Each step spells out its request inline so the cursor
+    handoff can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: consume-webhook-payloads
+  summary: List webhooks then drain payloads using cursor pagination.
+  description: >-
+    Resolves a webhook on the base, fetches the first page of webhook payloads,
+    and fetches the next page using the cursor returned from the first page to
+    demonstrate cursor-based pagination.
+  inputs:
+    type: object
+    required:
+    - baseId
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      webhookId:
+        type: string
+        description: >-
+          Optional webhook id to drain. When omitted the first webhook returned
+          by the base is used.
+  steps:
+  - stepId: listWebhooks
+    description: >-
+      List the webhooks registered on the base and select the first webhook id
+      to drain payloads from.
+    operationId: listWebhooks
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/webhooks/0/id
+  - stepId: listFirstPage
+    description: >-
+      Read the first page of payloads queued for the resolved webhook. The
+      response carries a cursor used to request the following page.
+    operationId: listWebhookPayloads
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: webhookId
+      in: path
+      value: $steps.listWebhooks.outputs.webhookId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      payloads: $response.body#/payloads
+      cursor: $response.body#/cursor
+      mightHaveMore: $response.body#/mightHaveMore
+  - stepId: listNextPage
+    description: >-
+      Read the next page of payloads by passing the cursor returned from the
+      first page, continuing where the previous page left off.
+    operationId: listWebhookPayloads
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: webhookId
+      in: path
+      value: $steps.listWebhooks.outputs.webhookId
+    - name: cursor
+      in: query
+      value: $steps.listFirstPage.outputs.cursor
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      payloads: $response.body#/payloads
+      cursor: $response.body#/cursor
+      mightHaveMore: $response.body#/mightHaveMore
+  outputs:
+    webhookId: $steps.listWebhooks.outputs.webhookId
+    firstPagePayloads: $steps.listFirstPage.outputs.payloads
+    nextPagePayloads: $steps.listNextPage.outputs.payloads
+    cursor: $steps.listNextPage.outputs.cursor

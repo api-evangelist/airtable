@@ -1,0 +1,65 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Audit Enterprise Users
+  summary: Read an enterprise account and then list its users for auditing.
+  description: >-
+    A read-only auditing flow for an enterprise account. The workflow first
+    retrieves the enterprise account information, including the set of user IDs
+    associated with the account, and then lists the enterprise users with their
+    collaboration details so an administrator can review who has access. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableEnterpriseApi
+  url: ../openapi/airtable-enterprise-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: audit-enterprise-users
+  summary: Read the enterprise account and list its users.
+  description: >-
+    Retrieves the enterprise account information and then lists the users in the
+    enterprise account along with their collaboration details for auditing.
+  inputs:
+    type: object
+    required:
+    - enterpriseAccountId
+    properties:
+      enterpriseAccountId:
+        type: string
+        description: The enterprise account identifier (starts with 'ent').
+  steps:
+  - stepId: getAccount
+    description: >-
+      Read the enterprise account information, including the list of user IDs
+      associated with the account.
+    operationId: getEnterpriseAccount
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountId: $response.body#/id
+      userIds: $response.body#/userIds
+  - stepId: listUsers
+    description: >-
+      List the users in the enterprise account, including their collaboration
+      details.
+    operationId: listEnterpriseUsers
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    - name: include
+      in: query
+      value:
+      - collaborations
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      users: $response.body#/users
+  outputs:
+    accountId: $steps.getAccount.outputs.accountId
+    users: $steps.listUsers.outputs.users

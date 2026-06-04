@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Add a Table with Fields
+  summary: Add a new table to an existing base and then add a field to that table.
+  description: >-
+    Extends an existing Airtable base by first confirming the base is reachable
+    via its schema, then creating a new table with its initial fields, and
+    finally appending an additional field to the newly created table. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-table-with-fields
+  summary: Add a table to an existing base, then add a field to it.
+  description: >-
+    Confirms the target base by reading its schema, creates a new table with its
+    initial field definitions, and then adds a further field to that table.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableName
+    - tableFields
+    - fieldName
+    - fieldType
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableName:
+        type: string
+        description: The name of the new table to create.
+      tableDescription:
+        type: string
+        description: An optional description for the new table.
+      tableFields:
+        type: array
+        description: The initial field definitions for the new table (at least one required).
+        items:
+          type: object
+      fieldName:
+        type: string
+        description: The name of the additional field to add to the new table.
+      fieldType:
+        type: string
+        description: The type of the additional field (e.g. singleLineText, number, singleSelect).
+      fieldDescription:
+        type: string
+        description: An optional description for the additional field.
+      fieldOptions:
+        type: object
+        description: Optional configuration options for the additional field (required for types like singleSelect).
+  steps:
+  - stepId: confirmBase
+    description: >-
+      Read the base schema to confirm the target base exists and is reachable
+      before adding a new table to it.
+    operationId: getBaseSchema
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/tables
+  - stepId: createTable
+    description: >-
+      Create a new table within the confirmed base, supplying the table name,
+      optional description, and its initial field definitions.
+    operationId: createTable
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.tableName
+        description: $inputs.tableDescription
+        fields: $inputs.tableFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tableId: $response.body#/id
+      fields: $response.body#/fields
+  - stepId: addField
+    description: >-
+      Add an additional field to the newly created table, supplying its name,
+      type, optional description, and optional configuration options.
+    operationId: createField
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableId
+      in: path
+      value: $steps.createTable.outputs.tableId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.fieldName
+        type: $inputs.fieldType
+        description: $inputs.fieldDescription
+        options: $inputs.fieldOptions
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fieldId: $response.body#/id
+  outputs:
+    tableId: $steps.createTable.outputs.tableId
+    fieldId: $steps.addField.outputs.fieldId

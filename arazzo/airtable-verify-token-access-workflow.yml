@@ -1,0 +1,57 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Verify Token Access
+  summary: Confirm the token's identity and scopes, then list the bases it can reach.
+  description: >-
+    Validates an Airtable access token by first resolving the authenticated
+    user or service account identity and its authorized scopes, and then listing
+    the bases the token can actually reach. Together these two steps confirm both
+    the token's permissions and its concrete access. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: verify-token-access
+  summary: Confirm token identity and scopes, then list accessible bases.
+  description: >-
+    Resolves the current token's user ID and authorized scopes, then lists the
+    bases the token has access to in order to verify its effective reach.
+  inputs:
+    type: object
+    properties:
+      offset:
+        type: string
+        description: Optional pagination cursor from a previous listBases response.
+  steps:
+  - stepId: whoami
+    description: >-
+      Resolve the identity and authorized scopes of the currently authenticated
+      token to confirm it is valid.
+    operationId: whoami
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/id
+      scopes: $response.body#/scopes
+  - stepId: listBases
+    description: >-
+      List the bases the authenticated token can reach to verify its effective
+      access.
+    operationId: listBases
+    parameters:
+    - name: offset
+      in: query
+      value: $inputs.offset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bases: $response.body#/bases
+      offset: $response.body#/offset
+  outputs:
+    userId: $steps.whoami.outputs.userId
+    scopes: $steps.whoami.outputs.scopes
+    bases: $steps.listBases.outputs.bases

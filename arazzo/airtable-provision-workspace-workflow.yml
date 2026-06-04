@@ -1,0 +1,61 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Provision a Workspace
+  summary: Create a new enterprise workspace and read back its collaborators.
+  description: >-
+    A workspace provisioning flow for the enterprise account. The workflow
+    creates a new workspace by name, captures the resulting workspace id, and
+    then reads the workspace collaborators so the caller can confirm initial
+    access. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableEnterpriseApi
+  url: ../openapi/airtable-enterprise-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-workspace
+  summary: Create an enterprise workspace and read its collaborators.
+  description: >-
+    Creates a new workspace with the supplied name and then retrieves the
+    collaborators on the newly created workspace.
+  inputs:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        description: The name of the new workspace.
+  steps:
+  - stepId: createWorkspace
+    description: >-
+      Create a new workspace within the enterprise account using the supplied
+      name.
+    operationId: createWorkspace
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      workspaceId: $response.body#/id
+      workspaceName: $response.body#/name
+  - stepId: getCollaborators
+    description: >-
+      Read the collaborators on the newly created workspace to confirm initial
+      access.
+    operationId: getWorkspaceCollaborators
+    parameters:
+    - name: workspaceId
+      in: path
+      value: $steps.createWorkspace.outputs.workspaceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      collaborators: $response.body#/collaborators
+      groupCollaborators: $response.body#/groupCollaborators
+  outputs:
+    workspaceId: $steps.createWorkspace.outputs.workspaceId
+    collaborators: $steps.getCollaborators.outputs.collaborators

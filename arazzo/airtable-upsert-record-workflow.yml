@@ -1,0 +1,155 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Upsert a Record
+  summary: Find a record by a key field and update it if it exists, otherwise create it.
+  description: >-
+    One of the most common Airtable integration patterns. The workflow resolves
+    the table schema, searches the table for an existing record using a
+    filterByFormula match on a key field, and then branches: when a match is
+    found it patches the existing record, and when no match is found it creates
+    a new record. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-record
+  summary: Upsert a single record into an Airtable table by a unique key field.
+  description: >-
+    Resolves the base schema, looks for an existing record whose key field
+    matches the supplied value, and either updates the matched record or creates
+    a new one.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    - keyField
+    - keyValue
+    - fields
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name to upsert the record into.
+      keyField:
+        type: string
+        description: The field name used to detect an existing record (e.g. "Email").
+      keyValue:
+        type: string
+        description: The value of the key field to match on.
+      fields:
+        type: object
+        description: The map of field name/value pairs to write to the record.
+  steps:
+  - stepId: resolveSchema
+    description: >-
+      Read the base schema to confirm the target table and key field exist
+      before attempting to read or write records.
+    operationId: getBaseSchema
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/tables
+  - stepId: findRecord
+    description: >-
+      Search the table for an existing record where the key field equals the
+      supplied key value, returning at most one match.
+    operationId: listRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: filterByFormula
+      in: query
+      value: "{$inputs.keyField} = '$inputs.keyValue'"
+    - name: maxRecords
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedRecordId: $response.body#/records/0/id
+    onSuccess:
+    - name: recordExists
+      type: goto
+      stepId: updateExisting
+      criteria:
+      - context: $response.body
+        condition: $.records.length > 0
+        type: jsonpath
+    - name: recordMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.records.length == 0
+        type: jsonpath
+  - stepId: updateExisting
+    description: >-
+      Patch the matched record with the supplied fields. Only the fields
+      provided are changed; all other fields on the record are left intact.
+    operationId: updateRecord
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $steps.findRecord.outputs.matchedRecordId
+    requestBody:
+      contentType: application/json
+      payload:
+        fields: $inputs.fields
+        typecast: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/id
+      createdTime: $response.body#/createdTime
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new record in the table using the supplied fields when no
+      existing record matched the key value.
+    operationId: createRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    requestBody:
+      contentType: application/json
+      payload:
+        records:
+        - fields: $inputs.fields
+        typecast: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/records/0/id
+      createdTime: $response.body#/records/0/createdTime
+  outputs:
+    recordId: $steps.updateExisting.outputs.recordId
+    createdRecordId: $steps.createNew.outputs.recordId

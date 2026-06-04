@@ -1,0 +1,63 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Deprovision a SCIM User
+  summary: Find a SCIM user by username and then delete the resource.
+  description: >-
+    An identity deprovisioning flow built on the SCIM 2.0 protocol. The workflow
+    first locates a SCIM user by applying a SCIM filter on the userName
+    attribute, captures the matched resource id, and then permanently deletes
+    the user so they lose access to all Airtable resources associated with the
+    enterprise. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableScimApi
+  url: ../openapi/airtable-scim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deprovision-scim-user
+  summary: Find a SCIM user by username and delete it.
+  description: >-
+    Locates a SCIM 2.0 user by filtering on the userName attribute and then
+    permanently deletes the matched user resource.
+  inputs:
+    type: object
+    required:
+    - userName
+    properties:
+      userName:
+        type: string
+        description: The username (typically an email) of the user to deprovision.
+  steps:
+  - stepId: findUser
+    description: >-
+      Locate the SCIM user by applying a SCIM filter on the userName attribute,
+      returning at most one match.
+    operationId: listScimUsers
+    parameters:
+    - name: filter
+      in: query
+      value: userName eq "$inputs.userName"
+    - name: count
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedUserId: $response.body#/Resources/0/id
+      totalResults: $response.body#/totalResults
+  - stepId: deleteUser
+    description: >-
+      Permanently delete the matched SCIM user resource from the enterprise
+      account.
+    operationId: deleteScimUser
+    parameters:
+    - name: userId
+      in: path
+      value: $steps.findUser.outputs.matchedUserId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      deletedUserId: $steps.findUser.outputs.matchedUserId
+  outputs:
+    deletedUserId: $steps.deleteUser.outputs.deletedUserId

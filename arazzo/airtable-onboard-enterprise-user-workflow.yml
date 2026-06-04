@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Onboard an Enterprise User
+  summary: Claim a user into the enterprise, set their membership, and grant admin access.
+  description: >-
+    A complete enterprise onboarding flow for a single user. The workflow first
+    claims the user into the enterprise account with a managed state, then
+    confirms their membership management status, and finally grants them
+    enterprise admin access so they can administer the account. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableEnterpriseApi
+  url: ../openapi/airtable-enterprise-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboard-enterprise-user
+  summary: Claim, set membership, and grant admin access for an enterprise user.
+  description: >-
+    Claims the user into the enterprise account as a managed user, sets their
+    membership management status, and grants enterprise admin access in a single
+    end-to-end onboarding pass.
+  inputs:
+    type: object
+    required:
+    - enterpriseAccountId
+    - userKey
+    - userId
+    properties:
+      enterpriseAccountId:
+        type: string
+        description: The enterprise account identifier (starts with 'ent').
+      userKey:
+        type: string
+        description: The user ID or email used as the key in the claim/membership maps.
+      userId:
+        type: string
+        description: The user ID to grant enterprise admin access to.
+  steps:
+  - stepId: claimUser
+    description: >-
+      Claim the user into the enterprise account, setting their management
+      status to managed.
+    operationId: claimUsers
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    requestBody:
+      contentType: application/json
+      payload:
+        users:
+          $inputs.userKey:
+            state: managed
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      claimErrors: $response.body#/errors
+  - stepId: setMembership
+    description: >-
+      Confirm the user's membership management status within the enterprise
+      account.
+    operationId: manageUserMembership
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    requestBody:
+      contentType: application/json
+      payload:
+        users:
+          $inputs.userKey:
+            state: managed
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      membershipErrors: $response.body#/errors
+  - stepId: grantAdmin
+    description: >-
+      Grant enterprise admin access to the user so they can manage the
+      enterprise account through the Admin panel and API.
+    operationId: grantAdminAccess
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    requestBody:
+      contentType: application/json
+      payload:
+        userIds:
+        - $inputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      grantErrors: $response.body#/errors
+  outputs:
+    claimErrors: $steps.claimUser.outputs.claimErrors
+    membershipErrors: $steps.setMembership.outputs.membershipErrors
+    grantErrors: $steps.grantAdmin.outputs.grantErrors

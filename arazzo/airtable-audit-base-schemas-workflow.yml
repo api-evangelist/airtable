@@ -1,0 +1,59 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Audit Base Schemas
+  summary: Enumerate accessible bases and inspect the schema of one of them.
+  description: >-
+    Supports schema auditing by first listing all bases the authenticated token
+    can reach, then drilling into the schema of a single base resolved from that
+    list to inspect its tables, fields, and views. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: audit-base-schemas
+  summary: List accessible bases and inspect one base's schema.
+  description: >-
+    Lists all bases accessible to the authenticated token and then retrieves the
+    schema of a base resolved from the first entry of that list.
+  inputs:
+    type: object
+    properties:
+      offset:
+        type: string
+        description: Optional pagination cursor from a previous listBases response.
+  steps:
+  - stepId: listBases
+    description: >-
+      List all bases the authenticated token has access to, optionally using a
+      pagination cursor to fetch a subsequent page.
+    operationId: listBases
+    parameters:
+    - name: offset
+      in: query
+      value: $inputs.offset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bases: $response.body#/bases
+      firstBaseId: $response.body#/bases/0/id
+      offset: $response.body#/offset
+  - stepId: inspectSchema
+    description: >-
+      Retrieve the schema of the first base from the list to inspect its tables,
+      fields, and views.
+    operationId: getBaseSchema
+    parameters:
+    - name: baseId
+      in: path
+      value: $steps.listBases.outputs.firstBaseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/tables
+  outputs:
+    bases: $steps.listBases.outputs.bases
+    tables: $steps.inspectSchema.outputs.tables

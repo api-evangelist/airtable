@@ -1,0 +1,143 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Export Audit Logs
+  summary: Request an audit log export, poll until it is ready, then read the events.
+  description: >-
+    Enterprise audit log data is exported asynchronously: a request is created
+    with a time range filter, the request is then polled until its status
+    reaches a terminal state, and once processing is done the matching audit
+    log events are read back for review. This workflow chains those three
+    operations together, spelling out each request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableAuditLogsApi
+  url: ../openapi/airtable-audit-logs-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: export-audit-logs
+  summary: Create an audit log export request, poll for completion, then list events.
+  description: >-
+    Creates an audit log export request scoped to a time range, repeatedly
+    fetches the request until it reports a done status, and then lists the
+    audit log events for the same enterprise account and time window.
+  inputs:
+    type: object
+    required:
+    - enterpriseAccountId
+    - startTime
+    - endTime
+    properties:
+      enterpriseAccountId:
+        type: string
+        description: The enterprise account identifier (starts with 'ent').
+      startTime:
+        type: string
+        format: date-time
+        description: Start of the time range to export, in ISO 8601 format.
+      endTime:
+        type: string
+        format: date-time
+        description: End of the time range to export, in ISO 8601 format.
+      originatingUserId:
+        type: string
+        description: Optional filter limiting events to a specific user.
+      eventType:
+        type: string
+        description: Optional filter limiting events to a specific event type.
+      modelId:
+        type: string
+        description: Optional filter limiting events to a specific affected model.
+      category:
+        type: string
+        description: Optional filter limiting events to a specific category.
+  steps:
+  - stepId: createAuditLogRequest
+    description: >-
+      Create a new audit log export request for the enterprise account using
+      the supplied time range filter.
+    operationId: createAuditLogRequest
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    requestBody:
+      contentType: application/json
+      payload:
+        filter:
+          startTime: $inputs.startTime
+          endTime: $inputs.endTime
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requestId: $response.body#/id
+      status: $response.body#/status
+  - stepId: getAuditLogRequest
+    description: >-
+      Poll the audit log export request until it reaches the done status. If
+      the status is still pending or processing, retry this step; if it fails,
+      abort the workflow.
+    operationId: getAuditLogRequest
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    - name: requestId
+      in: path
+      value: $steps.createAuditLogRequest.outputs.requestId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == 'done'
+      type: jsonpath
+    outputs:
+      status: $response.body#/status
+      downloadUrls: $response.body#/downloadUrls
+    onSuccess:
+    - name: exportReady
+      type: goto
+      stepId: listAuditLogEvents
+      criteria:
+      - context: $response.body
+        condition: $.status == 'done'
+        type: jsonpath
+    onFailure:
+    - name: exportFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == 'failed'
+        type: jsonpath
+    - name: stillProcessing
+      type: retry
+      retryAfter: 5
+      retryLimit: 30
+      criteria:
+      - context: $response.body
+        condition: $.status == 'pending' || $.status == 'processing'
+        type: jsonpath
+  - stepId: listAuditLogEvents
+    description: >-
+      Read the audit log events for the enterprise account across the same
+      time range now that the export request has completed.
+    operationId: listAuditLogEvents
+    parameters:
+    - name: enterpriseAccountId
+      in: path
+      value: $inputs.enterpriseAccountId
+    - name: startTime
+      in: query
+      value: $inputs.startTime
+    - name: endTime
+      in: query
+      value: $inputs.endTime
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      events: $response.body#/events
+      nextCursor: $response.body#/pagination/next
+  outputs:
+    requestId: $steps.createAuditLogRequest.outputs.requestId
+    status: $steps.getAuditLogRequest.outputs.status
+    downloadUrls: $steps.getAuditLogRequest.outputs.downloadUrls
+    events: $steps.listAuditLogEvents.outputs.events

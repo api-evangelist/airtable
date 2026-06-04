@@ -1,0 +1,67 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Refresh a Webhook
+  summary: Find a webhook on a base and extend its expiration time.
+  description: >-
+    Keeps an Airtable webhook alive. Webhooks expire after seven days of
+    inactivity, so this workflow lists the base's webhooks to resolve a webhook
+    id and then refreshes that webhook to extend its expiration time. Each step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: refresh-webhook
+  summary: Find a webhook and refresh its expiration.
+  description: >-
+    Resolves a webhook on the base and refreshes it to extend the expiration
+    time so the subscription continues to receive notifications.
+  inputs:
+    type: object
+    required:
+    - baseId
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      webhookId:
+        type: string
+        description: >-
+          Optional webhook id to refresh. When omitted the first webhook
+          returned by the base is used.
+  steps:
+  - stepId: listWebhooks
+    description: >-
+      List the webhooks registered on the base and select the first webhook id
+      to refresh.
+    operationId: listWebhooks
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/webhooks/0/id
+  - stepId: refreshWebhook
+    description: >-
+      Refresh the resolved webhook to extend its expiration time and keep the
+      subscription active.
+    operationId: refreshWebhook
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: webhookId
+      in: path
+      value: $steps.listWebhooks.outputs.webhookId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      expirationTime: $response.body#/expirationTime
+  outputs:
+    webhookId: $steps.listWebhooks.outputs.webhookId
+    expirationTime: $steps.refreshWebhook.outputs.expirationTime

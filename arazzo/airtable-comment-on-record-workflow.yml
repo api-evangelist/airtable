@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Comment on Record
+  summary: Confirm a record exists, then add a comment to it.
+  description: >-
+    Adds a comment to a specific Airtable record after first confirming the
+    record is present. The workflow retrieves the record to verify it exists,
+    then posts a comment whose text may include user mentions using the
+    @[usrXXXXXXXX] syntax. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: comment-on-record
+  summary: Verify a record exists and post a comment on it.
+  description: >-
+    Retrieves the target record to confirm it exists, then creates a comment on
+    the record with the supplied text.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    - recordId
+    - text
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name containing the record.
+      recordId:
+        type: string
+        description: The record id to comment on (starts with 'rec').
+      text:
+        type: string
+        description: The comment text. Supports @[usrXXXXXXXX] mention syntax.
+  steps:
+  - stepId: confirmRecord
+    description: >-
+      Retrieve the record to confirm it exists before posting a comment to it.
+    operationId: getRecord
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $inputs.recordId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/id
+  - stepId: addComment
+    description: >-
+      Create a comment on the confirmed record with the supplied text.
+    operationId: createComment
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $steps.confirmRecord.outputs.recordId
+    requestBody:
+      contentType: application/json
+      payload:
+        text: $inputs.text
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commentId: $response.body#/id
+      createdTime: $response.body#/createdTime
+  outputs:
+    commentId: $steps.addComment.outputs.commentId
+    createdTime: $steps.addComment.outputs.createdTime

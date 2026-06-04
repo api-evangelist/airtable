@@ -1,0 +1,67 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Teardown a Webhook
+  summary: Find a webhook on a base and delete it.
+  description: >-
+    Tears down an Airtable webhook subscription. The workflow lists the base's
+    webhooks to resolve a webhook id and then deletes that webhook so it no
+    longer sends notifications. Each step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: teardown-webhook
+  summary: Find a webhook and delete it.
+  description: >-
+    Resolves a webhook on the base and deletes it so the subscription stops
+    sending notifications.
+  inputs:
+    type: object
+    required:
+    - baseId
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      webhookId:
+        type: string
+        description: >-
+          Optional webhook id to delete. When omitted the first webhook returned
+          by the base is used.
+  steps:
+  - stepId: listWebhooks
+    description: >-
+      List the webhooks registered on the base and select the first webhook id
+      to delete.
+    operationId: listWebhooks
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/webhooks/0/id
+  - stepId: deleteWebhook
+    description: >-
+      Delete the resolved webhook so it no longer sends notifications to the
+      base's notification URL.
+    operationId: deleteWebhook
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: webhookId
+      in: path
+      value: $steps.listWebhooks.outputs.webhookId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+  outputs:
+    webhookId: $steps.listWebhooks.outputs.webhookId
+    result: $steps.deleteWebhook.outputs.result

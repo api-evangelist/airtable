@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Enrich Records
+  summary: Find records missing data and patch the empty fields.
+  description: >-
+    Fills gaps in a table by locating records where a field is empty and
+    patching them with supplied values. The workflow searches with a
+    filterByFormula that matches blank cells, then updates the first matched
+    record with typecast enabled so string values are coerced to the correct
+    cell types. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: enrich-records
+  summary: Locate a record with an empty field and patch it.
+  description: >-
+    Lists records where the target field is blank, then patches the first
+    matched record with the supplied enrichment fields.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    - emptyField
+    - fields
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name to enrich records in.
+      emptyField:
+        type: string
+        description: The field name to test for emptiness (e.g. "Company").
+      fields:
+        type: object
+        description: The map of field name/value pairs to patch onto the record.
+  steps:
+  - stepId: findMissing
+    description: >-
+      Search the table for a record where the target field is empty, returning
+      at most one match to enrich.
+    operationId: listRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: filterByFormula
+      in: query
+      value: "{$inputs.emptyField} = ''"
+    - name: maxRecords
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/records/0/id
+      records: $response.body#/records
+  - stepId: patchRecord
+    description: >-
+      Patch the matched record with the enrichment fields, leaving all other
+      fields intact. Typecast is enabled so string values are converted to the
+      appropriate cell value types.
+    operationId: updateRecord
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $steps.findMissing.outputs.recordId
+    requestBody:
+      contentType: application/json
+      payload:
+        fields: $inputs.fields
+        typecast: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/id
+      fields: $response.body#/fields
+  outputs:
+    enrichedRecordId: $steps.patchRecord.outputs.recordId
+    enrichedFields: $steps.patchRecord.outputs.fields

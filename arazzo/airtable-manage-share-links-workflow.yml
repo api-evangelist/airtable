@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Manage Share Links
+  summary: List a base's share links, then enable or disable a specific share.
+  description: >-
+    Enterprise administrators control external access to a base through share
+    links. This workflow first lists the active share links for a base, then
+    toggles the state of a chosen share link to either enabled or disabled.
+    Each step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableSharesApi
+  url: ../openapi/airtable-shares-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: manage-share-links
+  summary: List share links for a base and toggle one share's enabled state.
+  description: >-
+    Retrieves the list of share links for a base, then updates a specific
+    share link to the desired enabled or disabled state.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - shareId
+    - state
+    properties:
+      baseId:
+        type: string
+        description: The base identifier whose share links are managed (starts with 'app').
+      shareId:
+        type: string
+        description: The share link identifier to toggle (starts with 'shr').
+      state:
+        type: string
+        description: The desired state of the share link.
+        enum:
+        - enabled
+        - disabled
+  steps:
+  - stepId: listShares
+    description: >-
+      List all active share links for the base so the target share link can be
+      confirmed before its state is changed.
+    operationId: listShares
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      shares: $response.body#/shares
+      firstShareId: $response.body#/shares/0/shareId
+  - stepId: manageShare
+    description: >-
+      Update the chosen share link to the desired enabled or disabled state,
+      toggling external access to the base.
+    operationId: manageShare
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: shareId
+      in: path
+      value: $inputs.shareId
+    requestBody:
+      contentType: application/json
+      payload:
+        state: $inputs.state
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      shareId: $response.body#/shareId
+      state: $response.body#/state
+  outputs:
+    shares: $steps.listShares.outputs.shares
+    shareId: $steps.manageShare.outputs.shareId
+    state: $steps.manageShare.outputs.state

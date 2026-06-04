@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Bulk Import Records
+  summary: Create a batch of records in a table and verify the import landed.
+  description: >-
+    Loads a batch of up to ten records into an Airtable table in a single
+    request. The workflow first resolves the base schema to confirm the target
+    table exists, then creates the records with typecast enabled so string
+    values are coerced to the appropriate cell types, and finally lists the
+    table to verify the records are present. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+- name: airtableMetadataApi
+  url: ../openapi/airtable-metadata-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-import-records
+  summary: Create a batch of records in an Airtable table and confirm them.
+  description: >-
+    Resolves the base schema, creates a batch of up to ten records with
+    typecast, and lists the table to verify the newly imported records.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    - records
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name to import the records into.
+      records:
+        type: array
+        description: An array of up to 10 record objects, each with a fields map.
+        maxItems: 10
+        items:
+          type: object
+          properties:
+            fields:
+              type: object
+              description: The map of field name/value pairs for the record.
+  steps:
+  - stepId: resolveSchema
+    description: >-
+      Read the base schema to confirm the target table exists before writing
+      any records into it.
+    operationId: getBaseSchema
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tables: $response.body#/tables
+  - stepId: createBatch
+    description: >-
+      Create the batch of records in the table with typecast enabled so string
+      values are converted to the appropriate cell value types.
+    operationId: createRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    requestBody:
+      contentType: application/json
+      payload:
+        records: $inputs.records
+        typecast: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createdRecords: $response.body#/records
+      firstRecordId: $response.body#/records/0/id
+  - stepId: verifyImport
+    description: >-
+      List records in the table to verify the imported records are present.
+    operationId: listRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: pageSize
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      records: $response.body#/records
+      offset: $response.body#/offset
+  outputs:
+    createdRecords: $steps.createBatch.outputs.createdRecords
+    verifiedRecords: $steps.verifyImport.outputs.records

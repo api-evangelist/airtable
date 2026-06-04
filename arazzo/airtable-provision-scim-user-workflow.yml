@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Provision a SCIM User
+  summary: Create a SCIM 2.0 user and read it back by its resource id.
+  description: >-
+    An identity provisioning flow built on the SCIM 2.0 protocol. The workflow
+    creates a new SCIM user with the standard userName, name, emails, and active
+    attributes, captures the assigned resource id, and then reads the user back
+    to confirm the provisioned profile. SSO must be configured because Airtable
+    does not allow setting passwords through SCIM. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableScimApi
+  url: ../openapi/airtable-scim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-scim-user
+  summary: Create a SCIM user and read it back by id.
+  description: >-
+    Provisions a new SCIM 2.0 user with the supplied username, name, and primary
+    email, then retrieves the created user resource by its assigned id.
+  inputs:
+    type: object
+    required:
+    - userName
+    - givenName
+    - familyName
+    - email
+    properties:
+      userName:
+        type: string
+        description: The unique username for the user, typically an email address.
+      givenName:
+        type: string
+        description: The user's first name.
+      familyName:
+        type: string
+        description: The user's last name.
+      email:
+        type: string
+        description: The user's primary email address.
+  steps:
+  - stepId: createUser
+    description: >-
+      Provision a new SCIM 2.0 user with the supplied username, name, primary
+      email, and an active status.
+    operationId: createScimUser
+    requestBody:
+      contentType: application/scim+json
+      payload:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        userName: $inputs.userName
+        name:
+          givenName: $inputs.givenName
+          familyName: $inputs.familyName
+        emails:
+        - value: $inputs.email
+          type: work
+          primary: true
+        active: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      userId: $response.body#/id
+      userName: $response.body#/userName
+  - stepId: getUser
+    description: >-
+      Read the newly created SCIM user resource back by its assigned id to
+      confirm the provisioned profile.
+    operationId: getScimUser
+    parameters:
+    - name: userId
+      in: path
+      value: $steps.createUser.outputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/id
+      active: $response.body#/active
+  outputs:
+    userId: $steps.createUser.outputs.userId
+    active: $steps.getUser.outputs.active

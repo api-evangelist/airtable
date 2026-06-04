@@ -274,6 +274,81 @@ tags:
 - Spreadsheets
 image: https://www.airtable.com/images/logo.png
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/airtable-add-table-with-fields-workflow.yml
+    name: Add a Table with Fields
+    summary: Add a new table to an existing base and then add a field to that table.
+  - url: arazzo/airtable-archive-stale-records-workflow.yml
+    name: Archive Stale Records
+    summary: Find records matching a staleness formula and delete them.
+  - url: arazzo/airtable-audit-base-schemas-workflow.yml
+    name: Audit Base Schemas
+    summary: Enumerate accessible bases and inspect the schema of one of them.
+  - url: arazzo/airtable-audit-enterprise-users-workflow.yml
+    name: Audit Enterprise Users
+    summary: Read an enterprise account and then list its users for auditing.
+  - url: arazzo/airtable-bulk-import-records-workflow.yml
+    name: Bulk Import Records
+    summary: Create a batch of records in a table and verify the import landed.
+  - url: arazzo/airtable-comment-on-record-workflow.yml
+    name: Comment on Record
+    summary: Confirm a record exists, then add a comment to it.
+  - url: arazzo/airtable-consume-webhook-payloads-workflow.yml
+    name: Consume Webhook Payloads
+    summary: Discover a webhook and drain its payloads using cursor pagination.
+  - url: arazzo/airtable-deprovision-scim-user-workflow.yml
+    name: Deprovision a SCIM User
+    summary: Find a SCIM user by username and then delete the resource.
+  - url: arazzo/airtable-enrich-records-workflow.yml
+    name: Enrich Records
+    summary: Find records missing data and patch the empty fields.
+  - url: arazzo/airtable-evolve-table-schema-workflow.yml
+    name: Evolve a Table Schema
+    summary: Rename a table and update one of its fields within an existing base.
+  - url: arazzo/airtable-export-audit-logs-workflow.yml
+    name: Export Audit Logs
+    summary: Request an audit log export, poll until it is ready, then read the events.
+  - url: arazzo/airtable-manage-comment-thread-workflow.yml
+    name: Manage Comment Thread
+    summary: List a record's comments, edit one, then delete one.
+  - url: arazzo/airtable-manage-share-links-workflow.yml
+    name: Manage Share Links
+    summary: List a base's share links, then enable or disable a specific share.
+  - url: arazzo/airtable-offboard-enterprise-user-workflow.yml
+    name: Offboard an Enterprise User
+    summary: Revoke a user's admin access and then remove them from the enterprise.
+  - url: arazzo/airtable-onboard-enterprise-user-workflow.yml
+    name: Onboard an Enterprise User
+    summary: Claim a user into the enterprise, set their membership, and grant admin access.
+  - url: arazzo/airtable-paginate-all-records-workflow.yml
+    name: Paginate All Records
+    summary: Page through every record in a table using the offset cursor.
+  - url: arazzo/airtable-provision-base-workflow.yml
+    name: Provision a Base
+    summary: Create a new base with its initial tables and read back the resulting schema.
+  - url: arazzo/airtable-provision-scim-user-workflow.yml
+    name: Provision a SCIM User
+    summary: Create a SCIM 2.0 user and read it back by its resource id.
+  - url: arazzo/airtable-provision-webhook-workflow.yml
+    name: Provision a Webhook
+    summary: Create a webhook on a base and confirm it was registered.
+  - url: arazzo/airtable-provision-workspace-workflow.yml
+    name: Provision a Workspace
+    summary: Create a new enterprise workspace and read back its collaborators.
+  - url: arazzo/airtable-refresh-webhook-workflow.yml
+    name: Refresh a Webhook
+    summary: Find a webhook on a base and extend its expiration time.
+  - url: arazzo/airtable-teardown-webhook-workflow.yml
+    name: Teardown a Webhook
+    summary: Find a webhook on a base and delete it.
+  - url: arazzo/airtable-upsert-record-workflow.yml
+    name: Upsert a Record
+    summary: Find a record by a key field and update it if it exists, otherwise create it.
+  - url: arazzo/airtable-verify-token-access-workflow.yml
+    name: Verify Token Access
+    summary: Confirm the token's identity and scopes, then list the bases it can reach.
 - url: https://airtable.com/developers
   type: Portal
 - url: https://airtable.com/developers/web/api/introduction

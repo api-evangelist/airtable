@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Provision a Webhook
+  summary: Create a webhook on a base and confirm it was registered.
+  description: >-
+    Provisions a new webhook subscription on an Airtable base and then verifies
+    that the subscription was registered by listing the base's webhooks and
+    confirming the newly created webhook id appears in the list. Each step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-webhook
+  summary: Create a webhook on a base and verify it exists.
+  description: >-
+    Creates a webhook subscription on the supplied base using a notification URL
+    and specification, then lists the base's webhooks to confirm the new webhook
+    id is present.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - notificationUrl
+    - specification
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      notificationUrl:
+        type: string
+        description: The URL that will receive POST notifications when changes occur.
+      specification:
+        type: object
+        description: The specification defining what changes the webhook monitors.
+  steps:
+  - stepId: createWebhook
+    description: >-
+      Create a new webhook subscription on the base using the supplied
+      notification URL and specification.
+    operationId: createWebhook
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    requestBody:
+      contentType: application/json
+      payload:
+        notificationUrl: $inputs.notificationUrl
+        specification: $inputs.specification
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/id
+      macSecretBase64: $response.body#/macSecretBase64
+      expirationTime: $response.body#/expirationTime
+  - stepId: listWebhooks
+    description: >-
+      List all webhooks registered on the base and confirm that the newly
+      created webhook id appears in the result.
+    operationId: listWebhooks
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.webhooks[?(@.id == "$steps.createWebhook.outputs.webhookId")]
+      type: jsonpath
+    outputs:
+      webhooks: $response.body#/webhooks
+  outputs:
+    webhookId: $steps.createWebhook.outputs.webhookId
+    macSecretBase64: $steps.createWebhook.outputs.macSecretBase64
+    webhooks: $steps.listWebhooks.outputs.webhooks

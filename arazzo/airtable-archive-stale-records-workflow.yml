@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Airtable Archive Stale Records
+  summary: Find records matching a staleness formula and delete them.
+  description: >-
+    Cleans up records that have aged out of usefulness. The workflow searches a
+    table with a filterByFormula expressing a staleness condition, then deletes
+    the first matched record. This is the building block for a sweep that
+    removes outdated rows on a schedule. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: airtableApi
+  url: ../openapi/airtable-airtable-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: archive-stale-records
+  summary: Locate a stale record via a formula and delete it.
+  description: >-
+    Lists records matching a staleness filterByFormula and deletes the first
+    matched record by its id.
+  inputs:
+    type: object
+    required:
+    - baseId
+    - tableIdOrName
+    - staleFormula
+    properties:
+      baseId:
+        type: string
+        description: The Airtable base identifier (e.g. appXXXXXXXXXXXXXX).
+      tableIdOrName:
+        type: string
+        description: The table id or name to scan for stale records.
+      staleFormula:
+        type: string
+        description: >-
+          An Airtable formula identifying stale records (e.g.
+          IS_BEFORE({LastActive}, DATEADD(TODAY(), -90, 'days')) ).
+  steps:
+  - stepId: find
+    description: >-
+      Search the table for records matching the staleness formula, returning at
+      most one match to delete.
+    operationId: listRecords
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: filterByFormula
+      in: query
+      value: $inputs.staleFormula
+    - name: maxRecords
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/records/0/id
+      records: $response.body#/records
+  - stepId: deleteStale
+    description: >-
+      Delete the matched stale record by its id. The record is permanently
+      removed and cannot be recovered through the API.
+    operationId: deleteRecord
+    parameters:
+    - name: baseId
+      in: path
+      value: $inputs.baseId
+    - name: tableIdOrName
+      in: path
+      value: $inputs.tableIdOrName
+    - name: recordId
+      in: path
+      value: $steps.find.outputs.recordId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deletedId: $response.body#/id
+      deleted: $response.body#/deleted
+  outputs:
+    deletedRecordId: $steps.deleteStale.outputs.deletedId
+    deleted: $steps.deleteStale.outputs.deleted

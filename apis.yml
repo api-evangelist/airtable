@@ -1,531 +1,512 @@
 aid: airtable
 url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/apis.yml
 apis:
-- aid: airtable:airtable-api
-  name: Airtable API
-  tags:
-  - Bases
-  - Collaborators
-  - Comments
-  - Fields
-  - Records
-  - Tables
-  - Views
-  - Webhooks
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com
-  humanURL: https://airtable.com/developers/web/api/introduction
-  properties:
+  - aid: airtable:airtable-api
+    name: Airtable API
+    tags:
+      - Bases
+      - Collaborators
+      - Comments
+      - Fields
+      - Records
+      - Tables
+      - Views
+      - Webhooks
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.airtable.com
+    humanURL: https://airtable.com/developers/web/api/introduction
+    properties:
+      - url: https://airtable.com/developers/web/api/introduction
+        type: Documentation
+      - url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+        type: GettingStarted
+      - url: https://airtable.com/developers/web/api/authentication
+        type: Authentication
+      - url: https://airtable.com/developers/web/guides/personal-access-tokens
+        type: Authentication
+      - url: https://airtable.com/developers/web/guides/oauth-integrations
+        type: Authentication
+      - url: https://airtable.com/developers/web/api/webhooks-overview
+        type: Documentation
+      - url: asyncapi/airtable-webhooks-asyncapi.yml
+        type: AsyncAPI
+      - url: https://github.com/Airtable/airtable.js
+        type: SDK
+      - url: https://www.npmjs.com/package/airtable
+        type: SDK
+      - url: https://airtable.com/developers/web/api/list-records
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/update-record
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/rate-limits
+        type: RateLimits
+      - url: https://airtable.com/developers/web/api/errors
+        type: Errors
+      - url: https://airtable.com/developers/web/api/cursor-pagination
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/field-model
+        type: Documentation
+      - url: openapi/airtable-airtable-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/airtable-record-schema.json
+        type: JSONSchema
+      - url: json-schema/airtable-comment-schema.json
+        type: JSONSchema
+      - url: json-schema/airtable-webhook-schema.json
+        type: JSONSchema
+      - url: json-ld/airtable-context.jsonld
+        type: JSONLD
+    description: >-
+      The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows
+      REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes.
+  - aid: airtable:airtable-metadata-api
+    name: Airtable Metadata API
+    tags:
+      - Bases
+      - Fields
+      - Metadata
+      - Schema
+      - Tables
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.airtable.com/v0/meta
+    humanURL: https://airtable.com/developers/web/api/list-bases
+    properties:
+      - url: https://airtable.com/developers/web/api/list-bases
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/get-base-schema
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/create-base
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/create-table
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/create-field
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/update-table
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/update-field
+        type: APIReference
+      - url: openapi/airtable-metadata-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/airtable-base-schema.json
+        type: JSONSchema
+      - url: json-schema/airtable-table-schema.json
+        type: JSONSchema
+      - url: json-schema/airtable-field-schema.json
+        type: JSONSchema
+      - url: json-schema/airtable-view-schema.json
+        type: JSONSchema
+      - url: json-ld/airtable-context.jsonld
+        type: JSONLD
+    description: >-
+      The Airtable Metadata API provides access to base and schema management operations. You can list bases, retrieve
+      base schemas with table and field definitions, create new bases, tables, and fields, and update table and field
+      configurations programmatically.
+  - aid: airtable:airtable-enterprise-api
+    name: Airtable Enterprise API
+    tags:
+      - Admin
+      - Audit
+      - Enterprise
+      - Groups
+      - Users
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.airtable.com/v0
+    humanURL: https://support.airtable.com/docs/airtable-enterprise-api
+    properties:
+      - url: https://support.airtable.com/docs/airtable-enterprise-api
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/get-enterprise
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/manage-user
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/manage-user-membership
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/delete-user-by-id
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/remove-user-from-enterprise
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/get-user-group
+        type: APIReference
+      - url: openapi/airtable-enterprise-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/airtable-user-schema.json
+        type: JSONSchema
+      - url: json-schema/airtable-workspace-schema.json
+        type: JSONSchema
+      - url: json-ld/airtable-context.jsonld
+        type: JSONLD
+    description: >-
+      The Airtable Enterprise API allows enterprise teams to manage their account programmatically outside of the Admin
+      panel. It supports managing users, updating access permissions, and managing bases, tables, and views at scale for
+      enterprise deployments.
+  - aid: airtable:airtable-scim-api
+    name: Airtable SCIM API
+    tags:
+      - Groups
+      - Identity
+      - Provisioning
+      - SCIM
+      - Users
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://airtable.com/scim/v2
+    humanURL: https://airtable.com/developers/web/api/scim-overview
+    properties:
+      - url: https://airtable.com/developers/web/api/scim-overview
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/model/scim-user-schema
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/create-scim-user
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/get-scim-user
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/put-scim-user
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/delete-scim-user
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/get-scim-group
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/delete-scim-group
+        type: APIReference
+      - url: https://support.airtable.com/docs/managing-users-via-idp-sync
+        type: GettingStarted
+      - url: openapi/airtable-scim-api-openapi.yml
+        type: OpenAPI
+      - url: json-ld/airtable-context.jsonld
+        type: JSONLD
+    description: >-
+      The Airtable SCIM API supports the System for Cross-domain Identity Management specification for automated user
+      and group provisioning. It enables identity providers like Okta and Microsoft Entra ID to manage user accounts and
+      group memberships programmatically.
+  - aid: airtable:airtable-audit-logs-api
+    name: Airtable Audit Logs API
+    tags:
+      - Audit
+      - Compliance
+      - Enterprise
+      - Logs
+      - Security
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.airtable.com/v0
+    humanURL: https://airtable.com/developers/web/api/audit-logs-overview
+    properties:
+      - url: https://airtable.com/developers/web/api/audit-logs-overview
+        type: Documentation
+      - url: https://airtable.com/developers/web/api/audit-logs-integration-guide
+        type: GettingStarted
+      - url: https://airtable.com/developers/web/api/create-audit-log-request
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/get-audit-log-request
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/list-audit-log-requests
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/audit-log-events
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/audit-log-event-types
+        type: APIReference
+      - url: https://support.airtable.com/docs/accessing-enterprise-audit-logs-in-airtable
+        type: Support
+      - url: openapi/airtable-audit-logs-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/airtable-audit-log-event-schema.json
+        type: JSONSchema
+      - url: json-ld/airtable-context.jsonld
+        type: JSONLD
+    description: >-
+      The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring and
+      security tracking. It supports creating and retrieving audit log requests with event filtering by user, event
+      type, and date range.
+  - aid: airtable:airtable-shares-api
+    name: Airtable Shares API
+    tags:
+      - Access
+      - Collaboration
+      - Enterprise
+      - Shares
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.airtable.com/v0
+    humanURL: https://airtable.com/developers/web/api/list-shares
+    properties:
+      - url: https://airtable.com/developers/web/api/list-shares
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/manage-share
+        type: APIReference
+      - url: https://airtable.com/developers/web/api/delete-share
+        type: APIReference
+      - url: openapi/airtable-shares-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/airtable-share-schema.json
+        type: JSONSchema
+      - url: json-ld/airtable-context.jsonld
+        type: JSONLD
+    description: >-
+      The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across an
+      organization. It provides programmatic control over base sharing and access management.
+name: Airtable
+tags:
+  - Applications
+  - Collaboration
+  - Data
+  - Databases
+  - Low-Code
+  - Productivity
+  - Spreadsheets
+image: https://www.airtable.com/images/logo.png
+common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/airtable/overview
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+      - url: arazzo/airtable-add-table-with-fields-workflow.yml
+        name: Add a Table with Fields
+        summary: Add a new table to an existing base and then add a field to that table.
+      - url: arazzo/airtable-archive-stale-records-workflow.yml
+        name: Archive Stale Records
+        summary: Find records matching a staleness formula and delete them.
+      - url: arazzo/airtable-audit-base-schemas-workflow.yml
+        name: Audit Base Schemas
+        summary: Enumerate accessible bases and inspect the schema of one of them.
+      - url: arazzo/airtable-audit-enterprise-users-workflow.yml
+        name: Audit Enterprise Users
+        summary: Read an enterprise account and then list its users for auditing.
+      - url: arazzo/airtable-bulk-import-records-workflow.yml
+        name: Bulk Import Records
+        summary: Create a batch of records in a table and verify the import landed.
+      - url: arazzo/airtable-comment-on-record-workflow.yml
+        name: Comment on Record
+        summary: Confirm a record exists, then add a comment to it.
+      - url: arazzo/airtable-consume-webhook-payloads-workflow.yml
+        name: Consume Webhook Payloads
+        summary: Discover a webhook and drain its payloads using cursor pagination.
+      - url: arazzo/airtable-deprovision-scim-user-workflow.yml
+        name: Deprovision a SCIM User
+        summary: Find a SCIM user by username and then delete the resource.
+      - url: arazzo/airtable-enrich-records-workflow.yml
+        name: Enrich Records
+        summary: Find records missing data and patch the empty fields.
+      - url: arazzo/airtable-evolve-table-schema-workflow.yml
+        name: Evolve a Table Schema
+        summary: Rename a table and update one of its fields within an existing base.
+      - url: arazzo/airtable-export-audit-logs-workflow.yml
+        name: Export Audit Logs
+        summary: Request an audit log export, poll until it is ready, then read the events.
+      - url: arazzo/airtable-manage-comment-thread-workflow.yml
+        name: Manage Comment Thread
+        summary: List a record's comments, edit one, then delete one.
+      - url: arazzo/airtable-manage-share-links-workflow.yml
+        name: Manage Share Links
+        summary: List a base's share links, then enable or disable a specific share.
+      - url: arazzo/airtable-offboard-enterprise-user-workflow.yml
+        name: Offboard an Enterprise User
+        summary: Revoke a user's admin access and then remove them from the enterprise.
+      - url: arazzo/airtable-onboard-enterprise-user-workflow.yml
+        name: Onboard an Enterprise User
+        summary: Claim a user into the enterprise, set their membership, and grant admin access.
+      - url: arazzo/airtable-paginate-all-records-workflow.yml
+        name: Paginate All Records
+        summary: Page through every record in a table using the offset cursor.
+      - url: arazzo/airtable-provision-base-workflow.yml
+        name: Provision a Base
+        summary: Create a new base with its initial tables and read back the resulting schema.
+      - url: arazzo/airtable-provision-scim-user-workflow.yml
+        name: Provision a SCIM User
+        summary: Create a SCIM 2.0 user and read it back by its resource id.
+      - url: arazzo/airtable-provision-webhook-workflow.yml
+        name: Provision a Webhook
+        summary: Create a webhook on a base and confirm it was registered.
+      - url: arazzo/airtable-provision-workspace-workflow.yml
+        name: Provision a Workspace
+        summary: Create a new enterprise workspace and read back its collaborators.
+      - url: arazzo/airtable-refresh-webhook-workflow.yml
+        name: Refresh a Webhook
+        summary: Find a webhook on a base and extend its expiration time.
+      - url: arazzo/airtable-teardown-webhook-workflow.yml
+        name: Teardown a Webhook
+        summary: Find a webhook on a base and delete it.
+      - url: arazzo/airtable-upsert-record-workflow.yml
+        name: Upsert a Record
+        summary: Find a record by a key field and update it if it exists, otherwise create it.
+      - url: arazzo/airtable-verify-token-access-workflow.yml
+        name: Verify Token Access
+        summary: Confirm the token's identity and scopes, then list the bases it can reach.
+  - url: https://airtable.com/developers
+    type: Portal
   - url: https://airtable.com/developers/web/api/introduction
     type: Documentation
-  - url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - url: https://www.airtable.com/guides/scale/using-airtable-api
     type: GettingStarted
-  - url: https://airtable.com/developers/web/api/authentication
+  - url: https://airtable.com/developers/web/api/oauth-reference
     type: Authentication
-  - url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - url: https://airtable.com/developers/web/api/scopes
     type: Authentication
-  - url: https://airtable.com/developers/web/guides/oauth-integrations
+  - url: https://support.airtable.com/docs/creating-personal-access-tokens
     type: Authentication
-  - url: https://airtable.com/developers/web/api/webhooks-overview
-    type: Documentation
-  - url: asyncapi/airtable-webhooks-asyncapi.yml
-    type: AsyncAPI
-  - url: https://github.com/Airtable/airtable.js
-    type: SDK
-  - url: https://www.npmjs.com/package/airtable
-    type: SDK
-  - url: https://airtable.com/developers/web/api/list-records
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/update-record
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/rate-limits
-    type: RateLimits
   - url: https://airtable.com/developers/web/api/errors
     type: Errors
+  - url: https://airtable.com/developers/web/api/rate-limits
+    type: RateLimits
+  - url: https://support.airtable.com/docs/managing-api-call-limits-in-airtable
+    type: RateLimits
+  - url: https://airtable.com/developers/web/api/changelog
+    type: ChangeLog
+  - url: https://support.airtable.com/docs/airtable-api-deprecation-guidelines
+    type: Policies
   - url: https://airtable.com/developers/web/api/cursor-pagination
     type: Documentation
   - url: https://airtable.com/developers/web/api/field-model
     type: Documentation
-  - url: openapi/airtable-airtable-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-record-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-comment-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-webhook-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/airtable-comments.yaml
-  - type: NaftikoCapability
-    url: capabilities/airtable-records.yaml
-  - type: NaftikoCapability
-    url: capabilities/airtable-webhooks.yaml
-  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows
-    REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes.
-- aid: airtable:airtable-metadata-api
-  name: Airtable Metadata API
-  tags:
-  - Bases
-  - Fields
-  - Metadata
-  - Schema
-  - Tables
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com/v0/meta
-  humanURL: https://airtable.com/developers/web/api/list-bases
-  properties:
-  - url: https://airtable.com/developers/web/api/list-bases
+  - url: https://airtable.com/developers/web/api/change-events
     type: Documentation
-  - url: https://airtable.com/developers/web/api/get-base-schema
+  - url: https://blog.airtable.com
+    type: Blog
+  - url: https://status.airtable.com
+    type: StatusPage
+  - url: https://support.airtable.com
+    type: Support
+  - url: https://airtable.com/tos
+    type: TermsOfService
+  - url: https://airtable.com/privacy
+    type: PrivacyPolicy
+  - url: https://airtable.com/pricing
+    type: Pricing
+  - url: https://github.com/airtable
+    type: GitHubOrganization
+  - url: https://community.airtable.com
+    type: Community
+  - url: https://community.airtable.com/c/developers/55
+    type: Forum
+  - url: https://www.airtable.com
+    type: Portal
+  - url: https://airtable.com/login
+    type: Portal
+  - url: https://airtable.com/signup
+    type: SignUp
+  - url: http://eepurl.com/gVD-df
+    type: Newsletter
+  - url: https://airtable.com/developers/extensions
     type: Documentation
-  - url: https://airtable.com/developers/web/api/create-base
+  - url: https://airtable.com/developers/scripting/api
     type: Documentation
-  - url: https://airtable.com/developers/web/api/create-table
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/create-field
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/update-table
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/update-field
-    type: APIReference
-  - url: openapi/airtable-metadata-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-base-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-table-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-field-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-view-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/metadata-bases.yaml
-  - type: NaftikoCapability
-    url: capabilities/metadata-fields.yaml
-  - type: NaftikoCapability
-    url: capabilities/metadata-tables.yaml
-  description: The Airtable Metadata API provides access to base and schema management operations. You can list bases, retrieve
-    base schemas with table and field definitions, create new bases, tables, and fields, and update table and field configurations
-    programmatically.
-- aid: airtable:airtable-enterprise-api
-  name: Airtable Enterprise API
-  tags:
-  - Admin
-  - Audit
-  - Enterprise
-  - Groups
-  - Users
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com/v0
-  humanURL: https://support.airtable.com/docs/airtable-enterprise-api
-  properties:
   - url: https://support.airtable.com/docs/airtable-enterprise-api
     type: Documentation
-  - url: https://airtable.com/developers/web/api/get-enterprise
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/manage-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/manage-user-membership
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/delete-user-by-id
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/remove-user-from-enterprise
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/get-user-group
-    type: APIReference
-  - url: openapi/airtable-enterprise-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-user-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-workspace-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/enterprise-enterprise.yaml
-  - type: NaftikoCapability
-    url: capabilities/enterprise-groups.yaml
-  - type: NaftikoCapability
-    url: capabilities/enterprise-users.yaml
-  - type: NaftikoCapability
-    url: capabilities/enterprise-workspaces.yaml
-  description: The Airtable Enterprise API allows enterprise teams to manage their account programmatically outside of the
-    Admin panel. It supports managing users, updating access permissions, and managing bases, tables, and views at scale for
-    enterprise deployments.
-- aid: airtable:airtable-scim-api
-  name: Airtable SCIM API
-  tags:
-  - Groups
-  - Identity
-  - Provisioning
-  - SCIM
-  - Users
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  baseURL: https://airtable.com/scim/v2
-  humanURL: https://airtable.com/developers/web/api/scim-overview
-  properties:
-  - url: https://airtable.com/developers/web/api/scim-overview
+  - url: https://support.airtable.com/docs/airtable-webhooks-api-overview
+    type: AsyncAPI
+  - url: https://airtable.com/developers/web/guides/webhooks-api
     type: Documentation
-  - url: https://airtable.com/developers/web/api/model/scim-user-schema
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/create-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/get-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/put-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/delete-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/get-scim-group
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/delete-scim-group
-    type: APIReference
-  - url: https://support.airtable.com/docs/managing-users-via-idp-sync
-    type: GettingStarted
-  - url: openapi/airtable-scim-api-openapi.yml
-    type: OpenAPI
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/scim-groups.yaml
-  - type: NaftikoCapability
-    url: capabilities/scim-users.yaml
-  description: The Airtable SCIM API supports the System for Cross-domain Identity Management specification for automated
-    user and group provisioning. It enables identity providers like Okta and Microsoft Entra ID to manage user accounts and
-    group memberships programmatically.
-- aid: airtable:airtable-audit-logs-api
-  name: Airtable Audit Logs API
-  tags:
-  - Audit
-  - Compliance
-  - Enterprise
-  - Logs
-  - Security
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com/v0
-  humanURL: https://airtable.com/developers/web/api/audit-logs-overview
-  properties:
-  - url: https://airtable.com/developers/web/api/audit-logs-overview
+  - url: https://support.airtable.com/docs/airtable-resources-for-developers
     type: Documentation
-  - url: https://airtable.com/developers/web/api/audit-logs-integration-guide
-    type: GettingStarted
-  - url: https://airtable.com/developers/web/api/create-audit-log-request
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/get-audit-log-request
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/list-audit-log-requests
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/audit-log-events
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/audit-log-event-types
-    type: APIReference
-  - url: https://support.airtable.com/docs/accessing-enterprise-audit-logs-in-airtable
-    type: Support
-  - url: openapi/airtable-audit-logs-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-audit-log-event-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/audit-logs-audit-logs.yaml
-  description: The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring
-    and security tracking. It supports creating and retrieving audit log requests with event filtering by user, event type,
-    and date range.
-- aid: airtable:airtable-shares-api
-  name: Airtable Shares API
-  tags:
-  - Access
-  - Collaboration
-  - Enterprise
-  - Shares
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com/v0
-  humanURL: https://airtable.com/developers/web/api/list-shares
-  properties:
-  - url: https://airtable.com/developers/web/api/list-shares
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/manage-share
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/delete-share
-    type: APIReference
-  - url: openapi/airtable-shares-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-share-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/shares-shares.yaml
-  description: The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across an
-    organization. It provides programmatic control over base sharing and access management.
-name: Airtable
-tags:
-- Applications
-- Collaboration
-- Data
-- Databases
-- Low-Code
-- Productivity
-- Spreadsheets
-image: https://www.airtable.com/images/logo.png
-common:
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/airtable-add-table-with-fields-workflow.yml
-    name: Add a Table with Fields
-    summary: Add a new table to an existing base and then add a field to that table.
-  - url: arazzo/airtable-archive-stale-records-workflow.yml
-    name: Archive Stale Records
-    summary: Find records matching a staleness formula and delete them.
-  - url: arazzo/airtable-audit-base-schemas-workflow.yml
-    name: Audit Base Schemas
-    summary: Enumerate accessible bases and inspect the schema of one of them.
-  - url: arazzo/airtable-audit-enterprise-users-workflow.yml
-    name: Audit Enterprise Users
-    summary: Read an enterprise account and then list its users for auditing.
-  - url: arazzo/airtable-bulk-import-records-workflow.yml
-    name: Bulk Import Records
-    summary: Create a batch of records in a table and verify the import landed.
-  - url: arazzo/airtable-comment-on-record-workflow.yml
-    name: Comment on Record
-    summary: Confirm a record exists, then add a comment to it.
-  - url: arazzo/airtable-consume-webhook-payloads-workflow.yml
-    name: Consume Webhook Payloads
-    summary: Discover a webhook and drain its payloads using cursor pagination.
-  - url: arazzo/airtable-deprovision-scim-user-workflow.yml
-    name: Deprovision a SCIM User
-    summary: Find a SCIM user by username and then delete the resource.
-  - url: arazzo/airtable-enrich-records-workflow.yml
-    name: Enrich Records
-    summary: Find records missing data and patch the empty fields.
-  - url: arazzo/airtable-evolve-table-schema-workflow.yml
-    name: Evolve a Table Schema
-    summary: Rename a table and update one of its fields within an existing base.
-  - url: arazzo/airtable-export-audit-logs-workflow.yml
-    name: Export Audit Logs
-    summary: Request an audit log export, poll until it is ready, then read the events.
-  - url: arazzo/airtable-manage-comment-thread-workflow.yml
-    name: Manage Comment Thread
-    summary: List a record's comments, edit one, then delete one.
-  - url: arazzo/airtable-manage-share-links-workflow.yml
-    name: Manage Share Links
-    summary: List a base's share links, then enable or disable a specific share.
-  - url: arazzo/airtable-offboard-enterprise-user-workflow.yml
-    name: Offboard an Enterprise User
-    summary: Revoke a user's admin access and then remove them from the enterprise.
-  - url: arazzo/airtable-onboard-enterprise-user-workflow.yml
-    name: Onboard an Enterprise User
-    summary: Claim a user into the enterprise, set their membership, and grant admin access.
-  - url: arazzo/airtable-paginate-all-records-workflow.yml
-    name: Paginate All Records
-    summary: Page through every record in a table using the offset cursor.
-  - url: arazzo/airtable-provision-base-workflow.yml
-    name: Provision a Base
-    summary: Create a new base with its initial tables and read back the resulting schema.
-  - url: arazzo/airtable-provision-scim-user-workflow.yml
-    name: Provision a SCIM User
-    summary: Create a SCIM 2.0 user and read it back by its resource id.
-  - url: arazzo/airtable-provision-webhook-workflow.yml
-    name: Provision a Webhook
-    summary: Create a webhook on a base and confirm it was registered.
-  - url: arazzo/airtable-provision-workspace-workflow.yml
-    name: Provision a Workspace
-    summary: Create a new enterprise workspace and read back its collaborators.
-  - url: arazzo/airtable-refresh-webhook-workflow.yml
-    name: Refresh a Webhook
-    summary: Find a webhook on a base and extend its expiration time.
-  - url: arazzo/airtable-teardown-webhook-workflow.yml
-    name: Teardown a Webhook
-    summary: Find a webhook on a base and delete it.
-  - url: arazzo/airtable-upsert-record-workflow.yml
-    name: Upsert a Record
-    summary: Find a record by a key field and update it if it exists, otherwise create it.
-  - url: arazzo/airtable-verify-token-access-workflow.yml
-    name: Verify Token Access
-    summary: Confirm the token's identity and scopes, then list the bases it can reach.
-- url: https://airtable.com/developers
-  type: Portal
-- url: https://airtable.com/developers/web/api/introduction
-  type: Documentation
-- url: https://www.airtable.com/guides/scale/using-airtable-api
-  type: GettingStarted
-- url: https://airtable.com/developers/web/api/oauth-reference
-  type: Authentication
-- url: https://airtable.com/developers/web/api/scopes
-  type: Authentication
-- url: https://support.airtable.com/docs/creating-personal-access-tokens
-  type: Authentication
-- url: https://airtable.com/developers/web/api/errors
-  type: Errors
-- url: https://airtable.com/developers/web/api/rate-limits
-  type: RateLimits
-- url: https://support.airtable.com/docs/managing-api-call-limits-in-airtable
-  type: RateLimits
-- url: https://airtable.com/developers/web/api/changelog
-  type: ChangeLog
-- url: https://support.airtable.com/docs/airtable-api-deprecation-guidelines
-  type: Policies
-- url: https://airtable.com/developers/web/api/cursor-pagination
-  type: Documentation
-- url: https://airtable.com/developers/web/api/field-model
-  type: Documentation
-- url: https://airtable.com/developers/web/api/change-events
-  type: Documentation
-- url: https://blog.airtable.com
-  type: Blog
-- url: https://status.airtable.com
-  type: StatusPage
-- url: https://support.airtable.com
-  type: Support
-- url: https://airtable.com/tos
-  type: TermsOfService
-- url: https://airtable.com/privacy
-  type: PrivacyPolicy
-- url: https://airtable.com/pricing
-  type: Pricing
-- url: https://github.com/airtable
-  type: GitHubOrganization
-- url: https://community.airtable.com
-  type: Community
-- url: https://community.airtable.com/c/developers/55
-  type: Forum
-- url: https://www.airtable.com
-  type: Portal
-- url: https://airtable.com/login
-  type: Portal
-- url: https://airtable.com/signup
-  type: SignUp
-- url: http://eepurl.com/gVD-df
-  type: Newsletter
-- url: https://airtable.com/developers/extensions
-  type: Documentation
-- url: https://airtable.com/developers/scripting/api
-  type: Documentation
-- url: https://support.airtable.com/docs/airtable-enterprise-api
-  type: Documentation
-- url: https://support.airtable.com/docs/airtable-webhooks-api-overview
-  type: AsyncAPI
-- url: https://airtable.com/developers/web/guides/webhooks-api
-  type: Documentation
-- url: https://support.airtable.com/docs/airtable-resources-for-developers
-  type: Documentation
-- url: https://www.airtable.com/whatsnew
-  type: ChangeLog
-- url: https://x.com/airtable
-  type: Twitter
-- url: https://www.linkedin.com/company/airtable
-  type: LinkedIn
-- url: https://www.youtube.com/@AirtableApp
-  type: YouTube
-- url: https://stackoverflow.com/questions/tagged/airtable
-  type: StackOverflow
-- url: https://github.com/Airtable/airtable.js
-  type: SDK
-- url: https://www.npmjs.com/package/airtable
-  type: SDK
-- type: Features
-  data:
-  - 'Free plan: small-team building blocks'
-  - Team at $20/user/mo annual with enhanced capacity
-  - Business at $45/user/mo with advanced customization
-  - Enterprise Scale with up to 100M records and unlimited workspaces
-  - REST API with 5 req/sec per base hard cap
-  - 10 records per write, 100 per read
-  - Webhooks for record/cell changes
-  - Airtable Sync for cross-base data flow
-  - Interface Designer for custom apps
-  - Automations with multi-step workflows
-  - Extensions marketplace for embedded apps
-  - OAuth 2.0 and personal access tokens
-  - Metadata API for schema discovery
-  - Attachments via S3-backed file uploads
-  - Linked records and lookups across bases
-  - AI features (Cobuilder, Field AI) on paid plans
-  sources:
-  - https://www.airtable.com/pricing
-  updated: '2026-05-04'
-- type: UseCases
-  data:
-  - name: Project Management
-    description: Track tasks, milestones, and team assignments in structured databases.
-  - name: CRM
-    description: Build custom CRM systems for tracking contacts, deals, and pipelines.
-  - name: Content Management
-    description: Manage editorial calendars, content assets, and publishing workflows.
-  - name: Inventory Management
-    description: Track inventory, orders, and supply chain data.
-  - name: Event Planning
-    description: Coordinate event logistics, attendees, and schedules.
-  - name: HR & Recruiting
-    description: Manage job applicants, employee records, and onboarding processes.
-- type: Integrations
-  data:
-  - name: Zapier
-    description: Connect Airtable to 5000+ apps via Zapier automations.
-  - name: Make (Integromat)
-    description: Visual automation builder for complex Airtable workflows.
-  - name: Slack
-    description: Send Airtable notifications and updates to Slack channels.
-  - name: Salesforce
-    description: Sync Airtable data with Salesforce CRM.
-  - name: GitHub
-    description: Link Airtable records to GitHub issues and pull requests.
-  - name: Okta
-    description: Enterprise SSO and SCIM provisioning via Okta.
-  - name: Google Workspace
-    description: Import from Google Sheets and sync with Google Drive.
-- url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/rules/airtable-spectral-rules.yml
-  type: SpectralRules
-  title: Airtable Spectral Rules
-- url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/vocabulary/airtable-vocabulary.yaml
-  type: Vocabulary
-  title: Airtable Vocabulary
-- type: Integrations
-  url: https://www.airtable.com/integrations
-- name: MCP Server
-  url: https://github.com/Airtable/airtable-mcp-cli
-  type: MCPServer
-- name: Agent Skills
-  url: https://github.com/Airtable/skills
-  type: AgentSkill
+  - url: https://www.airtable.com/whatsnew
+    type: ChangeLog
+  - url: https://x.com/airtable
+    type: Twitter
+  - url: https://www.linkedin.com/company/airtable
+    type: LinkedIn
+  - url: https://www.youtube.com/@AirtableApp
+    type: YouTube
+  - url: https://stackoverflow.com/questions/tagged/airtable
+    type: StackOverflow
+  - url: https://github.com/Airtable/airtable.js
+    type: SDK
+  - url: https://www.npmjs.com/package/airtable
+    type: SDK
+  - type: Features
+    data:
+      - 'Free plan: small-team building blocks'
+      - Team at $20/user/mo annual with enhanced capacity
+      - Business at $45/user/mo with advanced customization
+      - Enterprise Scale with up to 100M records and unlimited workspaces
+      - REST API with 5 req/sec per base hard cap
+      - 10 records per write, 100 per read
+      - Webhooks for record/cell changes
+      - Airtable Sync for cross-base data flow
+      - Interface Designer for custom apps
+      - Automations with multi-step workflows
+      - Extensions marketplace for embedded apps
+      - OAuth 2.0 and personal access tokens
+      - Metadata API for schema discovery
+      - Attachments via S3-backed file uploads
+      - Linked records and lookups across bases
+      - AI features (Cobuilder, Field AI) on paid plans
+    sources:
+      - https://www.airtable.com/pricing
+    updated: '2026-05-04'
+  - type: UseCases
+    data:
+      - name: Project Management
+        description: Track tasks, milestones, and team assignments in structured databases.
+      - name: CRM
+        description: Build custom CRM systems for tracking contacts, deals, and pipelines.
+      - name: Content Management
+        description: Manage editorial calendars, content assets, and publishing workflows.
+      - name: Inventory Management
+        description: Track inventory, orders, and supply chain data.
+      - name: Event Planning
+        description: Coordinate event logistics, attendees, and schedules.
+      - name: HR & Recruiting
+        description: Manage job applicants, employee records, and onboarding processes.
+  - type: Integrations
+    data:
+      - name: Zapier
+        description: Connect Airtable to 5000+ apps via Zapier automations.
+      - name: Make (Integromat)
+        description: Visual automation builder for complex Airtable workflows.
+      - name: Slack
+        description: Send Airtable notifications and updates to Slack channels.
+      - name: Salesforce
+        description: Sync Airtable data with Salesforce CRM.
+      - name: GitHub
+        description: Link Airtable records to GitHub issues and pull requests.
+      - name: Okta
+        description: Enterprise SSO and SCIM provisioning via Okta.
+      - name: Google Workspace
+        description: Import from Google Sheets and sync with Google Drive.
+  - url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/rules/airtable-spectral-rules.yml
+    type: SpectralRules
+    title: Airtable Spectral Rules
+  - url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/vocabulary/airtable-vocabulary.yaml
+    type: Vocabulary
+    title: Airtable Vocabulary
+  - type: Integrations
+    url: https://www.airtable.com/integrations
+  - name: MCP Server
+    url: https://github.com/Airtable/airtable-mcp-cli
+    type: MCPServer
+  - name: Agent Skills
+    url: https://github.com/Airtable/skills
+    type: AgentSkill
 created: '2023-11-21T00:00:00.000Z'
 modified: '2026-05-19'
-description: Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity
-  of a database. It provides APIs for managing bases, tables, records, and more.
+description: >-
+  Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity of a
+  database. It provides APIs for managing bases, tables, records, and more.
 integrations:
-- name: Zendesk Simplify and streamline workflows
-- name: Integrations Box
-- name: Integrations Dropbox
-- name: Integrations Facebook
-- name: Integrations GitHub
-- name: Integrations Gmail
-- name: Integrations Google Calendar
-- name: Integrations Instagram
-- name: Integrations Jotform
-- name: Integrations LinkedIn
-- name: Integrations Miro
-- name: Integrations Outlook Calendar
-- name: Integrations Snowflake
-- name: Integrations Stripe
-- name: Integrations Tableau
-- name: Integrations Twilio
-- name: Integrations Typeform
-- name: Integrations Unito
-- name: Integrations WordPress
-- name: Integrations Youtube
+  - name: Zendesk Simplify and streamline workflows
+  - name: Integrations Box
+  - name: Integrations Dropbox
+  - name: Integrations Facebook
+  - name: Integrations GitHub
+  - name: Integrations Gmail
+  - name: Integrations Google Calendar
+  - name: Integrations Instagram
+  - name: Integrations Jotform
+  - name: Integrations LinkedIn
+  - name: Integrations Miro
+  - name: Integrations Outlook Calendar
+  - name: Integrations Snowflake
+  - name: Integrations Stripe
+  - name: Integrations Tableau
+  - name: Integrations Twilio
+  - name: Integrations Typeform
+  - name: Integrations Unito
+  - name: Integrations WordPress
+  - name: Integrations Youtube
 maintainers:
-- FN: Kin Lane
-  url: http://apievangelist.com
-  email: kin@apievangelist.com
-- FN: Airtable
-  email: support@airtable.com
-  url: https://airtable.com
+  - FN: Kin Lane
+    url: http://apievangelist.com
+    email: kin@apievangelist.com
+  - FN: Airtable
+    email: support@airtable.com
+    url: https://airtable.com
 specificationVersion: '0.19'
 type: Index
 position: Consumer

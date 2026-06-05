@@ -1,265 +1,283 @@
 # Airtable (airtable)
-Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity of a database. It provides APIs for managing bases, tables, records, and more, enabling developers to integrate Airtable with any external system. Airtable offers REST API, Webhooks, SCIM, Enterprise, and Audit Log APIs for both builders and enterprise administrators.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/apis.yml)
+Airtable is a cloud-based collaboration service that combines the simplicity of a spreadsheet with the complexity of a database. It provides APIs for managing bases, tables, records, and more.
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/apis.yml)
 
-## Tags:
+## Scope
 
- - Applications, Collaboration, Data, Databases, Low-Code, Productivity, Spreadsheets
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Applications
+- Collaboration
+- Data
+- Databases
+- Low-Code
+- Productivity
+- Spreadsheets
 
 ## Timestamps
 
-- **Created:** 2023-11-21
-- **Modified:** 2026-04-19
+- **Created:** 2023-11-21T00:00:00.000Z
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Airtable API
+
 The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes.
 
-**Human URL:** [https://airtable.com/developers/web/api/introduction](https://airtable.com/developers/web/api/introduction)
+- **Human URL:** [https://airtable.com/developers/web/api/introduction](https://airtable.com/developers/web/api/introduction)
+- **Base URL:** `https://api.airtable.com`
 
-#### Tags:
+#### Tags
 
- - Bases, Collaborators, Comments, Fields, Records, Tables, Views, Webhooks
+- Bases
+- Collaborators
+- Comments
+- Fields
+- Records
+- Tables
+- Views
+- Webhooks
 
 #### Properties
 
 - [Documentation](https://airtable.com/developers/web/api/introduction)
-- [OpenAPI](openapi/airtable-airtable-api-openapi.yml)
-- [JSONSchema - Record](json-schema/airtable-record-schema.json)
-- [JSONSchema - Comment](json-schema/airtable-comment-schema.json)
-- [JSONSchema - Webhook](json-schema/airtable-webhook-schema.json)
-- [JSON-LD](json-ld/airtable-context.jsonld)
+- [Getting Started](https://support.airtable.com/docs/getting-started-with-airtables-web-api)
+- [Authentication](https://airtable.com/developers/web/api/authentication)
+- [Authentication](https://airtable.com/developers/web/guides/personal-access-tokens)
+- [Authentication](https://airtable.com/developers/web/guides/oauth-integrations)
+- [Documentation](https://airtable.com/developers/web/api/webhooks-overview)
+- [AsyncAPI](asyncapi/airtable-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [SDK](https://github.com/Airtable/airtable.js)
+- [SDK](https://www.npmjs.com/package/airtable)
+- [API Reference](https://airtable.com/developers/web/api/list-records)
+- [API Reference](https://airtable.com/developers/web/api/update-record)
+- [Rate Limits](https://airtable.com/developers/web/api/rate-limits)
+- [Errors](https://airtable.com/developers/web/api/errors)
+- [Documentation](https://airtable.com/developers/web/api/cursor-pagination)
+- [Documentation](https://airtable.com/developers/web/api/field-model)
+- [OpenAPI](openapi/airtable-airtable-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/airtable-airtable-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/airtable-airtable-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/airtable-record-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/airtable-comment-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/airtable-webhook-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/airtable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### Airtable Metadata API
+
 The Airtable Metadata API provides access to base and schema management operations. You can list bases, retrieve base schemas with table and field definitions, create new bases, tables, and fields, and update table and field configurations programmatically.
 
-**Human URL:** [https://airtable.com/developers/web/api/list-bases](https://airtable.com/developers/web/api/list-bases)
+- **Human URL:** [https://airtable.com/developers/web/api/list-bases](https://airtable.com/developers/web/api/list-bases)
+- **Base URL:** `https://api.airtable.com/v0/meta`
 
-#### Tags:
+#### Tags
 
- - Bases, Fields, Metadata, Schema, Tables
+- Bases
+- Fields
+- Metadata
+- Schema
+- Tables
 
 #### Properties
 
 - [Documentation](https://airtable.com/developers/web/api/list-bases)
-- [OpenAPI](openapi/airtable-metadata-api-openapi.yml)
-- [JSONSchema - Base](json-schema/airtable-base-schema.json)
-- [JSONSchema - Table](json-schema/airtable-table-schema.json)
-- [JSONSchema - Field](json-schema/airtable-field-schema.json)
-- [JSONSchema - View](json-schema/airtable-view-schema.json)
+- [Documentation](https://airtable.com/developers/web/api/get-base-schema)
+- [Documentation](https://airtable.com/developers/web/api/create-base)
+- [Documentation](https://airtable.com/developers/web/api/create-table)
+- [Documentation](https://airtable.com/developers/web/api/create-field)
+- [API Reference](https://airtable.com/developers/web/api/update-table)
+- [API Reference](https://airtable.com/developers/web/api/update-field)
+- [OpenAPI](openapi/airtable-metadata-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/airtable-metadata-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/airtable-metadata-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/airtable-base-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/airtable-table-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/airtable-field-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/airtable-view-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/airtable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### Airtable Enterprise API
-The Airtable Enterprise API allows enterprise teams to manage their account programmatically outside of the Admin panel. It supports managing users, updating access permissions, and managing bases, tables, and views at scale.
 
-**Human URL:** [https://support.airtable.com/docs/airtable-enterprise-api](https://support.airtable.com/docs/airtable-enterprise-api)
+The Airtable Enterprise API allows enterprise teams to manage their account programmatically outside of the Admin panel. It supports managing users, updating access permissions, and managing bases, tables, and views at scale for enterprise deployments.
 
-#### Tags:
+- **Human URL:** [https://support.airtable.com/docs/airtable-enterprise-api](https://support.airtable.com/docs/airtable-enterprise-api)
+- **Base URL:** `https://api.airtable.com/v0`
 
- - Admin, Audit, Enterprise, Groups, Users
+#### Tags
+
+- Admin
+- Audit
+- Enterprise
+- Groups
+- Users
 
 #### Properties
 
 - [Documentation](https://support.airtable.com/docs/airtable-enterprise-api)
-- [OpenAPI](openapi/airtable-enterprise-api-openapi.yml)
-- [JSONSchema - User](json-schema/airtable-user-schema.json)
-- [JSONSchema - Workspace](json-schema/airtable-workspace-schema.json)
+- [API Reference](https://airtable.com/developers/web/api/get-enterprise)
+- [API Reference](https://airtable.com/developers/web/api/manage-user)
+- [API Reference](https://airtable.com/developers/web/api/manage-user-membership)
+- [API Reference](https://airtable.com/developers/web/api/delete-user-by-id)
+- [API Reference](https://airtable.com/developers/web/api/remove-user-from-enterprise)
+- [API Reference](https://airtable.com/developers/web/api/get-user-group)
+- [OpenAPI](openapi/airtable-enterprise-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/airtable-enterprise-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/airtable-enterprise-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/airtable-user-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/airtable-workspace-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/airtable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### Airtable SCIM API
+
 The Airtable SCIM API supports the System for Cross-domain Identity Management specification for automated user and group provisioning. It enables identity providers like Okta and Microsoft Entra ID to manage user accounts and group memberships programmatically.
 
-**Human URL:** [https://airtable.com/developers/web/api/scim-overview](https://airtable.com/developers/web/api/scim-overview)
+- **Human URL:** [https://airtable.com/developers/web/api/scim-overview](https://airtable.com/developers/web/api/scim-overview)
+- **Base URL:** `https://airtable.com/scim/v2`
 
-#### Tags:
+#### Tags
 
- - Groups, Identity, Provisioning, SCIM, Users
+- Groups
+- Identity
+- Provisioning
+- SCIM
+- Users
 
 #### Properties
 
 - [Documentation](https://airtable.com/developers/web/api/scim-overview)
-- [OpenAPI](openapi/airtable-scim-api-openapi.yml)
+- [API Reference](https://airtable.com/developers/web/api/model/scim-user-schema)
+- [API Reference](https://airtable.com/developers/web/api/create-scim-user)
+- [API Reference](https://airtable.com/developers/web/api/get-scim-user)
+- [API Reference](https://airtable.com/developers/web/api/put-scim-user)
+- [API Reference](https://airtable.com/developers/web/api/delete-scim-user)
+- [API Reference](https://airtable.com/developers/web/api/get-scim-group)
+- [API Reference](https://airtable.com/developers/web/api/delete-scim-group)
+- [Getting Started](https://support.airtable.com/docs/managing-users-via-idp-sync)
+- [OpenAPI](openapi/airtable-scim-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/airtable-scim-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/airtable-scim-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON-LD](json-ld/airtable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### Airtable Audit Logs API
-The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring and security tracking.
 
-**Human URL:** [https://airtable.com/developers/web/api/audit-logs-overview](https://airtable.com/developers/web/api/audit-logs-overview)
+The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring and security tracking. It supports creating and retrieving audit log requests with event filtering by user, event type, and date range.
 
-#### Tags:
+- **Human URL:** [https://airtable.com/developers/web/api/audit-logs-overview](https://airtable.com/developers/web/api/audit-logs-overview)
+- **Base URL:** `https://api.airtable.com/v0`
 
- - Audit, Compliance, Enterprise, Logs, Security
+#### Tags
+
+- Audit
+- Compliance
+- Enterprise
+- Logs
+- Security
 
 #### Properties
 
 - [Documentation](https://airtable.com/developers/web/api/audit-logs-overview)
-- [OpenAPI](openapi/airtable-audit-logs-api-openapi.yml)
-- [JSONSchema - Audit Log Event](json-schema/airtable-audit-log-event-schema.json)
+- [Getting Started](https://airtable.com/developers/web/api/audit-logs-integration-guide)
+- [API Reference](https://airtable.com/developers/web/api/create-audit-log-request)
+- [API Reference](https://airtable.com/developers/web/api/get-audit-log-request)
+- [API Reference](https://airtable.com/developers/web/api/list-audit-log-requests)
+- [API Reference](https://airtable.com/developers/web/api/audit-log-events)
+- [API Reference](https://airtable.com/developers/web/api/audit-log-event-types)
+- [Support](https://support.airtable.com/docs/accessing-enterprise-audit-logs-in-airtable)
+- [OpenAPI](openapi/airtable-audit-logs-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/airtable-audit-logs-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/airtable-audit-logs-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/airtable-audit-log-event-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/airtable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### Airtable Shares API
-The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across an organization.
 
-**Human URL:** [https://airtable.com/developers/web/api/list-shares](https://airtable.com/developers/web/api/list-shares)
+The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across an organization. It provides programmatic control over base sharing and access management.
 
-#### Tags:
+- **Human URL:** [https://airtable.com/developers/web/api/list-shares](https://airtable.com/developers/web/api/list-shares)
+- **Base URL:** `https://api.airtable.com/v0`
 
- - Access, Collaboration, Enterprise, Shares
+#### Tags
+
+- Access
+- Collaboration
+- Enterprise
+- Shares
 
 #### Properties
 
-- [Documentation](https://airtable.com/developers/web/api/list-shares)
-- [OpenAPI](openapi/airtable-shares-api-openapi.yml)
-- [JSONSchema - Share](json-schema/airtable-share-schema.json)
+- [API Reference](https://airtable.com/developers/web/api/list-shares)
+- [API Reference](https://airtable.com/developers/web/api/manage-share)
+- [API Reference](https://airtable.com/developers/web/api/delete-share)
+- [OpenAPI](openapi/airtable-shares-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/airtable-shares-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/airtable-shares-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/airtable-share-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/airtable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ## Common Properties
 
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
 - [Portal](https://airtable.com/developers)
 - [Documentation](https://airtable.com/developers/web/api/introduction)
-- [GettingStarted](https://www.airtable.com/guides/scale/using-airtable-api)
+- [Getting Started](https://www.airtable.com/guides/scale/using-airtable-api)
 - [Authentication](https://airtable.com/developers/web/api/oauth-reference)
-- [RateLimits](https://airtable.com/developers/web/api/rate-limits)
-- [ChangeLog](https://airtable.com/developers/web/api/changelog)
+- [Authentication](https://airtable.com/developers/web/api/scopes)
+- [Authentication](https://support.airtable.com/docs/creating-personal-access-tokens)
+- [Errors](https://airtable.com/developers/web/api/errors)
+- [Rate Limits](https://airtable.com/developers/web/api/rate-limits)
+- [Rate Limits](https://support.airtable.com/docs/managing-api-call-limits-in-airtable)
+- [Changelog](https://airtable.com/developers/web/api/changelog)
+- [Policies](https://support.airtable.com/docs/airtable-api-deprecation-guidelines)
+- [Documentation](https://airtable.com/developers/web/api/cursor-pagination)
+- [Documentation](https://airtable.com/developers/web/api/field-model)
+- [Documentation](https://airtable.com/developers/web/api/change-events)
 - [Blog](https://blog.airtable.com)
-- [StatusPage](https://status.airtable.com)
+- [Status Page](https://status.airtable.com)
 - [Support](https://support.airtable.com)
-- [TermsOfService](https://airtable.com/tos)
-- [PrivacyPolicy](https://airtable.com/privacy)
+- [Terms of Service](https://airtable.com/tos)
+- [Privacy Policy](https://airtable.com/privacy)
 - [Pricing](https://airtable.com/pricing)
-- [GitHubOrganization](https://github.com/airtable)
+- [GitHub Organization](https://github.com/airtable)
 - [Community](https://community.airtable.com)
-- [SignUp](https://airtable.com/signup)
+- [Forum](https://community.airtable.com/c/developers/55)
+- [Portal](https://www.airtable.com)
+- [Portal](https://airtable.com/login)
+- [Sign Up](https://airtable.com/signup)
 - [Newsletter](http://eepurl.com/gVD-df)
+- [Documentation](https://airtable.com/developers/extensions)
+- [Documentation](https://airtable.com/developers/scripting/api)
+- [Documentation](https://support.airtable.com/docs/airtable-enterprise-api)
+- [AsyncAPI](https://support.airtable.com/docs/airtable-webhooks-api-overview) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Documentation](https://airtable.com/developers/web/guides/webhooks-api)
+- [Documentation](https://support.airtable.com/docs/airtable-resources-for-developers)
+- [Changelog](https://www.airtable.com/whatsnew)
 - [Twitter](https://x.com/airtable)
 - [LinkedIn](https://www.linkedin.com/company/airtable)
 - [YouTube](https://www.youtube.com/@AirtableApp)
-- [StackOverflow](https://stackoverflow.com/questions/tagged/airtable)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/airtable)
 - [SDK](https://github.com/Airtable/airtable.js)
-- [SDK - npm](https://www.npmjs.com/package/airtable)
-- [SpectralRules](rules/airtable-spectral-rules.yml)
-- [NaftikoCapability - Database Management](capabilities/database-management.yaml)
-- [Vocabulary](vocabulary/airtable-vocabulary.yaml)
-
-## Features
-
-| Name | Description |
-|------|-------------|
-| No-Code Database | Spreadsheet-database hybrid for non-technical users to build databases without code. |
-| REST API | Full REST API for creating, reading, updating, and deleting records programmatically. |
-| Webhooks | Real-time event notifications when records change. |
-| OAuth 2.0 | Secure OAuth 2.0 integration for third-party apps. |
-| SCIM Provisioning | Enterprise user provisioning via SCIM for Okta, Entra ID, and other IdPs. |
-| Audit Logs | Enterprise audit logs for compliance and security monitoring. |
-| Extensions | Custom UI extensions and scripting for advanced functionality. |
-| Automations | Built-in workflow automation with triggers and actions. |
-
-## Use Cases
-
-| Name | Description |
-|------|-------------|
-| Project Management | Track tasks, milestones, and team assignments in structured databases. |
-| CRM | Build custom CRM systems for tracking contacts, deals, and pipelines. |
-| Content Management | Manage editorial calendars, content assets, and publishing workflows. |
-| Inventory Management | Track inventory, orders, and supply chain data. |
-| Event Planning | Coordinate event logistics, attendees, and schedules. |
-| HR & Recruiting | Manage job applicants, employee records, and onboarding processes. |
-
-## Integrations
-
-| Name | Description |
-|------|-------------|
-| Zapier | Connect Airtable to 5000+ apps via Zapier automations. |
-| Make (Integromat) | Visual automation builder for complex Airtable workflows. |
-| Slack | Send Airtable notifications and updates to Slack channels. |
-| Salesforce | Sync Airtable data with Salesforce CRM. |
-| GitHub | Link Airtable records to GitHub issues and pull requests. |
-| Okta | Enterprise SSO and SCIM provisioning via Okta. |
-| Google Workspace | Import from Google Sheets and sync with Google Drive. |
-
-## Artifacts
-
-Machine-readable API specifications organized by format.
-
-### OpenAPI
-
-- [Airtable API](openapi/airtable-airtable-api-openapi.yml)
-- [Airtable Metadata API](openapi/airtable-metadata-api-openapi.yml)
-- [Airtable Enterprise API](openapi/airtable-enterprise-api-openapi.yml)
-- [Airtable SCIM API](openapi/airtable-scim-api-openapi.yml)
-- [Airtable Audit Logs API](openapi/airtable-audit-logs-api-openapi.yml)
-- [Airtable Shares API](openapi/airtable-shares-api-openapi.yml)
-
-### JSON Schema
-
-- [Record](json-schema/airtable-record-schema.json)
-- [Comment](json-schema/airtable-comment-schema.json)
-- [Webhook](json-schema/airtable-webhook-schema.json)
-- [Base](json-schema/airtable-base-schema.json)
-- [Table](json-schema/airtable-table-schema.json)
-- [Field](json-schema/airtable-field-schema.json)
-- [View](json-schema/airtable-view-schema.json)
-- [User](json-schema/airtable-user-schema.json)
-- [Workspace](json-schema/airtable-workspace-schema.json)
-- [Audit Log Event](json-schema/airtable-audit-log-event-schema.json)
-- [Share](json-schema/airtable-share-schema.json)
-
-### JSON Structure
-
-- [Record Structure](json-structure/airtable-record-structure.json)
-- [Comment Structure](json-structure/airtable-comment-structure.json)
-- [Webhook Structure](json-structure/airtable-webhook-structure.json)
-- [Base Structure](json-structure/airtable-base-structure.json)
-- [Table Structure](json-structure/airtable-table-structure.json)
-- [Field Structure](json-structure/airtable-field-structure.json)
-- [View Structure](json-structure/airtable-view-structure.json)
-- [User Structure](json-structure/airtable-user-structure.json)
-- [Workspace Structure](json-structure/airtable-workspace-structure.json)
-- [Audit Log Event Structure](json-structure/airtable-audit-log-event-structure.json)
-- [Share Structure](json-structure/airtable-share-structure.json)
-
-### JSON-LD
-
-- [Airtable Context](json-ld/airtable-context.jsonld)
-
-### Examples
-
-- [Record Example](examples/airtable-record-example.json)
-- [Base Example](examples/airtable-base-example.json)
-- [Table Example](examples/airtable-table-example.json)
-- [Field Example](examples/airtable-field-example.json)
-- [View Example](examples/airtable-view-example.json)
-- [User Example](examples/airtable-user-example.json)
-- [Workspace Example](examples/airtable-workspace-example.json)
-- [Audit Log Event Example](examples/airtable-audit-log-event-example.json)
-- [Share Example](examples/airtable-share-example.json)
-- [Comment Example](examples/airtable-comment-example.json)
-- [Webhook Example](examples/airtable-webhook-example.json)
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [Airtable API](capabilities/shared/airtable-api.yaml) — 4 operations for records management
-- [Airtable Metadata API](capabilities/shared/airtable-metadata-api.yaml) — 2 operations for schema browsing
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Database Management](capabilities/database-management.yaml) | Airtable API, Metadata API | 6 | Developer, Data Analyst |
-
-## Vocabulary
-
-- [Airtable Vocabulary](vocabulary/airtable-vocabulary.yaml) — Unified taxonomy mapping 10 resources, 5 actions, 1 workflow, and 3 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [Airtable Spectral Rules](rules/airtable-spectral-rules.yml) — 26 rules across 9 categories enforcing Airtable API conventions
+- [SDK](https://www.npmjs.com/package/airtable)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Integrations](undefined)
+- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/rules/airtable-spectral-rules.yml)
+- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/vocabulary/airtable-vocabulary.yaml)
+- [Integrations](https://www.airtable.com/integrations)
+- [M C P Server](https://github.com/Airtable/airtable-mcp-cli)
+- [Agent Skill](https://github.com/Airtable/skills)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
+**URL:** http://apievangelist.com
+**FN:** Airtable
+**Email:** support@airtable.com
+**URL:** https://airtable.com

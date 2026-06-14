@@ -1,0 +1,978 @@
+"""
+Airtable Conceptual GraphQL Schema
+Derived from the Airtable REST API (https://airtable.com/developers/web/api/introduction)
+No native GraphQL endpoint exists; this schema is a conceptual representation for tooling,
+catalog enrichment, and integration mapping.
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar Upload
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum SortDirection {
+  asc
+  desc
+}
+
+enum FilterOperator {
+  eq
+  neq
+  lt
+  lte
+  gt
+  gte
+  contains
+  notContains
+  isEmpty
+  isNotEmpty
+}
+
+enum PermissionLevel {
+  none
+  read
+  comment
+  create
+  editor
+  owner
+}
+
+enum ShareType {
+  form
+  grid
+  gallery
+  kanban
+  calendar
+  gantt
+}
+
+enum WebhookEvent {
+  tableCreated
+  tableUpdated
+  tableDeleted
+  fieldCreated
+  fieldUpdated
+  fieldDeleted
+  recordCreated
+  recordUpdated
+  recordDeleted
+}
+
+enum AuditEventType {
+  createBase
+  deleteBase
+  renameBase
+  duplicateBase
+  publishBase
+  createTable
+  deleteTable
+  renameTable
+  createField
+  deleteField
+  renameField
+  createRecord
+  deleteRecord
+  updateRecord
+  createView
+  deleteView
+  renameView
+  inviteCollaborator
+  removeCollaborator
+  changeCollaboratorPermission
+  createUser
+  deleteUser
+  updateUser
+  grantAdminAccess
+  revokeAdminAccess
+  createApiKey
+  deleteApiKey
+  createOauthToken
+  deleteOauthToken
+  enableSso
+  disableSso
+  createWorkspace
+  deleteWorkspace
+  createShare
+  deleteShare
+  createWebhook
+  deleteWebhook
+  exportBase
+}
+
+# ---------------------------------------------------------------------------
+# Field type union — every field type Airtable supports
+# ---------------------------------------------------------------------------
+
+union FieldValue =
+    SingleLineTextField
+  | LongTextField
+  | RichTextField
+  | SingleSelectField
+  | MultipleSelectsField
+  | CheckboxField
+  | NumberField
+  | CurrencyField
+  | PercentField
+  | RatingField
+  | DateField
+  | DateTimeField
+  | DurationField
+  | PhoneField
+  | EmailField
+  | UrlField
+  | CollaboratorField
+  | MultipleCollaboratorsField
+  | AttachmentField
+  | LinkedRecordField
+  | LookupField
+  | CountField
+  | RollupField
+  | FormulaField
+  | AutoNumberField
+  | BarcodeField
+  | ButtonField
+  | CreatedTimeField
+  | UpdatedTimeField
+  | CreatedByField
+  | LastModifiedByField
+  | AITextField
+
+# ---------------------------------------------------------------------------
+# Core resource types
+# ---------------------------------------------------------------------------
+
+type Base {
+  id: ID!
+  name: String!
+  permissionLevel: PermissionLevel!
+  tables: [Table!]
+  collaborators: [Collaborator!]
+  shares: [Share!]
+  webhooks: [Webhook!]
+  workspaceId: ID
+  createdTime: DateTime
+}
+
+type Table {
+  id: ID!
+  name: String!
+  description: String
+  primaryFieldId: ID!
+  fields: [Field!]!
+  views: [View!]!
+  records(
+    fields: [String!]
+    filterByFormula: String
+    maxRecords: Int
+    pageSize: Int
+    sort: [SortInput!]
+    view: String
+    cellFormat: String
+    timeZone: String
+    userLocale: String
+    offset: String
+  ): RecordPage!
+  base: Base
+}
+
+type Field {
+  id: ID!
+  name: String!
+  type: String!
+  description: String
+  options: JSON
+}
+
+type Record {
+  id: ID!
+  createdTime: DateTime!
+  fields: JSON!
+  comments: [Comment!]
+  table: Table
+}
+
+type RecordPage {
+  records: [Record!]!
+  offset: String
+}
+
+type View {
+  id: ID!
+  name: String!
+  type: String!
+  visibleFieldIds: [ID!]
+  personalForUserId: ID
+}
+
+# ---------------------------------------------------------------------------
+# Attachment
+# ---------------------------------------------------------------------------
+
+type Attachment {
+  id: ID!
+  url: String!
+  filename: String!
+  size: Int
+  type: String
+  width: Int
+  height: Int
+  thumbnails: Thumbnails
+}
+
+type Thumbnails {
+  small: Thumbnail
+  large: Thumbnail
+  full: Thumbnail
+}
+
+type Thumbnail {
+  url: String!
+  width: Int
+  height: Int
+}
+
+# ---------------------------------------------------------------------------
+# Users and Collaborators
+# ---------------------------------------------------------------------------
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  isManaged: Boolean
+  isAdmin: Boolean
+  isSuperAdmin: Boolean
+  collaborations: UserCollaborations
+  createdTime: DateTime
+  lastActivityTime: DateTime
+}
+
+type UserCollaborations {
+  baseCollaborations: [BaseCollaboration!]
+  workspaceCollaborations: [WorkspaceCollaboration!]
+  interfaceCollaborations: [InterfaceCollaboration!]
+}
+
+type BaseCollaboration {
+  baseId: ID!
+  permissionLevel: PermissionLevel!
+  userId: ID
+  email: String
+  name: String
+}
+
+type WorkspaceCollaboration {
+  workspaceId: ID!
+  permissionLevel: PermissionLevel!
+  userId: ID
+  email: String
+  name: String
+}
+
+type InterfaceCollaboration {
+  baseId: ID!
+  interfaceId: ID!
+  permissionLevel: PermissionLevel!
+  userId: ID
+  email: String
+  name: String
+}
+
+type Collaborator {
+  id: ID!
+  email: String!
+  name: String!
+  permissionLevel: PermissionLevel!
+}
+
+# ---------------------------------------------------------------------------
+# Comments
+# ---------------------------------------------------------------------------
+
+type Comment {
+  id: ID!
+  text: String!
+  author: Collaborator!
+  createdTime: DateTime!
+  lastUpdatedTime: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Webhooks
+# ---------------------------------------------------------------------------
+
+type Webhook {
+  id: ID!
+  cursorForNextPayload: Int!
+  isHookEnabled: Boolean!
+  notificationUrl: String
+  specification: WebhookSpecification!
+  expirationTime: DateTime
+}
+
+type WebhookSpecification {
+  options: WebhookOptions!
+}
+
+type WebhookOptions {
+  filters: WebhookFilters!
+}
+
+type WebhookFilters {
+  fromSources: [String!]
+  dataTypes: [String!]
+  recordChangeScope: String
+  changeTypes: [WebhookEvent!]
+}
+
+type WebhookPayload {
+  timestamp: DateTime!
+  baseTransactionNumber: Int!
+  actionMetadata: ActionMetadata!
+  createdTablesById: JSON
+  destroyedTableIds: [ID!]
+  changedTablesById: JSON
+  createdFieldsById: JSON
+  destroyedFieldIds: [ID!]
+  changedFieldsById: JSON
+  createdRecordsById: JSON
+  destroyedRecordIds: [ID!]
+  changedRecordsById: JSON
+}
+
+type ActionMetadata {
+  source: String!
+  sourceMetadata: JSON
+}
+
+type WebhookNotification {
+  base: Base!
+  webhook: Webhook!
+  timestamp: DateTime!
+}
+
+type WebhookCursor {
+  cursor: Int!
+  mightHaveMore: Boolean!
+  payloads: [WebhookPayload!]!
+}
+
+# ---------------------------------------------------------------------------
+# Enterprise
+# ---------------------------------------------------------------------------
+
+type Enterprise {
+  id: ID!
+  name: String!
+  users: UserPage
+  workspaces: [Workspace!]
+  createdTime: DateTime
+}
+
+type UserPage {
+  users: [User!]!
+  offset: String
+}
+
+type Workspace {
+  id: ID!
+  name: String!
+  collaborators: [Collaborator!]
+  bases: [Base!]
+  createdTime: DateTime
+}
+
+type UserGroup {
+  id: ID!
+  name: String!
+  members: [User!]
+  createdTime: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Shares
+# ---------------------------------------------------------------------------
+
+type Share {
+  shareId: ID!
+  type: ShareType!
+  isPasswordProtected: Boolean!
+  restrictedToEmailDomains: [String!]
+  createdByUserId: ID
+  state: String
+  viewId: ID
+  sortedFieldIdsForGallery: [ID!]
+  effectiveEmailDomainAllowlist: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# Audit Logs
+# ---------------------------------------------------------------------------
+
+type AuditLogRequest {
+  id: ID!
+  userId: ID
+  eventType: AuditEventType
+  startTime: DateTime
+  endTime: DateTime
+  state: String
+  downloadUrls: [String!]
+  createdTime: DateTime
+  completedTime: DateTime
+  expirationTime: DateTime
+}
+
+type AuditLogEvent {
+  id: ID!
+  timestamp: DateTime!
+  eventType: AuditEventType!
+  actorUserId: ID
+  originIpAddress: String
+  requestId: String
+  modelId: ID
+  modelType: String
+  payload: JSON
+}
+
+# ---------------------------------------------------------------------------
+# SCIM
+# ---------------------------------------------------------------------------
+
+type ScimUser {
+  id: ID!
+  userName: String!
+  name: ScimName
+  emails: [ScimEmail!]
+  phoneNumbers: [ScimPhoneNumber!]
+  active: Boolean!
+  meta: ScimMeta
+  externalId: String
+  displayName: String
+  title: String
+  preferredLanguage: String
+  photos: [ScimPhoto!]
+}
+
+type ScimName {
+  formatted: String
+  givenName: String
+  familyName: String
+  middleName: String
+  honorificPrefix: String
+  honorificSuffix: String
+}
+
+type ScimEmail {
+  value: String!
+  type: String
+  primary: Boolean
+}
+
+type ScimPhoneNumber {
+  value: String!
+  type: String
+  primary: Boolean
+}
+
+type ScimPhoto {
+  value: String!
+  type: String
+  primary: Boolean
+}
+
+type ScimMeta {
+  resourceType: String
+  created: DateTime
+  lastModified: DateTime
+  location: String
+  version: String
+}
+
+type ScimGroup {
+  id: ID!
+  displayName: String!
+  members: [ScimGroupMember!]
+  meta: ScimMeta
+  externalId: String
+}
+
+type ScimGroupMember {
+  value: ID!
+  display: String
+}
+
+type ScimListResponse {
+  schemas: [String!]!
+  totalResults: Int!
+  itemsPerPage: Int!
+  startIndex: Int!
+  Resources: JSON!
+}
+
+# ---------------------------------------------------------------------------
+# Select options
+# ---------------------------------------------------------------------------
+
+type SelectOption {
+  id: ID!
+  name: String!
+  color: String
+}
+
+# ---------------------------------------------------------------------------
+# Field type nodes (used by FieldValue union)
+# ---------------------------------------------------------------------------
+
+type SingleLineTextField {
+  value: String
+}
+
+type LongTextField {
+  value: String
+}
+
+type RichTextField {
+  value: String
+}
+
+type SingleSelectField {
+  value: SelectOption
+  options: [SelectOption!]
+}
+
+type MultipleSelectsField {
+  value: [SelectOption!]
+  options: [SelectOption!]
+}
+
+type CheckboxField {
+  value: Boolean
+  color: String
+  icon: String
+}
+
+type NumberField {
+  value: Float
+  precision: Int
+}
+
+type CurrencyField {
+  value: Float
+  symbol: String
+  precision: Int
+}
+
+type PercentField {
+  value: Float
+  precision: Int
+}
+
+type RatingField {
+  value: Int
+  max: Int
+  color: String
+  icon: String
+}
+
+type DateField {
+  value: Date
+  dateFormat: String
+}
+
+type DateTimeField {
+  value: DateTime
+  dateFormat: String
+  timeFormat: String
+  timeZone: String
+}
+
+type DurationField {
+  value: Int
+  durationFormat: String
+}
+
+type PhoneField {
+  value: String
+}
+
+type EmailField {
+  value: String
+}
+
+type UrlField {
+  value: String
+}
+
+type CollaboratorField {
+  value: Collaborator
+}
+
+type MultipleCollaboratorsField {
+  value: [Collaborator!]
+}
+
+type AttachmentField {
+  value: [Attachment!]
+}
+
+type LinkedRecordField {
+  value: [Record!]
+  linkedTableId: ID
+  prefersSingleRecordLink: Boolean
+}
+
+type LookupField {
+  value: JSON
+  recordLinkFieldId: ID
+  fieldIdInLinkedTable: ID
+}
+
+type CountField {
+  value: Int
+  recordLinkFieldId: ID
+}
+
+type RollupField {
+  value: JSON
+  recordLinkFieldId: ID
+  fieldIdInLinkedTable: ID
+  referencedFieldIds: [ID!]
+}
+
+type FormulaField {
+  value: JSON
+  formula: String
+  referencedFieldIds: [ID!]
+}
+
+type AutoNumberField {
+  value: Int
+}
+
+type BarcodeField {
+  value: BarcodeValue
+}
+
+type BarcodeValue {
+  text: String!
+  type: String
+}
+
+type ButtonField {
+  value: ButtonValue
+  label: String
+  style: JSON
+}
+
+type ButtonValue {
+  label: String
+  url: String
+}
+
+type CreatedTimeField {
+  value: DateTime
+}
+
+type UpdatedTimeField {
+  value: DateTime
+  referencedFieldIds: [ID!]
+}
+
+type CreatedByField {
+  value: Collaborator
+}
+
+type LastModifiedByField {
+  value: Collaborator
+  referencedFieldIds: [ID!]
+}
+
+type AITextField {
+  value: AITextValue
+  prompt: [AIPromptPart!]
+  referencedFieldIds: [ID!]
+}
+
+type AITextValue {
+  state: String
+  isStale: Boolean
+  value: String
+  errorType: String
+}
+
+type AIPromptPart {
+  type: String!
+  fieldId: ID
+  text: String
+}
+
+# ---------------------------------------------------------------------------
+# Pagination / sorting / filtering inputs
+# ---------------------------------------------------------------------------
+
+input SortInput {
+  field: String!
+  direction: SortDirection
+}
+
+input FilterInput {
+  field: String!
+  operator: FilterOperator!
+  value: JSON
+}
+
+input RecordQueryInput {
+  fields: [String!]
+  filterByFormula: String
+  maxRecords: Int
+  pageSize: Int
+  sort: [SortInput!]
+  view: String
+  cellFormat: String
+  timeZone: String
+  userLocale: String
+  offset: String
+}
+
+input CreateRecordInput {
+  tableId: ID!
+  fields: JSON!
+  typecast: Boolean
+}
+
+input UpdateRecordInput {
+  tableId: ID!
+  recordId: ID!
+  fields: JSON!
+  typecast: Boolean
+}
+
+input UpsertRecordInput {
+  tableId: ID!
+  fields: JSON!
+  fieldsToMergeOn: [String!]!
+  typecast: Boolean
+}
+
+input CreateTableInput {
+  baseId: ID!
+  name: String!
+  description: String
+  fields: [CreateFieldInput!]!
+}
+
+input UpdateTableInput {
+  tableId: ID!
+  name: String
+  description: String
+}
+
+input CreateFieldInput {
+  name: String!
+  type: String!
+  description: String
+  options: JSON
+}
+
+input UpdateFieldInput {
+  fieldId: ID!
+  name: String
+  description: String
+  options: JSON
+}
+
+input CreateBaseInput {
+  workspaceId: ID!
+  name: String!
+  tables: [CreateTableInput!]!
+}
+
+input CreateWebhookInput {
+  baseId: ID!
+  notificationUrl: String
+  specification: WebhookSpecInput!
+}
+
+input WebhookSpecInput {
+  options: WebhookOptionsInput!
+}
+
+input WebhookOptionsInput {
+  filters: WebhookFiltersInput!
+}
+
+input WebhookFiltersInput {
+  fromSources: [String!]
+  dataTypes: [String!]
+  recordChangeScope: String
+  changeTypes: [WebhookEvent!]
+}
+
+input CreateCommentInput {
+  tableId: ID!
+  recordId: ID!
+  text: String!
+}
+
+input UpdateCommentInput {
+  tableId: ID!
+  recordId: ID!
+  commentId: ID!
+  text: String!
+}
+
+input CreateAuditLogRequestInput {
+  enterpriseAccountId: ID!
+  userId: ID
+  eventType: AuditEventType
+  startTime: DateTime
+  endTime: DateTime
+}
+
+input ScimUserInput {
+  userName: String!
+  name: ScimNameInput
+  emails: [ScimEmailInput!]
+  active: Boolean
+  externalId: String
+  displayName: String
+  title: String
+}
+
+input ScimNameInput {
+  givenName: String
+  familyName: String
+  formatted: String
+}
+
+input ScimEmailInput {
+  value: String!
+  type: String
+  primary: Boolean
+}
+
+input ScimGroupInput {
+  displayName: String!
+  externalId: String
+}
+
+# ---------------------------------------------------------------------------
+# Root types
+# ---------------------------------------------------------------------------
+
+type Query {
+  # Bases
+  listBases: [Base!]!
+  getBase(baseId: ID!): Base
+
+  # Tables
+  listTables(baseId: ID!): [Table!]!
+  getTable(baseId: ID!, tableId: ID!): Table
+
+  # Fields
+  listFields(baseId: ID!, tableId: ID!): [Field!]!
+  getField(baseId: ID!, tableId: ID!, fieldId: ID!): Field
+
+  # Records
+  listRecords(baseId: ID!, tableId: ID!, query: RecordQueryInput): RecordPage!
+  getRecord(baseId: ID!, tableId: ID!, recordId: ID!): Record
+
+  # Views
+  listViews(baseId: ID!, tableId: ID!): [View!]!
+
+  # Comments
+  listComments(baseId: ID!, tableId: ID!, recordId: ID!): [Comment!]!
+
+  # Webhooks
+  listWebhooks(baseId: ID!): [Webhook!]!
+  getWebhookPayloads(baseId: ID!, webhookId: ID!, cursor: Int): WebhookCursor!
+
+  # Shares
+  listShares(baseId: ID!): [Share!]!
+
+  # Enterprise
+  getEnterprise(enterpriseAccountId: ID!): Enterprise!
+  listEnterpriseUsers(enterpriseAccountId: ID!, offset: String, pageSize: Int): UserPage!
+  getEnterpriseUser(enterpriseAccountId: ID!, userId: ID!): User
+  getUserGroup(enterpriseAccountId: ID!, groupId: ID!): UserGroup
+
+  # Audit Logs
+  listAuditLogRequests(enterpriseAccountId: ID!): [AuditLogRequest!]!
+  getAuditLogRequest(enterpriseAccountId: ID!, requestId: ID!): AuditLogRequest!
+
+  # SCIM
+  listScimUsers(startIndex: Int, count: Int, filter: String): ScimListResponse!
+  getScimUser(userId: ID!): ScimUser!
+  listScimGroups(startIndex: Int, count: Int, filter: String): ScimListResponse!
+  getScimGroup(groupId: ID!): ScimGroup!
+}
+
+type Mutation {
+  # Bases
+  createBase(input: CreateBaseInput!): Base!
+
+  # Tables
+  createTable(input: CreateTableInput!): Table!
+  updateTable(input: UpdateTableInput!): Table!
+
+  # Fields
+  createField(baseId: ID!, tableId: ID!, input: CreateFieldInput!): Field!
+  updateField(baseId: ID!, tableId: ID!, input: UpdateFieldInput!): Field!
+
+  # Records
+  createRecord(baseId: ID!, input: CreateRecordInput!): Record!
+  createRecords(baseId: ID!, tableId: ID!, records: [CreateRecordInput!]!): [Record!]!
+  updateRecord(baseId: ID!, input: UpdateRecordInput!): Record!
+  updateRecords(baseId: ID!, tableId: ID!, records: [UpdateRecordInput!]!): [Record!]!
+  upsertRecord(baseId: ID!, input: UpsertRecordInput!): Record!
+  deleteRecord(baseId: ID!, tableId: ID!, recordId: ID!): Boolean!
+  deleteRecords(baseId: ID!, tableId: ID!, recordIds: [ID!]!): Boolean!
+
+  # Comments
+  createComment(baseId: ID!, input: CreateCommentInput!): Comment!
+  updateComment(baseId: ID!, input: UpdateCommentInput!): Comment!
+  deleteComment(baseId: ID!, tableId: ID!, recordId: ID!, commentId: ID!): Boolean!
+
+  # Webhooks
+  createWebhook(input: CreateWebhookInput!): Webhook!
+  refreshWebhook(baseId: ID!, webhookId: ID!): Webhook!
+  deleteWebhook(baseId: ID!, webhookId: ID!): Boolean!
+  enableWebhookNotifications(baseId: ID!, webhookId: ID!): Webhook!
+  disableWebhookNotifications(baseId: ID!, webhookId: ID!): Webhook!
+
+  # Shares
+  manageShare(baseId: ID!, shareId: ID!, state: String!): Share!
+  deleteShare(baseId: ID!, shareId: ID!): Boolean!
+
+  # Enterprise users
+  manageEnterpriseUser(enterpriseAccountId: ID!, userId: ID!, state: String, email: String, firstName: String, lastName: String): User!
+  manageEnterpriseUserMembership(enterpriseAccountId: ID!, userId: ID!, baseIds: [ID!], workspaceIds: [ID!]): User!
+  deleteEnterpriseUser(enterpriseAccountId: ID!, userId: ID!): Boolean!
+  removeEnterpriseUser(enterpriseAccountId: ID!, userId: ID!): Boolean!
+  grantAdminAccess(enterpriseAccountId: ID!, userId: ID!): User!
+  revokeAdminAccess(enterpriseAccountId: ID!, userId: ID!): User!
+
+  # Workspaces
+  createWorkspace(enterpriseAccountId: ID!, name: String!): Workspace!
+
+  # Audit Logs
+  createAuditLogRequest(input: CreateAuditLogRequestInput!): AuditLogRequest!
+
+  # SCIM
+  createScimUser(input: ScimUserInput!): ScimUser!
+  updateScimUser(userId: ID!, input: ScimUserInput!): ScimUser!
+  patchScimUser(userId: ID!, operations: JSON!): ScimUser!
+  deleteScimUser(userId: ID!): Boolean!
+  createScimGroup(input: ScimGroupInput!): ScimGroup!
+  updateScimGroup(groupId: ID!, input: ScimGroupInput!): ScimGroup!
+  patchScimGroup(groupId: ID!, operations: JSON!): ScimGroup!
+  deleteScimGroup(groupId: ID!): Boolean!
+}

@@ -1,0 +1,384 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Enterprise API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enterprise",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable Get Enterprise Account Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include in the response."
+              }
+            ]
+          },
+          "docs": "Returns information about the specified enterprise account, including the enterprise name, creation time, and optionally aggregated usage data and descendant accounts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Enterprise Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more email addresses."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more user IDs."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include for each user."
+              }
+            ]
+          },
+          "docs": "Returns a list of users within the enterprise account. Results can be filtered by user IDs or email addresses, and can include collaboration details."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete Users by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes one or more users from the enterprise account by their user IDs. This permanently removes the users and their data."
+        },
+        {
+          "info": {
+            "name": "Airtable Remove a User from Enterprise",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/:userId/remove",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user to remove."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a user from the enterprise account. Optionally, a replacement user can be specified to take over shared resources. The response includes details about affected shared and unshared resources."
+        },
+        {
+          "info": {
+            "name": "Airtable Claim Users Into Enterprise",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/claim/users",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Claims one or more users into the enterprise account, setting their management status to either managed or unmanaged."
+        },
+        {
+          "info": {
+            "name": "Airtable Manage User Membership Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/manageUserMembership",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the managed or unmanaged status for one or more users in the enterprise account."
+        },
+        {
+          "info": {
+            "name": "Airtable Grant Admin Access to Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/grantAdminAccess",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grants enterprise admin access to one or more users, allowing them to manage the enterprise account through the Admin panel and API."
+        },
+        {
+          "info": {
+            "name": "Airtable Revoke Admin Access from Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/revokeAdminAccess",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revokes enterprise admin access from one or more users. The users retain their regular enterprise membership but lose admin privileges."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable Get a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user group."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include."
+              }
+            ]
+          },
+          "docs": "Returns details about a specific user group, including its members and configuration."
+        },
+        {
+          "info": {
+            "name": "Airtable Move User Groups Between Enterprises",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/moveGroups",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves one or more user groups from this enterprise account to a target enterprise account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable Create a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workspace within the enterprise account."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/meta/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace (starts with 'wsp')."
+              }
+            ]
+          },
+          "docs": "Permanently deletes the specified workspace and all its contents. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Airtable Get Workspace Collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/workspaces/:workspaceId/collaborators",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include in the response."
+              }
+            ]
+          },
+          "docs": "Returns a list of all collaborators on the specified workspace, including individual users and user groups with their permission levels."
+        },
+        {
+          "info": {
+            "name": "Airtable Move Workspaces Between Enterprises",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/moveWorkspaces",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves one or more workspaces from this enterprise account to a target enterprise account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

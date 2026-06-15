@@ -1,0 +1,577 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Records in a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "fields[]",
+                "value": "",
+                "type": "query",
+                "description": "Only return data for the specified field names or IDs."
+              },
+              {
+                "name": "filterByFormula",
+                "value": "",
+                "type": "query",
+                "description": "An Airtable formula used to filter records. The formula is evaluated for each record, and if the result is not 0, false, \"\", NaN, [], or #Error!, the record will be included in the response."
+              },
+              {
+                "name": "maxRecords",
+                "value": "",
+                "type": "query",
+                "description": "The maximum total number of records that will be returned."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of records returned in each request. Must be less than or equal to 100. Default is 100."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "A list of sort objects that specifies how the records will be ordered. Each sort object must have a field key and an optional direction key (asc or desc)."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "The name or ID of a view in the table. If set, only the records in that view will be returned."
+              },
+              {
+                "name": "cellFormat",
+                "value": "",
+                "type": "query",
+                "description": "The format that should be used for cell values. Supported values are json (default) and string."
+              },
+              {
+                "name": "timeZone",
+                "value": "",
+                "type": "query",
+                "description": "The time zone to use for formatting dates when using string cell format."
+              },
+              {
+                "name": "userLocale",
+                "value": "",
+                "type": "query",
+                "description": "The user locale to use for formatting dates when using string cell format."
+              },
+              {
+                "name": "returnFieldsByFieldId",
+                "value": "",
+                "type": "query",
+                "description": "If true, the response will use field IDs as object keys instead of field names."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "A pagination cursor returned from a previous request. Pass this value to fetch the next page of results."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of records in the specified table. Records can be filtered using an Airtable formula, sorted by specific fields, and limited to specific fields. The maximum page size is 100 records. Use the offset parameter from the response to fetch the next page."
+        },
+        {
+          "info": {
+            "name": "Airtable Create Records in a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates up to 10 records in the specified table. Each record must include a fields object mapping field names (or IDs) to values. If typecast is enabled, the API will attempt to convert string values to the appropriate cell value."
+        },
+        {
+          "info": {
+            "name": "Airtable Retrieve a Single Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "returnFieldsByFieldId",
+                "value": "",
+                "type": "query",
+                "description": "If true, the response will use field IDs as keys instead of field names."
+              }
+            ]
+          },
+          "docs": "Retrieves a single record by its ID from the specified table. Returns the record's fields, creation time, and ID."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a Record (full Replacement)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all fields of an existing record. Fields that are not included in the request body will be cleared. This is a destructive update that overwrites the entire record."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a Record (partial)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates specific fields of an existing record. Only the fields included in the request body will be updated; all other fields will remain unchanged. Up to 10 records can be updated in a single request when using the batch endpoint."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              }
+            ]
+          },
+          "docs": "Deletes a single record from the specified table. The record is permanently removed and cannot be recovered through the API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Comments on a Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response to fetch the next page."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of comments to return per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of comments on the specified record. Comments are returned in reverse chronological order."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a Comment on a Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comment on the specified record. Comments can include user mentions using the @[usrXXXXXXXX] syntax. Requires OAuth authentication with the comment:write scope."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments/:commentId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the comment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the text of an existing comment on a record. Only the author of the comment can update it."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments/:commentId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the comment."
+              }
+            ]
+          },
+          "docs": "Deletes a comment from a record. Only the author of the comment can delete it."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Webhooks for a Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              }
+            ]
+          },
+          "docs": "Returns a list of all webhooks registered for the specified base. Includes webhook configuration, status, and expiration information."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a Webhook for a Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook subscription for the specified base. Webhooks expire after 7 days and must be refreshed. The response includes a MAC secret used to verify webhook notification payloads. Requires OAuth authentication with the webhook:manage scope."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              }
+            ]
+          },
+          "docs": "Deletes an existing webhook subscription. The webhook will no longer send notifications after deletion."
+        },
+        {
+          "info": {
+            "name": "Airtable Refresh a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks/:webhookId/refresh",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              }
+            ]
+          },
+          "docs": "Extends the expiration time of an existing webhook. Webhooks expire after 7 days of inactivity and must be periodically refreshed to remain active."
+        },
+        {
+          "info": {
+            "name": "Airtable List Webhook Payloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks/:webhookId/payloads",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination. Pass the cursor from the previous response to get the next page."
+              }
+            ]
+          },
+          "docs": "Returns a list of payloads that have been generated for the specified webhook. Payloads are returned in chronological order and can be paginated using a cursor."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

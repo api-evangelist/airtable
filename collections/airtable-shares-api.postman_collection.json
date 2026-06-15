@@ -1,0 +1,1208 @@
+{
+  "item": [
+    {
+      "id": "53c22486-2554-4ac3-8def-40a9887c39bc",
+      "name": "Shares",
+      "description": {
+        "content": "Manage share links for bases within the enterprise",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f4bb1e4-58f5-4f9c-9af3-d008de46f49b",
+          "name": "Airtable List Share Links for a Base",
+          "request": {
+            "name": "Airtable List Share Links for a Base",
+            "description": {
+              "content": "Returns a list of all active share links for the specified base. Each share includes its type, state, and the user who created it. This endpoint is available to enterprise administrators.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "shares"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ac1d682-918e-4299-b813-69b97bd790e9",
+              "name": "A list of share links for the base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shares\": [\n    {\n      \"shareId\": \"shrABC123def456\",\n      \"type\": \"view\",\n      \"state\": \"enabled\",\n      \"createdByUserId\": \"string\",\n      \"createdTime\": \"1999-12-31T22:37:13.608Z\",\n      \"baseId\": \"string\",\n      \"viewId\": \"string\",\n      \"isPasswordEnabled\": false,\n      \"effectivePermissionLevel\": \"edit\"\n    },\n    {\n      \"shareId\": \"shrABC123def456\",\n      \"type\": \"form\",\n      \"state\": \"enabled\",\n      \"createdByUserId\": \"string\",\n      \"createdTime\": \"2008-12-11T13:41:30.453Z\",\n      \"baseId\": \"string\",\n      \"viewId\": \"string\",\n      \"isPasswordEnabled\": false,\n      \"effectivePermissionLevel\": \"read\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e788f2-bcc8-418a-a839-fdf12072cee9",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c883f44-5f12-4e6d-9774-ef0b75ee813f",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb9572a8-7bac-4ec6-92ad-5f4853ee784c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6788479-4768-4636-8e0d-097aed9afe3f",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3418a862-7c13-4c2a-ad6b-7f83f0935d10",
+          "name": "Airtable Manage a Share Link",
+          "request": {
+            "name": "Airtable Manage a Share Link",
+            "description": {
+              "content": "Updates the configuration of an existing share link for a base. Can be used to enable or disable the share link, or update its access settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "shares",
+                ":shareId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shareId",
+                  "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09c65230-eeb1-4d77-a8e3-7b32baf757aa",
+              "name": "The updated share link.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shareId\": \"shrABC123def456\",\n  \"type\": \"form\",\n  \"state\": \"enabled\",\n  \"createdByUserId\": \"string\",\n  \"createdTime\": \"2021-12-02T11:19:59.433Z\",\n  \"baseId\": \"string\",\n  \"viewId\": \"string\",\n  \"isPasswordEnabled\": false,\n  \"effectivePermissionLevel\": \"edit\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9ca3ba4-2b51-4dfb-b213-6602fb51bde5",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c45bb883-8f87-4fac-b9de-6318a4af4ce9",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c7761dc-9904-4b69-830c-e38b5a090a00",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2838a5c2-1e4b-4117-8583-fc47ea522be4",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "520fa621-ffb1-409d-9920-f18db07782d2",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\",\n  \"isPasswordEnabled\": \"<boolean>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "524d0357-a320-4723-96cd-0d3ed3d39016",
+          "name": "Airtable Delete a Share Link",
+          "request": {
+            "name": "Airtable Delete a Share Link",
+            "description": {
+              "content": "Permanently deletes a share link for a base. Anyone who previously had access through this share link will immediately lose access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "shares",
+                ":shareId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shareId",
+                  "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f68171d-8b97-443e-b7d6-cfe280d188b5",
+              "name": "Confirmation that the share link was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60d8970e-ef3d-40e2-9421-9923cd38bd96",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f4faceb-11d7-443e-ac63-0b2f9c1a4b32",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a140f78-3578-4372-ad80-f6cdc2371216",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "300a04ec-3cd4-4990-8dc7-24d14b9a7764",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "shares",
+                    ":shareId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shareId",
+                      "description": "(Required) The unique identifier of the share link (starts with 'shr')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.airtable.com/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c32cdef2-4131-4a18-b2d8-1dcba735cad4",
+    "name": "Airtable Shares API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across an organization. It provides programmatic control over base sharing and access management, enabling enforcement of sharing policies at scale.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+      "type": "text/plain"
+    }
+  }
+}

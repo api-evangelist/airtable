@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Shares API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shares",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Share Links for a Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/bases/:baseId/shares",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              }
+            ]
+          },
+          "docs": "Returns a list of all active share links for the specified base. Each share includes its type, state, and the user who created it. This endpoint is available to enterprise administrators."
+        },
+        {
+          "info": {
+            "name": "Airtable Manage a Share Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/meta/bases/:baseId/shares/:shareId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "shareId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the share link (starts with 'shr')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing share link for a base. Can be used to enable or disable the share link, or update its access settings."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Share Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/meta/bases/:baseId/shares/:shareId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "shareId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the share link (starts with 'shr')."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a share link for a base. Anyone who previously had access through this share link will immediately lose access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

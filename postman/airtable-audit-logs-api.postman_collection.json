@@ -1,0 +1,1739 @@
+{
+  "info": {
+    "_postman_id": "57284511-7236-4fc1-8062-87bfeda68a6d",
+    "name": "Airtable Audit Logs API",
+    "description": "The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring and security tracking. It supports creating and retrieving audit log requests with event filtering by user, event type, model ID, category, and date range. Events are returned in JSON format with up to 180 days of retention.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:00:39.000Z",
+    "updatedAt": "2026-06-05T15:00:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-57284511-7236-4fc1-8062-87bfeda68a6d"
+  },
+  "item": [
+    {
+      "name": "meta",
+      "item": [
+        {
+          "name": "enterpriseAccounts",
+          "item": [
+            {
+              "name": "{enterpriseAccountId}",
+              "item": [
+                {
+                  "name": "auditLogEvents",
+                  "item": [
+                    {
+                      "name": "Airtable List Audit Log Events",
+                      "id": "adc6e5c7-673d-40c7-a36a-ae1e34a110f7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents?startTime=<dateTime>&endTime=<dateTime>&originatingUserId=<string>&eventType=<string>&modelId=<string>&category=<string>&pageSize=<integer>&cursor=<string>&sortOrder=desc&previous=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "meta",
+                            "enterpriseAccounts",
+                            ":enterpriseAccountId",
+                            "auditLogEvents"
+                          ],
+                          "query": [
+                            {
+                              "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included.",
+                              "key": "startTime",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.",
+                              "key": "endTime",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter events to those performed by a specific user.",
+                              "key": "originatingUserId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter events by event type.",
+                              "key": "eventType",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter events by the ID of the affected model (base, table, etc.).",
+                              "key": "modelId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter events by category.",
+                              "key": "category",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The number of events per page. Default is 100.",
+                              "key": "pageSize",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Pagination cursor from a previous response to fetch the next or previous page.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The order in which to return events. Default is desc.",
+                              "key": "sortOrder",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Pagination cursor for the previous page of results.",
+                              "key": "previous",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "5595322c-6b6b-401e-b92c-d5d54338dd90",
+                              "key": "enterpriseAccountId",
+                              "value": "entEA",
+                              "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                            }
+                          ]
+                        },
+                        "description": "Returns a paginated list of audit log events for the specified enterprise account. Events can be filtered by user ID, event type, model ID, category, and time range. By default, returns up to 180 days of events in reverse chronological order."
+                      },
+                      "response": [
+                        {
+                          "id": "572492af-5017-482d-b45d-ee3b99f8c61a",
+                          "name": "A paginated list of audit log events.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents?startTime=<dateTime>&endTime=<dateTime>&originatingUserId=<string>&eventType=<string>&modelId=<string>&category=<string>&pageSize=<integer>&cursor=<string>&sortOrder=desc&previous=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogEvents"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included.",
+                                  "key": "startTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.",
+                                  "key": "endTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Filter events to those performed by a specific user.",
+                                  "key": "originatingUserId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by event type.",
+                                  "key": "eventType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by the ID of the affected model (base, table, etc.).",
+                                  "key": "modelId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by category.",
+                                  "key": "category",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The number of events per page. Default is 100.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Pagination cursor from a previous response to fetch the next or previous page.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order in which to return events. Default is desc.",
+                                  "key": "sortOrder",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Pagination cursor for the previous page of results.",
+                                  "key": "previous",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"events\": [\n    {\n      \"id\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"actor\": {\n        \"type\": \"system\",\n        \"userId\": \"<string>\",\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      },\n      \"modelId\": \"<string>\",\n      \"modelType\": \"<string>\",\n      \"category\": \"<string>\",\n      \"context\": {\n        \"baseId\": \"<string>\",\n        \"tableId\": \"<string>\",\n        \"viewId\": \"<string>\",\n        \"workspaceId\": \"<string>\",\n        \"interfaceId\": \"<string>\",\n        \"actionId\": \"<string>\",\n        \"ipAddress\": \"<string>\"\n      },\n      \"payloadVersion\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"actor\": {\n        \"type\": \"user\",\n        \"userId\": \"<string>\",\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      },\n      \"modelId\": \"<string>\",\n      \"modelType\": \"<string>\",\n      \"category\": \"<string>\",\n      \"context\": {\n        \"baseId\": \"<string>\",\n        \"tableId\": \"<string>\",\n        \"viewId\": \"<string>\",\n        \"workspaceId\": \"<string>\",\n        \"interfaceId\": \"<string>\",\n        \"actionId\": \"<string>\",\n        \"ipAddress\": \"<string>\"\n      },\n      \"payloadVersion\": \"<string>\"\n    }\n  ],\n  \"pagination\": {\n    \"next\": \"<string>\",\n    \"previous\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-572492af-5017-482d-b45d-ee3b99f8c61a"
+                        },
+                        {
+                          "id": "47d0196d-1064-41e8-a862-e2ef5456f9ef",
+                          "name": "Authentication credentials are missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents?startTime=<dateTime>&endTime=<dateTime>&originatingUserId=<string>&eventType=<string>&modelId=<string>&category=<string>&pageSize=<integer>&cursor=<string>&sortOrder=desc&previous=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogEvents"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included.",
+                                  "key": "startTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.",
+                                  "key": "endTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Filter events to those performed by a specific user.",
+                                  "key": "originatingUserId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by event type.",
+                                  "key": "eventType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by the ID of the affected model (base, table, etc.).",
+                                  "key": "modelId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by category.",
+                                  "key": "category",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The number of events per page. Default is 100.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Pagination cursor from a previous response to fetch the next or previous page.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order in which to return events. Default is desc.",
+                                  "key": "sortOrder",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Pagination cursor for the previous page of results.",
+                                  "key": "previous",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-47d0196d-1064-41e8-a862-e2ef5456f9ef"
+                        },
+                        {
+                          "id": "e6c03102-cd96-491c-aef7-b4fd3ad986e7",
+                          "name": "The authenticated user does not have enterprise admin permission.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents?startTime=<dateTime>&endTime=<dateTime>&originatingUserId=<string>&eventType=<string>&modelId=<string>&category=<string>&pageSize=<integer>&cursor=<string>&sortOrder=desc&previous=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogEvents"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included.",
+                                  "key": "startTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.",
+                                  "key": "endTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Filter events to those performed by a specific user.",
+                                  "key": "originatingUserId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by event type.",
+                                  "key": "eventType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by the ID of the affected model (base, table, etc.).",
+                                  "key": "modelId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by category.",
+                                  "key": "category",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The number of events per page. Default is 100.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Pagination cursor from a previous response to fetch the next or previous page.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order in which to return events. Default is desc.",
+                                  "key": "sortOrder",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Pagination cursor for the previous page of results.",
+                                  "key": "previous",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-e6c03102-cd96-491c-aef7-b4fd3ad986e7"
+                        },
+                        {
+                          "id": "e89d9fcb-0840-457c-afc4-6cc4afabb32f",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents?startTime=<dateTime>&endTime=<dateTime>&originatingUserId=<string>&eventType=<string>&modelId=<string>&category=<string>&pageSize=<integer>&cursor=<string>&sortOrder=desc&previous=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogEvents"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included.",
+                                  "key": "startTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.",
+                                  "key": "endTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Filter events to those performed by a specific user.",
+                                  "key": "originatingUserId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by event type.",
+                                  "key": "eventType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by the ID of the affected model (base, table, etc.).",
+                                  "key": "modelId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by category.",
+                                  "key": "category",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The number of events per page. Default is 100.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Pagination cursor from a previous response to fetch the next or previous page.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order in which to return events. Default is desc.",
+                                  "key": "sortOrder",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Pagination cursor for the previous page of results.",
+                                  "key": "previous",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-e89d9fcb-0840-457c-afc4-6cc4afabb32f"
+                        },
+                        {
+                          "id": "56045683-5a66-440d-a6c9-99763f6e6d9a",
+                          "name": "Rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents?startTime=<dateTime>&endTime=<dateTime>&originatingUserId=<string>&eventType=<string>&modelId=<string>&category=<string>&pageSize=<integer>&cursor=<string>&sortOrder=desc&previous=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogEvents"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included.",
+                                  "key": "startTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included.",
+                                  "key": "endTime",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Filter events to those performed by a specific user.",
+                                  "key": "originatingUserId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by event type.",
+                                  "key": "eventType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by the ID of the affected model (base, table, etc.).",
+                                  "key": "modelId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter events by category.",
+                                  "key": "category",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The number of events per page. Default is 100.",
+                                  "key": "pageSize",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Pagination cursor from a previous response to fetch the next or previous page.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order in which to return events. Default is desc.",
+                                  "key": "sortOrder",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Pagination cursor for the previous page of results.",
+                                  "key": "previous",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-56045683-5a66-440d-a6c9-99763f6e6d9a"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:00:40.000Z",
+                      "updatedAt": "2026-06-05T15:00:40.000Z",
+                      "uid": "35240-adc6e5c7-673d-40c7-a36a-ae1e34a110f7"
+                    }
+                  ],
+                  "id": "65280f3e-b883-4f9e-b6b1-b903608a666d",
+                  "createdAt": "2026-06-05T15:00:40.000Z",
+                  "updatedAt": "2026-06-05T15:00:40.000Z",
+                  "uid": "35240-65280f3e-b883-4f9e-b6b1-b903608a666d"
+                },
+                {
+                  "name": "auditLogRequests",
+                  "item": [
+                    {
+                      "name": "{requestId}",
+                      "item": [
+                        {
+                          "name": "Airtable Get an Audit Log Export Request",
+                          "id": "ced19d35-e9f0-464f-8a08-9e98f23a2f10",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests",
+                                ":requestId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5f2cd242-2537-4bfe-a6e0-8a483e26739e",
+                                  "key": "enterpriseAccountId",
+                                  "value": "entEA",
+                                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                                },
+                                {
+                                  "id": "943c476b-514d-4365-acb3-ae5797b1eec4",
+                                  "key": "requestId",
+                                  "value": "<string>",
+                                  "description": "(Required) The unique identifier of the audit log export request."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the status and details of a specific audit log export request. When the request is complete, the response includes download URLs for the exported data."
+                          },
+                          "response": [
+                            {
+                              "id": "a5ceb932-5932-4968-a779-39a39d828725",
+                              "name": "The audit log export request details and status.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "meta",
+                                    "enterpriseAccounts",
+                                    ":enterpriseAccountId",
+                                    "auditLogRequests",
+                                    ":requestId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "enterpriseAccountId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"done\",\n  \"createdTime\": \"<dateTime>\",\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  },\n  \"downloadUrls\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"expirationTime\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:00:40.000Z",
+                              "updatedAt": "2026-06-05T15:00:40.000Z",
+                              "uid": "35240-a5ceb932-5932-4968-a779-39a39d828725"
+                            },
+                            {
+                              "id": "0006d665-a884-4487-90b8-aed2c557d7df",
+                              "name": "Authentication credentials are missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "meta",
+                                    "enterpriseAccounts",
+                                    ":enterpriseAccountId",
+                                    "auditLogRequests",
+                                    ":requestId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "enterpriseAccountId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:00:40.000Z",
+                              "updatedAt": "2026-06-05T15:00:40.000Z",
+                              "uid": "35240-0006d665-a884-4487-90b8-aed2c557d7df"
+                            },
+                            {
+                              "id": "d52988b3-a3ca-4310-bc57-a449691a3df1",
+                              "name": "The authenticated user does not have enterprise admin permission.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "meta",
+                                    "enterpriseAccounts",
+                                    ":enterpriseAccountId",
+                                    "auditLogRequests",
+                                    ":requestId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "enterpriseAccountId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:00:40.000Z",
+                              "updatedAt": "2026-06-05T15:00:40.000Z",
+                              "uid": "35240-d52988b3-a3ca-4310-bc57-a449691a3df1"
+                            },
+                            {
+                              "id": "c8085647-2211-4ed9-9ddb-d3a62d83b2cf",
+                              "name": "The requested resource was not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "meta",
+                                    "enterpriseAccounts",
+                                    ":enterpriseAccountId",
+                                    "auditLogRequests",
+                                    ":requestId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "enterpriseAccountId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:00:40.000Z",
+                              "updatedAt": "2026-06-05T15:00:40.000Z",
+                              "uid": "35240-c8085647-2211-4ed9-9ddb-d3a62d83b2cf"
+                            },
+                            {
+                              "id": "64af2fa3-e05e-4787-af15-ae13185cf137",
+                              "name": "Rate limit exceeded.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "meta",
+                                    "enterpriseAccounts",
+                                    ":enterpriseAccountId",
+                                    "auditLogRequests",
+                                    ":requestId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "enterpriseAccountId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:00:40.000Z",
+                              "updatedAt": "2026-06-05T15:00:40.000Z",
+                              "uid": "35240-64af2fa3-e05e-4787-af15-ae13185cf137"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-ced19d35-e9f0-464f-8a08-9e98f23a2f10"
+                        }
+                      ],
+                      "id": "0c4dec8d-f670-4e8e-9603-78d3afaf2727",
+                      "createdAt": "2026-06-05T15:00:40.000Z",
+                      "updatedAt": "2026-06-05T15:00:40.000Z",
+                      "uid": "35240-0c4dec8d-f670-4e8e-9603-78d3afaf2727"
+                    },
+                    {
+                      "name": "Airtable List Audit Log Export Requests",
+                      "id": "3c287677-88af-434a-94c1-30222fa15113",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "meta",
+                            "enterpriseAccounts",
+                            ":enterpriseAccountId",
+                            "auditLogRequests"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0bffc760-5036-4cc1-907b-4bef45b33958",
+                              "key": "enterpriseAccountId",
+                              "value": "entEA",
+                              "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                            }
+                          ]
+                        },
+                        "description": "Returns a list of all audit log export requests that have been created for the enterprise account. Each request includes its status and download URLs when complete."
+                      },
+                      "response": [
+                        {
+                          "id": "19b9bb4a-f701-4e46-b648-0120910862f7",
+                          "name": "A list of audit log export requests.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"auditLogRequests\": [\n    {\n      \"id\": \"<string>\",\n      \"status\": \"processing\",\n      \"createdTime\": \"<dateTime>\",\n      \"filter\": {\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"originatingUserId\": \"<string>\",\n        \"eventType\": \"<string>\",\n        \"modelId\": \"<string>\",\n        \"category\": \"<string>\"\n      },\n      \"downloadUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ],\n      \"expirationTime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"status\": \"done\",\n      \"createdTime\": \"<dateTime>\",\n      \"filter\": {\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"originatingUserId\": \"<string>\",\n        \"eventType\": \"<string>\",\n        \"modelId\": \"<string>\",\n        \"category\": \"<string>\"\n      },\n      \"downloadUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ],\n      \"expirationTime\": \"<dateTime>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-19b9bb4a-f701-4e46-b648-0120910862f7"
+                        },
+                        {
+                          "id": "19541dae-c0ca-4f8b-aca1-6e2854bdf13e",
+                          "name": "Authentication credentials are missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-19541dae-c0ca-4f8b-aca1-6e2854bdf13e"
+                        },
+                        {
+                          "id": "2dae9cc1-4864-4b72-9c50-489663d37b03",
+                          "name": "The authenticated user does not have enterprise admin permission.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-2dae9cc1-4864-4b72-9c50-489663d37b03"
+                        },
+                        {
+                          "id": "d16e8517-48b5-45e2-982c-a736d8b119b8",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-d16e8517-48b5-45e2-982c-a736d8b119b8"
+                        },
+                        {
+                          "id": "3d9a63ce-884b-4eea-970c-d102578d09a6",
+                          "name": "Rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-3d9a63ce-884b-4eea-970c-d102578d09a6"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:00:40.000Z",
+                      "updatedAt": "2026-06-05T15:00:40.000Z",
+                      "uid": "35240-3c287677-88af-434a-94c1-30222fa15113"
+                    },
+                    {
+                      "name": "Airtable Create an Audit Log Export Request",
+                      "id": "57fee4d7-6a96-43f2-a902-9db426a4e3f4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "meta",
+                            "enterpriseAccounts",
+                            ":enterpriseAccountId",
+                            "auditLogRequests"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f099d4bb-aac4-4c8f-ad91-b9063d9db5c5",
+                              "key": "enterpriseAccountId",
+                              "value": "entEA",
+                              "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                            }
+                          ]
+                        },
+                        "description": "Creates a new audit log export request for the enterprise account. The request specifies a time range and optional filters. Once processing is complete, the audit log data can be downloaded from the provided URLs."
+                      },
+                      "response": [
+                        {
+                          "id": "1c113355-b6b8-460a-bba3-3b670b02e0de",
+                          "name": "The newly created audit log export request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"done\",\n  \"createdTime\": \"<dateTime>\",\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  },\n  \"downloadUrls\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"expirationTime\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-1c113355-b6b8-460a-bba3-3b670b02e0de"
+                        },
+                        {
+                          "id": "4b3026b4-4b3b-4514-a40d-9b1566c0ed8c",
+                          "name": "Authentication credentials are missing or invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-4b3026b4-4b3b-4514-a40d-9b1566c0ed8c"
+                        },
+                        {
+                          "id": "54f76804-91a0-476a-8d64-fea37e852b67",
+                          "name": "The authenticated user does not have enterprise admin permission.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-54f76804-91a0-476a-8d64-fea37e852b67"
+                        },
+                        {
+                          "id": "f9a16847-19d8-4698-a57c-4051496cfb70",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-f9a16847-19d8-4698-a57c-4051496cfb70"
+                        },
+                        {
+                          "id": "579e6011-12d9-44d5-829b-80f4c87c8234",
+                          "name": "The request body contains invalid data.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-579e6011-12d9-44d5-829b-80f4c87c8234"
+                        },
+                        {
+                          "id": "8a3778ea-5c6f-41df-8f8a-1c4fab30d709",
+                          "name": "Rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "meta",
+                                "enterpriseAccounts",
+                                ":enterpriseAccountId",
+                                "auditLogRequests"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "enterpriseAccountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:00:40.000Z",
+                          "updatedAt": "2026-06-05T15:00:40.000Z",
+                          "uid": "35240-8a3778ea-5c6f-41df-8f8a-1c4fab30d709"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:00:40.000Z",
+                      "updatedAt": "2026-06-05T15:00:40.000Z",
+                      "uid": "35240-57fee4d7-6a96-43f2-a902-9db426a4e3f4"
+                    }
+                  ],
+                  "id": "c1a9c03e-434a-4f96-8b0f-f5db63946678",
+                  "createdAt": "2026-06-05T15:00:40.000Z",
+                  "updatedAt": "2026-06-05T15:00:40.000Z",
+                  "uid": "35240-c1a9c03e-434a-4f96-8b0f-f5db63946678"
+                }
+              ],
+              "id": "fdfbbea3-3ec9-45d3-a1b2-5dec6d6f4b61",
+              "createdAt": "2026-06-05T15:00:40.000Z",
+              "updatedAt": "2026-06-05T15:00:40.000Z",
+              "uid": "35240-fdfbbea3-3ec9-45d3-a1b2-5dec6d6f4b61"
+            }
+          ],
+          "id": "a94acf7d-861e-43e8-863c-c4172809e61e",
+          "createdAt": "2026-06-05T15:00:40.000Z",
+          "updatedAt": "2026-06-05T15:00:40.000Z",
+          "uid": "35240-a94acf7d-861e-43e8-863c-c4172809e61e"
+        }
+      ],
+      "id": "44376d67-18f2-4756-8a3c-d9e56cb97f83",
+      "createdAt": "2026-06-05T15:00:40.000Z",
+      "updatedAt": "2026-06-05T15:00:40.000Z",
+      "uid": "35240-44376d67-18f2-4756-8a3c-d9e56cb97f83"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.airtable.com/v0"
+    }
+  ]
+}

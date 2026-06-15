@@ -1,0 +1,4192 @@
+{
+  "item": [
+    {
+      "id": "17b88dd7-d8c0-49f4-9e59-0c405cc7b9ed",
+      "name": "Groups",
+      "description": {
+        "content": "SCIM group provisioning and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "114ed7f3-1bde-4a71-ac00-76aff1db844e",
+          "name": "Airtable List SCIM Groups",
+          "request": {
+            "name": "Airtable List SCIM Groups",
+            "description": {
+              "content": "Returns a paginated list of SCIM group resources. Supports filtering by group display name and pagination using startIndex and count.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "SCIM filter expression (e.g., displayName eq \"Engineering\")."
+                },
+                {
+                  "disabled": false,
+                  "key": "startIndex",
+                  "value": "1",
+                  "description": "The 1-based index of the first result to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46fc09c9-44f4-4fdc-bbe7-0928502686f6",
+              "name": "A SCIM ListResponse containing group resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 4174,\n  \"Resources\": [\n    {\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n      ],\n      \"id\": \"string\",\n      \"displayName\": \"string\",\n      \"members\": [\n        {\n          \"value\": \"string\",\n          \"display\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"display\": \"string\"\n        }\n      ],\n      \"meta\": {\n        \"resourceType\": \"string\",\n        \"created\": \"1968-05-12T03:53:11.000Z\",\n        \"lastModified\": \"1989-09-04T00:26:21.667Z\"\n      }\n    },\n    {\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n      ],\n      \"id\": \"string\",\n      \"displayName\": \"string\",\n      \"members\": [\n        {\n          \"value\": \"string\",\n          \"display\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"display\": \"string\"\n        }\n      ],\n      \"meta\": {\n        \"resourceType\": \"string\",\n        \"created\": \"1990-11-13T17:39:28.297Z\",\n        \"lastModified\": \"1960-08-26T21:20:50.701Z\"\n      }\n    }\n  ],\n  \"itemsPerPage\": 4348,\n  \"startIndex\": 2773\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08743c76-bbb5-4faa-a559-9dd90d941342",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b87eb30-e946-4776-b08c-76c102fe0240",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "892c1a6b-58f5-4c88-9ba7-7c172bbc1818",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ef2c83e-b558-4e95-bd02-224e77872130",
+          "name": "Airtable Create a SCIM Group",
+          "request": {
+            "name": "Airtable Create a SCIM Group",
+            "description": {
+              "content": "Creates a new SCIM group in the enterprise account. Groups can contain user members and are used for access management.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef2bc9a2-02d5-422d-a965-99cfd986f810",
+              "name": "The newly created SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1994-03-17T18:01:58.736Z\",\n    \"lastModified\": \"2016-11-20T11:08:06.874Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b16a323-41e5-4e4b-baa4-43f7fd2f7f87",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3b8ca73-dca0-440f-abdb-bd37708bdf46",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d79e93cf-76cf-46ae-868b-364d249fdb99",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e38c022b-ce17-442e-9863-6ae3d0002c2b",
+              "name": "A group with the same displayName already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d39f3762-164a-453e-8a1a-52f890865588",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c35b3c06-aa25-485d-8aa6-218bfecb32eb",
+          "name": "Airtable Get a SCIM Group",
+          "request": {
+            "name": "Airtable Get a SCIM Group",
+            "description": {
+              "content": "Retrieves a single SCIM group resource by its unique identifier, including its member list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Groups",
+                ":groupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupId",
+                  "description": "(Required) The unique identifier of the SCIM group resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f13584c5-ba58-49fb-8f9e-32eabb915581",
+              "name": "The requested SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1994-03-17T18:01:58.736Z\",\n    \"lastModified\": \"2016-11-20T11:08:06.874Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8893a99c-454c-44f9-b947-6cd9af9379a0",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "826636b9-ac6f-442e-acd6-df0945785e1f",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d228493-5b90-4741-b488-13616268bb6a",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ee16109-1a12-4a13-a909-a403bb3ec9a5",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c35dda2d-0bee-4290-ac0a-03cf335b1bf3",
+          "name": "Airtable Replace a SCIM Group",
+          "request": {
+            "name": "Airtable Replace a SCIM Group",
+            "description": {
+              "content": "Replaces a SCIM group resource entirely with the provided data. The complete member list must be included in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Groups",
+                ":groupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupId",
+                  "description": "(Required) The unique identifier of the SCIM group resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "25461c03-3dd0-428d-ad0b-afbf05b2e2fa",
+              "name": "The replaced SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1994-03-17T18:01:58.736Z\",\n    \"lastModified\": \"2016-11-20T11:08:06.874Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed0e37ce-da8d-44a7-9030-3be6996e7e43",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a99af8b-5b73-48dd-917d-d40efa24f212",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "212b99df-e110-41eb-b0a3-e75fabe9c428",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ecd57da-ef8b-4b14-98e5-d13af8cbec55",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5c2daa3-71f0-42b3-a46b-9dfaef5770b7",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aff60733-f805-40cb-8f46-d9a3d58dc705",
+          "name": "Airtable Update a SCIM Group (partial)",
+          "request": {
+            "name": "Airtable Update a SCIM Group (partial)",
+            "description": {
+              "content": "Partially updates a SCIM group resource using SCIM PATCH operations. Commonly used to add or remove members from the group without replacing the entire resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Groups",
+                ":groupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupId",
+                  "description": "(Required) The unique identifier of the SCIM group resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdce0b07-f916-4cc3-8c27-4d3935d5eadb",
+              "name": "The updated SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1994-03-17T18:01:58.736Z\",\n    \"lastModified\": \"2016-11-20T11:08:06.874Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "870c1502-6904-4da9-8ab8-85926d4442cf",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf3a4329-6b0e-4be1-8a2d-32262a94054f",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fad381c-8212-4acb-9ea8-465bd278b885",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb81e2a0-991f-41c0-bca6-e16a83292dad",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42a0fc1e-4b1f-41e9-bf16-2c58f511e6a0",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "349ea831-e6f2-40fc-8b5c-e87462b5100d",
+          "name": "Airtable Delete a SCIM Group",
+          "request": {
+            "name": "Airtable Delete a SCIM Group",
+            "description": {
+              "content": "Permanently deletes a SCIM group from the enterprise account. Members are not deleted but are removed from the group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Groups",
+                ":groupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupId",
+                  "description": "(Required) The unique identifier of the SCIM group resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "332354d6-4004-462d-9289-81c0b9e739b5",
+              "name": "The group was successfully deleted. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "800b6043-faad-431b-8998-4cfd960b4cf5",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99d85478-0059-4dec-a698-b3fed084692a",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc78b95d-e650-404d-89a7-0e0a5e412c15",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9030d015-bf55-4ca0-bb93-9fd4170d5eff",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Groups",
+                    ":groupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupId",
+                      "description": "(Required) The unique identifier of the SCIM group resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "82cc7e74-9912-4da0-85f6-33745b2008d0",
+      "name": "Users",
+      "description": {
+        "content": "SCIM user provisioning and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f51fc9f-48a5-4d93-8bee-b9fbf514a81a",
+          "name": "Airtable List SCIM Users",
+          "request": {
+            "name": "Airtable List SCIM Users",
+            "description": {
+              "content": "Returns a paginated list of SCIM user resources. Supports filtering by user attributes and pagination using startIndex and count parameters per the SCIM 2.0 specification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "SCIM filter expression (e.g., userName eq \"user@example.com\"). Supports eq operator on userName."
+                },
+                {
+                  "disabled": false,
+                  "key": "startIndex",
+                  "value": "1",
+                  "description": "The 1-based index of the first result to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dcd1e4f2-b280-4f0b-a647-2991b89460e6",
+              "name": "A SCIM ListResponse containing user resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 3091,\n  \"Resources\": [\n    {\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n      ],\n      \"id\": \"string\",\n      \"userName\": \"string\",\n      \"active\": true,\n      \"name\": {\n        \"givenName\": \"string\",\n        \"familyName\": \"string\"\n      },\n      \"emails\": [\n        {\n          \"value\": \"krsJ5@CQwJgrsqoHNOSlv.zwej\",\n          \"type\": \"string\",\n          \"primary\": false\n        },\n        {\n          \"value\": \"jHVn2O1OvYI@jpsAbTikpugVRLwyovG.dyq\",\n          \"type\": \"string\",\n          \"primary\": false\n        }\n      ],\n      \"title\": \"string\",\n      \"meta\": {\n        \"resourceType\": \"string\",\n        \"created\": \"2019-02-20T12:53:20.473Z\",\n        \"lastModified\": \"2019-10-11T16:47:29.717Z\"\n      }\n    },\n    {\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n      ],\n      \"id\": \"string\",\n      \"userName\": \"string\",\n      \"active\": true,\n      \"name\": {\n        \"givenName\": \"string\",\n        \"familyName\": \"string\"\n      },\n      \"emails\": [\n        {\n          \"value\": \"S3bWG5sxx9xld@PELZUnIWnvDIHQhGkvWiURShm.dh\",\n          \"type\": \"string\",\n          \"primary\": false\n        },\n        {\n          \"value\": \"iyWx@tyMxM.rnn\",\n          \"type\": \"string\",\n          \"primary\": false\n        }\n      ],\n      \"title\": \"string\",\n      \"meta\": {\n        \"resourceType\": \"string\",\n        \"created\": \"1997-05-08T12:52:22.638Z\",\n        \"lastModified\": \"1998-07-31T22:35:42.267Z\"\n      }\n    }\n  ],\n  \"itemsPerPage\": 97,\n  \"startIndex\": 6631\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f14a53f-2ab4-4953-b6d0-38ccd076afac",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33ac80a7-80b0-4b8b-bc1e-6ae0f05c9602",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19460ea3-5e1a-4e3b-89af-4809bfaa3d43",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5979f786-e47e-456f-947f-a507ce0697b6",
+          "name": "Airtable Create a SCIM User",
+          "request": {
+            "name": "Airtable Create a SCIM User",
+            "description": {
+              "content": "Provisions a new user in Airtable through the SCIM protocol. The user will be added to the enterprise account. SSO must be configured as Airtable does not allow setting passwords through SCIM.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "404cbf62-02d9-42fa-b47e-b95b5c9b8812",
+              "name": "The newly created SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": true,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"nCOUyU@dRdmRYTeZAQQOp.myvr\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"qToGl@ZTnayDfVVgabYaCaXf.qmu\",\n      \"type\": \"string\",\n      \"primary\": true\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1996-04-30T10:26:49.218Z\",\n    \"lastModified\": \"1996-06-18T03:32:55.473Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f5be238-a800-44c8-ad9d-008fc68b97d4",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c388eef5-f34b-4757-960b-3f8de302057b",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d7fba44-b3df-46ea-a4ce-229263aceec2",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47d7c140-ef04-4454-a511-19bc31666b6f",
+              "name": "A user with the same userName already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c6d5eb4-f02c-4dd2-ae96-e4265aec3598",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c29f39f6-8468-4abf-baf8-e6a6b73a175c",
+          "name": "Airtable Get a SCIM User",
+          "request": {
+            "name": "Airtable Get a SCIM User",
+            "description": {
+              "content": "Retrieves a single SCIM user resource by its unique identifier. Returns the complete user profile including name, email, and active status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2487406-dedd-4922-95e7-8f73239756f7",
+              "name": "The requested SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": true,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"nCOUyU@dRdmRYTeZAQQOp.myvr\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"qToGl@ZTnayDfVVgabYaCaXf.qmu\",\n      \"type\": \"string\",\n      \"primary\": true\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1996-04-30T10:26:49.218Z\",\n    \"lastModified\": \"1996-06-18T03:32:55.473Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8549e047-b120-4d72-818a-c91c8edc6187",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce2f28f3-ba21-4499-960f-de4affbc3c4c",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59167b7b-c2c3-49f0-b873-93fb59eca3df",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9844329-a528-477a-8e81-0d4b33edcf74",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c56cfd7-4e25-432f-bc17-3dfca9c1b190",
+          "name": "Airtable Replace a SCIM User",
+          "request": {
+            "name": "Airtable Replace a SCIM User",
+            "description": {
+              "content": "Replaces a SCIM user resource entirely. All attributes are overwritten with the values in the request body. This is a full replacement, not a partial update.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e15a160a-d279-4117-becd-d95dc19c807f",
+              "name": "The replaced SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": true,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"nCOUyU@dRdmRYTeZAQQOp.myvr\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"qToGl@ZTnayDfVVgabYaCaXf.qmu\",\n      \"type\": \"string\",\n      \"primary\": true\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1996-04-30T10:26:49.218Z\",\n    \"lastModified\": \"1996-06-18T03:32:55.473Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89b6f9cc-8a01-4733-a081-a1fc2ad77490",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac566227-388a-4a69-ad78-7502526956f1",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f13ec9f-2e79-4f0c-817b-08f35fb7d383",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a54167f9-bac3-40a2-9b9e-27f3173ae337",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faa9ef72-c954-42a1-bb44-70102161642e",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54a34f43-39e6-4ce3-9d1e-638f074b7678",
+          "name": "Airtable Update a SCIM User (partial)",
+          "request": {
+            "name": "Airtable Update a SCIM User (partial)",
+            "description": {
+              "content": "Partially updates a SCIM user resource using SCIM PATCH operations. Supports add, replace, and remove operations on user attributes. Commonly used to activate or deactivate users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "153384a9-648a-4970-a238-df324c597d2c",
+              "name": "The updated SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": true,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"nCOUyU@dRdmRYTeZAQQOp.myvr\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"qToGl@ZTnayDfVVgabYaCaXf.qmu\",\n      \"type\": \"string\",\n      \"primary\": true\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1996-04-30T10:26:49.218Z\",\n    \"lastModified\": \"1996-06-18T03:32:55.473Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fc2f62f-48d2-41bb-86b5-fadc313d9256",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89f7f5bc-bf46-4f97-b4be-d565eff1cc75",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd5d46be-0ec5-472b-88c7-03554aeb97b5",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9b69a90-9f02-424e-84e2-ab41f16cedec",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ab3d5f5-472a-49e6-ab22-59f2d1aecea4",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5149be5c-6cba-46b2-83b8-23f985543743",
+          "name": "Airtable Delete a SCIM User",
+          "request": {
+            "name": "Airtable Delete a SCIM User",
+            "description": {
+              "content": "Permanently deletes a SCIM user resource from the enterprise account. The user will lose access to all Airtable resources associated with the enterprise.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9af75254-ed1c-45e7-9ea7-2de72cd53316",
+              "name": "The user was successfully deleted. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa719846-9192-4e17-b63a-f89ef5e4683a",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ed40162-2dc0-4e7c-bbcb-0bb22845e60e",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92f28c2a-1586-4ac3-b765-269d0a0d80d0",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f098198-f787-4c5f-ab15-f820db64c77f",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://airtable.com/scim/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1b7b1bf4-da80-428d-abac-e289ce86c177",
+    "name": "Airtable SCIM API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Airtable SCIM API supports the System for Cross-domain Identity Management (SCIM 2.0) specification for automated user and group provisioning. It enables identity providers like Okta and Microsoft Entra ID to manage user accounts and group memberships programmatically. SCIM is available for Enterprise License Agreement (ELA) and CLAIM enterprise accounts with SSO configured.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+      "type": "text/plain"
+    }
+  }
+}

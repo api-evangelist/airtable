@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Audit Log Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/auditLogEvents",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included."
+              },
+              {
+                "name": "originatingUserId",
+                "value": "",
+                "type": "query",
+                "description": "Filter events to those performed by a specific user."
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by event type."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by the ID of the affected model (base, table, etc.)."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by category."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of events per page. Default is 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response to fetch the next or previous page."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "The order in which to return events. Default is desc."
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for the previous page of results."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of audit log events for the specified enterprise account. Events can be filtered by user ID, event type, model ID, category, and time range. By default, returns up to 180 days of events in reverse chronological order."
+        },
+        {
+          "info": {
+            "name": "Airtable List Audit Log Export Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ]
+          },
+          "docs": "Returns a list of all audit log export requests that have been created for the enterprise account. Each request includes its status and download URLs when complete."
+        },
+        {
+          "info": {
+            "name": "Airtable Create an Audit Log Export Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new audit log export request for the enterprise account. The request specifies a time range and optional filters. Once processing is complete, the audit log data can be downloaded from the provided URLs."
+        },
+        {
+          "info": {
+            "name": "Airtable Get an Audit Log Export Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/auditLogRequests/:requestId",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the audit log export request."
+              }
+            ]
+          },
+          "docs": "Retrieves the status and details of a specific audit log export request. When the request is complete, the response includes download URLs for the exported data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,292 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable SCIM API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List SCIM Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://airtable.com/scim/v2/Users",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression (e.g., userName eq \"user@example.com\"). Supports eq operator on userName."
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "The 1-based index of the first result to return."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of SCIM user resources. Supports filtering by user attributes and pagination using startIndex and count parameters per the SCIM 2.0 specification."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://airtable.com/scim/v2/Users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provisions a new user in Airtable through the SCIM protocol. The user will be added to the enterprise account. SSO must be configured as Airtable does not allow setting passwords through SCIM."
+        },
+        {
+          "info": {
+            "name": "Airtable Get a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://airtable.com/scim/v2/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single SCIM user resource by its unique identifier. Returns the complete user profile including name, email, and active status."
+        },
+        {
+          "info": {
+            "name": "Airtable Replace a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://airtable.com/scim/v2/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a SCIM user resource entirely. All attributes are overwritten with the values in the request body. This is a full replacement, not a partial update."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a SCIM User (partial)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://airtable.com/scim/v2/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a SCIM user resource using SCIM PATCH operations. Supports add, replace, and remove operations on user attributes. Commonly used to activate or deactivate users."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://airtable.com/scim/v2/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a SCIM user resource from the enterprise account. The user will lose access to all Airtable resources associated with the enterprise."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List SCIM Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://airtable.com/scim/v2/Groups",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression (e.g., displayName eq \"Engineering\")."
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "The 1-based index of the first result to return."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of SCIM group resources. Supports filtering by group display name and pagination using startIndex and count."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://airtable.com/scim/v2/Groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new SCIM group in the enterprise account. Groups can contain user members and are used for access management."
+        },
+        {
+          "info": {
+            "name": "Airtable Get a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://airtable.com/scim/v2/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single SCIM group resource by its unique identifier, including its member list."
+        },
+        {
+          "info": {
+            "name": "Airtable Replace a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://airtable.com/scim/v2/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a SCIM group resource entirely with the provided data. The complete member list must be included in the request."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a SCIM Group (partial)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://airtable.com/scim/v2/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a SCIM group resource using SCIM PATCH operations. Commonly used to add or remove members from the group without replacing the entire resource."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://airtable.com/scim/v2/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a SCIM group from the enterprise account. Members are not deleted but are removed from the group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3066 @@
+{
+  "item": [
+    {
+      "id": "53556268-ea09-49e0-961b-39a2d9c65f82",
+      "name": "Bases",
+      "description": {
+        "content": "List and create bases, retrieve base schemas",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94b5b621-ac7f-411e-90d3-c97818e1d086",
+          "name": "Airtable List All Bases",
+          "request": {
+            "name": "Airtable List All Bases",
+            "description": {
+              "content": "Returns a paginated list of all bases that the authenticated user has access to. Each base includes its ID, name, and permission level. Use the offset parameter from the response to paginate through all available bases.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response to fetch the next page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "36c160a8-6ae5-446a-b726-a06a99e4d5b6",
+              "name": "A paginated list of bases.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bases\": [\n    {\n      \"id\": \"appABC123def456\",\n      \"name\": \"string\",\n      \"permissionLevel\": \"none\"\n    },\n    {\n      \"id\": \"appABC123def456\",\n      \"name\": \"string\",\n      \"permissionLevel\": \"comment\"\n    }\n  ],\n  \"offset\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b010b57-d038-49c8-8222-3c0fdc54dcf8",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc9f18c5-a0ab-4f4b-a092-4307b9aa51f7",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe7654f5-d35a-473b-b66b-ea4152e87061",
+          "name": "Airtable Create a New Base",
+          "request": {
+            "name": "Airtable Create a New Base",
+            "description": {
+              "content": "Creates a new base in the specified workspace. The request must include the workspace ID, base name, and at least one table definition with fields. Returns the newly created base with its schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"fields\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"description\": \"<string>\",\n          \"options\": {\n            \"key_0\": 9695.021473413095,\n            \"key_1\": false\n          }\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a07c2d5f-4dc2-4b92-b42e-c98ceba26133",
+              "name": "The newly created base with its schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 9946.34310927858,\n            \"key_1\": \"string\",\n            \"key_2\": 1606.396563578817,\n            \"key_3\": 6451.629672742738\n          }\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"tables\": [\n    {\n      \"id\": \"tblABC123def456\",\n      \"name\": \"string\",\n      \"fields\": [\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"count\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 8511.83470172573,\n            \"key_1\": 3395\n          }\n        },\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"dateTime\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 1640,\n            \"key_1\": 4804.993465650532\n          }\n        }\n      ],\n      \"views\": [\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"block\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"form\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"description\": \"string\",\n      \"primaryFieldId\": \"string\"\n    },\n    {\n      \"id\": \"tblABC123def456\",\n      \"name\": \"string\",\n      \"fields\": [\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"url\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": true\n          }\n        },\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"multipleSelects\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 5007.524930365938\n          }\n        }\n      ],\n      \"views\": [\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"form\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"form\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"description\": \"string\",\n      \"primaryFieldId\": \"string\"\n    }\n  ],\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee155457-f210-496b-a190-06e19b114e44",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 9946.34310927858,\n            \"key_1\": \"string\",\n            \"key_2\": 1606.396563578817,\n            \"key_3\": 6451.629672742738\n          }\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7de24397-547c-4cce-8cf8-5beed34765c3",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 9946.34310927858,\n            \"key_1\": \"string\",\n            \"key_2\": 1606.396563578817,\n            \"key_3\": 6451.629672742738\n          }\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b969ef5b-22cb-4ee9-bcde-6c87e82f0e85",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 9946.34310927858,\n            \"key_1\": \"string\",\n            \"key_2\": 1606.396563578817,\n            \"key_3\": 6451.629672742738\n          }\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40959502-535d-4c41-a547-96ac551e49dc",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"tables\": [\n    {\n      \"name\": \"<string>\",\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 9946.34310927858,\n            \"key_1\": \"string\",\n            \"key_2\": 1606.396563578817,\n            \"key_3\": 6451.629672742738\n          }\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1224c344-1baa-4723-bf9f-2d56fc648fa2",
+          "name": "Airtable Get Base Schema",
+          "request": {
+            "name": "Airtable Get Base Schema",
+            "description": {
+              "content": "Returns the schema of the specified base, including all tables, their fields (with type and configuration), and views. This endpoint provides a complete structural overview of the base.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "tables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Additional information to include in the response. Pass visibleFieldIds to include visible field IDs for each view."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Additional information to include in the response. Pass visibleFieldIds to include visible field IDs for each view."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc2fb86b-9547-4e5c-9cfd-7cac7ed151a1",
+              "name": "The base schema with tables, fields, and views.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tables\": [\n    {\n      \"id\": \"tblABC123def456\",\n      \"name\": \"string\",\n      \"fields\": [\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"multipleLookupValues\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": 7339.554781722979,\n            \"key_1\": 1929.0047797479638,\n            \"key_2\": 2260.7806449122904,\n            \"key_3\": true\n          }\n        },\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"aiText\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"views\": [\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"grid\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"kanban\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"description\": \"string\",\n      \"primaryFieldId\": \"string\"\n    },\n    {\n      \"id\": \"tblABC123def456\",\n      \"name\": \"string\",\n      \"fields\": [\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"button\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": \"string\",\n            \"key_1\": 9821,\n            \"key_2\": 10.717246315210538,\n            \"key_3\": true\n          }\n        },\n        {\n          \"id\": \"fldABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"checkbox\",\n          \"description\": \"string\",\n          \"options\": {\n            \"key_0\": false\n          }\n        }\n      ],\n      \"views\": [\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"grid\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"viwABC123def456\",\n          \"name\": \"string\",\n          \"type\": \"calendar\",\n          \"personalForUserId\": \"string\",\n          \"visibleFieldIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"description\": \"string\",\n      \"primaryFieldId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "648b1a1c-3514-40f6-8765-0700916518e3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3bd6ad1-2707-4fcd-aecb-bbf277485992",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81ff7541-2d27-44a0-afe2-00da32fd3bb9",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2406fc2c-6c49-41e4-a9db-23051ecf62c4",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c429b9c1-9af4-466b-8719-e50e42e8f788",
+          "name": "Airtable Get Current User and Scopes",
+          "request": {
+            "name": "Airtable Get Current User and Scopes",
+            "description": {
+              "content": "Returns the ID and scopes of the currently authenticated user or service account. Useful for verifying authentication and checking available permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "whoami"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6466e8f0-217d-40e6-bd89-a6ac4941d5f3",
+              "name": "The current user ID and authorized scopes.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "whoami"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"scopes\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16ff89d1-9175-4087-b054-9585a2408cce",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "whoami"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4980fdfc-13cb-4cf1-bc69-5cf54190cb98",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "whoami"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e76dcd8f-b5e5-4222-867a-00c4945bdbd9",
+      "name": "Fields",
+      "description": {
+        "content": "Create and update field definitions within a table",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95e917ce-66e6-41cb-8c18-6c1a3b2d7edb",
+          "name": "Airtable Create a Field in a Table",
+          "request": {
+            "name": "Airtable Create a Field in a Table",
+            "description": {
+              "content": "Creates a new field in the specified table. The field must include a name and type. Some field types (like singleSelect, multipleSelects) accept additional options for configuration. Note that formula and some computed field types cannot be created via the API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "tables",
+                ":tableId",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableId",
+                  "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 6014.726584188495,\n    \"key_1\": 5045\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d50a1b82-8a20-4660-859b-d2343a8a558e",
+              "name": "The newly created field definition.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 4871.726834993263\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fldABC123def456\",\n  \"name\": \"string\",\n  \"type\": \"duration\",\n  \"description\": \"string\",\n  \"options\": {\n    \"key_0\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1be0267-d26e-4c62-b112-f8c1a342da5f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 4871.726834993263\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cde845c6-560e-4917-9e40-5dea0f1c5b79",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 4871.726834993263\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a82f3c9-4f42-49cb-a2b8-dbfc8d623347",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 4871.726834993263\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c81c6438-27f8-4eb8-b454-e34105712c09",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 4871.726834993263\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06964afb-ef52-4c8a-99d7-e2810183ba10",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": 4871.726834993263\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e686191-8f72-4264-be20-b4ff37c0fde7",
+          "name": "Airtable Update a Field",
+          "request": {
+            "name": "Airtable Update a Field",
+            "description": {
+              "content": "Updates the name, description, or configuration options of an existing field. Only the provided properties will be modified. Not all field properties can be updated after creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "tables",
+                ":tableId",
+                "fields",
+                ":fieldId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableId",
+                  "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fieldId",
+                  "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5eaa6df-5cb0-43e5-883b-379acb0ea720",
+              "name": "The updated field definition.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6734.412080207475\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fldABC123def456\",\n  \"name\": \"string\",\n  \"type\": \"duration\",\n  \"description\": \"string\",\n  \"options\": {\n    \"key_0\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14d65458-5ca5-48f8-8893-5cd5a6fc0628",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6734.412080207475\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ef40830-e831-4423-94d9-935f5fc41732",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6734.412080207475\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0183a0f3-e79f-49f8-aebb-1880eec98e7d",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6734.412080207475\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a2285f8-588a-4ed1-a79b-24b31b7e00e3",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6734.412080207475\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cf4b582-aa57-49c0-adf4-324467307f6d",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId",
+                    "fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) The unique identifier of the field (starts with 'fld')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6734.412080207475\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a4cc4fb5-3d17-4fac-a4f1-5de272f778c6",
+      "name": "Tables",
+      "description": {
+        "content": "Create and update table definitions within a base",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fdfa6023-b327-4327-8cd1-9a65853d3909",
+          "name": "Airtable Create a Table in a Base",
+          "request": {
+            "name": "Airtable Create a Table in a Base",
+            "description": {
+              "content": "Creates a new table within the specified base. The table must include a name and at least one field definition. Optionally include a description for the table.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "tables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"options\": {\n        \"key_0\": 9203,\n        \"key_1\": false,\n        \"key_2\": false\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3ae9979-7b9e-4130-9fb5-8b97c3e9eb5a",
+              "name": "The newly created table with its schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 6441.528302412543,\n        \"key_1\": 5624\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"tblABC123def456\",\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"id\": \"fldABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"email\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 9257.874882510416,\n        \"key_1\": 5870.992385047694\n      }\n    },\n    {\n      \"id\": \"fldABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"lastModifiedBy\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 1138,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"views\": [\n    {\n      \"id\": \"viwABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"calendar\",\n      \"personalForUserId\": \"string\",\n      \"visibleFieldIds\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"viwABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"timeline\",\n      \"personalForUserId\": \"string\",\n      \"visibleFieldIds\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"description\": \"string\",\n  \"primaryFieldId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c2eeffc-db57-4cd3-a733-8d571aa03ab3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 6441.528302412543,\n        \"key_1\": 5624\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a067252-a090-4b7e-b109-337528cc51d0",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 6441.528302412543,\n        \"key_1\": 5624\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7a16845-f523-4a78-9e56-6f12549571f0",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 6441.528302412543,\n        \"key_1\": 5624\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e380d4ee-e205-433f-9dba-cdd6e07dcf61",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 6441.528302412543,\n        \"key_1\": 5624\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c34dc76-88e4-4807-a754-a7d0fa3619c2",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 6441.528302412543,\n        \"key_1\": 5624\n      }\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd5e8844-165b-4309-b8e4-83b4daaf4d69",
+          "name": "Airtable Update a Table",
+          "request": {
+            "name": "Airtable Update a Table",
+            "description": {
+              "content": "Updates the name and/or description of an existing table. Only the provided fields will be modified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "bases",
+                ":baseId",
+                "tables",
+                ":tableId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableId",
+                  "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3edeecf-da41-415d-85ce-e7e10cd69ead",
+              "name": "The updated table schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"tblABC123def456\",\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"id\": \"fldABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"email\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 9257.874882510416,\n        \"key_1\": 5870.992385047694\n      }\n    },\n    {\n      \"id\": \"fldABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"lastModifiedBy\",\n      \"description\": \"string\",\n      \"options\": {\n        \"key_0\": 1138,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"views\": [\n    {\n      \"id\": \"viwABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"calendar\",\n      \"personalForUserId\": \"string\",\n      \"visibleFieldIds\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"viwABC123def456\",\n      \"name\": \"string\",\n      \"type\": \"timeline\",\n      \"personalForUserId\": \"string\",\n      \"visibleFieldIds\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"description\": \"string\",\n  \"primaryFieldId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8146544-86b2-445b-af9e-fe72f36d8af5",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8d465e0-ed50-45ce-80bc-a52bbbbbc392",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f82b0b49-3cce-4a06-ae42-47e79c52cddb",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "399d9688-7337-4fa2-ab5e-7f97b0b97bad",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84e7f464-35d2-4502-a96c-4201b7c9aadc",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "bases",
+                    ":baseId",
+                    "tables",
+                    ":tableId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableId",
+                      "description": "(Required) The unique identifier of the table (starts with 'tbl')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.airtable.com/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "226f2e08-cbf7-448c-8397-42deec2a1901",
+    "name": "Airtable Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Airtable Metadata API provides access to base and schema management operations. You can list bases, retrieve base schemas with table and field definitions, create new bases, tables, and fields, and update table and field configurations programmatically. This API enables developers to introspect and modify the structure of their Airtable data.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -12,7 +12,7 @@ apis:
   - Tables
   - Views
   - Webhooks
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.airtable.com
   humanURL: https://airtable.com/developers/web/api/introduction
   properties:
@@ -69,7 +69,7 @@ apis:
   - Metadata
   - Schema
   - Tables
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.airtable.com/v0/meta
   humanURL: https://airtable.com/developers/web/api/list-bases
   properties:
@@ -111,7 +111,7 @@ apis:
   - Enterprise
   - Groups
   - Users
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.airtable.com/v0
   humanURL: https://support.airtable.com/docs/airtable-enterprise-api
   properties:
@@ -149,7 +149,7 @@ apis:
   - Provisioning
   - SCIM
   - Users
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://airtable.com/scim/v2
   humanURL: https://airtable.com/developers/web/api/scim-overview
   properties:
@@ -187,7 +187,7 @@ apis:
   - Enterprise
   - Logs
   - Security
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.airtable.com/v0
   humanURL: https://airtable.com/developers/web/api/audit-logs-overview
   properties:
@@ -224,7 +224,7 @@ apis:
   - Collaboration
   - Enterprise
   - Shares
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.airtable.com/v0
   humanURL: https://airtable.com/developers/web/api/list-shares
   properties:

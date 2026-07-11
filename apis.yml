@@ -254,6 +254,12 @@ tags:
 - Spreadsheets
 image: https://www.airtable.com/images/logo.png
 common:
+- type: VulnerabilityDisclosure
+  url: security/airtable-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/airtable-domain-security.yml
+- type: Authentication
+  url: authentication/airtable-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/airtable/overview
 - type: Arazzo

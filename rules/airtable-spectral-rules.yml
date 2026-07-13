@@ -1,251 +1,306 @@
+# airtable — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 6/6 servers on airtable.com
+#   - path-params-casing: camel @ 100% (n=79)
+#   - query-params-casing: snake @ 51% (n=39)
+#   - operationid-casing: camel @ 98% (n=56)
+#   - schema-names-casing: pascal @ 100% (n=47)
+#   - schema-properties-casing: snake @ 64% (n=171)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: Error
+#   - operation-documents-401: 100% adherence
+#   - operation-documents-403: 96% adherence
+#   - operation-documents-404: 86% adherence
+#   - operation-documents-429: 100% adherence
+#   - pagination params observed: ['count', 'cursor', 'offset', 'pageSize']
+#   - merge: kept 29 existing, added 9 measured, upgraded 0
+#   - added: path-params-casing, query-params-casing, schema-names-casing, schema-properties-casing, error-schema-defined, operation-documents-401, operation-documents-403, operation-documents-404, operation-documents-429
+extends:
+  - spectral:oas
 rules:
-  # INFO / METADATA
   info-title-required:
     description: Info title must be defined.
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: title
       function: truthy
-
   info-description-required:
     description: Info description must be defined.
     severity: warn
-    given: "$.info"
+    given: $.info
     then:
       field: description
       function: truthy
-
   info-version-required:
     description: Info version must be defined.
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: version
       function: truthy
-
-  # OPENAPI VERSION
   openapi-version-3:
     description: OpenAPI version must be 3.x.
     severity: error
-    given: "$"
+    given: $
     then:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\."
-
-  # SERVERS
+        match: ^3\.
   servers-defined:
     description: Servers must be defined.
     severity: error
-    given: "$"
+    given: $
     then:
       field: servers
       function: truthy
-
   servers-https:
     description: Server URLs must use HTTPS.
     severity: warn
-    given: "$.servers[*]"
+    given: $.servers[*]
     then:
       field: url
       function: pattern
       functionOptions:
-        match: "^https://"
-
+        match: ^https://
   servers-api-airtable-base:
     description: Airtable API servers should use api.airtable.com.
     severity: info
-    given: "$.servers[*]"
+    given: $.servers[*]
     then:
       field: url
       function: pattern
       functionOptions:
-        match: "api\\.airtable\\.com"
-
-  # PATHS — NAMING CONVENTIONS
+        match: api\.airtable\.com
   paths-v0-prefix:
     description: Airtable API paths typically start with /v0/.
     severity: info
-    given: "$.paths[*]~"
+    given: $.paths[*]~
     then:
       function: pattern
       functionOptions:
-        match: "^(/v0/|/scim/)"
-
+        match: ^(/v0/|/scim/)
   paths-kebab-or-base-id:
     description: Path segments should use kebab-case or base IDs.
     severity: info
-    given: "$.paths[*]~"
+    given: $.paths[*]~
     then:
       function: pattern
       functionOptions:
-        match: "^(/[a-zA-Z0-9{}_/-]+)+$"
-
-  # OPERATIONS
+        match: ^(/[a-zA-Z0-9{}_/-]+)+$
   operation-summary-required:
     description: Every operation must have a summary.
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: summary
       function: truthy
-
   operation-description-required:
     description: Every operation should have a description.
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: description
       function: truthy
-
   operation-operationId-required:
     description: Every operation must have an operationId.
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: operationId
       function: truthy
-
   operation-operationId-camelCase:
     description: operationId should use camelCase.
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    given: $.paths[*][get,post,put,patch,delete].operationId
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
+        match: ^[a-z][a-zA-Z0-9]*$
   operation-tags-required:
     description: Every operation must have at least one tag.
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: tags
       function: truthy
-
   operation-summary-starts-with-airtable:
     description: Operation summaries should start with "Airtable".
     severity: info
-    given: "$.paths[*][get,post,put,patch,delete].summary"
+    given: $.paths[*][get,post,put,patch,delete].summary
     then:
       function: pattern
       functionOptions:
-        match: "^Airtable "
-
-  # PARAMETERS
+        match: '^Airtable '
   parameter-description-required:
     description: All parameters must have a description.
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
     then:
       field: description
       function: truthy
-
   parameter-authorization-header:
     description: Authorization should use Bearer token scheme.
     severity: info
-    given: "$.components.securitySchemes[*]"
+    given: $.components.securitySchemes[*]
     then:
       field: scheme
       function: truthy
-
-  # RESPONSES
   response-success-required:
     description: Every operation must have a success response.
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete].responses"
+    given: $.paths[*][get,post,put,patch,delete].responses
     then:
       function: truthy
-
   response-description-required:
     description: All responses must have a description.
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete].responses[*]"
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
     then:
       field: description
       function: truthy
-
   response-422-for-validation:
     description: Operations with request bodies should document 422 validation errors.
     severity: info
-    given: "$.paths[*][post,put,patch].responses"
+    given: $.paths[*][post,put,patch].responses
     then:
       function: truthy
-
-  # SCHEMAS — PROPERTY NAMING
   schema-property-camelCase:
     description: Schema properties in Airtable APIs use camelCase.
     severity: info
-    given: "$.components.schemas[*].properties[*]~"
+    given: $.components.schemas[*].properties[*]~
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
+        match: ^[a-z][a-zA-Z0-9]*$
   schema-description-required:
     description: Top-level schemas should have a description.
     severity: info
-    given: "$.components.schemas[*]"
+    given: $.components.schemas[*]
     then:
       field: description
       function: truthy
-
-  # SECURITY
   security-schemes-defined:
     description: Security schemes must be defined.
     severity: error
-    given: "$.components"
+    given: $.components
     then:
       field: securitySchemes
       function: truthy
-
   security-bearer-required:
     description: Airtable APIs use Bearer token authentication.
     severity: warn
-    given: "$.components.securitySchemes[*]"
+    given: $.components.securitySchemes[*]
     then:
       field: type
       function: truthy
-
-  # HTTP METHOD CONVENTIONS
   get-no-request-body:
     description: GET operations must not have a request body.
     severity: error
-    given: "$.paths[*].get"
+    given: $.paths[*].get
     then:
       field: requestBody
       function: falsy
-
   post-list-uses-offset:
     description: List operations should support cursor or offset pagination.
     severity: info
-    given: "$.paths[*].get"
+    given: $.paths[*].get
     then:
       field: parameters
       function: truthy
-
-  # GENERAL QUALITY
   no-empty-descriptions:
     description: Descriptions must not be empty strings.
     severity: warn
-    given: "$..description"
+    given: $..description
     then:
       function: truthy
-
   microcks-operation-extension:
     description: Operations should include x-microcks-operation for mock compatibility.
     severity: info
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: x-microcks-operation
       function: truthy
-
   airtable-rate-limit-documented:
     description: Rate limits should be documented in the API info.
     severity: info
-    given: "$.info"
+    given: $.info
     then:
       field: description
+      function: truthy
+  path-params-casing:
+    description: Path parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
+  error-schema-defined:
+    description: A shared error schema (Error) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: Error
+      function: truthy
+  operation-documents-401:
+    description: Operations should document a 401 response (documented on 100% of this API's operations).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '401'
+      function: truthy
+  operation-documents-403:
+    description: Operations should document a 403 response (documented on 96% of this API's operations).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '403'
+      function: truthy
+  operation-documents-404:
+    description: Operations should document a 404 response (documented on 86% of this API's operations).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '404'
+      function: truthy
+  operation-documents-429:
+    description: Operations should document a 429 response (documented on 100% of this API's operations).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '429'
       function: truthy

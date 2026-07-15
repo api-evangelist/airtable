@@ -254,6 +254,8 @@ tags:
 - Spreadsheets
 image: https://www.airtable.com/images/logo.png
 common:
+- type: AgenticAccess
+  url: agentic-access/airtable-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/airtable-vulnerability-disclosure.yml
 - type: DomainSecurity

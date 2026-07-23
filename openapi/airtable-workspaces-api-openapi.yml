@@ -1,0 +1,302 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Workspaces API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Workspaces
+  description: Manage enterprise workspaces
+paths:
+  /meta/workspaces:
+    post:
+      operationId: createWorkspace
+      summary: Airtable Create a Workspace
+      description: Creates a new workspace within the enterprise account.
+      tags:
+      - Workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the new workspace.
+              required:
+              - name
+      responses:
+        '200':
+          description: The newly created workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /meta/workspaces/{workspaceId}:
+    delete:
+      operationId: deleteWorkspace
+      summary: Airtable Delete a Workspace
+      description: Permanently deletes the specified workspace and all its contents. This action cannot be undone.
+      tags:
+      - Workspaces
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        description: The unique identifier of the workspace (starts with 'wsp').
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Confirmation that the workspace was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /meta/workspaces/{workspaceId}/collaborators:
+    get:
+      operationId: getWorkspaceCollaborators
+      summary: Airtable Get Workspace Collaborators
+      description: Returns a list of all collaborators on the specified workspace, including individual users and user groups with their permission levels.
+      tags:
+      - Workspaces
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        description: The unique identifier of the workspace.
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Additional information to include in the response.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - groupCollaborators
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: The list of workspace collaborators.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceCollaborators'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /meta/enterpriseAccounts/{enterpriseAccountId}/moveWorkspaces:
+    post:
+      operationId: moveWorkspaces
+      summary: Airtable Move Workspaces Between Enterprises
+      description: Moves one or more workspaces from this enterprise account to a target enterprise account.
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workspaceIds:
+                  type: array
+                  description: The IDs of the workspaces to move.
+                  items:
+                    type: string
+                targetEnterpriseAccountId:
+                  type: string
+                  description: The ID of the target enterprise account.
+              required:
+              - workspaceIds
+              - targetEnterpriseAccountId
+      responses:
+        '200':
+          description: Result of the workspace move operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movedWorkspaces:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        workspaceId:
+                          type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    WorkspaceCollaborators:
+      type: object
+      description: The collaborators on a workspace.
+      properties:
+        collaborators:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: string
+              email:
+                type: string
+                format: email
+              permissionLevel:
+                type: string
+                enum:
+                - owner
+                - creator
+                - editor
+                - commenter
+                - read
+        groupCollaborators:
+          type: array
+          items:
+            type: object
+            properties:
+              groupId:
+                type: string
+              name:
+                type: string
+              permissionLevel:
+                type: string
+    Workspace:
+      type: object
+      description: An Airtable workspace.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the workspace.
+        name:
+          type: string
+          description: The name of the workspace.
+      required:
+      - id
+      - name
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+          required:
+          - type
+          - message
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    enterpriseAccountId:
+      name: enterpriseAccountId
+      in: path
+      required: true
+      description: The unique identifier of the enterprise account (starts with 'ent').
+      schema:
+        type: string
+        pattern: ^ent[a-zA-Z0-9]+$
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

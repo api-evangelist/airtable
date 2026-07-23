@@ -1,11 +1,7 @@
 openapi: 3.1.0
 info:
-  title: Airtable Shares API
-  description: >-
-    The Airtable Shares API allows enterprise administrators to list, manage,
-    and delete share links across an organization. It provides programmatic
-    control over base sharing and access management, enabling enforcement of
-    sharing policies at scale.
+  title: Airtable Audit Logs Shares API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
   version: 1.0.0
   contact:
     name: Airtable
@@ -15,9 +11,6 @@ info:
     name: Proprietary
     url: https://airtable.com/tos
   termsOfService: https://airtable.com/tos
-externalDocs:
-  description: Airtable Shares API Documentation
-  url: https://airtable.com/developers/web/api/list-shares
 servers:
 - url: https://api.airtable.com/v0
   description: Airtable API v0 production server
@@ -31,10 +24,7 @@ paths:
     get:
       operationId: listShares
       summary: Airtable List Share Links for a Base
-      description: >-
-        Returns a list of all active share links for the specified base. Each
-        share includes its type, state, and the user who created it. This
-        endpoint is available to enterprise administrators.
+      description: Returns a list of all active share links for the specified base. Each share includes its type, state, and the user who created it. This endpoint is available to enterprise administrators.
       tags:
       - Shares
       parameters:
@@ -66,10 +56,7 @@ paths:
     patch:
       operationId: manageShare
       summary: Airtable Manage a Share Link
-      description: >-
-        Updates the configuration of an existing share link for a base. Can
-        be used to enable or disable the share link, or update its access
-        settings.
+      description: Updates the configuration of an existing share link for a base. Can be used to enable or disable the share link, or update its access settings.
       tags:
       - Shares
       parameters:
@@ -117,9 +104,7 @@ paths:
     delete:
       operationId: deleteShare
       summary: Airtable Delete a Share Link
-      description: >-
-        Permanently deletes a share link for a base. Anyone who previously
-        had access through this share link will immediately lose access.
+      description: Permanently deletes a share link for a base. Anyone who previously had access through this share link will immediately lose access.
       tags:
       - Shares
       parameters:
@@ -144,30 +129,37 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: >-
-        Requires an enterprise admin-level personal access token or service
-        account token.
-  parameters:
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
-    shareId:
-      name: shareId
-      in: path
-      required: true
-      description: The unique identifier of the share link (starts with 'shr').
-      schema:
-        type: string
-        pattern: ^shr[a-zA-Z0-9]+$
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Share:
       type: object
@@ -231,34 +223,28 @@ components:
           required:
           - type
           - message
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have enterprise admin permission.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    shareId:
+      name: shareId
+      in: path
+      required: true
+      description: The unique identifier of the share link (starts with 'shr').
+      schema:
+        type: string
+        pattern: ^shr[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

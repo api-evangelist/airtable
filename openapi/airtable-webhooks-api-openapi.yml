@@ -1,0 +1,459 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Webhooks API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Subscribe to real-time change notifications on bases
+paths:
+  /bases/{baseId}/webhooks:
+    get:
+      operationId: listWebhooks
+      summary: Airtable List Webhooks for a Base
+      description: Returns a list of all webhooks registered for the specified base. Includes webhook configuration, status, and expiration information.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/baseIdPath'
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createWebhook
+      summary: Airtable Create a Webhook for a Base
+      description: Creates a new webhook subscription for the specified base. Webhooks expire after 7 days and must be refreshed. The response includes a MAC secret used to verify webhook notification payloads. Requires OAuth authentication with the webhook:manage scope.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/baseIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookCreateRequest'
+      responses:
+        '200':
+          description: The created webhook with MAC secret.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookCreateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bases/{baseId}/webhooks/{webhookId}:
+    delete:
+      operationId: deleteWebhook
+      summary: Airtable Delete a Webhook
+      description: Deletes an existing webhook subscription. The webhook will no longer send notifications after deletion.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/baseIdPath'
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier of the webhook.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Confirmation that the webhook was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bases/{baseId}/webhooks/{webhookId}/refresh:
+    post:
+      operationId: refreshWebhook
+      summary: Airtable Refresh a Webhook
+      description: Extends the expiration time of an existing webhook. Webhooks expire after 7 days of inactivity and must be periodically refreshed to remain active.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/baseIdPath'
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier of the webhook.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The refreshed webhook with new expiration time.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expirationTime:
+                    type: string
+                    format: date-time
+                    description: The new expiration time for the webhook.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bases/{baseId}/webhooks/{webhookId}/payloads:
+    get:
+      operationId: listWebhookPayloads
+      summary: Airtable List Webhook Payloads
+      description: Returns a list of payloads that have been generated for the specified webhook. Payloads are returned in chronological order and can be paginated using a cursor.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/baseIdPath'
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier of the webhook.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        required: false
+        description: A cursor for pagination. Pass the cursor from the previous response to get the next page.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of webhook payloads.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookPayloadList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    WebhookSpecification:
+      type: object
+      description: The specification defining what changes the webhook monitors.
+      properties:
+        options:
+          type: object
+          properties:
+            filters:
+              type: object
+              description: Filters to narrow down which changes trigger the webhook.
+              properties:
+                sourceOptions:
+                  type: object
+                  properties:
+                    formSubmission:
+                      type: object
+                      properties:
+                        tableId:
+                          type: string
+                        viewId:
+                          type: string
+                    formPageSubmission:
+                      type: object
+                      properties:
+                        pageId:
+                          type: string
+                dataTypes:
+                  type: array
+                  description: The types of data changes to monitor.
+                  items:
+                    type: string
+                    enum:
+                    - tableData
+                    - tableFields
+                    - tableMetadata
+                recordChangeScope:
+                  type: string
+                  description: The scope of record changes to monitor.
+                watchDataInFieldIds:
+                  type: array
+                  description: Specific field IDs to watch for changes.
+                  items:
+                    type: string
+                watchSchemasOfFieldIds:
+                  type: array
+                  description: Specific field IDs whose schema changes to watch.
+                  items:
+                    type: string
+    WebhookPayload:
+      type: object
+      description: A single webhook payload representing a batch of changes.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The time when the payload was generated.
+        baseTransactionNumber:
+          type: integer
+          description: The transaction number for this batch of changes.
+        payloadFormat:
+          type: string
+          description: The format version of the payload.
+        actionMetadata:
+          type: object
+          description: Metadata about the action that triggered the webhook.
+          properties:
+            source:
+              type: string
+              description: The source of the action (e.g., client, publicApi, formSubmission).
+            sourceMetadata:
+              type: object
+              description: Additional metadata about the source.
+        changedTablesById:
+          type: object
+          description: A mapping of table IDs to their changes.
+          additionalProperties:
+            type: object
+            properties:
+              changedRecordsById:
+                type: object
+                additionalProperties:
+                  type: object
+              createdRecordsById:
+                type: object
+                additionalProperties:
+                  type: object
+              destroyedRecordIds:
+                type: array
+                items:
+                  type: string
+              changedFieldsById:
+                type: object
+                additionalProperties:
+                  type: object
+              createdFieldsById:
+                type: object
+                additionalProperties:
+                  type: object
+              destroyedFieldIds:
+                type: array
+                items:
+                  type: string
+              changedViewsById:
+                type: object
+                additionalProperties:
+                  type: object
+              createdViewsById:
+                type: object
+                additionalProperties:
+                  type: object
+              destroyedViewIds:
+                type: array
+                items:
+                  type: string
+    WebhookCreateResponse:
+      type: object
+      description: Response after creating a new webhook, including the MAC secret.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the newly created webhook.
+        macSecretBase64:
+          type: string
+          description: The Base64-encoded MAC secret used to verify the authenticity of webhook notification payloads.
+        expirationTime:
+          type: string
+          format: date-time
+          description: The time when the webhook will expire if not refreshed.
+      required:
+      - id
+      - macSecretBase64
+    WebhookCreateRequest:
+      type: object
+      description: Request body for creating a new webhook.
+      properties:
+        notificationUrl:
+          type: string
+          format: uri
+          description: The URL that will receive POST notifications when changes occur.
+        specification:
+          $ref: '#/components/schemas/WebhookSpecification'
+      required:
+      - notificationUrl
+    Webhook:
+      type: object
+      description: A webhook subscription on an Airtable base.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the webhook.
+        type:
+          type: string
+          description: The type of the webhook (e.g., client).
+        isHookEnabled:
+          type: boolean
+          description: Whether the webhook is currently active.
+        notificationUrl:
+          type: string
+          format: uri
+          description: The URL that receives webhook notifications.
+        cursorForNextPayload:
+          type: integer
+          description: The cursor position for the next unread payload.
+        areNotificationsEnabled:
+          type: boolean
+          description: Whether notifications are currently being sent.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the webhook was created.
+        expirationTime:
+          type: string
+          format: date-time
+          description: The time when the webhook will expire if not refreshed.
+        specification:
+          $ref: '#/components/schemas/WebhookSpecification'
+      required:
+      - id
+      - type
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error (e.g., AUTHENTICATION_REQUIRED, NOT_FOUND, INVALID_REQUEST).
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
+    WebhookPayloadList:
+      type: object
+      description: A paginated list of webhook payloads.
+      properties:
+        payloads:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookPayload'
+        cursor:
+          type: integer
+          description: The cursor for fetching the next page of payloads.
+        mightHaveMore:
+          type: boolean
+          description: Whether there may be more payloads to fetch.
+      required:
+      - payloads
+  parameters:
+    baseIdPath:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

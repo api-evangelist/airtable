@@ -1,0 +1,483 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Records API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Records
+  description: Create, read, update, and delete records in a table
+paths:
+  /{baseId}/{tableIdOrName}:
+    get:
+      operationId: listRecords
+      summary: Airtable List Records in a Table
+      description: Returns a paginated list of records in the specified table. Records can be filtered using an Airtable formula, sorted by specific fields, and limited to specific fields. The maximum page size is 100 records. Use the offset parameter from the response to fetch the next page.
+      tags:
+      - Records
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - name: fields[]
+        in: query
+        description: Only return data for the specified field names or IDs.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      - name: filterByFormula
+        in: query
+        description: 'An Airtable formula used to filter records. The formula is evaluated for each record, and if the result is not 0, false, "", NaN, [], or #Error!, the record will be included in the response.'
+        required: false
+        schema:
+          type: string
+      - name: maxRecords
+        in: query
+        description: The maximum total number of records that will be returned.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+      - name: pageSize
+        in: query
+        description: The number of records returned in each request. Must be less than or equal to 100. Default is 100.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+      - name: sort
+        in: query
+        description: A list of sort objects that specifies how the records will be ordered. Each sort object must have a field key and an optional direction key (asc or desc).
+        required: false
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              direction:
+                type: string
+                enum:
+                - asc
+                - desc
+        style: deepObject
+        explode: true
+      - name: view
+        in: query
+        description: The name or ID of a view in the table. If set, only the records in that view will be returned.
+        required: false
+        schema:
+          type: string
+      - name: cellFormat
+        in: query
+        description: The format that should be used for cell values. Supported values are json (default) and string.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - string
+      - name: timeZone
+        in: query
+        description: The time zone to use for formatting dates when using string cell format.
+        required: false
+        schema:
+          type: string
+      - name: userLocale
+        in: query
+        description: The user locale to use for formatting dates when using string cell format.
+        required: false
+        schema:
+          type: string
+      - name: returnFieldsByFieldId
+        in: query
+        description: If true, the response will use field IDs as object keys instead of field names.
+        required: false
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: A pagination cursor returned from a previous request. Pass this value to fetch the next page of results.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createRecords
+      summary: Airtable Create Records in a Table
+      description: Creates up to 10 records in the specified table. Each record must include a fields object mapping field names (or IDs) to values. If typecast is enabled, the API will attempt to convert string values to the appropriate cell value.
+      tags:
+      - Records
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                records:
+                  type: array
+                  maxItems: 10
+                  items:
+                    type: object
+                    properties:
+                      fields:
+                        $ref: '#/components/schemas/FieldValues'
+                    required:
+                    - fields
+                typecast:
+                  type: boolean
+                  description: If true, the API will attempt to convert string values to the appropriate cell value type.
+                returnFieldsByFieldId:
+                  type: boolean
+                  description: If true, the response will use field IDs as keys instead of field names.
+              required:
+              - records
+      responses:
+        '200':
+          description: The created records.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{baseId}/{tableIdOrName}/{recordId}:
+    get:
+      operationId: getRecord
+      summary: Airtable Retrieve a Single Record
+      description: Retrieves a single record by its ID from the specified table. Returns the record's fields, creation time, and ID.
+      tags:
+      - Records
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: returnFieldsByFieldId
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If true, the response will use field IDs as keys instead of field names.
+      responses:
+        '200':
+          description: The requested record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateRecord
+      summary: Airtable Update a Record (partial)
+      description: Updates specific fields of an existing record. Only the fields included in the request body will be updated; all other fields will remain unchanged. Up to 10 records can be updated in a single request when using the batch endpoint.
+      tags:
+      - Records
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  $ref: '#/components/schemas/FieldValues'
+                typecast:
+                  type: boolean
+                  description: If true, the API will attempt to convert string values to the appropriate cell value type.
+                returnFieldsByFieldId:
+                  type: boolean
+              required:
+              - fields
+      responses:
+        '200':
+          description: The updated record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceRecord
+      summary: Airtable Update a Record (full Replacement)
+      description: Replaces all fields of an existing record. Fields that are not included in the request body will be cleared. This is a destructive update that overwrites the entire record.
+      tags:
+      - Records
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  $ref: '#/components/schemas/FieldValues'
+                typecast:
+                  type: boolean
+                returnFieldsByFieldId:
+                  type: boolean
+              required:
+              - fields
+      responses:
+        '200':
+          description: The replaced record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteRecord
+      summary: Airtable Delete a Record
+      description: Deletes a single record from the specified table. The record is permanently removed and cannot be recovered through the API.
+      tags:
+      - Records
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      responses:
+        '200':
+          description: Confirmation of deletion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordDeleted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Record:
+      type: object
+      description: An Airtable record representing a single row in a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the record (starts with 'rec').
+          example: recABC123def456
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the record was created in ISO 8601 format.
+        fields:
+          $ref: '#/components/schemas/FieldValues'
+      required:
+      - id
+      - createdTime
+      - fields
+    RecordDeleted:
+      type: object
+      description: Confirmation that a record was deleted.
+      properties:
+        id:
+          type: string
+          description: The ID of the deleted record.
+        deleted:
+          type: boolean
+          description: Always true when the deletion succeeds.
+      required:
+      - id
+      - deleted
+    RecordList:
+      type: object
+      description: A paginated list of records from a table.
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+        offset:
+          type: string
+          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
+      required:
+      - records
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error (e.g., AUTHENTICATION_REQUIRED, NOT_FOUND, INVALID_REQUEST).
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
+    FieldValues:
+      type: object
+      description: A mapping of field names (or field IDs when returnFieldsByFieldId is true) to their cell values. The structure depends on the field types defined in the table schema.
+      additionalProperties: true
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

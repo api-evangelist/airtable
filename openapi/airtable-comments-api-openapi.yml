@@ -1,0 +1,325 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Comments API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Comments
+  description: Manage comments on individual records
+paths:
+  /{baseId}/{tableIdOrName}/{recordId}/comments:
+    get:
+      operationId: listComments
+      summary: Airtable List Comments on a Record
+      description: Returns a paginated list of comments on the specified record. Comments are returned in reverse chronological order.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: offset
+        in: query
+        required: false
+        description: Pagination cursor from a previous response to fetch the next page.
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        required: false
+        description: The number of comments to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      responses:
+        '200':
+          description: A paginated list of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createComment
+      summary: Airtable Create a Comment on a Record
+      description: Creates a new comment on the specified record. Comments can include user mentions using the @[usrXXXXXXXX] syntax. Requires OAuth authentication with the comment:write scope.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The text content of the comment. Supports @[usrXXXXXXXX] syntax for mentions.
+              required:
+              - text
+      responses:
+        '200':
+          description: The created comment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{baseId}/{tableIdOrName}/{recordId}/comments/{commentId}:
+    patch:
+      operationId: updateComment
+      summary: Airtable Update a Comment
+      description: Updates the text of an existing comment on a record. Only the author of the comment can update it.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: commentId
+        in: path
+        required: true
+        description: The unique identifier of the comment.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The updated text content of the comment.
+              required:
+              - text
+      responses:
+        '200':
+          description: The updated comment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteComment
+      summary: Airtable Delete a Comment
+      description: Deletes a comment from a record. Only the author of the comment can delete it.
+      tags:
+      - Comments
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableIdOrName'
+      - $ref: '#/components/parameters/recordId'
+      - name: commentId
+        in: path
+        required: true
+        description: The unique identifier of the comment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Confirmation that the comment was deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the deleted comment.
+                  deleted:
+                    type: boolean
+                    description: Always true when the deletion succeeds.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    CommentList:
+      type: object
+      description: A paginated list of comments on a record.
+      properties:
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        offset:
+          type: string
+          description: Pagination cursor for the next page of results.
+      required:
+      - comments
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error (e.g., AUTHENTICATION_REQUIRED, NOT_FOUND, INVALID_REQUEST).
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
+    Comment:
+      type: object
+      description: A comment on an Airtable record.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the comment.
+        author:
+          type: object
+          description: The user who created the comment.
+          properties:
+            id:
+              type: string
+              description: The user ID of the comment author.
+            email:
+              type: string
+              format: email
+              description: The email address of the comment author.
+            name:
+              type: string
+              description: The display name of the comment author.
+        text:
+          type: string
+          description: The text content of the comment.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the comment was created.
+        lastUpdatedTime:
+          type: string
+          format: date-time
+          description: The time when the comment was last updated.
+      required:
+      - id
+      - text
+      - createdTime
+  parameters:
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

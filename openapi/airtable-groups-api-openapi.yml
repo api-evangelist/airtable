@@ -1,0 +1,610 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Groups API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Groups
+  description: Manage user groups within the enterprise
+paths:
+  /meta/groups/{groupId}:
+    get:
+      operationId: getUserGroup
+      summary: Airtable Get a User Group
+      description: Returns details about a specific user group, including its members and configuration.
+      tags:
+      - Groups
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        description: The unique identifier of the user group.
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Additional information to include.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - collaborations
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: The user group details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /meta/enterpriseAccounts/{enterpriseAccountId}/moveGroups:
+    post:
+      operationId: moveUserGroups
+      summary: Airtable Move User Groups Between Enterprises
+      description: Moves one or more user groups from this enterprise account to a target enterprise account.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/enterpriseAccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupIds:
+                  type: array
+                  description: The IDs of the groups to move.
+                  items:
+                    type: string
+                targetEnterpriseAccountId:
+                  type: string
+                  description: The ID of the target enterprise account.
+              required:
+              - groupIds
+              - targetEnterpriseAccountId
+      responses:
+        '200':
+          description: Result of the group move operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movedGroups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        groupId:
+                          type: string
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Groups:
+    get:
+      operationId: listScimGroups
+      summary: Airtable List SCIM Groups
+      description: Returns a paginated list of SCIM group resources. Supports filtering by group display name and pagination using startIndex and count.
+      tags:
+      - Groups
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        description: SCIM filter expression (e.g., displayName eq "Engineering").
+        schema:
+          type: string
+      - name: startIndex
+        in: query
+        required: false
+        description: The 1-based index of the first result to return.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: count
+        in: query
+        required: false
+        description: The maximum number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      responses:
+        '200':
+          description: A SCIM ListResponse containing group resources.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimGroupListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '403':
+          $ref: '#/components/responses/Forbidden_2'
+        '429':
+          $ref: '#/components/responses/TooManyRequests_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createScimGroup
+      summary: Airtable Create a SCIM Group
+      description: Creates a new SCIM group in the enterprise account. Groups can contain user members and are used for access management.
+      tags:
+      - Groups
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimGroupCreateRequest'
+      responses:
+        '201':
+          description: The newly created SCIM group resource.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '403':
+          $ref: '#/components/responses/Forbidden_2'
+        '409':
+          description: A group with the same displayName already exists.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimError'
+        '429':
+          $ref: '#/components/responses/TooManyRequests_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Groups/{groupId}:
+    get:
+      operationId: getScimGroup
+      summary: Airtable Get a SCIM Group
+      description: Retrieves a single SCIM group resource by its unique identifier, including its member list.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: The requested SCIM group resource.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '403':
+          $ref: '#/components/responses/Forbidden_2'
+        '404':
+          $ref: '#/components/responses/ScimNotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceScimGroup
+      summary: Airtable Replace a SCIM Group
+      description: Replaces a SCIM group resource entirely with the provided data. The complete member list must be included in the request.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimGroupCreateRequest'
+      responses:
+        '200':
+          description: The replaced SCIM group resource.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '403':
+          $ref: '#/components/responses/Forbidden_2'
+        '404':
+          $ref: '#/components/responses/ScimNotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateScimGroup
+      summary: Airtable Update a SCIM Group (partial)
+      description: Partially updates a SCIM group resource using SCIM PATCH operations. Commonly used to add or remove members from the group without replacing the entire resource.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimPatchRequest'
+      responses:
+        '200':
+          description: The updated SCIM group resource.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '403':
+          $ref: '#/components/responses/Forbidden_2'
+        '404':
+          $ref: '#/components/responses/ScimNotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteScimGroup
+      summary: Airtable Delete a SCIM Group
+      description: Permanently deletes a SCIM group from the enterprise account. Members are not deleted but are removed from the group.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupId'
+      responses:
+        '204':
+          description: The group was successfully deleted. No content returned.
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '403':
+          $ref: '#/components/responses/Forbidden_2'
+        '404':
+          $ref: '#/components/responses/ScimNotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: SCIM authentication token is missing or invalid.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden_2:
+      description: The authenticated token does not have SCIM provisioning permission.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    TooManyRequests_2:
+      description: Rate limit exceeded.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    ScimNotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    BadRequest:
+      description: The request body is malformed or contains invalid data.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+          required:
+          - type
+          - message
+    ScimError:
+      type: object
+      description: A SCIM 2.0 error response.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:Error
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: string
+          description: The HTTP status code as a string.
+        scimType:
+          type: string
+          description: The SCIM error type.
+    ScimMeta:
+      type: object
+      description: SCIM resource metadata.
+      properties:
+        resourceType:
+          type: string
+          description: The type of resource (User or Group).
+        created:
+          type: string
+          format: date-time
+          description: The time when the resource was created.
+        lastModified:
+          type: string
+          format: date-time
+          description: The time when the resource was last modified.
+    ScimGroup:
+      type: object
+      description: A SCIM 2.0 Group resource representing a user group.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:schemas:core:2.0:Group
+        id:
+          type: string
+          description: The unique identifier for the SCIM group resource.
+        displayName:
+          type: string
+          description: The display name of the group.
+        members:
+          type: array
+          description: The members of the group.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The ID of the member user.
+              display:
+                type: string
+                description: The display name of the member.
+        meta:
+          $ref: '#/components/schemas/ScimMeta'
+      required:
+      - schemas
+      - id
+      - displayName
+    ScimGroupListResponse:
+      type: object
+      description: A SCIM 2.0 ListResponse containing group resources.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: The total number of results matching the query.
+        itemsPerPage:
+          type: integer
+          description: The number of results returned in this page.
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in this page.
+        Resources:
+          type: array
+          description: The list of SCIM group resources.
+          items:
+            $ref: '#/components/schemas/ScimGroup'
+      required:
+      - schemas
+      - totalResults
+      - Resources
+    ScimGroupCreateRequest:
+      type: object
+      description: Request body for creating or replacing a SCIM group.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:schemas:core:2.0:Group
+        displayName:
+          type: string
+          description: The display name of the group.
+        members:
+          type: array
+          description: The initial members of the group.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The ID of the member user.
+      required:
+      - schemas
+      - displayName
+    UserGroup:
+      type: object
+      description: A user group within the enterprise.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the user group.
+        name:
+          type: string
+          description: The name of the user group.
+        description:
+          type: string
+          description: The description of the user group.
+        members:
+          type: array
+          description: The members of the user group.
+          items:
+            type: object
+            properties:
+              userId:
+                type: string
+              email:
+                type: string
+                format: email
+              firstName:
+                type: string
+              lastName:
+                type: string
+              role:
+                type: string
+                enum:
+                - member
+                - owner
+        collaborations:
+          type: object
+          description: The group's collaborations across workspaces and bases.
+      required:
+      - id
+      - name
+    ScimPatchRequest:
+      type: object
+      description: A SCIM 2.0 PATCH request with one or more operations.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          description: The list of PATCH operations to apply.
+          items:
+            type: object
+            properties:
+              op:
+                type: string
+                description: The operation type.
+                enum:
+                - add
+                - replace
+                - remove
+              path:
+                type: string
+                description: The attribute path to operate on.
+              value:
+                description: The value to set for add and replace operations.
+            required:
+            - op
+      required:
+      - schemas
+      - Operations
+  parameters:
+    groupId:
+      name: groupId
+      in: path
+      required: true
+      description: The unique identifier of the SCIM group resource.
+      schema:
+        type: string
+    enterpriseAccountId:
+      name: enterpriseAccountId
+      in: path
+      required: true
+      description: The unique identifier of the enterprise account (starts with 'ent').
+      schema:
+        type: string
+        pattern: ^ent[a-zA-Z0-9]+$
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

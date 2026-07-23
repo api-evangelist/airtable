@@ -1,0 +1,339 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Tables API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Tables
+  description: Create and update table definitions within a base
+paths:
+  /meta/bases/{baseId}/tables:
+    post:
+      operationId: createTable
+      summary: Airtable Create a Table in a Base
+      description: Creates a new table within the specified base. The table must include a name and at least one field definition. Optionally include a description for the table.
+      tags:
+      - Tables
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTableRequest'
+      responses:
+        '200':
+          description: The newly created table with its schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /meta/bases/{baseId}/tables/{tableId}:
+    patch:
+      operationId: updateTable
+      summary: Airtable Update a Table
+      description: Updates the name and/or description of an existing table. Only the provided fields will be modified.
+      tags:
+      - Tables
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name for the table.
+                description:
+                  type: string
+                  description: The new description for the table.
+      responses:
+        '200':
+          description: The updated table schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    tableId:
+      name: tableId
+      in: path
+      required: true
+      description: The unique identifier of the table (starts with 'tbl').
+      schema:
+        type: string
+        pattern: ^tbl[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    CreateTableRequest:
+      type: object
+      description: Request body for creating a new table within a base.
+      properties:
+        name:
+          type: string
+          description: The name of the new table.
+        description:
+          type: string
+          description: The description of the new table.
+        fields:
+          type: array
+          description: The field definitions for the table. At least one field is required.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateFieldRequest'
+      required:
+      - name
+      - fields
+    ViewSchema:
+      type: object
+      description: The schema definition of a view within a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the view (starts with 'viw').
+          example: viwABC123def456
+        name:
+          type: string
+          description: The name of the view.
+        type:
+          type: string
+          description: The type of the view.
+          enum:
+          - grid
+          - form
+          - calendar
+          - gallery
+          - kanban
+          - timeline
+          - block
+        personalForUserId:
+          type: string
+          description: If set, this is a personal view only visible to the specified user.
+        visibleFieldIds:
+          type: array
+          description: The IDs of fields visible in this view. Only included if visibleFieldIds is requested via the include parameter.
+          items:
+            type: string
+      required:
+      - id
+      - name
+      - type
+    TableSchema:
+      type: object
+      description: The schema definition of a table within a base.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the table (starts with 'tbl').
+          example: tblABC123def456
+        name:
+          type: string
+          description: The name of the table.
+        description:
+          type: string
+          description: The description of the table.
+        primaryFieldId:
+          type: string
+          description: The ID of the primary field for this table.
+        fields:
+          type: array
+          description: The list of field definitions in the table.
+          items:
+            $ref: '#/components/schemas/FieldSchema'
+        views:
+          type: array
+          description: The list of view definitions in the table.
+          items:
+            $ref: '#/components/schemas/ViewSchema'
+      required:
+      - id
+      - name
+      - fields
+      - views
+    FieldSchema:
+      type: object
+      description: The schema definition of a field within a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the field (starts with 'fld').
+          example: fldABC123def456
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field.
+          enum:
+          - singleLineText
+          - email
+          - url
+          - multilineText
+          - number
+          - percent
+          - currency
+          - singleSelect
+          - multipleSelects
+          - singleCollaborator
+          - multipleCollaborators
+          - multipleRecordLinks
+          - date
+          - dateTime
+          - phoneNumber
+          - multipleAttachments
+          - checkbox
+          - formula
+          - createdTime
+          - rollup
+          - count
+          - lookup
+          - multipleLookupValues
+          - autoNumber
+          - barcode
+          - rating
+          - richText
+          - duration
+          - lastModifiedTime
+          - button
+          - createdBy
+          - lastModifiedBy
+          - externalSyncSource
+          - aiText
+        description:
+          type: string
+          description: The description of the field.
+        options:
+          type: object
+          description: Configuration options for the field. The structure depends on the field type.
+          additionalProperties: true
+      required:
+      - id
+      - name
+      - type
+    CreateFieldRequest:
+      type: object
+      description: Request body for creating a new field.
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
+        description:
+          type: string
+          description: A description of the field.
+        options:
+          type: object
+          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
+          additionalProperties: true
+      required:
+      - name
+      - type
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

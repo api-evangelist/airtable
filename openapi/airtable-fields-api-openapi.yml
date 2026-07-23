@@ -1,0 +1,266 @@
+openapi: 3.1.0
+info:
+  title: Airtable Audit Logs Fields API
+  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
+  version: 1.0.0
+  contact:
+    name: Airtable
+    url: https://airtable.com/developers
+    email: support@airtable.com
+  license:
+    name: Proprietary
+    url: https://airtable.com/tos
+  termsOfService: https://airtable.com/tos
+servers:
+- url: https://api.airtable.com/v0
+  description: Airtable API v0 production server
+security:
+- bearerAuth: []
+tags:
+- name: Fields
+  description: Create and update field definitions within a table
+paths:
+  /meta/bases/{baseId}/tables/{tableId}/fields:
+    post:
+      operationId: createField
+      summary: Airtable Create a Field in a Table
+      description: Creates a new field in the specified table. The field must include a name and type. Some field types (like singleSelect, multipleSelects) accept additional options for configuration. Note that formula and some computed field types cannot be created via the API.
+      tags:
+      - Fields
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFieldRequest'
+      responses:
+        '200':
+          description: The newly created field definition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /meta/bases/{baseId}/tables/{tableId}/fields/{fieldId}:
+    patch:
+      operationId: updateField
+      summary: Airtable Update a Field
+      description: Updates the name, description, or configuration options of an existing field. Only the provided properties will be modified. Not all field properties can be updated after creation.
+      tags:
+      - Fields
+      parameters:
+      - $ref: '#/components/parameters/baseId'
+      - $ref: '#/components/parameters/tableId'
+      - name: fieldId
+        in: path
+        required: true
+        description: The unique identifier of the field (starts with 'fld').
+        schema:
+          type: string
+          pattern: ^fld[a-zA-Z0-9]+$
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name for the field.
+                description:
+                  type: string
+                  description: The new description for the field.
+                options:
+                  type: object
+                  description: Updated configuration options for the field.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The updated field definition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    tableId:
+      name: tableId
+      in: path
+      required: true
+      description: The unique identifier of the table (starts with 'tbl').
+      schema:
+        type: string
+        pattern: ^tbl[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    FieldSchema:
+      type: object
+      description: The schema definition of a field within a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the field (starts with 'fld').
+          example: fldABC123def456
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field.
+          enum:
+          - singleLineText
+          - email
+          - url
+          - multilineText
+          - number
+          - percent
+          - currency
+          - singleSelect
+          - multipleSelects
+          - singleCollaborator
+          - multipleCollaborators
+          - multipleRecordLinks
+          - date
+          - dateTime
+          - phoneNumber
+          - multipleAttachments
+          - checkbox
+          - formula
+          - createdTime
+          - rollup
+          - count
+          - lookup
+          - multipleLookupValues
+          - autoNumber
+          - barcode
+          - rating
+          - richText
+          - duration
+          - lastModifiedTime
+          - button
+          - createdBy
+          - lastModifiedBy
+          - externalSyncSource
+          - aiText
+        description:
+          type: string
+          description: The description of the field.
+        options:
+          type: object
+          description: Configuration options for the field. The structure depends on the field type.
+          additionalProperties: true
+      required:
+      - id
+      - name
+      - type
+    CreateFieldRequest:
+      type: object
+      description: Request body for creating a new field.
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
+        description:
+          type: string
+          description: A description of the field.
+        options:
+          type: object
+          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
+          additionalProperties: true
+      required:
+      - name
+      - type
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+externalDocs:
+  description: Airtable Web API Documentation
+  url: https://airtable.com/developers/web/api/introduction

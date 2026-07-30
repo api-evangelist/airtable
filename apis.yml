@@ -1,108 +1,6 @@
 aid: airtable
 url: https://raw.githubusercontent.com/api-evangelist/airtable/refs/heads/main/apis.yml
 apis:
-- aid: airtable:airtable-api
-  name: Airtable API
-  tags:
-  - Bases
-  - Collaborators
-  - Comments
-  - Fields
-  - Records
-  - Tables
-  - Views
-  - Webhooks
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com
-  humanURL: https://airtable.com/developers/web/api/introduction
-  properties:
-  - url: https://airtable.com/developers/web/api/introduction
-    type: Documentation
-  - url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
-    type: GettingStarted
-  - url: https://airtable.com/developers/web/api/authentication
-    type: Authentication
-  - url: https://airtable.com/developers/web/guides/personal-access-tokens
-    type: Authentication
-  - url: https://airtable.com/developers/web/guides/oauth-integrations
-    type: Authentication
-  - url: https://airtable.com/developers/web/api/webhooks-overview
-    type: Documentation
-  - url: asyncapi/airtable-webhooks-asyncapi.yml
-    type: AsyncAPI
-  - url: https://github.com/Airtable/airtable.js
-    type: SDKs
-  - url: https://www.npmjs.com/package/airtable
-    type: SDKs
-  - url: https://airtable.com/developers/web/api/list-records
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/update-record
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/rate-limits
-    type: RateLimits
-  - url: https://airtable.com/developers/web/api/errors
-    type: ErrorCodes
-  - url: https://airtable.com/developers/web/api/cursor-pagination
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/field-model
-    type: Documentation
-  - url: openapi/airtable-airtable-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-record-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-comment-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-webhook-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  - url: graphql/airtable-graphql.md
-    type: GraphQL
-  description: The Airtable API can be used to integrate your data in Airtable with
-    any external system. The API closely follows REST semantics, uses JSON to encode
-    objects, and relies on standard HTTP codes to signal operation outcomes.
-- aid: airtable:airtable-metadata-api
-  name: Airtable Metadata API
-  tags:
-  - Bases
-  - Fields
-  - Metadata
-  - Schema
-  - Tables
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.airtable.com/v0/meta
-  humanURL: https://airtable.com/developers/web/api/list-bases
-  properties:
-  - url: https://airtable.com/developers/web/api/list-bases
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/get-base-schema
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/create-base
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/create-table
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/create-field
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/update-table
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/update-field
-    type: APIReference
-  - url: openapi/airtable-metadata-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/airtable-base-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-table-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-field-schema.json
-    type: JSONSchema
-  - url: json-schema/airtable-view-schema.json
-    type: JSONSchema
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  description: The Airtable Metadata API provides access to base and schema management
-    operations. You can list bases, retrieve base schemas with table and field definitions,
-    create new bases, tables, and fields, and update table and field configurations
-    programmatically.
 - aid: airtable:airtable-enterprise-api
   name: Airtable Enterprise API
   tags:
@@ -137,48 +35,10 @@ apis:
     type: JSONSchema
   - url: json-ld/airtable-context.jsonld
     type: JSONLD
-  description: The Airtable Enterprise API allows enterprise teams to manage their
-    account programmatically outside of the Admin panel. It supports managing users,
-    updating access permissions, and managing bases, tables, and views at scale for
-    enterprise deployments.
-- aid: airtable:airtable-scim-api
-  name: Airtable SCIM API
-  tags:
-  - Groups
-  - Identity
-  - Provisioning
-  - SCIM
-  - Users
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://airtable.com/scim/v2
-  humanURL: https://airtable.com/developers/web/api/scim-overview
-  properties:
-  - url: https://airtable.com/developers/web/api/scim-overview
-    type: Documentation
-  - url: https://airtable.com/developers/web/api/model/scim-user-schema
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/create-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/get-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/put-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/delete-scim-user
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/get-scim-group
-    type: APIReference
-  - url: https://airtable.com/developers/web/api/delete-scim-group
-    type: APIReference
-  - url: https://support.airtable.com/docs/managing-users-via-idp-sync
-    type: GettingStarted
-  - url: openapi/airtable-scim-api-openapi.yml
-    type: OpenAPI
-  - url: json-ld/airtable-context.jsonld
-    type: JSONLD
-  description: The Airtable SCIM API supports the System for Cross-domain Identity
-    Management specification for automated user and group provisioning. It enables
-    identity providers like Okta and Microsoft Entra ID to manage user accounts and
-    group memberships programmatically.
+  description: >-
+    The Airtable Enterprise API allows enterprise teams to manage their account programmatically outside
+    of the Admin panel. It supports managing users, updating access permissions, and managing bases, tables,
+    and views at scale for enterprise deployments.
 - aid: airtable:airtable-audit-logs-api
   name: Airtable Audit Logs API
   tags:
@@ -213,10 +73,10 @@ apis:
     type: JSONSchema
   - url: json-ld/airtable-context.jsonld
     type: JSONLD
-  description: The Airtable Audit Logs API provides programmatic access to enterprise
-    audit logs for compliance monitoring and security tracking. It supports creating
-    and retrieving audit log requests with event filtering by user, event type, and
-    date range.
+  description: >-
+    The Airtable Audit Logs API provides programmatic access to enterprise audit logs for compliance monitoring
+    and security tracking. It supports creating and retrieving audit log requests with event filtering
+    by user, event type, and date range.
 - aid: airtable:airtable-shares-api
   name: Airtable Shares API
   tags:
@@ -240,9 +100,819 @@ apis:
     type: JSONSchema
   - url: json-ld/airtable-context.jsonld
     type: JSONLD
-  description: The Airtable Shares API allows enterprise administrators to list, manage,
-    and delete share links across an organization. It provides programmatic control
-    over base sharing and access management.
+  description: >-
+    The Airtable Shares API allows enterprise administrators to list, manage, and delete share links across
+    an organization. It provides programmatic control over base sharing and access management.
+- aid: airtable:airtable-bases-api
+  name: Airtable Bases API
+  description: List and create bases, retrieve base schemas
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Bases
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-bases-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-comments-api
+  name: Airtable Comments API
+  description: Manage comments on individual records
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-comments-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-fields-api
+  name: Airtable Fields API
+  description: Create and update field definitions within a table
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-fields-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-groups-api
+  name: Airtable Groups API
+  description: Manage user groups within the enterprise
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-groups-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-records-api
+  name: Airtable Records API
+  description: Create, read, update, and delete records in a table
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Records
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-records-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-tables-api
+  name: Airtable Tables API
+  description: Create and update table definitions within a base
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Tables
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-tables-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-users-api
+  name: Airtable Users API
+  description: Manage enterprise users, permissions, and access
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-users-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-webhooks-api
+  name: Airtable Webhooks API
+  description: Subscribe to real-time change notifications on bases
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
+- aid: airtable:airtable-workspaces-api
+  name: Airtable Workspaces API
+  description: Manage enterprise workspaces
+  humanURL: https://airtable.com/developers/web/api/introduction
+  baseURL: https://api.airtable.com
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/airtable-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/introduction
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/getting-started-with-airtables-web-api
+  - type: Authentication
+    url: https://airtable.com/developers/web/api/authentication
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/personal-access-tokens
+  - type: Authentication
+    url: https://airtable.com/developers/web/guides/oauth-integrations
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/webhooks-overview
+  - type: AsyncAPI
+    url: asyncapi/airtable-webhooks-asyncapi.yml
+  - type: SDKs
+    url: https://github.com/Airtable/airtable.js
+  - type: SDKs
+    url: https://www.npmjs.com/package/airtable
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/list-records
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-record
+  - type: RateLimits
+    url: https://airtable.com/developers/web/api/rate-limits
+  - type: ErrorCodes
+    url: https://airtable.com/developers/web/api/errors
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/cursor-pagination
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/field-model
+  - type: JSONSchema
+    url: json-schema/airtable-record-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-comment-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-webhook-schema.json
+  - type: JSONLD
+    url: json-ld/airtable-context.jsonld
+  - type: GraphQL
+    url: graphql/airtable-graphql.md
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/list-bases
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/get-base-schema
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-base
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-table
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/create-field
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-table
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/update-field
+  - type: JSONSchema
+    url: json-schema/airtable-base-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-table-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-field-schema.json
+  - type: JSONSchema
+    url: json-schema/airtable-view-schema.json
+  - type: Documentation
+    url: https://airtable.com/developers/web/api/scim-overview
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/model/scim-user-schema
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/create-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/put-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-user
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/get-scim-group
+  - type: APIReference
+    url: https://airtable.com/developers/web/api/delete-scim-group
+  - type: GettingStarted
+    url: https://support.airtable.com/docs/managing-users-via-idp-sync
 name: Airtable
 tags:
 - Applications
@@ -252,6 +922,19 @@ tags:
 - Low-Code
 - Productivity
 - Spreadsheets
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.airtable.com/images/logo.png
 common:
 - type: AgenticAccess

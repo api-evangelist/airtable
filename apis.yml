@@ -1164,6 +1164,8 @@ common:
 - name: Agent Skills
   url: https://github.com/Airtable/skills
   type: AgentSkills
+- type: AICatalog
+  url: ai-catalog/airtable-ai-catalog.yml
 created: '2023-11-21T00:00:00.000Z'
 modified: '2026-05-19'
 description: Airtable is a cloud-based collaboration service that combines the simplicity

@@ -1,0 +1,36 @@
+{
+  "provider": "airtable",
+  "sources": [
+    "airtable-audit-logs-api-openapi.yml",
+    "airtable-bases-api-openapi.yml",
+    "airtable-comments-api-openapi.yml",
+    "airtable-enterprise-api-openapi.yml",
+    "airtable-fields-api-openapi.yml",
+    "airtable-groups-api-openapi.yml",
+    "airtable-records-api-openapi.yml",
+    "airtable-shares-api-openapi.yml",
+    "airtable-tables-api-openapi.yml",
+    "airtable-users-api-openapi.yml",
+    "airtable-webhooks-api-openapi.yml",
+    "airtable-workspaces-api-openapi.yml"
+  ],
+  "outputs": [
+    "airtable-audit-logs-api-openapi.yml",
+    "airtable-bases-api-openapi.yml",
+    "airtable-comments-api-openapi.yml",
+    "airtable-enterprise-api-openapi.yml",
+    "airtable-fields-api-openapi.yml",
+    "airtable-groups-api-openapi.yml",
+    "airtable-records-api-openapi.yml",
+    "airtable-shares-api-openapi.yml",
+    "airtable-tables-api-openapi.yml",
+    "airtable-users-api-openapi.yml",
+    "airtable-webhooks-api-openapi.yml",
+    "airtable-workspaces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1199,7 +1199,7 @@ maintainers:
 - FN: Airtable
   email: support@airtable.com
   url: https://airtable.com
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 type: Index
 position: Consumer
 access: 3rd-Party

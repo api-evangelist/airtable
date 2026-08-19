@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Webhooks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Webhooks for a Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              }
+            ]
+          },
+          "docs": "Returns a list of all webhooks registered for the specified base. Includes webhook configuration, status, and expiration information."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a Webhook for a Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook subscription for the specified base. Webhooks expire after 7 days and must be refreshed. The response includes a MAC secret used to verify webhook notification payloads. Requires OAuth authentication with the webhook:manage scope."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              }
+            ]
+          },
+          "docs": "Deletes an existing webhook subscription. The webhook will no longer send notifications after deletion."
+        },
+        {
+          "info": {
+            "name": "Airtable Refresh a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks/:webhookId/refresh",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              }
+            ]
+          },
+          "docs": "Extends the expiration time of an existing webhook. Webhooks expire after 7 days of inactivity and must be periodically refreshed to remain active."
+        },
+        {
+          "info": {
+            "name": "Airtable List Webhook Payloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/bases/:baseId/webhooks/:webhookId/payloads",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination. Pass the cursor from the previous response to get the next page."
+              }
+            ]
+          },
+          "docs": "Returns a list of payloads that have been generated for the specified webhook. Payloads are returned in chronological order and can be paginated using a cursor."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

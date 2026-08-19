@@ -1,28 +1,28 @@
 {
   "item": [
     {
-      "id": "d7aa729b-2a2f-428e-b673-bf5981c9fb0e",
-      "name": "Audit Logs",
+      "id": "59eb8b0f-f243-45e5-bb3e-006d9048d309",
+      "name": "Comments",
       "description": {
-        "content": "Create, retrieve, and list audit log requests and events",
+        "content": "Manage comments on individual records",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "3486dcee-f7b7-4dae-94a9-2d1d7ba35d2f",
-          "name": "Airtable List Audit Log Events",
+          "id": "f9e022a2-81d5-4f62-b794-2a0481117414",
+          "name": "Airtable List Comments on a Record",
           "request": {
-            "name": "Airtable List Audit Log Events",
+            "name": "Airtable List Comments on a Record",
             "description": {
-              "content": "Returns a paginated list of audit log events for the specified enterprise account. Events can be filtered by user ID, event type, model ID, category, and time range. By default, returns up to 180 days of events in reverse chronological order.",
+              "content": "Returns a paginated list of comments on the specified record. Comments are returned in reverse chronological order.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "meta",
-                "enterpriseAccounts",
-                ":enterpriseAccountId",
-                "auditLogEvents"
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId",
+                "comments"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -30,63 +30,15 @@
               "query": [
                 {
                   "disabled": false,
-                  "key": "startTime",
-                  "value": "<dateTime>",
-                  "description": "The start of the time range to filter events, in ISO 8601 format. Events on or after this time will be included."
-                },
-                {
-                  "disabled": false,
-                  "key": "endTime",
-                  "value": "<dateTime>",
-                  "description": "The end of the time range to filter events, in ISO 8601 format. Events before this time will be included."
-                },
-                {
-                  "disabled": false,
-                  "key": "originatingUserId",
+                  "key": "offset",
                   "value": "<string>",
-                  "description": "Filter events to those performed by a specific user."
-                },
-                {
-                  "disabled": false,
-                  "key": "eventType",
-                  "value": "<string>",
-                  "description": "Filter events by event type."
-                },
-                {
-                  "disabled": false,
-                  "key": "modelId",
-                  "value": "<string>",
-                  "description": "Filter events by the ID of the affected model (base, table, etc.)."
-                },
-                {
-                  "disabled": false,
-                  "key": "category",
-                  "value": "<string>",
-                  "description": "Filter events by category."
+                  "description": "Pagination cursor from a previous response to fetch the next page."
                 },
                 {
                   "disabled": false,
                   "key": "pageSize",
                   "value": "<integer>",
-                  "description": "The number of events per page. Default is 100."
-                },
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor from a previous response to fetch the next or previous page."
-                },
-                {
-                  "disabled": false,
-                  "key": "sortOrder",
-                  "value": "desc",
-                  "description": "The order in which to return events. Default is desc."
-                },
-                {
-                  "disabled": false,
-                  "key": "previous",
-                  "value": "<string>",
-                  "description": "Pagination cursor for the previous page of results."
+                  "description": "The number of comments to return per page."
                 }
               ],
               "variable": [
@@ -94,8 +46,22 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "enterpriseAccountId",
-                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
                 }
               ]
             },
@@ -110,59 +76,27 @@
           },
           "response": [
             {
-              "id": "7e6e829d-e68f-49c4-9082-d6fdf1d6dc9d",
-              "name": "A paginated list of audit log events.",
+              "id": "f2fa31ee-d716-4416-a8a8-2b61b482231e",
+              "name": "A paginated list of comments.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogEvents"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "startTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "endTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "originatingUserId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "modelId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "category",
+                      "key": "offset",
                       "value": "<string>"
                     },
                     {
                       "key": "pageSize",
                       "value": "<integer>"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sortOrder",
-                      "value": "desc"
-                    },
-                    {
-                      "key": "previous",
-                      "value": "<string>"
                     }
                   ],
                   "variable": [
@@ -170,8 +104,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -200,64 +148,32 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"events\": [\n    {\n      \"id\": \"string\",\n      \"timestamp\": \"1950-10-20T11:45:13.929Z\",\n      \"action\": \"string\",\n      \"actor\": {\n        \"type\": \"user\",\n        \"userId\": \"string\",\n        \"email\": \"OoGWTuuYPTFUqDi@UyGroaSfAZTYVXKGMKDXaDulyO.hqsl\",\n        \"name\": \"string\"\n      },\n      \"modelId\": \"string\",\n      \"modelType\": \"string\",\n      \"category\": \"string\",\n      \"context\": {\n        \"baseId\": \"string\",\n        \"tableId\": \"string\",\n        \"viewId\": \"string\",\n        \"workspaceId\": \"string\",\n        \"interfaceId\": \"string\",\n        \"actionId\": \"string\",\n        \"ipAddress\": \"string\"\n      },\n      \"payloadVersion\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"timestamp\": \"1965-03-21T11:30:29.950Z\",\n      \"action\": \"string\",\n      \"actor\": {\n        \"type\": \"anonymous\",\n        \"userId\": \"string\",\n        \"email\": \"JianNKsAjf2@HQUCaIUizUapJiiL.ju\",\n        \"name\": \"string\"\n      },\n      \"modelId\": \"string\",\n      \"modelType\": \"string\",\n      \"category\": \"string\",\n      \"context\": {\n        \"baseId\": \"string\",\n        \"tableId\": \"string\",\n        \"viewId\": \"string\",\n        \"workspaceId\": \"string\",\n        \"interfaceId\": \"string\",\n        \"actionId\": \"string\",\n        \"ipAddress\": \"string\"\n      },\n      \"payloadVersion\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "body": "{\n  \"comments\": [\n    {\n      \"id\": \"string\",\n      \"text\": \"string\",\n      \"createdTime\": \"1978-12-20T23:22:08.455Z\",\n      \"author\": {\n        \"id\": \"string\",\n        \"email\": \"69caWaY--iIDp@myXgAgKwnsVGSCF.obu\",\n        \"name\": \"string\"\n      },\n      \"lastUpdatedTime\": \"2019-09-27T22:26:32.261Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"text\": \"string\",\n      \"createdTime\": \"1999-05-23T14:10:37.829Z\",\n      \"author\": {\n        \"id\": \"string\",\n        \"email\": \"Dc11PRvP2spk@cgUPVGyZDpMnSskeakFXBjehtygud.mytr\",\n        \"name\": \"string\"\n      },\n      \"lastUpdatedTime\": \"1972-12-29T22:22:33.397Z\"\n    }\n  ],\n  \"offset\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "eba27b5e-eef1-491d-8a2f-02a9a2cc477a",
+              "id": "388b9559-5bd1-4763-b1e9-3fc5af5f53c2",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogEvents"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "startTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "endTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "originatingUserId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "modelId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "category",
+                      "key": "offset",
                       "value": "<string>"
                     },
                     {
                       "key": "pageSize",
                       "value": "<integer>"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sortOrder",
-                      "value": "desc"
-                    },
-                    {
-                      "key": "previous",
-                      "value": "<string>"
                     }
                   ],
                   "variable": [
@@ -265,8 +181,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -300,59 +230,27 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "78697bb1-b61a-4147-8ec4-04a33d96c068",
-              "name": "The authenticated user does not have enterprise admin permission.",
+              "id": "a5703248-edf7-4848-b765-e669f256df85",
+              "name": "The authenticated user does not have permission to perform this action.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogEvents"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "startTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "endTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "originatingUserId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "modelId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "category",
+                      "key": "offset",
                       "value": "<string>"
                     },
                     {
                       "key": "pageSize",
                       "value": "<integer>"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sortOrder",
-                      "value": "desc"
-                    },
-                    {
-                      "key": "previous",
-                      "value": "<string>"
                     }
                   ],
                   "variable": [
@@ -360,8 +258,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -395,59 +307,27 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0d1f8c4e-01b0-4249-ae8e-00781d0c63cb",
+              "id": "f97a35f4-0482-459d-8c03-7fd4e291ca64",
               "name": "The requested resource was not found.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogEvents"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "startTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "endTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "originatingUserId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "modelId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "category",
+                      "key": "offset",
                       "value": "<string>"
                     },
                     {
                       "key": "pageSize",
                       "value": "<integer>"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sortOrder",
-                      "value": "desc"
-                    },
-                    {
-                      "key": "previous",
-                      "value": "<string>"
                     }
                   ],
                   "variable": [
@@ -455,8 +335,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -490,59 +384,27 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2b9807a7-4e0e-4860-99b0-a5b9d2ea25a7",
-              "name": "Rate limit exceeded.",
+              "id": "6c19b16b-6368-44a5-aaa2-9ac2accc3e86",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogEvents"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "startTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "endTime",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "originatingUserId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "modelId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "category",
+                      "key": "offset",
                       "value": "<string>"
                     },
                     {
                       "key": "pageSize",
                       "value": "<integer>"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sortOrder",
-                      "value": "desc"
-                    },
-                    {
-                      "key": "previous",
-                      "value": "<string>"
                     }
                   ],
                   "variable": [
@@ -550,8 +412,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -591,20 +467,20 @@
           }
         },
         {
-          "id": "c42720b3-38c8-46d5-8a46-59aafbad8da9",
-          "name": "Airtable List Audit Log Export Requests",
+          "id": "9b48d887-f330-41eb-9771-c010bd127c24",
+          "name": "Airtable Create a Comment on a Record",
           "request": {
-            "name": "Airtable List Audit Log Export Requests",
+            "name": "Airtable Create a Comment on a Record",
             "description": {
-              "content": "Returns a list of all audit log export requests that have been created for the enterprise account. Each request includes its status and download URLs when complete.",
+              "content": "Creates a new comment on the specified record. Comments can include user mentions using the @[usrXXXXXXXX] syntax. Requires OAuth authentication with the comment:write scope.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "meta",
-                "enterpriseAccounts",
-                ":enterpriseAccountId",
-                "auditLogRequests"
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId",
+                "comments"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -615,324 +491,22 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "enterpriseAccountId",
-                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "24c5c636-432a-4fc1-a1df-5d043a56aeef",
-              "name": "A list of audit log export requests.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
-                    }
-                  ]
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"auditLogRequests\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"processing\",\n      \"createdTime\": \"1995-08-15T19:26:25.032Z\",\n      \"filter\": {\n        \"startTime\": \"1974-07-03T20:04:07.530Z\",\n        \"endTime\": \"1993-06-21T23:27:06.220Z\",\n        \"originatingUserId\": \"string\",\n        \"eventType\": \"string\",\n        \"modelId\": \"string\",\n        \"category\": \"string\"\n      },\n      \"downloadUrls\": [\n        \"https://K.aaSgkPKM,4kKIpjrA0WlqMpX46+Uo8M6.tRp6w6BlygTtkUt4ReO73T\",\n        \"https://VMneHUWeHeYvLcdOKxqEhaCAvqtdY.oylo92Pm7cvHhfq2hYtuRdS9rkfAWeeXahW\"\n      ],\n      \"expirationTime\": \"2003-10-06T16:50:33.273Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"processing\",\n      \"createdTime\": \"2013-11-08T07:39:16.489Z\",\n      \"filter\": {\n        \"startTime\": \"2021-09-14T14:57:14.367Z\",\n        \"endTime\": \"2016-04-27T10:40:47.345Z\",\n        \"originatingUserId\": \"string\",\n        \"eventType\": \"string\",\n        \"modelId\": \"string\",\n        \"category\": \"string\"\n      },\n      \"downloadUrls\": [\n        \"https://FdiuTnKR.wblq4U.khmDZjJcBy+LqPglhlLQ\",\n        \"http://yjKalErXLvYohukHWqMnPLrEWnrxz.ghIRM,BAE8DxihOxCluYraLsQbC.kO.RgfQ\"\n      ],\n      \"expirationTime\": \"1959-12-17T07:35:31.703Z\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "89cde7ed-6109-4825-9be6-59095354e2ae",
-              "name": "Authentication credentials are missing or invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1e1c91b4-7f08-41e1-bc1f-991877f11728",
-              "name": "The authenticated user does not have enterprise admin permission.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "674b571a-6fff-4350-b76e-c0435d9d258e",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "da30a053-67ab-4114-932b-e8c99295b6df",
-              "name": "Rate limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c714b50a-266e-48bf-80a8-993ea8928348",
-          "name": "Airtable Create an Audit Log Export Request",
-          "request": {
-            "name": "Airtable Create an Audit Log Export Request",
-            "description": {
-              "content": "Creates a new audit log export request for the enterprise account. The request specifies a time range and optional filters. Once processing is complete, the audit log data can be downloaded from the provided URLs.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "meta",
-                "enterpriseAccounts",
-                ":enterpriseAccountId",
-                "auditLogRequests"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
                 {
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "enterpriseAccountId",
-                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
                 }
               ]
             },
@@ -950,7 +524,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"text\": \"<string>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -960,15 +534,15 @@
           },
           "response": [
             {
-              "id": "a1cb35d9-257f-432e-9152-91365930710e",
-              "name": "The newly created audit log export request.",
+              "id": "83eb3a1b-93cf-48dc-ae10-5054f095bbc3",
+              "name": "The created comment.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -979,8 +553,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -1001,7 +589,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1017,20 +605,20 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"status\": \"done\",\n  \"createdTime\": \"1949-06-08T17:25:19.730Z\",\n  \"filter\": {\n    \"startTime\": \"1978-02-20T00:54:39.438Z\",\n    \"endTime\": \"1998-11-07T12:39:58.218Z\",\n    \"originatingUserId\": \"string\",\n    \"eventType\": \"string\",\n    \"modelId\": \"string\",\n    \"category\": \"string\"\n  },\n  \"downloadUrls\": [\n    \"https://ENHzGGatabgEALw.buoCVVvD6Aj4qxlnc\",\n    \"https://LhvXVilMmtC.sruD6dUs0Z-mJDXZdxu\"\n  ],\n  \"expirationTime\": \"2014-08-13T20:13:52.668Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"text\": \"string\",\n  \"createdTime\": \"1957-04-06T07:27:13.416Z\",\n  \"author\": {\n    \"id\": \"string\",\n    \"email\": \"BehE277fkUchY@QllNQEzBvhZynpmxgGyIoKH.yq\",\n    \"name\": \"string\"\n  },\n  \"lastUpdatedTime\": \"2015-04-27T04:50:05.944Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "052658d3-3c94-463e-b504-54efe5d13e8b",
+              "id": "339c3d3e-bb5d-4896-9fd6-e6beacaf9c2d",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1041,8 +629,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -1063,7 +665,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1084,15 +686,15 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "265462a7-f2f6-43af-a74c-f4647b576f7e",
-              "name": "The authenticated user does not have enterprise admin permission.",
+              "id": "0af4c069-da39-4892-af4d-5fb6c3348520",
+              "name": "The authenticated user does not have permission to perform this action.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1103,8 +705,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -1125,7 +741,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1146,15 +762,15 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "ba2fbbd5-d925-4b69-85e6-6280306cbfc1",
+              "id": "04ced352-839f-40b5-a667-11250a1b1073",
               "name": "The requested resource was not found.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1165,8 +781,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -1187,7 +817,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1208,15 +838,15 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "79837726-7a8a-447a-b673-5bff2b443ede",
+              "id": "9dec0220-3916-4247-97f1-ec1fe1e8e60c",
               "name": "The request body contains invalid data.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1227,8 +857,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -1249,7 +893,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1270,15 +914,15 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4ddc63cb-c046-4297-b5cd-0b5d8b7343f8",
-              "name": "Rate limit exceeded.",
+              "id": "f415f2ec-5238-49aa-a409-8bfec9c66b07",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1289,8 +933,22 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
                     }
                   ]
                 },
@@ -1311,7 +969,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"filter\": {\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"originatingUserId\": \"<string>\",\n    \"eventType\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"category\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1338,21 +996,21 @@
           }
         },
         {
-          "id": "4bff8ec8-d143-48e4-a86d-f16a75ee022b",
-          "name": "Airtable Get an Audit Log Export Request",
+          "id": "8899da0d-88a1-432e-a76f-ce58fbee65a7",
+          "name": "Airtable Update a Comment",
           "request": {
-            "name": "Airtable Get an Audit Log Export Request",
+            "name": "Airtable Update a Comment",
             "description": {
-              "content": "Retrieves the status and details of a specific audit log export request. When the request is complete, the response includes download URLs for the exported data.",
+              "content": "Updates the text of an existing comment on a record. Only the author of the comment can update it.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "meta",
-                "enterpriseAccounts",
-                ":enterpriseAccountId",
-                "auditLogRequests",
-                ":requestId"
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId",
+                "comments",
+                ":commentId"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -1363,39 +1021,66 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "enterpriseAccountId",
-                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
                 },
                 {
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "requestId",
-                  "description": "(Required) The unique identifier of the audit log export request."
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "commentId",
+                  "description": "(Required) The unique identifier of the comment."
                 }
               ]
             },
             "header": [
               {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": [
             {
-              "id": "818c7bee-e201-47b6-a8d1-8b5289a891dd",
-              "name": "The audit log export request details and status.",
+              "id": "ae3547c0-4185-410c-a4bf-00b11fbffb83",
+              "name": "The updated comment.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests",
-                    ":requestId"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1406,15 +1091,29 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
                     },
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "requestId",
-                      "description": "(Required) The unique identifier of the audit log export request."
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
                     }
                   ]
                 },
@@ -1432,7 +1131,495 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"text\": \"string\",\n  \"createdTime\": \"1957-04-06T07:27:13.416Z\",\n  \"author\": {\n    \"id\": \"string\",\n    \"email\": \"BehE277fkUchY@QllNQEzBvhZynpmxgGyIoKH.yq\",\n    \"name\": \"string\"\n  },\n  \"lastUpdatedTime\": \"2015-04-27T04:50:05.944Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da70c7c9-0067-4968-a0ea-a9698bb6df0b",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f92ef39c-8969-482c-9505-b13f93a584c0",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f5c9aea-933f-4ff5-af0c-eca89427d4ee",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "133a4278-0c1a-431d-b4f3-5e345095383b",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd3071c2-34f6-4c8e-90c6-6fda53ccd90f",
+          "name": "Airtable Delete a Comment",
+          "request": {
+            "name": "Airtable Delete a Comment",
+            "description": {
+              "content": "Deletes a comment from a record. Only the author of the comment can delete it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "commentId",
+                  "description": "(Required) The unique identifier of the comment."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e671181f-a9a8-473a-9234-2190dc6be4a0",
+              "name": "Confirmation that the comment was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
                 "body": {}
               },
               "status": "OK",
@@ -1443,21 +1630,21 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"status\": \"done\",\n  \"createdTime\": \"1949-06-08T17:25:19.730Z\",\n  \"filter\": {\n    \"startTime\": \"1978-02-20T00:54:39.438Z\",\n    \"endTime\": \"1998-11-07T12:39:58.218Z\",\n    \"originatingUserId\": \"string\",\n    \"eventType\": \"string\",\n    \"modelId\": \"string\",\n    \"category\": \"string\"\n  },\n  \"downloadUrls\": [\n    \"https://ENHzGGatabgEALw.buoCVVvD6Aj4qxlnc\",\n    \"https://LhvXVilMmtC.sruD6dUs0Z-mJDXZdxu\"\n  ],\n  \"expirationTime\": \"2014-08-13T20:13:52.668Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"deleted\": false\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "e3c95263-aa33-42f4-9ec2-f34afac970f5",
+              "id": "820df8eb-51c8-4b19-a0d0-9860f766b1ed",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests",
-                    ":requestId"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1468,15 +1655,29 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
                     },
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "requestId",
-                      "description": "(Required) The unique identifier of the audit log export request."
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
                     }
                   ]
                 },
@@ -1494,7 +1695,7 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
+                "method": "DELETE",
                 "body": {}
               },
               "status": "Unauthorized",
@@ -1510,16 +1711,16 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "76d2fe4b-a3bc-4609-bf9e-dbc37c2f69e9",
-              "name": "The authenticated user does not have enterprise admin permission.",
+              "id": "87f2c64a-88e5-48f3-9952-d890e40f1f64",
+              "name": "The authenticated user does not have permission to perform this action.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests",
-                    ":requestId"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1530,15 +1731,29 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
                     },
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "requestId",
-                      "description": "(Required) The unique identifier of the audit log export request."
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
                     }
                   ]
                 },
@@ -1556,7 +1771,7 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
+                "method": "DELETE",
                 "body": {}
               },
               "status": "Forbidden",
@@ -1572,16 +1787,16 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b9bdf844-1d8a-46dd-8835-656b53e64632",
+              "id": "0ac5c43d-766d-4e48-9711-1692897b3438",
               "name": "The requested resource was not found.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests",
-                    ":requestId"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1592,15 +1807,29 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
                     },
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "requestId",
-                      "description": "(Required) The unique identifier of the audit log export request."
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
                     }
                   ]
                 },
@@ -1618,7 +1847,7 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
+                "method": "DELETE",
                 "body": {}
               },
               "status": "Not Found",
@@ -1634,16 +1863,16 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "890ca2b9-a13b-47d2-aaca-94716bba6b7c",
-              "name": "Rate limit exceeded.",
+              "id": "a7f050b1-6e43-4b19-88f1-6044d11f4cfe",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "meta",
-                    "enterpriseAccounts",
-                    ":enterpriseAccountId",
-                    "auditLogRequests",
-                    ":requestId"
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId",
+                    "comments",
+                    ":commentId"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -1654,15 +1883,29 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "enterpriseAccountId",
-                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
                     },
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "requestId",
-                      "description": "(Required) The unique identifier of the audit log export request."
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) The unique identifier of the comment."
                     }
                   ]
                 },
@@ -1680,7 +1923,7 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
+                "method": "DELETE",
                 "body": {}
               },
               "status": "Too Many Requests",
@@ -1723,8 +1966,8 @@
     ]
   },
   "info": {
-    "_postman_id": "33c10f81-c979-42fa-abf6-e211dba02350",
-    "name": "Airtable Audit Logs API",
+    "_postman_id": "cf56362c-1e8d-43f4-8f18-0778adbabcbc",
+    "name": "Airtable Audit Logs Comments API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",

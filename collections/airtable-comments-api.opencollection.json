@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Comments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Comments on a Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response to fetch the next page."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of comments to return per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of comments on the specified record. Comments are returned in reverse chronological order."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a Comment on a Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comment on the specified record. Comments can include user mentions using the @[usrXXXXXXXX] syntax. Requires OAuth authentication with the comment:write scope."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments/:commentId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the comment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the text of an existing comment on a record. Only the author of the comment can update it."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/:baseId/:tableIdOrName/:recordId/comments/:commentId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "The name or unique identifier (starts with 'tbl') of the table."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record (starts with 'rec')."
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the comment."
+              }
+            ]
+          },
+          "docs": "Deletes a comment from a record. Only the author of the comment can delete it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

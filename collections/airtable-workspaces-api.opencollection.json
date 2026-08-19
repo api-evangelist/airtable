@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Workspaces API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable Create a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workspace within the enterprise account."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/meta/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace (starts with 'wsp')."
+              }
+            ]
+          },
+          "docs": "Permanently deletes the specified workspace and all its contents. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Airtable Get Workspace Collaborators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/workspaces/:workspaceId/collaborators",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workspace."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include in the response."
+              }
+            ]
+          },
+          "docs": "Returns a list of all collaborators on the specified workspace, including individual users and user groups with their permission levels."
+        },
+        {
+          "info": {
+            "name": "Airtable Move Workspaces Between Enterprises",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/moveWorkspaces",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves one or more workspaces from this enterprise account to a target enterprise account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

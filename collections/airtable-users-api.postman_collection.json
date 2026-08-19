@@ -1,0 +1,5007 @@
+{
+  "item": [
+    {
+      "id": "c9605acd-ce55-454b-9960-8dc73fa1d7a7",
+      "name": "Users",
+      "description": {
+        "content": "Manage enterprise users, permissions, and access",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78620dc8-8229-420b-ae19-d2a595fbb509",
+          "name": "Airtable List Enterprise Users",
+          "request": {
+            "name": "Airtable List Enterprise Users",
+            "description": {
+              "content": "Returns a list of users within the enterprise account. Results can be filtered by user IDs or email addresses, and can include collaboration details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "Filter by one or more email addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "Filter by one or more email addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Filter by one or more user IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Filter by one or more user IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Additional information to include for each user."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Additional information to include for each user."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "235a0f21-49eb-4c0d-8990-45dc2436cdb3",
+              "name": "A list of enterprise users.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users\": [\n    {\n      \"id\": \"string\",\n      \"email\": \"Wful@VrPUxrcTDjPGBeOxddEYckkvkpKJY.nvpj\",\n      \"state\": \"unmanaged\",\n      \"name\": \"string\",\n      \"isAdmin\": false,\n      \"createdTime\": \"1963-02-22T18:17:54.227Z\",\n      \"lastActivityTime\": \"1967-10-21T23:00:32.735Z\",\n      \"collaborations\": {\n        \"workspaceCollaborations\": [\n          {\n            \"workspaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          },\n          {\n            \"workspaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          }\n        ],\n        \"baseCollaborations\": [\n          {\n            \"baseId\": \"string\",\n            \"permissionLevel\": \"string\"\n          },\n          {\n            \"baseId\": \"string\",\n            \"permissionLevel\": \"string\"\n          }\n        ],\n        \"interfaceCollaborations\": [\n          {\n            \"baseId\": \"string\",\n            \"interfaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          },\n          {\n            \"baseId\": \"string\",\n            \"interfaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"email\": \"195pgkmE@NdXTyPnkAUSOnyrmprPDnqtikkd.dmu\",\n      \"state\": \"unmanaged\",\n      \"name\": \"string\",\n      \"isAdmin\": true,\n      \"createdTime\": \"1981-04-25T12:55:09.814Z\",\n      \"lastActivityTime\": \"1965-01-08T00:52:55.849Z\",\n      \"collaborations\": {\n        \"workspaceCollaborations\": [\n          {\n            \"workspaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          },\n          {\n            \"workspaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          }\n        ],\n        \"baseCollaborations\": [\n          {\n            \"baseId\": \"string\",\n            \"permissionLevel\": \"string\"\n          },\n          {\n            \"baseId\": \"string\",\n            \"permissionLevel\": \"string\"\n          }\n        ],\n        \"interfaceCollaborations\": [\n          {\n            \"baseId\": \"string\",\n            \"interfaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          },\n          {\n            \"baseId\": \"string\",\n            \"interfaceId\": \"string\",\n            \"permissionLevel\": \"string\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9d4c055-4e84-49ca-b400-aab177b63337",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19e851a0-d991-4c29-8d58-d18e24fd143c",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24b1697a-ec16-46c0-96bb-648facc4906c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1406b449-4894-4ba1-8901-1736d7bb4572",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b682386f-19f3-4096-a0d0-847db01f1d2c",
+          "name": "Airtable Delete Users by ID",
+          "request": {
+            "name": "Airtable Delete Users by ID",
+            "description": {
+              "content": "Deletes one or more users from the enterprise account by their user IDs. This permanently removes the users and their data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce3f41d4-b680-4aaf-bba3-653a4b3d4fd2",
+              "name": "Confirmation of user deletion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deletedUsers\": [\n    {\n      \"id\": \"string\",\n      \"email\": \"N4hCae@qIQYvIhpRYoLhWPlbVLimvW.gdvn\"\n    },\n    {\n      \"id\": \"string\",\n      \"email\": \"FR8@IbcjxxyaIGllgygrFVVtmBqGTS.pfvs\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef7a0b78-2eaf-4ba7-9f9f-fb57a7cc2cad",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a740ef9-7b79-42b4-8751-d236f8bcaf5d",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fbddb91-479b-44c7-a29f-b313d8a9bed1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e8d1088-9b29-4968-bd08-e99a7cdcc09f",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e980ccef-33b2-494b-990c-fa268f566008",
+          "name": "Airtable Remove a User from Enterprise",
+          "request": {
+            "name": "Airtable Remove a User from Enterprise",
+            "description": {
+              "content": "Removes a user from the enterprise account. Optionally, a replacement user can be specified to take over shared resources. The response includes details about affected shared and unshared resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "users",
+                ":userId",
+                "remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user to remove."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"replacementOwnerId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "acbe7b16-db85-472d-ae4d-695ca3d66ea3",
+              "name": "Details of the removal including affected resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    ":userId",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replacementOwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"sharedBases\": [\n    {\n      \"baseId\": \"string\"\n    },\n    {\n      \"baseId\": \"string\"\n    }\n  ],\n  \"unsharedBases\": [\n    {\n      \"baseId\": \"string\"\n    },\n    {\n      \"baseId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "887285b2-fc79-4fa1-add0-6d093d5cc56b",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    ":userId",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replacementOwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67d3ddf1-4d18-4e74-84ca-293b7f071a07",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    ":userId",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replacementOwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a39f4371-e17f-4704-87ed-a62431a768a1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    ":userId",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replacementOwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a08717f-2ac5-4d85-a695-84a0d3051455",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    ":userId",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replacementOwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2672165-f358-4d87-91bb-af0bed7c02f0",
+          "name": "Airtable Claim Users Into Enterprise",
+          "request": {
+            "name": "Airtable Claim Users Into Enterprise",
+            "description": {
+              "content": "Claims one or more users into the enterprise account, setting their management status to either managed or unmanaged.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "claim",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f60eaa0a-044d-46bc-9233-d31a18c55c0a",
+              "name": "The result of the claim operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "claim",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a81228b2-d6c1-4c69-a186-9e27a76cb907",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "claim",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28d54b44-a52b-4aac-afa5-daf6b9426c38",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "claim",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "200fc18c-809d-47ef-b7dd-168fe27e4093",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "claim",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "508d338c-9d61-47aa-af58-068b4d8dc107",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "claim",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48fe2810-7cf9-48dc-9887-bcdc67e779de",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "claim",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9633c04b-75eb-4abc-a8b0-d3d6612cfd92",
+          "name": "Airtable Manage User Membership Status",
+          "request": {
+            "name": "Airtable Manage User Membership Status",
+            "description": {
+              "content": "Updates the managed or unmanaged status for one or more users in the enterprise account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "users",
+                "manageUserMembership"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eca90223-a207-463e-8ce3-e62868e5b53f",
+              "name": "The result of the membership management operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "manageUserMembership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb1936ed-32a4-4d57-ba6d-886f1c3db746",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "manageUserMembership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41860770-321c-40ae-9cc5-ee57a6d354ca",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "manageUserMembership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7a63d86-fef6-4a62-a3b8-7bb8b1a73454",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "manageUserMembership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c087333b-e75c-4d38-9f7a-6460d40a602d",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "manageUserMembership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0537eed9-c45e-4fcf-97ad-6393a668b8a6",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "manageUserMembership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": {\n    \"key_0\": {\n      \"state\": \"<string>\"\n    },\n    \"key_1\": {\n      \"state\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "351c2bb4-1784-4bb0-b77b-8dd62076f3c7",
+          "name": "Airtable Grant Admin Access to Users",
+          "request": {
+            "name": "Airtable Grant Admin Access to Users",
+            "description": {
+              "content": "Grants enterprise admin access to one or more users, allowing them to manage the enterprise account through the Admin panel and API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "users",
+                "grantAdminAccess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "680f6d39-1e73-4bab-a470-a2c461dfeebf",
+              "name": "The result of the admin grant operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "grantAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e963c53d-6df2-40a0-b28d-182be81cae13",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "grantAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d5aab07-cd57-48a7-89d7-c3cce794917c",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "grantAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7d4aa99-3a3c-4f3a-977c-69ea1df0658c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "grantAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22cbe95a-dbf5-44e7-a65b-a70438df9789",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "grantAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34daf14a-3342-4012-bc05-aab07b53383f",
+          "name": "Airtable Revoke Admin Access from Users",
+          "request": {
+            "name": "Airtable Revoke Admin Access from Users",
+            "description": {
+              "content": "Revokes enterprise admin access from one or more users. The users retain their regular enterprise membership but lose admin privileges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta",
+                "enterpriseAccounts",
+                ":enterpriseAccountId",
+                "users",
+                "revokeAdminAccess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enterpriseAccountId",
+                  "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a4aa7f5-5df7-42ad-9f77-bb1bd8136cd4",
+              "name": "The result of the admin revocation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "revokeAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"error\": {\n        \"type\": \"string\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3176e7d0-f2f9-40de-9827-b4672dcdef2f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "revokeAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a04d0908-d923-4fcf-9aad-337d78ce58ba",
+              "name": "The authenticated user does not have enterprise admin permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "revokeAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5767a419-ef82-4091-97ef-813f723d6ed0",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "revokeAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2a6e5f2-1bc8-4210-97ef-16f51fbee99b",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta",
+                    "enterpriseAccounts",
+                    ":enterpriseAccountId",
+                    "users",
+                    "revokeAdminAccess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enterpriseAccountId",
+                      "description": "(Required) The unique identifier of the enterprise account (starts with 'ent')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d727272b-6d97-4192-be20-72f05130f73f",
+          "name": "Airtable List SCIM Users",
+          "request": {
+            "name": "Airtable List SCIM Users",
+            "description": {
+              "content": "Returns a paginated list of SCIM user resources. Supports filtering by user attributes and pagination using startIndex and count parameters per the SCIM 2.0 specification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "SCIM filter expression (e.g., userName eq \"user@example.com\"). Supports eq operator on userName."
+                },
+                {
+                  "disabled": false,
+                  "key": "startIndex",
+                  "value": "1",
+                  "description": "The 1-based index of the first result to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "646667e2-c60e-4a89-a1ce-c76e88d87416",
+              "name": "A SCIM ListResponse containing user resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 46,\n  \"Resources\": [\n    {\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n      ],\n      \"id\": \"string\",\n      \"userName\": \"string\",\n      \"active\": true,\n      \"name\": {\n        \"givenName\": \"string\",\n        \"familyName\": \"string\"\n      },\n      \"emails\": [\n        {\n          \"value\": \"Yk7GF@qerKVtirKNkibFIvfzg.mdp\",\n          \"type\": \"string\",\n          \"primary\": false\n        },\n        {\n          \"value\": \"B6frzYRilxtSNHu@ZypQOhBNGCgEByOKQf.evh\",\n          \"type\": \"string\",\n          \"primary\": false\n        }\n      ],\n      \"title\": \"string\",\n      \"meta\": {\n        \"resourceType\": \"string\",\n        \"created\": \"1955-08-23T07:34:22.580Z\",\n        \"lastModified\": \"2001-03-11T01:51:51.547Z\"\n      }\n    },\n    {\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n      ],\n      \"id\": \"string\",\n      \"userName\": \"string\",\n      \"active\": true,\n      \"name\": {\n        \"givenName\": \"string\",\n        \"familyName\": \"string\"\n      },\n      \"emails\": [\n        {\n          \"value\": \"iQF@dNtGfZcVqZgLe.km\",\n          \"type\": \"string\",\n          \"primary\": true\n        },\n        {\n          \"value\": \"jMTaR9rSZeY8@IzWXmlG.mx\",\n          \"type\": \"string\",\n          \"primary\": true\n        }\n      ],\n      \"title\": \"string\",\n      \"meta\": {\n        \"resourceType\": \"string\",\n        \"created\": \"1991-09-30T04:50:16.218Z\",\n        \"lastModified\": \"2022-08-28T05:54:35.095Z\"\n      }\n    }\n  ],\n  \"itemsPerPage\": 1004,\n  \"startIndex\": 4421\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc033928-df7e-439a-b143-e02c3d8cd07a",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8702b8a1-23c4-4c74-b1ce-1c9a47c56926",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a25443b4-e0a7-47cb-9ce8-d7f8fd9865d6",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "1"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b904855-70dc-41c8-b57c-ac1eb7d2f6a1",
+          "name": "Airtable Create a SCIM User",
+          "request": {
+            "name": "Airtable Create a SCIM User",
+            "description": {
+              "content": "Provisions a new user in Airtable through the SCIM protocol. The user will be added to the enterprise account. SSO must be configured as Airtable does not allow setting passwords through SCIM.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0765d3ba-7bd5-4dcb-b886-220573502a6e",
+              "name": "The newly created SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": false,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"iDaA@yYUIZVrVliTsUEwYxQwmADqgyFfNDJAY.lee\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"oKAi8Lj2Vnvj@lSds.lufb\",\n      \"type\": \"string\",\n      \"primary\": false\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1949-10-10T18:33:02.839Z\",\n    \"lastModified\": \"2024-04-14T11:45:29.195Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cc7fffc-db07-4c18-a3a7-fd07668b78d9",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "356a4f1e-cd77-4eea-aea9-4457246583fc",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77fecbcf-f349-4de9-af31-ac88bf682c1a",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e3882c4-1157-4fe9-98e6-e265af99dcbf",
+              "name": "A user with the same userName already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b785032e-ea2d-4219-8b9f-f194b74a30bf",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6f7f044-8d14-412c-9ff8-f3955fb16de9",
+          "name": "Airtable Get a SCIM User",
+          "request": {
+            "name": "Airtable Get a SCIM User",
+            "description": {
+              "content": "Retrieves a single SCIM user resource by its unique identifier. Returns the complete user profile including name, email, and active status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f61dc2a8-acac-4fe2-a14b-55663342a423",
+              "name": "The requested SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": false,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"iDaA@yYUIZVrVliTsUEwYxQwmADqgyFfNDJAY.lee\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"oKAi8Lj2Vnvj@lSds.lufb\",\n      \"type\": \"string\",\n      \"primary\": false\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1949-10-10T18:33:02.839Z\",\n    \"lastModified\": \"2024-04-14T11:45:29.195Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8b6f63d-7a39-481d-ab9c-8b3ac7bcd594",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0141ee0-6657-4d49-acf4-2b6e9e77606d",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b95d5b85-2523-441c-bd04-064379a120fa",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a94b9ac1-0ff8-4599-b9fe-341e3d0b93c8",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d62ce94-6478-42e4-bc0a-56a8026f8bda",
+          "name": "Airtable Replace a SCIM User",
+          "request": {
+            "name": "Airtable Replace a SCIM User",
+            "description": {
+              "content": "Replaces a SCIM user resource entirely. All attributes are overwritten with the values in the request body. This is a full replacement, not a partial update.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0531a192-6311-42db-91b1-ad0e78ea3944",
+              "name": "The replaced SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": false,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"iDaA@yYUIZVrVliTsUEwYxQwmADqgyFfNDJAY.lee\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"oKAi8Lj2Vnvj@lSds.lufb\",\n      \"type\": \"string\",\n      \"primary\": false\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1949-10-10T18:33:02.839Z\",\n    \"lastModified\": \"2024-04-14T11:45:29.195Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5126a3cd-32b7-4746-9283-de4be39e789e",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d793affe-2bc9-4582-949b-e622d6eea24c",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e46be45d-f5d3-4f5c-b218-6c2edd65a316",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f24d40a4-67fb-4628-b4d7-fb31383a10f8",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82f94c98-3b99-44a7-8e4d-77091531ee34",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"type\": \"<string>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": true,\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1dfc894-fd82-455f-94e4-4d900afe1029",
+          "name": "Airtable Update a SCIM User (partial)",
+          "request": {
+            "name": "Airtable Update a SCIM User (partial)",
+            "description": {
+              "content": "Partially updates a SCIM user resource using SCIM PATCH operations. Supports add, replace, and remove operations on user attributes. Commonly used to activate or deactivate users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b368a85-1e0b-41c4-8853-9d301c483fa6",
+              "name": "The updated SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"string\",\n  \"active\": false,\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"iDaA@yYUIZVrVliTsUEwYxQwmADqgyFfNDJAY.lee\",\n      \"type\": \"string\",\n      \"primary\": true\n    },\n    {\n      \"value\": \"oKAi8Lj2Vnvj@lSds.lufb\",\n      \"type\": \"string\",\n      \"primary\": false\n    }\n  ],\n  \"title\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"string\",\n    \"created\": \"1949-10-10T18:33:02.839Z\",\n    \"lastModified\": \"2024-04-14T11:45:29.195Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dd214c7-bfc4-4d70-8d33-ea8bb5bfbeb5",
+              "name": "The request body is malformed or contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13c499b3-2504-4813-b591-0c6e56122c64",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bee0a08-10fe-42b7-b232-6b4c1dc0a391",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b31c359-b601-4ac9-9c7f-ca932aa0ddfa",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9209f591-d3aa-4bd3-9cb9-2edcd6232fe9",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99a475e4-05dc-418c-b150-b16ef89bc5f6",
+          "name": "Airtable Delete a SCIM User",
+          "request": {
+            "name": "Airtable Delete a SCIM User",
+            "description": {
+              "content": "Permanently deletes a SCIM user resource from the enterprise account. The user will lose access to all Airtable resources associated with the enterprise.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the SCIM user resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3d4620ab-8275-4ca1-ac8c-599b5e98c4ac",
+              "name": "The user was successfully deleted. No content returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b7e899f4-fad0-429b-8bc2-cffacff7800d",
+              "name": "SCIM authentication token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9ccb859-3107-4636-858e-27bdd023e603",
+              "name": "The authenticated token does not have SCIM provisioning permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0273b71-1552-4aed-992f-5b38beb66f63",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13d9bf78-5abb-462f-bc73-9b6312d26fa1",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the SCIM user resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"detail\": \"string\",\n  \"status\": \"string\",\n  \"scimType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.airtable.com/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea795f12-9d87-49e5-8884-d6a5ae95f34d",
+    "name": "Airtable Audit Logs Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Bases API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List All Bases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/bases",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response to fetch the next page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all bases that the authenticated user has access to. Each base includes its ID, name, and permission level. Use the offset parameter from the response to paginate through all available bases."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a New Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/bases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new base in the specified workspace. The request must include the workspace ID, base name, and at least one table definition with fields. Returns the newly created base with its schema."
+        },
+        {
+          "info": {
+            "name": "Airtable Get Base Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/bases/:baseId/tables",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include in the response. Pass visibleFieldIds to include visible field IDs for each view."
+              }
+            ]
+          },
+          "docs": "Returns the schema of the specified base, including all tables, their fields (with type and configuration), and views. This endpoint provides a complete structural overview of the base."
+        },
+        {
+          "info": {
+            "name": "Airtable Get Current User and Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/whoami"
+          },
+          "docs": "Returns the ID and scopes of the currently authenticated user or service account. Useful for verifying authentication and checking available permissions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

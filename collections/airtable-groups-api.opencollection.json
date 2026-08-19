@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable Get a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user group."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include."
+              }
+            ]
+          },
+          "docs": "Returns details about a specific user group, including its members and configuration."
+        },
+        {
+          "info": {
+            "name": "Airtable Move User Groups Between Enterprises",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/moveGroups",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves one or more user groups from this enterprise account to a target enterprise account."
+        },
+        {
+          "info": {
+            "name": "Airtable List SCIM Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/Groups",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression (e.g., displayName eq \"Engineering\")."
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "The 1-based index of the first result to return."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of SCIM group resources. Supports filtering by group display name and pagination using startIndex and count."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/Groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new SCIM group in the enterprise account. Groups can contain user members and are used for access management."
+        },
+        {
+          "info": {
+            "name": "Airtable Get a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single SCIM group resource by its unique identifier, including its member list."
+        },
+        {
+          "info": {
+            "name": "Airtable Replace a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.airtable.com/v0/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a SCIM group resource entirely with the provided data. The complete member list must be included in the request."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a SCIM Group (partial)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a SCIM group resource using SCIM PATCH operations. Commonly used to add or remove members from the group without replacing the entire resource."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/Groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM group resource."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a SCIM group from the enterprise account. Members are not deleted but are removed from the group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

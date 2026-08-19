@@ -1,0 +1,335 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable List Enterprise Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more email addresses."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more user IDs."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional information to include for each user."
+              }
+            ]
+          },
+          "docs": "Returns a list of users within the enterprise account. Results can be filtered by user IDs or email addresses, and can include collaboration details."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete Users by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes one or more users from the enterprise account by their user IDs. This permanently removes the users and their data."
+        },
+        {
+          "info": {
+            "name": "Airtable Remove a User from Enterprise",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/:userId/remove",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user to remove."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a user from the enterprise account. Optionally, a replacement user can be specified to take over shared resources. The response includes details about affected shared and unshared resources."
+        },
+        {
+          "info": {
+            "name": "Airtable Claim Users Into Enterprise",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/claim/users",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Claims one or more users into the enterprise account, setting their management status to either managed or unmanaged."
+        },
+        {
+          "info": {
+            "name": "Airtable Manage User Membership Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/manageUserMembership",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the managed or unmanaged status for one or more users in the enterprise account."
+        },
+        {
+          "info": {
+            "name": "Airtable Grant Admin Access to Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/grantAdminAccess",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grants enterprise admin access to one or more users, allowing them to manage the enterprise account through the Admin panel and API."
+        },
+        {
+          "info": {
+            "name": "Airtable Revoke Admin Access from Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/enterpriseAccounts/:enterpriseAccountId/users/revokeAdminAccess",
+            "params": [
+              {
+                "name": "enterpriseAccountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enterprise account (starts with 'ent')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revokes enterprise admin access from one or more users. The users retain their regular enterprise membership but lose admin privileges."
+        },
+        {
+          "info": {
+            "name": "Airtable List SCIM Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/Users",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression (e.g., userName eq \"user@example.com\"). Supports eq operator on userName."
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "The 1-based index of the first result to return."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of SCIM user resources. Supports filtering by user attributes and pagination using startIndex and count parameters per the SCIM 2.0 specification."
+        },
+        {
+          "info": {
+            "name": "Airtable Create a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/Users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provisions a new user in Airtable through the SCIM protocol. The user will be added to the enterprise account. SSO must be configured as Airtable does not allow setting passwords through SCIM."
+        },
+        {
+          "info": {
+            "name": "Airtable Get a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.airtable.com/v0/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single SCIM user resource by its unique identifier. Returns the complete user profile including name, email, and active status."
+        },
+        {
+          "info": {
+            "name": "Airtable Replace a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.airtable.com/v0/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a SCIM user resource entirely. All attributes are overwritten with the values in the request body. This is a full replacement, not a partial update."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a SCIM User (partial)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a SCIM user resource using SCIM PATCH operations. Supports add, replace, and remove operations on user attributes. Commonly used to activate or deactivate users."
+        },
+        {
+          "info": {
+            "name": "Airtable Delete a SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.airtable.com/v0/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the SCIM user resource."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a SCIM user resource from the enterprise account. The user will lose access to all Airtable resources associated with the enterprise."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

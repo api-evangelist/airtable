@@ -1,0 +1,1893 @@
+{
+  "item": [
+    {
+      "id": "cf00a167-5a31-468d-9f51-59ba61400331",
+      "name": "Webhooks",
+      "description": {
+        "content": "Subscribe to real-time change notifications on bases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10727f15-3989-4b36-9d67-102f31140719",
+          "name": "Airtable List Webhooks for a Base",
+          "request": {
+            "name": "Airtable List Webhooks for a Base",
+            "description": {
+              "content": "Returns a list of all webhooks registered for the specified base. Includes webhook configuration, status, and expiration information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bases",
+                ":baseId",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "314bb43d-05c6-427e-afbb-91f6ea1b1e82",
+              "name": "A list of webhooks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhooks\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"isHookEnabled\": false,\n      \"notificationUrl\": \"https://FRSZOKiqnPEUlYGMlxCgahAITFntUBffE.biblApOCxBxpX6bkwMC21cJk5wXG6He1Aef+RWHNlW0OQfcbzNHF8nRbUj3jU8fvZlD7hB96\",\n      \"cursorForNextPayload\": 4024,\n      \"areNotificationsEnabled\": true,\n      \"createdTime\": \"1965-02-23T10:04:02.253Z\",\n      \"expirationTime\": \"1976-11-24T22:00:31.685Z\",\n      \"specification\": {\n        \"options\": {\n          \"filters\": {\n            \"sourceOptions\": {\n              \"formSubmission\": {\n                \"tableId\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"viewId\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"formPageSubmission\": {\n                \"pageId\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            \"dataTypes\": [\n              \"tableFields\",\n              \"tableData\"\n            ],\n            \"recordChangeScope\": \"string\",\n            \"watchDataInFieldIds\": [\n              \"string\",\n              \"string\"\n            ],\n            \"watchSchemasOfFieldIds\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"isHookEnabled\": true,\n      \"notificationUrl\": \"https://ppvLMMtFVuPglCUppPZb.jjtzt,KaL8FLlbMlEyK9rhQknGHckglNNYcJiugMgj4TsU4pCpZoihCx5\",\n      \"cursorForNextPayload\": 3024,\n      \"areNotificationsEnabled\": false,\n      \"createdTime\": \"1981-11-16T09:37:52.996Z\",\n      \"expirationTime\": \"1978-01-30T01:05:01.635Z\",\n      \"specification\": {\n        \"options\": {\n          \"filters\": {\n            \"sourceOptions\": {\n              \"formSubmission\": {\n                \"tableId\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"viewId\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"formPageSubmission\": {\n                \"pageId\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            \"dataTypes\": [\n              \"tableData\",\n              \"tableFields\"\n            ],\n            \"recordChangeScope\": \"string\",\n            \"watchDataInFieldIds\": [\n              \"string\",\n              \"string\"\n            ],\n            \"watchSchemasOfFieldIds\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a89fa561-9a44-4dac-8ec6-8897fdf2622e",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b9a033b-5e62-45c9-b2cb-a5ef4af8637c",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb9b26ba-9654-46b1-88f4-8e07a93d982a",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66b06725-5682-42b0-a431-b9e3427683b5",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79b4c738-e831-4b55-b485-60475da89b1f",
+          "name": "Airtable Create a Webhook for a Base",
+          "request": {
+            "name": "Airtable Create a Webhook for a Base",
+            "description": {
+              "content": "Creates a new webhook subscription for the specified base. Webhooks expire after 7 days and must be refreshed. The response includes a MAC secret used to verify webhook notification payloads. Requires OAuth authentication with the webhook:manage scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bases",
+                ":baseId",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"<string>\",\n            \"viewId\": \"<string>\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"<string>\"\n          }\n        },\n        \"dataTypes\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"recordChangeScope\": \"<string>\",\n        \"watchDataInFieldIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "977a20f7-4a6e-4f27-824e-f14ae4079385",
+              "name": "The created webhook with MAC secret.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"string\",\n            \"viewId\": \"string\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"string\"\n          }\n        },\n        \"dataTypes\": [\n          \"tableFields\",\n          \"tableData\"\n        ],\n        \"recordChangeScope\": \"string\",\n        \"watchDataInFieldIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"macSecretBase64\": \"string\",\n  \"expirationTime\": \"2015-09-25T17:12:45.296Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "237fe863-14fb-4a77-8fcf-575224cc0af0",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"string\",\n            \"viewId\": \"string\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"string\"\n          }\n        },\n        \"dataTypes\": [\n          \"tableFields\",\n          \"tableData\"\n        ],\n        \"recordChangeScope\": \"string\",\n        \"watchDataInFieldIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7718e1ba-44dd-4b94-9ebe-a16510904434",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"string\",\n            \"viewId\": \"string\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"string\"\n          }\n        },\n        \"dataTypes\": [\n          \"tableFields\",\n          \"tableData\"\n        ],\n        \"recordChangeScope\": \"string\",\n        \"watchDataInFieldIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6e0a7ed-c0df-43a6-9f4f-712553d9acff",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"string\",\n            \"viewId\": \"string\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"string\"\n          }\n        },\n        \"dataTypes\": [\n          \"tableFields\",\n          \"tableData\"\n        ],\n        \"recordChangeScope\": \"string\",\n        \"watchDataInFieldIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d576e753-fadc-4e75-8c14-2b435de90928",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"string\",\n            \"viewId\": \"string\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"string\"\n          }\n        },\n        \"dataTypes\": [\n          \"tableFields\",\n          \"tableData\"\n        ],\n        \"recordChangeScope\": \"string\",\n        \"watchDataInFieldIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "360d498a-8688-4a0f-86e3-99596efd1211",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationUrl\": \"<uri>\",\n  \"specification\": {\n    \"options\": {\n      \"filters\": {\n        \"sourceOptions\": {\n          \"formSubmission\": {\n            \"tableId\": \"string\",\n            \"viewId\": \"string\"\n          },\n          \"formPageSubmission\": {\n            \"pageId\": \"string\"\n          }\n        },\n        \"dataTypes\": [\n          \"tableFields\",\n          \"tableData\"\n        ],\n        \"recordChangeScope\": \"string\",\n        \"watchDataInFieldIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"watchSchemasOfFieldIds\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36e2d473-78c1-4087-8138-aa3c5c66812e",
+          "name": "Airtable Delete a Webhook",
+          "request": {
+            "name": "Airtable Delete a Webhook",
+            "description": {
+              "content": "Deletes an existing webhook subscription. The webhook will no longer send notifications after deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bases",
+                ":baseId",
+                "webhooks",
+                ":webhookId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhookId",
+                  "description": "(Required) The unique identifier of the webhook."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afdc2807-45dc-4f52-b2bc-4fd929e76e4b",
+              "name": "Confirmation that the webhook was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b72578ad-7d6b-4905-a0ea-6b5e9a771649",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fcdacd0-b808-4474-8be4-10bfb2cbafad",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d413162d-ef4a-4cb3-96ba-09db0b20dbcc",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9528c98f-0110-4041-93b0-32c5b77a984c",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcc34473-ec3c-40e5-b6ab-f5556ed2941f",
+          "name": "Airtable Refresh a Webhook",
+          "request": {
+            "name": "Airtable Refresh a Webhook",
+            "description": {
+              "content": "Extends the expiration time of an existing webhook. Webhooks expire after 7 days of inactivity and must be periodically refreshed to remain active.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bases",
+                ":baseId",
+                "webhooks",
+                ":webhookId",
+                "refresh"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhookId",
+                  "description": "(Required) The unique identifier of the webhook."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82c40228-4fff-4a63-a7f6-b33cfdae7e82",
+              "name": "The refreshed webhook with new expiration time.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expirationTime\": \"1976-03-03T12:59:02.661Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b00785f-bcb1-48ca-a09b-5f75b3fd4c7f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa52de61-4d50-4d8f-97ac-5f0955f4bc7b",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26a5599f-3cf3-4e76-8228-8517f653fccb",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c2f65b9-98a2-48a6-8d4a-8a848a11101a",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "767e9625-3109-4f4e-80bb-a041ab5521c6",
+          "name": "Airtable List Webhook Payloads",
+          "request": {
+            "name": "Airtable List Webhook Payloads",
+            "description": {
+              "content": "Returns a list of payloads that have been generated for the specified webhook. Payloads are returned in chronological order and can be paginated using a cursor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bases",
+                ":baseId",
+                "webhooks",
+                ":webhookId",
+                "payloads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "A cursor for pagination. Pass the cursor from the previous response to get the next page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhookId",
+                  "description": "(Required) The unique identifier of the webhook."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df0ddb1c-0bb8-4261-a3fc-e6f689a1b634",
+              "name": "A list of webhook payloads.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "payloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payloads\": [\n    {\n      \"timestamp\": \"2003-02-14T16:55:51.175Z\",\n      \"baseTransactionNumber\": 4962,\n      \"payloadFormat\": \"string\",\n      \"actionMetadata\": {\n        \"source\": \"string\",\n        \"sourceMetadata\": {}\n      },\n      \"changedTablesById\": {\n        \"key_0\": {\n          \"changedRecordsById\": {\n            \"key_0\": {}\n          },\n          \"createdRecordsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"destroyedRecordIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"changedFieldsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"createdFieldsById\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"destroyedFieldIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"changedViewsById\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"createdViewsById\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"destroyedViewIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      }\n    },\n    {\n      \"timestamp\": \"1976-01-30T22:43:43.874Z\",\n      \"baseTransactionNumber\": 8991,\n      \"payloadFormat\": \"string\",\n      \"actionMetadata\": {\n        \"source\": \"string\",\n        \"sourceMetadata\": {}\n      },\n      \"changedTablesById\": {\n        \"key_0\": {\n          \"changedRecordsById\": {\n            \"key_0\": {}\n          },\n          \"createdRecordsById\": {\n            \"key_0\": {}\n          },\n          \"destroyedRecordIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"changedFieldsById\": {\n            \"key_0\": {}\n          },\n          \"createdFieldsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {},\n            \"key_3\": {}\n          },\n          \"destroyedFieldIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"changedViewsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"createdViewsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"destroyedViewIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"changedRecordsById\": {\n            \"key_0\": {}\n          },\n          \"createdRecordsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"destroyedRecordIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"changedFieldsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"createdFieldsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"destroyedFieldIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"changedViewsById\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"createdViewsById\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"destroyedViewIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      }\n    }\n  ],\n  \"cursor\": 2123,\n  \"mightHaveMore\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebbc0168-e33f-4878-86bc-664f57a91986",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "payloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58c700f1-65cd-4979-b5c4-66d54f7eb631",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "payloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bb6a55b-95c9-4862-a473-9189590ad066",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "payloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93af600d-0797-4091-9add-76cfaf85e521",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bases",
+                    ":baseId",
+                    "webhooks",
+                    ":webhookId",
+                    "payloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhookId",
+                      "description": "(Required) The unique identifier of the webhook."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.airtable.com/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "602356e6-9b27-41a5-a0fc-48effb574aaf",
+    "name": "Airtable Audit Logs Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+      "type": "text/plain"
+    }
+  }
+}

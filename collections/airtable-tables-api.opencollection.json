@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Airtable Audit Logs Tables API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airtable Create a Table in a Base",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.airtable.com/v0/meta/bases/:baseId/tables",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new table within the specified base. The table must include a name and at least one field definition. Optionally include a description for the table."
+        },
+        {
+          "info": {
+            "name": "Airtable Update a Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.airtable.com/v0/meta/bases/:baseId/tables/:tableId",
+            "params": [
+              {
+                "name": "baseId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base (starts with 'app')."
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the table (starts with 'tbl')."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name and/or description of an existing table. Only the provided fields will be modified."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

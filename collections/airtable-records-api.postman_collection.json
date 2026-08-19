@@ -1,0 +1,3233 @@
+{
+  "item": [
+    {
+      "id": "a79bdb47-5593-4641-8666-6c2169c69053",
+      "name": "Records",
+      "description": {
+        "content": "Create, read, update, and delete records in a table",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "67df4aec-03fa-4763-ba0d-2c1f2fb77b10",
+          "name": "Airtable List Records in a Table",
+          "request": {
+            "name": "Airtable List Records in a Table",
+            "description": {
+              "content": "Returns a paginated list of records in the specified table. Records can be filtered using an Airtable formula, sorted by specific fields, and limited to specific fields. The maximum page size is 100 records. Use the offset parameter from the response to fetch the next page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[]",
+                  "value": "<string>",
+                  "description": "Only return data for the specified field names or IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[]",
+                  "value": "<string>",
+                  "description": "Only return data for the specified field names or IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "filterByFormula",
+                  "value": "<string>",
+                  "description": "An Airtable formula used to filter records. The formula is evaluated for each record, and if the result is not 0, false, \"\", NaN, [], or #Error!, the record will be included in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxRecords",
+                  "value": "<integer>",
+                  "description": "The maximum total number of records that will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "The number of records returned in each request. Must be less than or equal to 100. Default is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort[0][field]",
+                  "value": "<string>",
+                  "description": "A list of sort objects that specifies how the records will be ordered. Each sort object must have a field key and an optional direction key (asc or desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort[0][direction]",
+                  "value": "<string>",
+                  "description": "A list of sort objects that specifies how the records will be ordered. Each sort object must have a field key and an optional direction key (asc or desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort[1][field]",
+                  "value": "<string>",
+                  "description": "A list of sort objects that specifies how the records will be ordered. Each sort object must have a field key and an optional direction key (asc or desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort[1][direction]",
+                  "value": "<string>",
+                  "description": "A list of sort objects that specifies how the records will be ordered. Each sort object must have a field key and an optional direction key (asc or desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "The name or ID of a view in the table. If set, only the records in that view will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "cellFormat",
+                  "value": "<string>",
+                  "description": "The format that should be used for cell values. Supported values are json (default) and string."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeZone",
+                  "value": "<string>",
+                  "description": "The time zone to use for formatting dates when using string cell format."
+                },
+                {
+                  "disabled": false,
+                  "key": "userLocale",
+                  "value": "<string>",
+                  "description": "The user locale to use for formatting dates when using string cell format."
+                },
+                {
+                  "disabled": false,
+                  "key": "returnFieldsByFieldId",
+                  "value": "<boolean>",
+                  "description": "If true, the response will use field IDs as object keys instead of field names."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "A pagination cursor returned from a previous request. Pass this value to fetch the next page of results."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b3da1e9-fcaa-437b-8d2a-0247b3ee1503",
+              "name": "A paginated list of records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filterByFormula",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxRecords",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort[0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[0][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cellFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userLocale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"id\": \"recABC123def456\",\n      \"createdTime\": \"1970-07-19T02:01:11.409Z\",\n      \"fields\": {\n        \"key_0\": 7504,\n        \"key_1\": true,\n        \"key_2\": 6605,\n        \"key_3\": 7495,\n        \"key_4\": 2200.5299062503914\n      }\n    },\n    {\n      \"id\": \"recABC123def456\",\n      \"createdTime\": \"1965-02-18T13:04:29.876Z\",\n      \"fields\": {\n        \"key_0\": false,\n        \"key_1\": 6736\n      }\n    }\n  ],\n  \"offset\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de7255de-29b2-4481-9a51-0ac4be4206ca",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filterByFormula",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxRecords",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort[0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[0][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cellFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userLocale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38f81e6c-405e-4818-a654-368c1b1b079d",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filterByFormula",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxRecords",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort[0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[0][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cellFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userLocale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cb86cdc-5134-4a77-b297-3e7f2b79cf49",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filterByFormula",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxRecords",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort[0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[0][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cellFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userLocale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b06aac36-06f7-4ca7-a6e3-1d68260f4925",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filterByFormula",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxRecords",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort[0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[0][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cellFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userLocale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acf4ef67-e762-4333-8818-d0531af85403",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filterByFormula",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxRecords",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort[0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[0][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort[1][direction]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cellFormat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userLocale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3795d29d-37e9-4efc-8c56-2f6934540e8c",
+          "name": "Airtable Create Records in a Table",
+          "request": {
+            "name": "Airtable Create Records in a Table",
+            "description": {
+              "content": "Creates up to 10 records in the specified table. Each record must include a fields object mapping field names (or IDs) to values. If typecast is enabled, the API will attempt to convert string values to the appropriate cell value.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 9538\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4378daa1-21e6-431d-9a44-fb0eda0f9c6c",
+              "name": "The created records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 504\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"id\": \"recABC123def456\",\n      \"createdTime\": \"2026-01-27T05:03:48.021Z\",\n      \"fields\": {\n        \"key_0\": 5568.508760091473\n      }\n    },\n    {\n      \"id\": \"recABC123def456\",\n      \"createdTime\": \"1981-08-09T16:27:01.475Z\",\n      \"fields\": {\n        \"key_0\": false,\n        \"key_1\": 9759.172099343965,\n        \"key_2\": false,\n        \"key_3\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2df47a03-35bb-4269-b1d6-e215bb7dd1ef",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 504\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbfd4490-fd7c-45f0-9db3-a635f1547312",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 504\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e56a221-13dc-454f-8457-d22b51b9a7ac",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 504\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab5ed36a-d245-4316-86f4-13bab434e44a",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 504\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f0db0ac-4163-4dbc-98b4-a6ab9452fdb4",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"fields\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"fields\": {\n        \"key_0\": 504\n      }\n    }\n  ],\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb309d98-60d2-4bbe-9a4f-dcf66884e2c8",
+          "name": "Airtable Retrieve a Single Record",
+          "request": {
+            "name": "Airtable Retrieve a Single Record",
+            "description": {
+              "content": "Retrieves a single record by its ID from the specified table. Returns the record's fields, creation time, and ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "returnFieldsByFieldId",
+                  "value": "<boolean>",
+                  "description": "If true, the response will use field IDs as keys instead of field names."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0040066e-3ad4-4e56-ba99-9dcc93282268",
+              "name": "The requested record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"recABC123def456\",\n  \"createdTime\": \"1959-08-21T17:49:08.419Z\",\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcecc6a6-3bc8-43ae-8447-b0d1d0b036ee",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2248a4b9-ebb4-4fff-874c-f37c0d9f3bb8",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fda1c99-c8e7-4cce-8c99-e57c373ac8a2",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb8f240a-f44a-49c6-baa3-fd5642196e7e",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "returnFieldsByFieldId",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ded22215-c7d5-4784-a33a-d2d54bffa848",
+          "name": "Airtable Update a Record (partial)",
+          "request": {
+            "name": "Airtable Update a Record (partial)",
+            "description": {
+              "content": "Updates specific fields of an existing record. Only the fields included in the request body will be updated; all other fields will remain unchanged. Up to 10 records can be updated in a single request when using the batch endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"key_0\": 2244,\n    \"key_1\": 4187,\n    \"key_2\": \"string\",\n    \"key_3\": 629.20328588291\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d55139de-a635-43ee-81ff-ebcf063296be",
+              "name": "The updated record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": 5821.453305609058\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"recABC123def456\",\n  \"createdTime\": \"1959-08-21T17:49:08.419Z\",\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5042b2ef-1628-47d2-8ec7-1ec11c8e88f0",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": 5821.453305609058\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3b94b26-bebb-46c7-a336-28c1429fec9e",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": 5821.453305609058\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8fbc4cd-68ca-427f-9152-1b9a6315d400",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": 5821.453305609058\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22d80374-db29-433d-ab5e-8d561b5c2c27",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": 5821.453305609058\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92b7c2b0-bcdb-404a-99fb-bd440e09c758",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": 5821.453305609058\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25500dad-efef-4586-82c2-530c8361fea1",
+          "name": "Airtable Update a Record (full Replacement)",
+          "request": {
+            "name": "Airtable Update a Record (full Replacement)",
+            "description": {
+              "content": "Replaces all fields of an existing record. Fields that are not included in the request body will be cleared. This is a destructive update that overwrites the entire record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"key_0\": \"string\"\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b0df970-004d-4152-9399-b56fcc8b0fff",
+              "name": "The replaced record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": 2450\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"recABC123def456\",\n  \"createdTime\": \"1959-08-21T17:49:08.419Z\",\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "588b4616-aa35-4459-95cd-56089b78bafe",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": 2450\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41db1754-7562-49fd-9b17-51d548401616",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": 2450\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e010f0e1-c08d-4fc9-b5be-ef3307ae1e4e",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": 2450\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef8d6ea9-f08a-40b4-a267-88223574f4a5",
+              "name": "The request body contains invalid data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": 2450\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c657ea1d-987b-43c6-824a-99797f88706c",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": {\n    \"key_0\": false,\n    \"key_1\": 2450\n  },\n  \"typecast\": \"<boolean>\",\n  \"returnFieldsByFieldId\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c4a8c15-0e36-49b0-9898-99690dda6b61",
+          "name": "Airtable Delete a Record",
+          "request": {
+            "name": "Airtable Delete a Record",
+            "description": {
+              "content": "Deletes a single record from the specified table. The record is permanently removed and cannot be recovered through the API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":baseId",
+                ":tableIdOrName",
+                ":recordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "baseId",
+                  "description": "(Required) The unique identifier of the base (starts with 'app')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tableIdOrName",
+                  "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordId",
+                  "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4ea9c23-cde4-4029-ac6a-b03c25af0d3f",
+              "name": "Confirmation of deletion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"deleted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6f83ebf-1f98-4486-bf22-1e1453973a20",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "636dcfd7-b865-44d5-a690-c3b7d4b1a210",
+              "name": "The authenticated user does not have permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7de5ecd-c4fb-4be2-82df-b9dea8034b9f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8a5d836-ce14-41f9-b738-2e3240d34a41",
+              "name": "Rate limit exceeded. The API allows 5 requests per second per base.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":baseId",
+                    ":tableIdOrName",
+                    ":recordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "baseId",
+                      "description": "(Required) The unique identifier of the base (starts with 'app')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tableIdOrName",
+                      "description": "(Required) The name or unique identifier (starts with 'tbl') of the table."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recordId",
+                      "description": "(Required) The unique identifier of the record (starts with 'rec')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.airtable.com/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bf738be2-6781-43ec-b505-e834204275cb",
+    "name": "Airtable Audit Logs Records API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.\n\nContact Support:\n Name: Airtable\n Email: support@airtable.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Airtable Shares API",
+    "name": "Airtable Audit Logs Shares API",
     "version": "1.0.0"
   },
   "request": {

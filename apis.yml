@@ -7,6 +7,12 @@ apis:
   - Admin
   - Audit
   - Enterprise
+  - Group
+  - User
+  tags_raw:
+  - Admin
+  - Audit
+  - Enterprise
   - Groups
   - Users
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -379,6 +385,8 @@ apis:
   humanURL: https://airtable.com/developers/web/api/introduction
   baseURL: https://api.airtable.com
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -649,6 +657,8 @@ apis:
   humanURL: https://airtable.com/developers/web/api/introduction
   baseURL: https://api.airtable.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -739,6 +749,8 @@ apis:
   humanURL: https://airtable.com/developers/web/api/introduction
   baseURL: https://api.airtable.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
@@ -915,6 +927,14 @@ apis:
     url: https://support.airtable.com/docs/managing-users-via-idp-sync
 name: Airtable
 tags:
+- Application
+- Collaboration
+- Data
+- Databases
+- Low-Code
+- Productivity
+- Spreadsheets
+tags_raw:
 - Applications
 - Collaboration
 - Data

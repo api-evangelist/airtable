@@ -10,8 +10,14 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableMetadataApi
-  url: ../openapi/airtable-metadata-api-openapi.yml
+- name: basesApi
+  url: ../openapi/airtable-bases-api-openapi.yml
+  type: openapi
+- name: fieldsApi
+  url: ../openapi/airtable-fields-api-openapi.yml
+  type: openapi
+- name: tablesApi
+  url: ../openapi/airtable-tables-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: add-table-with-fields

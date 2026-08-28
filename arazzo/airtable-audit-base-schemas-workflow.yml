@@ -10,8 +10,8 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableMetadataApi
-  url: ../openapi/airtable-metadata-api-openapi.yml
+- name: basesApi
+  url: ../openapi/airtable-bases-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: audit-base-schemas

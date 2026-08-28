@@ -12,11 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableApi
-  url: ../openapi/airtable-airtable-api-openapi.yml
+- name: basesApi
+  url: ../openapi/airtable-bases-api-openapi.yml
   type: openapi
-- name: airtableMetadataApi
-  url: ../openapi/airtable-metadata-api-openapi.yml
+- name: recordsApi
+  url: ../openapi/airtable-records-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: bulk-import-records

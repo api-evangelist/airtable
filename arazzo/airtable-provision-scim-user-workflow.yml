@@ -12,8 +12,8 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableScimApi
-  url: ../openapi/airtable-scim-api-openapi.yml
+- name: usersApi
+  url: ../openapi/airtable-users-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-scim-user

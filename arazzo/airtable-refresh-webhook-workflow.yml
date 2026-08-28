@@ -10,8 +10,8 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableApi
-  url: ../openapi/airtable-airtable-api-openapi.yml
+- name: webhooksApi
+  url: ../openapi/airtable-webhooks-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: refresh-webhook

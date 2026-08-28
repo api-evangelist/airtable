@@ -10,8 +10,8 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableEnterpriseApi
-  url: ../openapi/airtable-enterprise-api-openapi.yml
+- name: workspacesApi
+  url: ../openapi/airtable-workspaces-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-workspace

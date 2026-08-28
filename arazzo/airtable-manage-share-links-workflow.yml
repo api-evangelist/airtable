@@ -10,7 +10,7 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableSharesApi
+- name: sharesApi
   url: ../openapi/airtable-shares-api-openapi.yml
   type: openapi
 workflows:

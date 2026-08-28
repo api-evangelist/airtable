@@ -11,8 +11,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: airtableApi
-  url: ../openapi/airtable-airtable-api-openapi.yml
+- name: commentsApi
+  url: ../openapi/airtable-comments-api-openapi.yml
+  type: openapi
+- name: recordsApi
+  url: ../openapi/airtable-records-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: comment-on-record

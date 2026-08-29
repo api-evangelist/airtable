@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Airtable Audit Logs Records API
+  title: Airtable Records API
   description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
   version: 1.0.0
   contact:
@@ -354,50 +354,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Record:
-      type: object
-      description: An Airtable record representing a single row in a table.
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the record (starts with 'rec').
-          example: recABC123def456
-        createdTime:
-          type: string
-          format: date-time
-          description: The time when the record was created in ISO 8601 format.
-        fields:
-          $ref: '#/components/schemas/FieldValues'
-      required:
-      - id
-      - createdTime
-      - fields
-    RecordDeleted:
-      type: object
-      description: Confirmation that a record was deleted.
-      properties:
-        id:
-          type: string
-          description: The ID of the deleted record.
-        deleted:
-          type: boolean
-          description: Always true when the deletion succeeds.
-      required:
-      - id
-      - deleted
-    RecordList:
-      type: object
-      description: A paginated list of records from a table.
-      properties:
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/Record'
-        offset:
-          type: string
-          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
-      required:
-      - records
     Error:
       type: object
       description: An error response from the Airtable API.
@@ -418,19 +374,51 @@ components:
       type: object
       description: A mapping of field names (or field IDs when returnFieldsByFieldId is true) to their cell values. The structure depends on the field types defined in the table schema.
       additionalProperties: true
+    RecordList:
+      type: object
+      description: A paginated list of records from a table.
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+        offset:
+          type: string
+          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
+      required:
+      - records
+    RecordDeleted:
+      type: object
+      description: Confirmation that a record was deleted.
+      properties:
+        id:
+          type: string
+          description: The ID of the deleted record.
+        deleted:
+          type: boolean
+          description: Always true when the deletion succeeds.
+      required:
+      - id
+      - deleted
+    Record:
+      type: object
+      description: An Airtable record representing a single row in a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the record (starts with 'rec').
+          example: recABC123def456
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the record was created in ISO 8601 format.
+        fields:
+          $ref: '#/components/schemas/FieldValues'
+      required:
+      - id
+      - createdTime
+      - fields
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded. The API allows 5 requests per second per base.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -443,28 +431,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: The request body contains invalid data.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    recordId:
-      name: recordId
-      in: path
-      required: true
-      description: The unique identifier of the record (starts with 'rec').
-      schema:
-        type: string
-        pattern: ^rec[a-zA-Z0-9]+$
-    tableIdOrName:
-      name: tableIdOrName
-      in: path
-      required: true
-      description: The name or unique identifier (starts with 'tbl') of the table.
-      schema:
-        type: string
     baseId:
       name: baseId
       in: path
@@ -473,6 +458,21 @@ components:
       schema:
         type: string
         pattern: ^app[a-zA-Z0-9]+$
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Airtable Audit Logs Comments API
+  title: Airtable Comments API
   description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
   version: 1.0.0
   contact:
@@ -194,51 +194,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded. The API allows 5 requests per second per base.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    CommentList:
-      type: object
-      description: A paginated list of comments on a record.
-      properties:
-        comments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Comment'
-        offset:
-          type: string
-          description: Pagination cursor for the next page of results.
-      required:
-      - comments
     Error:
       type: object
       description: An error response from the Airtable API.
@@ -291,22 +247,51 @@ components:
       - id
       - text
       - createdTime
+    CommentList:
+      type: object
+      description: A paginated list of comments on a record.
+      properties:
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        offset:
+          type: string
+          description: Pagination cursor for the next page of results.
+      required:
+      - comments
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    recordId:
-      name: recordId
-      in: path
-      required: true
-      description: The unique identifier of the record (starts with 'rec').
-      schema:
-        type: string
-        pattern: ^rec[a-zA-Z0-9]+$
-    tableIdOrName:
-      name: tableIdOrName
-      in: path
-      required: true
-      description: The name or unique identifier (starts with 'tbl') of the table.
-      schema:
-        type: string
     baseId:
       name: baseId
       in: path
@@ -315,6 +300,21 @@ components:
       schema:
         type: string
         pattern: ^app[a-zA-Z0-9]+$
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

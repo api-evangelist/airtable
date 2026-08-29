@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Airtable Audit Logs Users API
-  description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
-  version: 1.0.0
+  title: Airtable SCIM Users API
+  description: The Airtable SCIM API supports the System for Cross-domain Identity Management (SCIM 2.0) specification for automated user and group provisioning. It enables identity providers like Okta and Microsoft Entra ID to manage user accounts and group memberships programmatically. SCIM is available for Enterprise License Agreement (ELA) and CLAIM enterprise accounts with SSO configured.
+  version: 2.0.0
   contact:
     name: Airtable
     url: https://airtable.com/developers
@@ -12,357 +12,14 @@ info:
     url: https://airtable.com/tos
   termsOfService: https://airtable.com/tos
 servers:
-- url: https://api.airtable.com/v0
-  description: Airtable API v0 production server
+- url: https://airtable.com/scim/v2
+  description: Airtable SCIM v2 production server
 security:
 - bearerAuth: []
 tags:
 - name: Users
-  description: Manage enterprise users, permissions, and access
+  description: SCIM user provisioning and management
 paths:
-  /meta/enterpriseAccounts/{enterpriseAccountId}/users:
-    get:
-      operationId: listEnterpriseUsers
-      summary: Airtable List Enterprise Users
-      description: Returns a list of users within the enterprise account. Results can be filtered by user IDs or email addresses, and can include collaboration details.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      - name: email
-        in: query
-        required: false
-        description: Filter by one or more email addresses.
-        schema:
-          type: array
-          items:
-            type: string
-            format: email
-        style: form
-        explode: true
-      - name: id
-        in: query
-        required: false
-        description: Filter by one or more user IDs.
-        schema:
-          type: array
-          items:
-            type: string
-        style: form
-        explode: true
-      - name: include
-        in: query
-        required: false
-        description: Additional information to include for each user.
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - collaborations
-        style: form
-        explode: true
-      responses:
-        '200':
-          description: A list of enterprise users.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  users:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/EnterpriseUser'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-    delete:
-      operationId: deleteUsersById
-      summary: Airtable Delete Users by ID
-      description: Deletes one or more users from the enterprise account by their user IDs. This permanently removes the users and their data.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                userIds:
-                  type: array
-                  description: The IDs of the users to delete.
-                  items:
-                    type: string
-              required:
-              - userIds
-      responses:
-        '200':
-          description: Confirmation of user deletion.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  deletedUsers:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        email:
-                          type: string
-                          format: email
-                  errors:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Error'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /meta/enterpriseAccounts/{enterpriseAccountId}/users/{userId}/remove:
-    post:
-      operationId: removeUserFromEnterprise
-      summary: Airtable Remove a User from Enterprise
-      description: Removes a user from the enterprise account. Optionally, a replacement user can be specified to take over shared resources. The response includes details about affected shared and unshared resources.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      - name: userId
-        in: path
-        required: true
-        description: The unique identifier of the user to remove.
-        schema:
-          type: string
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                replacementOwnerId:
-                  type: string
-                  description: The ID of the user who will take ownership of the removed user's resources.
-      responses:
-        '200':
-          description: Details of the removal including affected resources.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserRemoved'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /meta/enterpriseAccounts/{enterpriseAccountId}/claim/users:
-    post:
-      operationId: claimUsers
-      summary: Airtable Claim Users Into Enterprise
-      description: Claims one or more users into the enterprise account, setting their management status to either managed or unmanaged.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                users:
-                  type: object
-                  description: A mapping of user IDs or emails to their desired management status (managed or unmanaged).
-                  additionalProperties:
-                    type: object
-                    properties:
-                      state:
-                        type: string
-                        enum:
-                        - managed
-                        - unmanaged
-              required:
-              - users
-      responses:
-        '200':
-          description: The result of the claim operation.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ManageUsersResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /meta/enterpriseAccounts/{enterpriseAccountId}/users/manageUserMembership:
-    post:
-      operationId: manageUserMembership
-      summary: Airtable Manage User Membership Status
-      description: Updates the managed or unmanaged status for one or more users in the enterprise account.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                users:
-                  type: object
-                  description: A mapping of user identifiers to their desired management status.
-                  additionalProperties:
-                    type: object
-                    properties:
-                      state:
-                        type: string
-                        enum:
-                        - managed
-                        - unmanaged
-              required:
-              - users
-      responses:
-        '200':
-          description: The result of the membership management operation.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ManageUsersResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /meta/enterpriseAccounts/{enterpriseAccountId}/users/grantAdminAccess:
-    post:
-      operationId: grantAdminAccess
-      summary: Airtable Grant Admin Access to Users
-      description: Grants enterprise admin access to one or more users, allowing them to manage the enterprise account through the Admin panel and API.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                userIds:
-                  type: array
-                  description: The IDs of the users to grant admin access.
-                  items:
-                    type: string
-              required:
-              - userIds
-      responses:
-        '200':
-          description: The result of the admin grant operation.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ManageUsersResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /meta/enterpriseAccounts/{enterpriseAccountId}/users/revokeAdminAccess:
-    post:
-      operationId: revokeAdminAccess
-      summary: Airtable Revoke Admin Access from Users
-      description: Revokes enterprise admin access from one or more users. The users retain their regular enterprise membership but lose admin privileges.
-      tags:
-      - Users
-      parameters:
-      - $ref: '#/components/parameters/enterpriseAccountId'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                userIds:
-                  type: array
-                  description: The IDs of the users to revoke admin access from.
-                  items:
-                    type: string
-              required:
-              - userIds
-      responses:
-        '200':
-          description: The result of the admin revocation.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ManageUsersResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
   /Users:
     get:
       operationId: listScimUsers
@@ -401,11 +58,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScimUserListResponse'
         '401':
-          $ref: '#/components/responses/Unauthorized_2'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/Forbidden_2'
+          $ref: '#/components/responses/Forbidden'
         '429':
-          $ref: '#/components/responses/TooManyRequests_2'
+          $ref: '#/components/responses/TooManyRequests'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -431,9 +88,9 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
-          $ref: '#/components/responses/Unauthorized_2'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/Forbidden_2'
+          $ref: '#/components/responses/Forbidden'
         '409':
           description: A user with the same userName already exists.
           content:
@@ -441,7 +98,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScimError'
         '429':
-          $ref: '#/components/responses/TooManyRequests_2'
+          $ref: '#/components/responses/TooManyRequests'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -462,13 +119,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScimUser'
         '401':
-          $ref: '#/components/responses/Unauthorized_2'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/Forbidden_2'
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/ScimNotFound'
         '429':
-          $ref: '#/components/responses/TooManyRequests_2'
+          $ref: '#/components/responses/TooManyRequests'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -496,13 +153,13 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
-          $ref: '#/components/responses/Unauthorized_2'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/Forbidden_2'
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/ScimNotFound'
         '429':
-          $ref: '#/components/responses/TooManyRequests_2'
+          $ref: '#/components/responses/TooManyRequests'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -530,13 +187,13 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
-          $ref: '#/components/responses/Unauthorized_2'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/Forbidden_2'
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/ScimNotFound'
         '429':
-          $ref: '#/components/responses/TooManyRequests_2'
+          $ref: '#/components/responses/TooManyRequests'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -552,17 +209,48 @@ paths:
         '204':
           description: The user was successfully deleted. No content returned.
         '401':
-          $ref: '#/components/responses/Unauthorized_2'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/Forbidden_2'
+          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/ScimNotFound'
         '429':
-          $ref: '#/components/responses/TooManyRequests_2'
+          $ref: '#/components/responses/TooManyRequests'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: The request body is malformed or contains invalid data.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Forbidden:
+      description: The authenticated token does not have SCIM provisioning permission.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: SCIM authentication token is missing or invalid.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    ScimNotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   schemas:
     ScimUserListResponse:
       type: object
@@ -592,20 +280,6 @@ components:
       - schemas
       - totalResults
       - Resources
-    Error:
-      type: object
-      description: An error response from the Airtable API.
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-          required:
-          - type
-          - message
     ScimError:
       type: object
       description: A SCIM 2.0 error response.
@@ -625,6 +299,39 @@ components:
         scimType:
           type: string
           description: The SCIM error type.
+    ScimPatchRequest:
+      type: object
+      description: A SCIM 2.0 PATCH request with one or more operations.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          description: The list of PATCH operations to apply.
+          items:
+            type: object
+            properties:
+              op:
+                type: string
+                description: The operation type.
+                enum:
+                - add
+                - replace
+                - remove
+              path:
+                type: string
+                description: The attribute path to operate on.
+              value:
+                description: The value to set for add and replace operations.
+            required:
+            - op
+      required:
+      - schemas
+      - Operations
     ScimMeta:
       type: object
       description: SCIM resource metadata.
@@ -640,84 +347,6 @@ components:
           type: string
           format: date-time
           description: The time when the resource was last modified.
-    EnterpriseUser:
-      type: object
-      description: A user within the enterprise account.
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the user.
-        email:
-          type: string
-          format: email
-          description: The email address of the user.
-        name:
-          type: string
-          description: The display name of the user.
-        state:
-          type: string
-          description: The management state of the user.
-          enum:
-          - managed
-          - unmanaged
-          - deactivated
-        isAdmin:
-          type: boolean
-          description: Whether the user has admin privileges.
-        createdTime:
-          type: string
-          format: date-time
-          description: The time when the user was created.
-        lastActivityTime:
-          type: string
-          format: date-time
-          description: The time of the user's last activity.
-        collaborations:
-          type: object
-          description: The user's collaborations across workspaces and bases.
-          properties:
-            workspaceCollaborations:
-              type: array
-              items:
-                type: object
-                properties:
-                  workspaceId:
-                    type: string
-                  permissionLevel:
-                    type: string
-            baseCollaborations:
-              type: array
-              items:
-                type: object
-                properties:
-                  baseId:
-                    type: string
-                  permissionLevel:
-                    type: string
-            interfaceCollaborations:
-              type: array
-              items:
-                type: object
-                properties:
-                  baseId:
-                    type: string
-                  interfaceId:
-                    type: string
-                  permissionLevel:
-                    type: string
-      required:
-      - id
-      - email
-      - state
-    ManageUsersResponse:
-      type: object
-      description: Response from a user management operation.
-      properties:
-        errors:
-          type: array
-          description: Errors encountered during the operation.
-          items:
-            $ref: '#/components/schemas/Error'
     ScimUserCreateRequest:
       type: object
       description: Request body for creating or replacing a SCIM user.
@@ -762,29 +391,6 @@ components:
       required:
       - schemas
       - userName
-    UserRemoved:
-      type: object
-      description: Details of a user removal from the enterprise.
-      properties:
-        id:
-          type: string
-          description: The ID of the removed user.
-        sharedBases:
-          type: array
-          description: Bases that were shared and reassigned.
-          items:
-            type: object
-            properties:
-              baseId:
-                type: string
-        unsharedBases:
-          type: array
-          description: Bases that were unshared as a result of removal.
-          items:
-            type: object
-            properties:
-              baseId:
-                type: string
     ScimUser:
       type: object
       description: A SCIM 2.0 User resource representing a provisioned user.
@@ -841,109 +447,7 @@ components:
       - id
       - userName
       - active
-    ScimPatchRequest:
-      type: object
-      description: A SCIM 2.0 PATCH request with one or more operations.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          description: The list of PATCH operations to apply.
-          items:
-            type: object
-            properties:
-              op:
-                type: string
-                description: The operation type.
-                enum:
-                - add
-                - replace
-                - remove
-              path:
-                type: string
-                description: The attribute path to operate on.
-              value:
-                description: The value to set for add and replace operations.
-            required:
-            - op
-      required:
-      - schemas
-      - Operations
-  responses:
-    Forbidden:
-      description: The authenticated user does not have enterprise admin permission.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden_2:
-      description: The authenticated token does not have SCIM provisioning permission.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    TooManyRequests_2:
-      description: Rate limit exceeded.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    ScimNotFound:
-      description: The requested SCIM resource was not found.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    BadRequest:
-      description: The request body is malformed or contains invalid data.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized_2:
-      description: SCIM authentication token is missing or invalid.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
   parameters:
-    enterpriseAccountId:
-      name: enterpriseAccountId
-      in: path
-      required: true
-      description: The unique identifier of the enterprise account (starts with 'ent').
-      schema:
-        type: string
-        pattern: ^ent[a-zA-Z0-9]+$
     userId:
       name: userId
       in: path
@@ -955,7 +459,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Airtable uses Bearer token authentication. Provide a personal access token or OAuth access token in the Authorization header.
+      description: SCIM API uses Bearer token authentication with a SCIM API token generated from the Airtable enterprise admin panel.
 externalDocs:
-  description: Airtable Web API Documentation
-  url: https://airtable.com/developers/web/api/introduction
+  description: Airtable SCIM API Documentation
+  url: https://airtable.com/developers/web/api/scim-overview

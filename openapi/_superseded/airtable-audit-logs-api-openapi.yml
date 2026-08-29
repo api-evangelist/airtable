@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Airtable Audit Logs API
   description: The Airtable API can be used to integrate your data in Airtable with any external system. The API closely follows REST semantics, uses JSON to encode objects, and relies on standard HTTP codes to signal operation outcomes. It provides full CRUD operations on records, comment management, and webhook subscriptions for real-time notifications.
@@ -216,6 +216,115 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CreateAuditLogRequestBody:
+      type: object
+      description: Request body for creating an audit log export request.
+      properties:
+        filter:
+          type: object
+          description: Filters to apply to the exported audit log data.
+          properties:
+            startTime:
+              type: string
+              format: date-time
+              description: Start of the time range in ISO 8601 format.
+            endTime:
+              type: string
+              format: date-time
+              description: End of the time range in ISO 8601 format.
+            originatingUserId:
+              type: string
+              description: Filter to events by a specific user.
+            eventType:
+              type: string
+              description: Filter to a specific event type.
+            modelId:
+              type: string
+              description: Filter to events affecting a specific model.
+            category:
+              type: string
+              description: Filter to a specific event category.
+          required:
+          - startTime
+          - endTime
+      required:
+      - filter
+    AuditLogEvent:
+      type: object
+      description: A single audit log event recording an action in the enterprise.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the audit log event.
+        timestamp:
+          type: string
+          format: date-time
+          description: The time when the action was performed.
+        action:
+          type: string
+          description: The type of action that was performed (e.g., created, updated, deleted).
+        actor:
+          type: object
+          description: The user or system that performed the action.
+          properties:
+            type:
+              type: string
+              description: The type of actor (user, system, anonymous).
+              enum:
+              - user
+              - system
+              - anonymous
+            userId:
+              type: string
+              description: The ID of the user who performed the action.
+            email:
+              type: string
+              format: email
+              description: The email of the user who performed the action.
+            name:
+              type: string
+              description: The display name of the actor.
+        modelId:
+          type: string
+          description: The ID of the model (base, table, field, etc.) that was affected by the action.
+        modelType:
+          type: string
+          description: The type of model affected (e.g., base, table, field, record, view).
+        category:
+          type: string
+          description: The category of the event (e.g., app, user, share, enterprise).
+        context:
+          type: object
+          description: Additional context about the event.
+          properties:
+            baseId:
+              type: string
+              description: The ID of the base where the event occurred.
+            tableId:
+              type: string
+              description: The ID of the table where the event occurred.
+            viewId:
+              type: string
+              description: The ID of the view involved in the event.
+            workspaceId:
+              type: string
+              description: The ID of the workspace where the event occurred.
+            interfaceId:
+              type: string
+              description: The ID of the interface involved in the event.
+            actionId:
+              type: string
+              description: The ID of the specific action taken.
+            ipAddress:
+              type: string
+              description: The IP address from which the action was performed.
+        payloadVersion:
+          type: string
+          description: The version of the event payload format.
+      required:
+      - id
+      - timestamp
+      - action
     AuditLogRequest:
       type: object
       description: An audit log export request with status and download information.
@@ -301,118 +410,15 @@ components:
           required:
           - type
           - message
-    AuditLogEvent:
-      type: object
-      description: A single audit log event recording an action in the enterprise.
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the audit log event.
-        timestamp:
-          type: string
-          format: date-time
-          description: The time when the action was performed.
-        action:
-          type: string
-          description: The type of action that was performed (e.g., created, updated, deleted).
-        actor:
-          type: object
-          description: The user or system that performed the action.
-          properties:
-            type:
-              type: string
-              description: The type of actor (user, system, anonymous).
-              enum:
-              - user
-              - system
-              - anonymous
-            userId:
-              type: string
-              description: The ID of the user who performed the action.
-            email:
-              type: string
-              format: email
-              description: The email of the user who performed the action.
-            name:
-              type: string
-              description: The display name of the actor.
-        modelId:
-          type: string
-          description: The ID of the model (base, table, field, etc.) that was affected by the action.
-        modelType:
-          type: string
-          description: The type of model affected (e.g., base, table, field, record, view).
-        category:
-          type: string
-          description: The category of the event (e.g., app, user, share, enterprise).
-        context:
-          type: object
-          description: Additional context about the event.
-          properties:
-            baseId:
-              type: string
-              description: The ID of the base where the event occurred.
-            tableId:
-              type: string
-              description: The ID of the table where the event occurred.
-            viewId:
-              type: string
-              description: The ID of the view involved in the event.
-            workspaceId:
-              type: string
-              description: The ID of the workspace where the event occurred.
-            interfaceId:
-              type: string
-              description: The ID of the interface involved in the event.
-            actionId:
-              type: string
-              description: The ID of the specific action taken.
-            ipAddress:
-              type: string
-              description: The IP address from which the action was performed.
-        payloadVersion:
-          type: string
-          description: The version of the event payload format.
-      required:
-      - id
-      - timestamp
-      - action
-    CreateAuditLogRequestBody:
-      type: object
-      description: Request body for creating an audit log export request.
-      properties:
-        filter:
-          type: object
-          description: Filters to apply to the exported audit log data.
-          properties:
-            startTime:
-              type: string
-              format: date-time
-              description: Start of the time range in ISO 8601 format.
-            endTime:
-              type: string
-              format: date-time
-              description: End of the time range in ISO 8601 format.
-            originatingUserId:
-              type: string
-              description: Filter to events by a specific user.
-            eventType:
-              type: string
-              description: Filter to a specific event type.
-            modelId:
-              type: string
-              description: Filter to events affecting a specific model.
-            category:
-              type: string
-              description: Filter to a specific event category.
-          required:
-          - startTime
-          - endTime
-      required:
-      - filter
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    Forbidden:
+      description: The authenticated user does not have enterprise admin permission.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
       content:
         application/json:
           schema:
@@ -423,20 +429,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have enterprise admin permission.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
       content:
         application/json:
           schema:

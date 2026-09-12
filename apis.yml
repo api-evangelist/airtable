@@ -772,6 +772,8 @@ accessModel:
   method: derived
 image: https://www.airtable.com/images/logo.png
 common:
+- type: Website
+  url: https://www.airtable.com/
 - type: AgenticAccess
   url: agentic-access/airtable-agentic-access.yml
 - type: VulnerabilityDisclosure

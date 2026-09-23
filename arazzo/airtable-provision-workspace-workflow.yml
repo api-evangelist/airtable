@@ -11,7 +11,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: workspacesApi
-  url: ../openapi/airtable-workspaces-api-openapi.yml
+  url: ../openapi/_superseded/airtable-workspaces-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-workspace

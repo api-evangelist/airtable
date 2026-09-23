@@ -353,7 +353,75 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+  responses:
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    RecordDeleted:
+      type: object
+      description: Confirmation that a record was deleted.
+      properties:
+        id:
+          type: string
+          description: The ID of the deleted record.
+        deleted:
+          type: boolean
+          description: Always true when the deletion succeeds.
+      required:
+      - id
+      - deleted
     Error:
       type: object
       description: An error response from the Airtable API.
@@ -370,36 +438,6 @@ components:
           required:
           - type
           - message
-    FieldValues:
-      type: object
-      description: A mapping of field names (or field IDs when returnFieldsByFieldId is true) to their cell values. The structure depends on the field types defined in the table schema.
-      additionalProperties: true
-    RecordList:
-      type: object
-      description: A paginated list of records from a table.
-      properties:
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/Record'
-        offset:
-          type: string
-          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
-      required:
-      - records
-    RecordDeleted:
-      type: object
-      description: Confirmation that a record was deleted.
-      properties:
-        id:
-          type: string
-          description: The ID of the deleted record.
-        deleted:
-          type: boolean
-          description: Always true when the deletion succeeds.
-      required:
-      - id
-      - deleted
     Record:
       type: object
       description: An Airtable record representing a single row in a table.
@@ -418,61 +456,23 @@ components:
       - id
       - createdTime
       - fields
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded. The API allows 5 requests per second per base.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
-    tableIdOrName:
-      name: tableIdOrName
-      in: path
-      required: true
-      description: The name or unique identifier (starts with 'tbl') of the table.
-      schema:
-        type: string
-    recordId:
-      name: recordId
-      in: path
-      required: true
-      description: The unique identifier of the record (starts with 'rec').
-      schema:
-        type: string
-        pattern: ^rec[a-zA-Z0-9]+$
+    RecordList:
+      type: object
+      description: A paginated list of records from a table.
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+        offset:
+          type: string
+          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
+      required:
+      - records
+    FieldValues:
+      type: object
+      description: A mapping of field names (or field IDs when returnFieldsByFieldId is true) to their cell values. The structure depends on the field types defined in the table schema.
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

@@ -12,7 +12,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: auditLogsApi
-  url: ../openapi/airtable-audit-logs-api-openapi.yml
+  url: ../openapi/_superseded/airtable-audit-logs-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: export-audit-logs

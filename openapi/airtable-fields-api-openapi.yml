@@ -112,22 +112,26 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
+    CreateFieldRequest:
       type: object
-      description: An error response from the Airtable API.
+      description: Request body for creating a new field.
       properties:
-        error:
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
+        description:
+          type: string
+          description: A description of the field.
+        options:
           type: object
-          properties:
-            type:
-              type: string
-              description: The type of error.
-            message:
-              type: string
-              description: A human-readable description of the error.
-          required:
-          - type
-          - message
+          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
+          additionalProperties: true
+      required:
+      - name
+      - type
     FieldSchema:
       type: object
       description: The schema definition of a field within a table.
@@ -188,27 +192,41 @@ components:
       - id
       - name
       - type
-    CreateFieldRequest:
+    Error:
       type: object
-      description: Request body for creating a new field.
+      description: An error response from the Airtable API.
       properties:
-        name:
-          type: string
-          description: The name of the field.
-        type:
-          type: string
-          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
-        description:
-          type: string
-          description: A description of the field.
-        options:
+        error:
           type: object
-          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
-          additionalProperties: true
-      required:
-      - name
-      - type
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
   responses:
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -221,33 +239,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded. The API allows 5 requests per second per base.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
     tableId:
       name: tableId
       in: path
@@ -256,6 +248,14 @@ components:
       schema:
         type: string
         pattern: ^tbl[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

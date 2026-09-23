@@ -100,22 +100,111 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
+    CreateFieldRequest:
       type: object
-      description: An error response from the Airtable API.
+      description: Request body for creating a new field.
       properties:
-        error:
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
+        description:
+          type: string
+          description: A description of the field.
+        options:
           type: object
-          properties:
-            type:
-              type: string
-              description: The type of error.
-            message:
-              type: string
-              description: A human-readable description of the error.
-          required:
-          - type
-          - message
+          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
+          additionalProperties: true
+      required:
+      - name
+      - type
+    TableSchema:
+      type: object
+      description: The schema definition of a table within a base.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the table (starts with 'tbl').
+          example: tblABC123def456
+        name:
+          type: string
+          description: The name of the table.
+        description:
+          type: string
+          description: The description of the table.
+        primaryFieldId:
+          type: string
+          description: The ID of the primary field for this table.
+        fields:
+          type: array
+          description: The list of field definitions in the table.
+          items:
+            $ref: '#/components/schemas/FieldSchema'
+        views:
+          type: array
+          description: The list of view definitions in the table.
+          items:
+            $ref: '#/components/schemas/ViewSchema'
+      required:
+      - id
+      - name
+      - fields
+      - views
+    ViewSchema:
+      type: object
+      description: The schema definition of a view within a table.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the view (starts with 'viw').
+          example: viwABC123def456
+        name:
+          type: string
+          description: The name of the view.
+        type:
+          type: string
+          description: The type of the view.
+          enum:
+          - grid
+          - form
+          - calendar
+          - gallery
+          - kanban
+          - timeline
+          - block
+        personalForUserId:
+          type: string
+          description: If set, this is a personal view only visible to the specified user.
+        visibleFieldIds:
+          type: array
+          description: The IDs of fields visible in this view. Only included if visibleFieldIds is requested via the include parameter.
+          items:
+            type: string
+      required:
+      - id
+      - name
+      - type
+    CreateTableRequest:
+      type: object
+      description: Request body for creating a new table within a base.
+      properties:
+        name:
+          type: string
+          description: The name of the new table.
+        description:
+          type: string
+          description: The description of the new table.
+        fields:
+          type: array
+          description: The field definitions for the table. At least one field is required.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateFieldRequest'
+      required:
+      - name
+      - fields
     FieldSchema:
       type: object
       description: The schema definition of a field within a table.
@@ -176,112 +265,41 @@ components:
       - id
       - name
       - type
-    ViewSchema:
+    Error:
       type: object
-      description: The schema definition of a view within a table.
+      description: An error response from the Airtable API.
       properties:
-        id:
-          type: string
-          description: The unique identifier of the view (starts with 'viw').
-          example: viwABC123def456
-        name:
-          type: string
-          description: The name of the view.
-        type:
-          type: string
-          description: The type of the view.
-          enum:
-          - grid
-          - form
-          - calendar
-          - gallery
-          - kanban
-          - timeline
-          - block
-        personalForUserId:
-          type: string
-          description: If set, this is a personal view only visible to the specified user.
-        visibleFieldIds:
-          type: array
-          description: The IDs of fields visible in this view. Only included if visibleFieldIds is requested via the include parameter.
-          items:
-            type: string
-      required:
-      - id
-      - name
-      - type
-    CreateFieldRequest:
-      type: object
-      description: Request body for creating a new field.
-      properties:
-        name:
-          type: string
-          description: The name of the field.
-        type:
-          type: string
-          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
-        description:
-          type: string
-          description: A description of the field.
-        options:
+        error:
           type: object
-          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
-          additionalProperties: true
-      required:
-      - name
-      - type
-    CreateTableRequest:
-      type: object
-      description: Request body for creating a new table within a base.
-      properties:
-        name:
-          type: string
-          description: The name of the new table.
-        description:
-          type: string
-          description: The description of the new table.
-        fields:
-          type: array
-          description: The field definitions for the table. At least one field is required.
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/CreateFieldRequest'
-      required:
-      - name
-      - fields
-    TableSchema:
-      type: object
-      description: The schema definition of a table within a base.
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the table (starts with 'tbl').
-          example: tblABC123def456
-        name:
-          type: string
-          description: The name of the table.
-        description:
-          type: string
-          description: The description of the table.
-        primaryFieldId:
-          type: string
-          description: The ID of the primary field for this table.
-        fields:
-          type: array
-          description: The list of field definitions in the table.
-          items:
-            $ref: '#/components/schemas/FieldSchema'
-        views:
-          type: array
-          description: The list of view definitions in the table.
-          items:
-            $ref: '#/components/schemas/ViewSchema'
-      required:
-      - id
-      - name
-      - fields
-      - views
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
   responses:
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. The API allows 5 requests per second per base.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -294,33 +312,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded. The API allows 5 requests per second per base.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
     tableId:
       name: tableId
       in: path
@@ -329,6 +321,14 @@ components:
       schema:
         type: string
         pattern: ^tbl[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

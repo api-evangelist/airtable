@@ -221,14 +221,8 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
-    BadRequest:
-      description: The request body is malformed or contains invalid data.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    Forbidden:
-      description: The authenticated token does not have SCIM provisioning permission.
+    ScimNotFound:
+      description: The requested SCIM resource was not found.
       content:
         application/scim+json:
           schema:
@@ -239,8 +233,8 @@ components:
         application/scim+json:
           schema:
             $ref: '#/components/schemas/ScimError'
-    ScimNotFound:
-      description: The requested SCIM resource was not found.
+    BadRequest:
+      description: The request body is malformed or contains invalid data.
       content:
         application/scim+json:
           schema:
@@ -251,7 +245,47 @@ components:
         application/scim+json:
           schema:
             $ref: '#/components/schemas/ScimError'
+    Forbidden:
+      description: The authenticated token does not have SCIM provisioning permission.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   schemas:
+    ScimGroup:
+      type: object
+      description: A SCIM 2.0 Group resource representing a user group.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:schemas:core:2.0:Group
+        id:
+          type: string
+          description: The unique identifier for the SCIM group resource.
+        displayName:
+          type: string
+          description: The display name of the group.
+        members:
+          type: array
+          description: The members of the group.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The ID of the member user.
+              display:
+                type: string
+                description: The display name of the member.
+        meta:
+          $ref: '#/components/schemas/ScimMeta'
+      required:
+      - schemas
+      - id
+      - displayName
     ScimGroupCreateRequest:
       type: object
       description: Request body for creating or replacing a SCIM group.
@@ -357,40 +391,6 @@ components:
       - schemas
       - totalResults
       - Resources
-    ScimGroup:
-      type: object
-      description: A SCIM 2.0 Group resource representing a user group.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:schemas:core:2.0:Group
-        id:
-          type: string
-          description: The unique identifier for the SCIM group resource.
-        displayName:
-          type: string
-          description: The display name of the group.
-        members:
-          type: array
-          description: The members of the group.
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-                description: The ID of the member user.
-              display:
-                type: string
-                description: The display name of the member.
-        meta:
-          $ref: '#/components/schemas/ScimMeta'
-      required:
-      - schemas
-      - id
-      - displayName
     ScimMeta:
       type: object
       description: SCIM resource metadata.

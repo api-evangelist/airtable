@@ -11,7 +11,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: sharesApi
-  url: ../openapi/airtable-shares-api-openapi.yml
+  url: ../openapi/_superseded/airtable-shares-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: manage-share-links

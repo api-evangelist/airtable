@@ -49,8 +49,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -139,8 +137,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -229,8 +225,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -321,8 +315,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -411,8 +403,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -501,8 +491,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -593,8 +581,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation
@@ -685,8 +671,6 @@ apis:
     url: json-schema/airtable-webhook-schema.json
   - type: JSONLD
     url: json-ld/airtable-context.jsonld
-  - type: GraphQL
-    url: graphql/airtable-graphql.md
   - type: Documentation
     url: https://airtable.com/developers/web/api/list-bases
   - type: Documentation

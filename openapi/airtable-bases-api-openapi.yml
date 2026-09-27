@@ -174,23 +174,22 @@ components:
       required:
       - name
       - type
-    BaseSchema:
+    Error:
       type: object
-      description: The full schema of a base including all tables.
+      description: An error response from the Airtable API.
       properties:
-        id:
-          type: string
-          description: The unique identifier of the base.
-        name:
-          type: string
-          description: The name of the base.
-        tables:
-          type: array
-          items:
-            $ref: '#/components/schemas/TableSchema'
-      required:
-      - id
-      - tables
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
     TableSchema:
       type: object
       description: The schema definition of a table within a base.
@@ -223,6 +222,59 @@ components:
       - name
       - fields
       - views
+    CreateBaseRequest:
+      type: object
+      description: Request body for creating a new base.
+      properties:
+        name:
+          type: string
+          description: The name of the new base.
+        workspaceId:
+          type: string
+          description: The ID of the workspace where the base will be created (starts with 'wsp').
+        tables:
+          type: array
+          description: The initial table definitions for the base.
+          minItems: 1
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the table.
+              description:
+                type: string
+                description: The description of the table.
+              fields:
+                type: array
+                description: The field definitions for the table.
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/CreateFieldRequest'
+            required:
+            - name
+            - fields
+      required:
+      - name
+      - workspaceId
+      - tables
+    BaseSchema:
+      type: object
+      description: The full schema of a base including all tables.
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the base.
+        name:
+          type: string
+          description: The name of the base.
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableSchema'
+      required:
+      - id
+      - tables
     ViewSchema:
       type: object
       description: The schema definition of a view within a table.
@@ -317,71 +369,6 @@ components:
       - id
       - name
       - type
-    Error:
-      type: object
-      description: An error response from the Airtable API.
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: The type of error.
-            message:
-              type: string
-              description: A human-readable description of the error.
-          required:
-          - type
-          - message
-    CreateBaseRequest:
-      type: object
-      description: Request body for creating a new base.
-      properties:
-        name:
-          type: string
-          description: The name of the new base.
-        workspaceId:
-          type: string
-          description: The ID of the workspace where the base will be created (starts with 'wsp').
-        tables:
-          type: array
-          description: The initial table definitions for the base.
-          minItems: 1
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The name of the table.
-              description:
-                type: string
-                description: The description of the table.
-              fields:
-                type: array
-                description: The field definitions for the table.
-                minItems: 1
-                items:
-                  $ref: '#/components/schemas/CreateFieldRequest'
-            required:
-            - name
-            - fields
-      required:
-      - name
-      - workspaceId
-      - tables
-    BaseList:
-      type: object
-      description: A paginated list of bases accessible to the authenticated user.
-      properties:
-        bases:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseSummary'
-        offset:
-          type: string
-          description: Pagination cursor for the next page of results.
-      required:
-      - bases
     BaseSummary:
       type: object
       description: Summary information about an Airtable base.
@@ -406,9 +393,22 @@ components:
       - id
       - name
       - permissionLevel
+    BaseList:
+      type: object
+      description: A paginated list of bases accessible to the authenticated user.
+      properties:
+        bases:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseSummary'
+        offset:
+          type: string
+          description: Pagination cursor for the next page of results.
+      required:
+      - bases
   responses:
-    UnprocessableEntity:
-      description: The request body contains invalid data.
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
       content:
         application/json:
           schema:
@@ -425,14 +425,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    UnprocessableEntity:
+      description: The request body contains invalid data.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

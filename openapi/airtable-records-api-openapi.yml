@@ -353,6 +353,30 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    tableIdOrName:
+      name: tableIdOrName
+      in: path
+      required: true
+      description: The name or unique identifier (starts with 'tbl') of the table.
+      schema:
+        type: string
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: The unique identifier of the record (starts with 'rec').
+      schema:
+        type: string
+        pattern: ^rec[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
   schemas:
     Error:
       type: object
@@ -370,19 +394,10 @@ components:
           required:
           - type
           - message
-    RecordList:
+    FieldValues:
       type: object
-      description: A paginated list of records from a table.
-      properties:
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/Record'
-        offset:
-          type: string
-          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
-      required:
-      - records
+      description: A mapping of field names (or field IDs when returnFieldsByFieldId is true) to their cell values. The structure depends on the field types defined in the table schema.
+      additionalProperties: true
     Record:
       type: object
       description: An Airtable record representing a single row in a table.
@@ -401,6 +416,19 @@ components:
       - id
       - createdTime
       - fields
+    RecordList:
+      type: object
+      description: A paginated list of records from a table.
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+        offset:
+          type: string
+          description: A pagination cursor. If present, pass this value in the offset query parameter to fetch the next page of results.
+      required:
+      - records
     RecordDeleted:
       type: object
       description: Confirmation that a record was deleted.
@@ -414,11 +442,13 @@ components:
       required:
       - id
       - deleted
-    FieldValues:
-      type: object
-      description: A mapping of field names (or field IDs when returnFieldsByFieldId is true) to their cell values. The structure depends on the field types defined in the table schema.
-      additionalProperties: true
   responses:
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Forbidden:
       description: The authenticated user does not have permission to perform this action.
       content:
@@ -437,42 +467,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
-    tableIdOrName:
-      name: tableIdOrName
-      in: path
-      required: true
-      description: The name or unique identifier (starts with 'tbl') of the table.
-      schema:
-        type: string
-    recordId:
-      name: recordId
-      in: path
-      required: true
-      description: The unique identifier of the record (starts with 'rec').
-      schema:
-        type: string
-        pattern: ^rec[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

@@ -220,26 +220,38 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Forbidden:
+      description: The authenticated token does not have SCIM provisioning permission.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    BadRequest:
+      description: The request body is malformed or contains invalid data.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    ScimNotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: SCIM authentication token is missing or invalid.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   schemas:
-    ScimError:
-      type: object
-      description: A SCIM 2.0 error response.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:api:messages:2.0:Error
-        detail:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: string
-          description: The HTTP status code as a string.
-        scimType:
-          type: string
-          description: The SCIM error type.
     ScimPatchRequest:
       type: object
       description: A SCIM 2.0 PATCH request with one or more operations.
@@ -273,6 +285,93 @@ components:
       required:
       - schemas
       - Operations
+    ScimMeta:
+      type: object
+      description: SCIM resource metadata.
+      properties:
+        resourceType:
+          type: string
+          description: The type of resource (User or Group).
+        created:
+          type: string
+          format: date-time
+          description: The time when the resource was created.
+        lastModified:
+          type: string
+          format: date-time
+          description: The time when the resource was last modified.
+    ScimError:
+      type: object
+      description: A SCIM 2.0 error response.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:Error
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: string
+          description: The HTTP status code as a string.
+        scimType:
+          type: string
+          description: The SCIM error type.
+    ScimGroupListResponse:
+      type: object
+      description: A SCIM 2.0 ListResponse containing group resources.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: The total number of results matching the query.
+        itemsPerPage:
+          type: integer
+          description: The number of results returned in this page.
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in this page.
+        Resources:
+          type: array
+          description: The list of SCIM group resources.
+          items:
+            $ref: '#/components/schemas/ScimGroup'
+      required:
+      - schemas
+      - totalResults
+      - Resources
+    ScimGroupCreateRequest:
+      type: object
+      description: Request body for creating or replacing a SCIM group.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:schemas:core:2.0:Group
+        displayName:
+          type: string
+          description: The display name of the group.
+        members:
+          type: array
+          description: The initial members of the group.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The ID of the member user.
+      required:
+      - schemas
+      - displayName
     ScimGroup:
       type: object
       description: A SCIM 2.0 Group resource representing a user group.
@@ -307,105 +406,6 @@ components:
       - schemas
       - id
       - displayName
-    ScimGroupCreateRequest:
-      type: object
-      description: Request body for creating or replacing a SCIM group.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:schemas:core:2.0:Group
-        displayName:
-          type: string
-          description: The display name of the group.
-        members:
-          type: array
-          description: The initial members of the group.
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-                description: The ID of the member user.
-      required:
-      - schemas
-      - displayName
-    ScimGroupListResponse:
-      type: object
-      description: A SCIM 2.0 ListResponse containing group resources.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults:
-          type: integer
-          description: The total number of results matching the query.
-        itemsPerPage:
-          type: integer
-          description: The number of results returned in this page.
-        startIndex:
-          type: integer
-          description: The 1-based index of the first result in this page.
-        Resources:
-          type: array
-          description: The list of SCIM group resources.
-          items:
-            $ref: '#/components/schemas/ScimGroup'
-      required:
-      - schemas
-      - totalResults
-      - Resources
-    ScimMeta:
-      type: object
-      description: SCIM resource metadata.
-      properties:
-        resourceType:
-          type: string
-          description: The type of resource (User or Group).
-        created:
-          type: string
-          format: date-time
-          description: The time when the resource was created.
-        lastModified:
-          type: string
-          format: date-time
-          description: The time when the resource was last modified.
-  responses:
-    Forbidden:
-      description: The authenticated token does not have SCIM provisioning permission.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    ScimNotFound:
-      description: The requested SCIM resource was not found.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    Unauthorized:
-      description: SCIM authentication token is missing or invalid.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    BadRequest:
-      description: The request body is malformed or contains invalid data.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
   parameters:
     groupId:
       name: groupId

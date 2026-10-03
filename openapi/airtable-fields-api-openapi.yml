@@ -112,6 +112,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      description: An error response from the Airtable API.
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          required:
+          - type
+          - message
     CreateFieldRequest:
       type: object
       description: Request body for creating a new field.
@@ -132,22 +148,6 @@ components:
       required:
       - name
       - type
-    Error:
-      type: object
-      description: An error response from the Airtable API.
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: The type of error.
-            message:
-              type: string
-              description: A human-readable description of the error.
-          required:
-          - type
-          - message
     FieldSchema:
       type: object
       description: The schema definition of a field within a table.
@@ -208,7 +208,30 @@ components:
       - id
       - name
       - type
+  parameters:
+    tableId:
+      name: tableId
+      in: path
+      required: true
+      description: The unique identifier of the table (starts with 'tbl').
+      schema:
+        type: string
+        pattern: ^tbl[a-zA-Z0-9]+$
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
   responses:
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Forbidden:
       description: The authenticated user does not have permission to perform this action.
       content:
@@ -227,35 +250,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
-    tableId:
-      name: tableId
-      in: path
-      required: true
-      description: The unique identifier of the table (starts with 'tbl').
-      schema:
-        type: string
-        pattern: ^tbl[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

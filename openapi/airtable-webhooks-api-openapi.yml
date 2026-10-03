@@ -214,18 +214,22 @@ components:
           required:
           - type
           - message
-    WebhookCreateRequest:
+    WebhookPayloadList:
       type: object
-      description: Request body for creating a new webhook.
+      description: A paginated list of webhook payloads.
       properties:
-        notificationUrl:
-          type: string
-          format: uri
-          description: The URL that will receive POST notifications when changes occur.
-        specification:
-          $ref: '#/components/schemas/WebhookSpecification'
+        payloads:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookPayload'
+        cursor:
+          type: integer
+          description: The cursor for fetching the next page of payloads.
+        mightHaveMore:
+          type: boolean
+          description: Whether there may be more payloads to fetch.
       required:
-      - notificationUrl
+      - payloads
     WebhookCreateResponse:
       type: object
       description: Response after creating a new webhook, including the MAC secret.
@@ -243,70 +247,18 @@ components:
       required:
       - id
       - macSecretBase64
-    WebhookSpecification:
+    WebhookCreateRequest:
       type: object
-      description: The specification defining what changes the webhook monitors.
+      description: Request body for creating a new webhook.
       properties:
-        options:
-          type: object
-          properties:
-            filters:
-              type: object
-              description: Filters to narrow down which changes trigger the webhook.
-              properties:
-                sourceOptions:
-                  type: object
-                  properties:
-                    formSubmission:
-                      type: object
-                      properties:
-                        tableId:
-                          type: string
-                        viewId:
-                          type: string
-                    formPageSubmission:
-                      type: object
-                      properties:
-                        pageId:
-                          type: string
-                dataTypes:
-                  type: array
-                  description: The types of data changes to monitor.
-                  items:
-                    type: string
-                    enum:
-                    - tableData
-                    - tableFields
-                    - tableMetadata
-                recordChangeScope:
-                  type: string
-                  description: The scope of record changes to monitor.
-                watchDataInFieldIds:
-                  type: array
-                  description: Specific field IDs to watch for changes.
-                  items:
-                    type: string
-                watchSchemasOfFieldIds:
-                  type: array
-                  description: Specific field IDs whose schema changes to watch.
-                  items:
-                    type: string
-    WebhookPayloadList:
-      type: object
-      description: A paginated list of webhook payloads.
-      properties:
-        payloads:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookPayload'
-        cursor:
-          type: integer
-          description: The cursor for fetching the next page of payloads.
-        mightHaveMore:
-          type: boolean
-          description: Whether there may be more payloads to fetch.
+        notificationUrl:
+          type: string
+          format: uri
+          description: The URL that will receive POST notifications when changes occur.
+        specification:
+          $ref: '#/components/schemas/WebhookSpecification'
       required:
-      - payloads
+      - notificationUrl
     Webhook:
       type: object
       description: A webhook subscription on an Airtable base.
@@ -409,7 +361,61 @@ components:
                 type: array
                 items:
                   type: string
+    WebhookSpecification:
+      type: object
+      description: The specification defining what changes the webhook monitors.
+      properties:
+        options:
+          type: object
+          properties:
+            filters:
+              type: object
+              description: Filters to narrow down which changes trigger the webhook.
+              properties:
+                sourceOptions:
+                  type: object
+                  properties:
+                    formSubmission:
+                      type: object
+                      properties:
+                        tableId:
+                          type: string
+                        viewId:
+                          type: string
+                    formPageSubmission:
+                      type: object
+                      properties:
+                        pageId:
+                          type: string
+                dataTypes:
+                  type: array
+                  description: The types of data changes to monitor.
+                  items:
+                    type: string
+                    enum:
+                    - tableData
+                    - tableFields
+                    - tableMetadata
+                recordChangeScope:
+                  type: string
+                  description: The scope of record changes to monitor.
+                watchDataInFieldIds:
+                  type: array
+                  description: Specific field IDs to watch for changes.
+                  items:
+                    type: string
+                watchSchemasOfFieldIds:
+                  type: array
+                  description: Specific field IDs whose schema changes to watch.
+                  items:
+                    type: string
   responses:
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Forbidden:
       description: The authenticated user does not have permission to perform this action.
       content:
@@ -424,12 +430,6 @@ components:
             $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded. The API allows 5 requests per second per base.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contains invalid data.
       content:
         application/json:
           schema:

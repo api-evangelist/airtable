@@ -128,26 +128,6 @@ components:
           required:
           - type
           - message
-    CreateFieldRequest:
-      type: object
-      description: Request body for creating a new field.
-      properties:
-        name:
-          type: string
-          description: The name of the field.
-        type:
-          type: string
-          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
-        description:
-          type: string
-          description: A description of the field.
-        options:
-          type: object
-          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
-          additionalProperties: true
-      required:
-      - name
-      - type
     FieldSchema:
       type: object
       description: The schema definition of a field within a table.
@@ -208,38 +188,29 @@ components:
       - id
       - name
       - type
-  parameters:
-    tableId:
-      name: tableId
-      in: path
-      required: true
-      description: The unique identifier of the table (starts with 'tbl').
-      schema:
-        type: string
-        pattern: ^tbl[a-zA-Z0-9]+$
-    baseId:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
+    CreateFieldRequest:
+      type: object
+      description: Request body for creating a new field.
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        type:
+          type: string
+          description: The type of the field. Some types like formula and autoNumber cannot be created via the API.
+        description:
+          type: string
+          description: A description of the field.
+        options:
+          type: object
+          description: Configuration options for the field. Required for some field types like singleSelect and multipleSelects.
+          additionalProperties: true
+      required:
+      - name
+      - type
   responses:
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -250,12 +221,41 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    baseId:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
+    tableId:
+      name: tableId
+      in: path
+      required: true
+      description: The unique identifier of the table (starts with 'tbl').
+      schema:
+        type: string
+        pattern: ^tbl[a-zA-Z0-9]+$
   securitySchemes:
     bearerAuth:
       type: http

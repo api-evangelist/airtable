@@ -214,6 +214,54 @@ components:
           required:
           - type
           - message
+    WebhookSpecification:
+      type: object
+      description: The specification defining what changes the webhook monitors.
+      properties:
+        options:
+          type: object
+          properties:
+            filters:
+              type: object
+              description: Filters to narrow down which changes trigger the webhook.
+              properties:
+                sourceOptions:
+                  type: object
+                  properties:
+                    formSubmission:
+                      type: object
+                      properties:
+                        tableId:
+                          type: string
+                        viewId:
+                          type: string
+                    formPageSubmission:
+                      type: object
+                      properties:
+                        pageId:
+                          type: string
+                dataTypes:
+                  type: array
+                  description: The types of data changes to monitor.
+                  items:
+                    type: string
+                    enum:
+                    - tableData
+                    - tableFields
+                    - tableMetadata
+                recordChangeScope:
+                  type: string
+                  description: The scope of record changes to monitor.
+                watchDataInFieldIds:
+                  type: array
+                  description: Specific field IDs to watch for changes.
+                  items:
+                    type: string
+                watchSchemasOfFieldIds:
+                  type: array
+                  description: Specific field IDs whose schema changes to watch.
+                  items:
+                    type: string
     WebhookPayloadList:
       type: object
       description: A paginated list of webhook payloads.
@@ -259,42 +307,6 @@ components:
           $ref: '#/components/schemas/WebhookSpecification'
       required:
       - notificationUrl
-    Webhook:
-      type: object
-      description: A webhook subscription on an Airtable base.
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the webhook.
-        type:
-          type: string
-          description: The type of the webhook (e.g., client).
-        isHookEnabled:
-          type: boolean
-          description: Whether the webhook is currently active.
-        notificationUrl:
-          type: string
-          format: uri
-          description: The URL that receives webhook notifications.
-        cursorForNextPayload:
-          type: integer
-          description: The cursor position for the next unread payload.
-        areNotificationsEnabled:
-          type: boolean
-          description: Whether notifications are currently being sent.
-        createdTime:
-          type: string
-          format: date-time
-          description: The time when the webhook was created.
-        expirationTime:
-          type: string
-          format: date-time
-          description: The time when the webhook will expire if not refreshed.
-        specification:
-          $ref: '#/components/schemas/WebhookSpecification'
-      required:
-      - id
-      - type
     WebhookPayload:
       type: object
       description: A single webhook payload representing a batch of changes.
@@ -361,73 +373,52 @@ components:
                 type: array
                 items:
                   type: string
-    WebhookSpecification:
+    Webhook:
       type: object
-      description: The specification defining what changes the webhook monitors.
+      description: A webhook subscription on an Airtable base.
       properties:
-        options:
-          type: object
-          properties:
-            filters:
-              type: object
-              description: Filters to narrow down which changes trigger the webhook.
-              properties:
-                sourceOptions:
-                  type: object
-                  properties:
-                    formSubmission:
-                      type: object
-                      properties:
-                        tableId:
-                          type: string
-                        viewId:
-                          type: string
-                    formPageSubmission:
-                      type: object
-                      properties:
-                        pageId:
-                          type: string
-                dataTypes:
-                  type: array
-                  description: The types of data changes to monitor.
-                  items:
-                    type: string
-                    enum:
-                    - tableData
-                    - tableFields
-                    - tableMetadata
-                recordChangeScope:
-                  type: string
-                  description: The scope of record changes to monitor.
-                watchDataInFieldIds:
-                  type: array
-                  description: Specific field IDs to watch for changes.
-                  items:
-                    type: string
-                watchSchemasOfFieldIds:
-                  type: array
-                  description: Specific field IDs whose schema changes to watch.
-                  items:
-                    type: string
+        id:
+          type: string
+          description: The unique identifier of the webhook.
+        type:
+          type: string
+          description: The type of the webhook (e.g., client).
+        isHookEnabled:
+          type: boolean
+          description: Whether the webhook is currently active.
+        notificationUrl:
+          type: string
+          format: uri
+          description: The URL that receives webhook notifications.
+        cursorForNextPayload:
+          type: integer
+          description: The cursor position for the next unread payload.
+        areNotificationsEnabled:
+          type: boolean
+          description: Whether notifications are currently being sent.
+        createdTime:
+          type: string
+          format: date-time
+          description: The time when the webhook was created.
+        expirationTime:
+          type: string
+          format: date-time
+          description: The time when the webhook will expire if not refreshed.
+        specification:
+          $ref: '#/components/schemas/WebhookSpecification'
+      required:
+      - id
+      - type
+  parameters:
+    baseIdPath:
+      name: baseId
+      in: path
+      required: true
+      description: The unique identifier of the base (starts with 'app').
+      schema:
+        type: string
+        pattern: ^app[a-zA-Z0-9]+$
   responses:
-    UnprocessableEntity:
-      description: The request body contains invalid data.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded. The API allows 5 requests per second per base.
       content:
@@ -440,15 +431,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    baseIdPath:
-      name: baseId
-      in: path
-      required: true
-      description: The unique identifier of the base (starts with 'app').
-      schema:
-        type: string
-        pattern: ^app[a-zA-Z0-9]+$
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contains invalid data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

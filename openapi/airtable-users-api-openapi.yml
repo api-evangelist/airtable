@@ -220,7 +220,72 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    ScimNotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Forbidden:
+      description: The authenticated token does not have SCIM provisioning permission.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    BadRequest:
+      description: The request body is malformed or contains invalid data.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: SCIM authentication token is missing or invalid.
+      content:
+        application/scim+json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   schemas:
+    ScimError:
+      type: object
+      description: A SCIM 2.0 error response.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:Error
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: string
+          description: The HTTP status code as a string.
+        scimType:
+          type: string
+          description: The SCIM error type.
+    ScimMeta:
+      type: object
+      description: SCIM resource metadata.
+      properties:
+        resourceType:
+          type: string
+          description: The type of resource (User or Group).
+        created:
+          type: string
+          format: date-time
+          description: The time when the resource was created.
+        lastModified:
+          type: string
+          format: date-time
+          description: The time when the resource was last modified.
     ScimUserCreateRequest:
       type: object
       description: Request body for creating or replacing a SCIM user.
@@ -265,73 +330,6 @@ components:
       required:
       - schemas
       - userName
-    ScimPatchRequest:
-      type: object
-      description: A SCIM 2.0 PATCH request with one or more operations.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          description: The list of PATCH operations to apply.
-          items:
-            type: object
-            properties:
-              op:
-                type: string
-                description: The operation type.
-                enum:
-                - add
-                - replace
-                - remove
-              path:
-                type: string
-                description: The attribute path to operate on.
-              value:
-                description: The value to set for add and replace operations.
-            required:
-            - op
-      required:
-      - schemas
-      - Operations
-    ScimMeta:
-      type: object
-      description: SCIM resource metadata.
-      properties:
-        resourceType:
-          type: string
-          description: The type of resource (User or Group).
-        created:
-          type: string
-          format: date-time
-          description: The time when the resource was created.
-        lastModified:
-          type: string
-          format: date-time
-          description: The time when the resource was last modified.
-    ScimError:
-      type: object
-      description: A SCIM 2.0 error response.
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          default:
-          - urn:ietf:params:scim:api:messages:2.0:Error
-        detail:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: string
-          description: The HTTP status code as a string.
-        scimType:
-          type: string
-          description: The SCIM error type.
     ScimUser:
       type: object
       description: A SCIM 2.0 User resource representing a provisioned user.
@@ -388,6 +386,39 @@ components:
       - id
       - userName
       - active
+    ScimPatchRequest:
+      type: object
+      description: A SCIM 2.0 PATCH request with one or more operations.
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          default:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          description: The list of PATCH operations to apply.
+          items:
+            type: object
+            properties:
+              op:
+                type: string
+                description: The operation type.
+                enum:
+                - add
+                - replace
+                - remove
+              path:
+                type: string
+                description: The attribute path to operate on.
+              value:
+                description: The value to set for add and replace operations.
+            required:
+            - op
+      required:
+      - schemas
+      - Operations
     ScimUserListResponse:
       type: object
       description: A SCIM 2.0 ListResponse containing user resources.
@@ -416,37 +447,6 @@ components:
       - schemas
       - totalResults
       - Resources
-  responses:
-    Forbidden:
-      description: The authenticated token does not have SCIM provisioning permission.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    BadRequest:
-      description: The request body is malformed or contains invalid data.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    ScimNotFound:
-      description: The requested SCIM resource was not found.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    Unauthorized:
-      description: SCIM authentication token is missing or invalid.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/scim+json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
   parameters:
     userId:
       name: userId

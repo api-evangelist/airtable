@@ -1,0 +1,43 @@
+slug: airtable
+provider: Airtable
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Groups
+  spec_file: airtable-groups-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: '"supports the System for Cross-domain Identity Management (SCIM 2.0) specification for automated
+    user and group provisioning"; createScimGroup'
+  reason: SCIM group provisioning from identity providers is squarely Identity & Access Management.
+- tag: Users
+  spec_file: airtable-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: '"enables identity providers like Okta and Microsoft Entra ID to manage user accounts and
+    group memberships programmatically"; createScimUser'
+  reason: SCIM user lifecycle provisioning via SSO/IdP federation is Identity & Access Management (joiners-movers-leavers).
+- tag: Webhooks
+  spec_file: airtable-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: POST /bases/{baseId}/webhooks createWebhook; "webhook subscriptions for real-time notifications";
+    schema WebhookSpecification
+  reason: Outbound webhook subscription lifecycle and payload delivery for an external developer platform
+    matches Webhook & Event Subscription Management.

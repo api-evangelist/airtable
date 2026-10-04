@@ -756,6 +756,9 @@ accessModel:
   method: derived
 image: https://www.airtable.com/images/logo.png
 common:
+- type: CapabilityMap
+  url: capabilities/airtable-capability-edges.yml
+  name: Airtable Business Capability Map
 - type: Website
   url: https://www.airtable.com/
 - type: AgenticAccess

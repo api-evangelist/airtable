@@ -756,6 +756,10 @@ accessModel:
   method: derived
 image: https://www.airtable.com/images/logo.png
 common:
+- type: Plans
+  url: plans/airtable-plans-pricing.yml
+- type: FinOps
+  url: finops/airtable-finops.yml
 - type: CapabilityMap
   url: capabilities/airtable-capability-edges.yml
   name: Airtable Business Capability Map

@@ -102,3 +102,44 @@ plans:
       - name: Unlimited org units, workspaces, bases
       - name: Up to 100M records
       - name: Tailored to organization
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - seat
+  units:
+  - seat
+  plans:
+  - name: Free
+    access: freemium
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Team
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Business
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Enterprise Scale
+    access: enterprise
+    model: seat
+    model_how: derived
+    units:
+    - other
+    - seat
+    periods:
+    - month

@@ -1,0 +1,1250 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/airtable/integrations
+- https://n8n.io/integrations/airtable/
+- https://composio.dev/toolkits/airtable
+checked:
+- https://composio.dev/toolkits/airtable
+- https://monid.ai/tools/airtable
+- https://n8n.io/integrations/airtable/
+- https://zapier.com/apps/airtable/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: airtable
+  url: https://zapier.com/apps/airtable/integrations
+  external_url: https://airtable.com/
+  partner_tier: PLATINUM
+  triggers:
+  - key: newRecord
+    label: New Record
+  - key: updated_record
+    label: New or Updated Record
+  actions:
+  - key: add_comment
+    label: Add Comment to Record
+  - key: createRecord
+    label: Create Record
+  - key: createRecords
+    label: Create Records (Advanced)
+  - key: create_base
+    label: Create Base
+  - key: create_or_update_record
+    label: Create or Update Record
+  - key: create_table
+    label: Create Table
+  - key: deleteRecord
+    label: Delete Record
+  - key: updateRecord
+    label: Update Record
+  - key: update_multiple_records
+    label: Update Multiple Records
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches:
+  - key: findRecord
+    label: Find Record
+  - key: findRecordById
+    label: Find Record by ID
+  - key: findTable
+    label: Find Table
+  - key: findTableById
+    label: Find Table by ID
+  - key: find_base
+    label: Find Base
+  - key: find_base_by_id
+    label: Find Base by ID
+  - key: get_all_records
+    label: Get All Records
+  - key: get_base_schema
+    label: Get Base Schema
+- marketplace: n8n
+  channel: open-source-node
+  app: airtable
+  url: https://n8n.io/integrations/airtable/
+  identity: title
+  pair_pages: 752
+  pairs:
+  - airtop
+  - aitableai
+  - alchemy
+  - alerty
+  - alienvault
+  - alphamoon
+  - alttextai
+  - amazon
+  - amilia
+  - amqp-sender
+  - announcekit
+  - apiary
+  - apiflash
+  - apitemplateio
+  - apptivegrid
+  - asana
+  - auth0-management-api
+  - autom
+  - automizy
+  - autopilot
+  - aws-certificate-manager
+  - aws-cognito
+  - aws-comprehend
+  - aws-dynamodb
+  - aws-elb
+  - aws-iam
+  - aws-lambda
+  - aws-rekognition
+  - aws-s3
+  - aws-ses
+  - aws-sns
+  - aws-sqs
+  - aws-textract
+  - aws-transcribe
+  - azure-cosmos-db
+  - azure-storage
+  - badger-maps
+  - bamboohr
+  - bandwidth
+  - bannerbear
+  - baserow
+  - beeminder
+  - benchmark-email
+  - better-proposals
+  - big-cartel
+  - big-data-cloud
+  - bigml
+  - bitly
+  - bitrix24
+  - bitwarden
+  - blaze
+  - blockchain-exchange
+  - bloock
+  - bot9
+  - botbaba
+  - botifier
+  - botium-box
+  - botsonic
+  - botstar
+  - box
+  - brain-pod-ai
+  - brandblast
+  - brandfetch
+  - brandmentions
+  - breezy-hr
+  - brevo
+  - brex
+  - browse-ai
+  - browserstack
+  - bubble
+  - bugbug
+  - bugfender
+  - bugherd
+  - bugpilot
+  - bugreplay
+  - bugshot
+  - buildkite
+  - bunnycdn
+  - calendarhero
+  - calendly
+  - canvas
+  - capsule
+  - carbon-black
+  - chaindesk
+  - chargebee
+  - chargeover
+  - chargify
+  - chatbase
+  - chatling
+  - chatmasters
+  - chatrace
+  - chatsonic
+  - check-credential-status
+  - chekhub
+  - circleci
+  - cisco-meraki
+  - cisco-secure-endpoint
+  - cisco-umbrella
+  - cisco-webex
+  - citrix-adc
+  - clappia
+  - clarifai
+  - claude
+  - clearbit
+  - cleverreach
+  - clickup
+  - clockify
+  - cloozo
+  - cloud-66
+  - cloudboost
+  - cloudflare
+  - cloudlayer
+  - cloudshare
+  - cloze
+  - cockpit
+  - coda
+  - code-climate
+  - codefresh
+  - cody
+  - coingecko
+  - college-football-data
+  - configcat
+  - confluence
+  - confluent
+  - contentful
+  - convertapi
+  - convertkit
+  - convi
+  - copper
+  - copyai
+  - corsizio
+  - cortex
+  - craftdraft
+  - cratedb
+  - crisp
+  - cronly
+  - crossmint
+  - crowddev
+  - crowdin
+  - crowdpower
+  - crowdstrike
+  - cryptolens
+  - currents
+  - customer-datastore-n8n-training
+  - customer-messenger-n8n-training
+  - customerio
+  - customeriq
+  - daffy
+  - dante-ai
+  - darksky-api
+  - dasha
+  - data-soap
+  - databox
+  - databricks
+  - datadog
+  - datarobot
+  - datumbox
+  - dayschedule
+  - deepgram
+  - deepl
+  - deepseek-chat-model
+  - demio
+  - descript
+  - detrack
+  - devcycle
+  - dhl
+  - dialzara
+  - diddo-ai
+  - diffy
+  - digicert
+  - discord
+  - discourse
+  - disqus
+  - dock-certs
+  - docparser
+  - docsbot-ai
+  - docupilot
+  - docuwriter
+  - dokan
+  - domo
+  - draftable
+  - drift
+  - dropbox
+  - dropcontact
+  - droxy
+  - dynatrace
+  - e-goi
+  - easyship
+  - echowin
+  - ecwid
+  - elastic-security
+  - elasticsearch
+  - elmah
+  - embedai
+  - emelia
+  - empsing
+  - engati
+  - enormail
+  - enterpret
+  - envoy
+  - erpnext
+  - esendex
+  - evervault
+  - evolphin-zoom
+  - f5-big-ip
+  - facebook-graph-api
+  - faraday
+  - faros
+  - fastbots
+  - fathom
+  - filemaker
+  - filescan
+  - firmao
+  - fitbit
+  - flagship
+  - float
+  - flotiq
+  - flow
+  - fluent-support
+  - focuster
+  - formcarry
+  - formdesk
+  - forms-on-fire
+  - formsite
+  - formstack-documents
+  - fortinet-fortigate
+  - foursquare
+  - free-dictionary
+  - freshdesk
+  - freshping
+  - freshservice
+  - freshworks-crm
+  - fullcontact
+  - fusioo
+  - gali
+  - gatekeeper
+  - gender-api
+  - getresponse
+  - getscreenshot
+  - ghost
+  - giphy
+  - gitea
+  - github
+  - gitlab
+  - gleap
+  - gmail
+  - gocanvas
+  - godaddy
+  - gong
+  - google-ads
+  - google-ai-studio-gemini
+  - google-analytics
+  - google-bigquery
+  - google-books
+  - google-business-profile
+  - google-calendar
+  - google-chat
+  - google-cloud
+  - google-cloud-firestore
+  - google-cloud-natural-language
+  - google-cloud-realtime-database
+  - google-cloud-storage
+  - google-contacts
+  - google-docs
+  - google-drive
+  - google-forms
+  - google-gemini-chat-model
+  - google-perspective
+  - google-sheets
+  - google-slides
+  - google-tables
+  - google-tasks
+  - google-translate
+  - google-vertex-ai
+  - google-workspace-admin
+  - gotify
+  - gotowebinar
+  - gptea
+  - grafana
+  - grain
+  - graphql
+  - gravity-forms
+  - grid
+  - grist
+  - growbots
+  - gumroad
+  - gupshup
+  - guru
+  - hacker-news
+  - halopsa
+  - handwrytten
+  - hansei
+  - harry-potter-api
+  - harvest
+  - headless-testing
+  - helcim
+  - helpscout
+  - heysummit
+  - highlevel
+  - home-assistant
+  - http-request
+  - hub-planner
+  - hubspot
+  - hugging-face
+  - humantic-ai
+  - hunter
+  - hybrid-analysis
+  - iauditor-by-safetyculture
+  - idealpostcodes
+  - idealspot
+  - ideta
+  - imgbb
+  - imgur
+  - imperva-waf
+  - impira
+  - industryselect
+  - influxdb-cloud
+  - infolobby
+  - instabot
+  - instabug
+  - intakeq
+  - intercom
+  - invoice-ninja
+  - invoiced
+  - ip2location
+  - ipinfo
+  - ipregistry
+  - iris-dfir
+  - isn
+  - iterable
+  - jama
+  - jasper
+  - jenkins
+  - jina-ai
+  - jira-software
+  - jwt
+  - kadoa
+  - kafka
+  - kaggle
+  - kanban-tool
+  - karbon
+  - keap
+  - keygen
+  - keyzy
+  - kibana
+  - kitemaker
+  - klaviyo
+  - klazify
+  - knack
+  - knowbe4
+  - kobotoolbox
+  - kraftful
+  - lagrowthmachine
+  - lambdatest
+  - landbot
+  - laposta
+  - launch27
+  - launchdarkly
+  - ldap
+  - leadboxer
+  - leadpops
+  - lemlist
+  - lets-enhance
+  - libraria
+  - lighthouse
+  - lime-go
+  - line
+  - linear
+  - lingvanex
+  - linkedin
+  - linkish
+  - linode
+  - liveagent
+  - localazy
+  - loginradius
+  - lokalise
+  - lonescale
+  - lucidchart
+  - magento-2
+  - mailcheck
+  - mailchimp
+  - mailerlite
+  - mailersend
+  - mailgun
+  - mailify
+  - mailjet
+  - mailmodo
+  - malcore
+  - mandrill
+  - marcom-robot
+  - marketing-master-io
+  - marketplacer
+  - marketstack
+  - mastodon
+  - matrix
+  - mattermost
+  - mautic
+  - mav
+  - maverick
+  - medium
+  - mem
+  - messagebird
+  - metabase
+  - metatextai-inference-api
+  - mews
+  - microsoft-azure-monitor
+  - microsoft-dynamics-365-business-central-api
+  - microsoft-dynamics-crm
+  - microsoft-entra-id
+  - microsoft-entra-id-azure-active-directory
+  - microsoft-excel
+  - microsoft-graph-security
+  - microsoft-onedrive
+  - microsoft-outlook
+  - microsoft-sharepoint
+  - microsoft-sql
+  - microsoft-teams
+  - microsoft-teams-admin
+  - microsoft-to-do
+  - miestro
+  - mindee
+  - miro
+  - misp
+  - missive
+  - mist
+  - mistral-ai
+  - mixpanel
+  - mocean
+  - mondaycom
+  - mongodb
+  - monica-crm
+  - moonclerk
+  - moonmail
+  - morph
+  - mqtt
+  - msg91
+  - mux
+  - mx-toolbox
+  - my-askai
+  - myphoner
+  - mysql
+  - nanonets-ocr
+  - nasa
+  - ncscale
+  - netlify
+  - nextcloud
+  - nightfallai
+  - ninox
+  - nmkr
+  - nocodb
+  - notion
+  - nozbe-teams
+  - npm
+  - nuclia
+  - nusii-proposals
+  - nyckel
+  - nyota
+  - occasion
+  - ocrspace
+  - odoo
+  - offalerts
+  - okta
+  - omeda
+  - omniconvert
+  - omnimind
+  - on2air
+  - one-ai
+  - one-simple-api
+  - onfleet
+  - openai
+  - opencti
+  - openthesaurus
+  - openweathermap
+  - opn-formerly-omise
+  - oracle-database
+  - orbit
+  - order-desk
+  - ortto
+  - oura
+  - paddle
+  - pagerduty
+  - paperform
+  - papyrs
+  - parsehub
+  - parseprompt
+  - passcreator
+  - passslot
+  - patreon
+  - paymo
+  - paypal
+  - peekalink
+  - perplexity
+  - persio
+  - personal-ai
+  - phantombuster
+  - philips-hue
+  - phrase
+  - pinata
+  - pinboard
+  - pinterest
+  - pipedrive
+  - pipefy
+  - pirate-weather
+  - pitchly
+  - pivotal-tracker
+  - planview-leankit
+  - planyo-online-booking
+  - platformly
+  - plecto
+  - plivo
+  - postbin
+  - postgres
+  - posthog
+  - practitest
+  - predisai
+  - prodia
+  - product-hunt
+  - profitwell
+  - project-bubble-proprofs-project
+  - prompthub
+  - prospe-ai
+  - pushbullet
+  - pushcut
+  - pusher
+  - pushover
+  - qradar
+  - qualaroo
+  - qualys
+  - quentn
+  - questdb
+  - quick-base
+  - quickbooks-online
+  - quickchart
+  - quintadb
+  - rabbitmq
+  - radar
+  - raindrop
+  - rapid7-insightvm
+  - raven-tools
+  - rawg-video-games-database
+  - read-ai
+  - realphonevalidation
+  - recharge
+  - recorded-future
+  - redash
+  - reddit
+  - redis
+  - relevance-ai
+  - relink-url-shortener
+  - relysia
+  - replyio
+  - retable
+  - reverse-contact
+  - rewardful
+  - ritekit
+  - roboflow
+  - robolytix
+  - roboresponseai
+  - rocketchat
+  - rollbar
+  - rootly
+  - route4me
+  - rundeck
+  - s3
+  - sales-simplify
+  - salesforce
+  - salesmaa
+  - salesmate
+  - salesmsg
+  - salesrocks
+  - samsung-smartthings
+  - scrape-itcloud
+  - scrapeninja
+  - seamless-ai
+  - search-and-save
+  - seatable
+  - securityscorecard
+  - segment
+  - sekoia
+  - sellix
+  - sembly-ai
+  - sendgrid
+  - sendy
+  - sentryio
+  - servicenow
+  - sharly-ai
+  - shiphero
+  - shipstation
+  - shopify
+  - shortio
+  - shuffler
+  - sierra-interactive
+  - sifter
+  - signaturit
+  - signl4
+  - signrequest
+  - simpleem
+  - simplehash
+  - simplekpi
+  - simplelocalize
+  - simplero
+  - simpletexting
+  - sitecreatorio
+  - sitespeakai
+  - slack
+  - smaily
+  - smartreach
+  - smartsuite
+  - sms-it
+  - sms-magic
+  - sms77
+  - snapdocs
+  - snatchbot
+  - snipcart
+  - snowflake
+  - solve-data
+  - specter
+  - splunk
+  - spondyr
+  - spontit
+  - sportsdata
+  - spotify
+  - spydra
+  - sslmate-cert-spotter-api
+  - stackby
+  - stammerai
+  - starton
+  - statuscake
+  - storyblok
+  - strapi
+  - strava
+  - stripe
+  - studio-by-ai21-labs
+  - suitedash
+  - supabase
+  - supernormal
+  - superpowered
+  - supportivekoala
+  - survicate
+  - swagup
+  - switchboard
+  - syncly
+  - syncromsp
+  - synthesia
+  - taiga
+  - talentlms
+  - talknotes
+  - tapfiliate
+  - td-ameritrade
+  - teachable
+  - team-up
+  - teamdeck
+  - teamgate
+  - teknoir
+  - telegram
+  - testmonitor
+  - textcortex-ai
+  - textgain
+  - textkit
+  - textmagic
+  - thankster
+  - the-customer-factor
+  - the-leap
+  - thehive
+  - thehive-5
+  - thoughtfulgpt
+  - thrivecart
+  - tidb-cloud
+  - tierion
+  - tilda
+  - timescaledb
+  - timetonic
+  - tinyurl
+  - tisane-labs
+  - todoist
+  - token-metrics
+  - toket
+  - totango
+  - trackvia
+  - transifex
+  - travisci
+  - trellix-epo
+  - trello
+  - trengo
+  - trevorio
+  - turbohire
+  - tuskr
+  - tuulio
+  - twake
+  - twilio
+  - twist
+  - twitter
+  - unbounce
+  - unisender
+  - unleashed-software
+  - upkeep
+  - uplead
+  - uproc
+  - uptimerobot
+  - uptimetoolbox
+  - urlscanio
+  - uservoice
+  - venafi-tls-protect-cloud
+  - venafi-tls-protect-datacenter
+  - venly
+  - verifalia
+  - vero
+  - vimeo
+  - virustotal
+  - vivifyscrum
+  - voicit
+  - vonage
+  - vowel
+  - watchsignals
+  - waveline-extract
+  - webex-by-cisco
+  - webflow
+  - webscraperio
+  - wekan
+  - whal3s
+  - whatconverts
+  - whatsapp-business-cloud
+  - wise
+  - wizychat
+  - wonderchat
+  - wondercraft
+  - woocommerce
+  - woodpeckerco
+  - wordpress
+  - workast
+  - workboard
+  - woxo
+  - writesonic
+  - wubook-ratechecker
+  - xero
+  - xtractly
+  - ybug
+  - ycode
+  - yodiz
+  - yourls
+  - youtube
+  - zabbix
+  - zammad
+  - zendesk
+  - zenrows
+  - zoho-books
+  - zoho-crm
+  - zoho-desk
+  - zonka-feedback
+  - zoom
+  - zscaler-zia
+  - zulip
+- marketplace: composio
+  channel: agent-gateway
+  app: airtable
+  url: https://composio.dev/toolkits/airtable
+  identity: action-prefix
+  actions:
+  - key: AIRTABLE_BASE_METADATA_CHANGED_TRIGGER
+  - key: AIRTABLE_BASE_SCHEMA_CHANGED_TRIGGER
+  - key: AIRTABLE_CREATE_BASE
+  - key: AIRTABLE_CREATE_COMMENT
+  - key: AIRTABLE_CREATE_FIELD
+  - key: AIRTABLE_CREATE_MULTIPLE_RECORDS
+  - key: AIRTABLE_CREATE_RECORDS
+  - key: AIRTABLE_CREATE_RECORD_FROM_NATURAL_LANGUAGE
+  - key: AIRTABLE_CREATE_TABLE
+  - key: AIRTABLE_DELETE_COMMENT
+  - key: AIRTABLE_DELETE_MULTIPLE_RECORDS
+  - key: AIRTABLE_DELETE_RECORD
+  - key: AIRTABLE_GET_BASE_SCHEMA
+  - key: AIRTABLE_GET_RECORD
+  - key: AIRTABLE_GET_USER_INFO
+  - key: AIRTABLE_LIST_BASES
+  - key: AIRTABLE_LIST_COMMENTS
+  - key: AIRTABLE_LIST_RECORDS
+  - key: AIRTABLE_UPDATE_COMMENT
+  - key: AIRTABLE_UPDATE_FIELD
+  - key: AIRTABLE_UPDATE_MULTIPLE_RECORDS
+  - key: AIRTABLE_UPDATE_MULTIPLE_RECORDS_PUT
+  - key: AIRTABLE_UPDATE_RECORD
+  - key: AIRTABLE_UPDATE_RECORD_PUT
+  - key: AIRTABLE_UPDATE_TABLE
+  - key: AIRTABLE_UPLOAD_ATTACHMENT
+  - key: AIRTABLE_USER_PROFILE_CHANGED_TRIGGER
+  - key: AIRTABLE_VIEW_CREATED_TRIGGER
+  - key: AIRTABLE_VIEW_DELETED_TRIGGER
+  - key: AIRTABLE_VIEW_METADATA_CHANGED_TRIGGER
+edges:
+- partner_name: Gmail
+  partner: gmail
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Google Docs
+  partner: google-docs
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/google-docs
+  direction: third-party
+  category: Documents
+  partner_url: http://google.com/
+- partner_name: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/microsoft-outlook
+  direction: third-party
+  category: Calendar
+  partner_url: https://outlook.live.com/
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: Google Forms
+  partner: google-forms
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/google-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: Google Drive
+  partner: google-drive
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/google-drive
+  direction: third-party
+  category: File Management & Storage
+  partner_url: https://www.google.com/drive/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: Slack
+  partner: slack
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/slack
+  direction: third-party
+  category: Team Chat
+  partner_url: https://slack.com/
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: Calendly
+  partner: calendly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/calendly
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://calendly.com/?utm_medium=partner&utm_source=zapier&utm_campaign=main_partner_page&utm_content=main_inbound_link
+- partner_name: Tally
+  partner: tally
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/tally
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://try.tally.so/zapier
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: PandaDoc
+  partner: pandadoc
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/pandadoc
+  direction: third-party
+  category: Documents
+  partner_url: https://www.pandadoc.com/integrations/zapier/?utm_source=zapier-marketplace&utm_medium=partner&utm_campaign=2020-11-inbd-marketplace-websitevisit-pandadoc-zapier-integration
+- partner_name: Trello
+  partner: trello
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/trello
+  direction: third-party
+  category: Project Management
+  partner_url: https://trello.com/
+- partner_name: Close
+  partner: close
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/close
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.close.com/?utm_source=Partner&utm_medium=Integration_Listing&utm_campaign=2025_Partnerships&utm_content=Home
+- partner_name: ClickUp
+  partner: clickup
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/clickup
+  direction: third-party
+  category: Project Management
+  partner_url: https://clickup.com/zapier
+- partner_name: Dropbox
+  partner: dropbox
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/dropbox
+  direction: third-party
+  category: File Management & Storage
+  partner_url: https://dropbox.com/
+- partner_name: Twilio
+  partner: twilio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/twilio
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://www.twilio.com/
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: Circle
+  partner: circle-community
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/circle
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://circle.so/
+- partner_name: Notion
+  partner: notion
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/notion
+  direction: third-party
+  category: Task Management
+  partner_url: https://www.notion.so/
+- partner_name: ThriveCart
+  partner: thrivecart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/thrivecart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://thrivecart.com/
+- partner_name: SendGrid
+  partner: sendgrid
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/sendgrid
+  direction: third-party
+  category: Transactional Email
+  partner_url: https://sendgrid.com/
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Fillout Forms
+  partner: fillout
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/fillout
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.fillout.com/?ref=zapier
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/airtable/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+templates:
+- title: Add subscribers to Mailchimp via new Airtable records
+  url: https://zapier.com/apps/airtable/integrations/mailchimp/12911/add-subscribers-to-mailchimp-via-new-airtable-records
+  apps:
+  - airtable
+  - mailchimp
+- title: Add new Stripe sales to Airtable
+  url: https://zapier.com/apps/airtable/integrations/stripe/3627/add-new-stripe-sales-to-airtable
+  apps:
+  - stripe
+  - airtable
+- title: Import new events from Google Calendar into Airtable
+  url: https://zapier.com/apps/airtable/integrations/google-calendar/3552/import-new-events-from-google-calendar-into-airtable
+  apps:
+  - google-calendar
+  - airtable
+- title: Import new contacts from Google Contacts into Airtable
+  url: https://zapier.com/apps/airtable/integrations/google-contacts/3553/import-new-contacts-from-google-contacts-into-airtable
+  apps:
+  - google-contacts
+  - airtable
+- title: Add new companies from Crunchbase saved search to Airtable
+  url: https://zapier.com/apps/airtable/integrations/crunchbase/1816224/add-new-companies-from-crunchbase-saved-search-to-airtable
+  apps:
+  - crunchbase
+  - airtable
+- title: Add new Typeform entries to Airtable as records
+  url: https://zapier.com/apps/airtable/integrations/typeform/7331/add-new-typeform-entries-to-airtable-as-records
+  apps:
+  - typeform
+  - airtable
+- title: Add new Airtable records in views to Google Sheets
+  url: https://zapier.com/apps/airtable/integrations/google-sheets/7324/add-new-airtable-records-in-views-to-google-sheets
+  apps:
+  - airtable
+  - google-sheets
+- title: Send Gmail messages for new Airtable records in views
+  url: https://zapier.com/apps/airtable/integrations/gmail/3459/send-gmail-messages-for-new-airtable-records-in-views
+  apps:
+  - airtable
+  - gmail
+- title: Add new RSS feed items to Airtable as records
+  url: https://zapier.com/apps/airtable/integrations/rss/7330/add-new-rss-feed-items-to-airtable-as-records
+  apps:
+  - rss
+  - airtable
+- title: Get email notifications for new Airtable base records
+  url: https://zapier.com/apps/airtable/integrations/email/3555/get-email-notifications-for-new-airtable-base-records
+  apps:
+  - airtable
+  - email
+- title: Add Brevo subscribers for new records in Airtable
+  url: https://zapier.com/apps/airtable/integrations/brevo/163483/add-brevo-subscribers-for-new-records-in-airtable
+  apps:
+  - airtable
+  - brevo
+- title: Create detailed events in Google Calendar from new Airtable records in views
+  url: https://zapier.com/apps/airtable/integrations/google-calendar/7329/create-detailed-events-in-google-calendar-from-new-airtable-records-in-views
+  apps:
+  - airtable
+  - google-calendar
+template_total: 7511

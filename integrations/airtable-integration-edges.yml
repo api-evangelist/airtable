@@ -5,6 +5,7 @@ source:
 - https://n8n.io/integrations/airtable/
 - https://composio.dev/toolkits/airtable
 checked:
+- https://aws.amazon.com/marketplace/
 - https://composio.dev/toolkits/airtable
 - https://monid.ai/tools/airtable
 - https://n8n.io/integrations/airtable/
@@ -1186,6 +1187,21 @@ edges:
   direction: third-party
   category: Video Conferencing
   partner_url: https://www.zoom.us/
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=seller-chwje7uk46rsq
+  listing_count: 1
+  apps:
+  - Airtable
+  seller_name: Airtable
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
 templates:
 - title: Add subscribers to Mailchimp via new Airtable records
   url: https://zapier.com/apps/airtable/integrations/mailchimp/12911/add-subscribers-to-mailchimp-via-new-airtable-records

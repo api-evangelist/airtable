@@ -7,6 +7,7 @@ source:
 checked:
 - https://aws.amazon.com/marketplace/
 - https://composio.dev/toolkits/airtable
+- https://hightouch.com/docs/destinations/airtable
 - https://monid.ai/tools/airtable
 - https://n8n.io/integrations/airtable/
 - https://zapier.com/apps/airtable/integrations
@@ -1202,6 +1203,31 @@ edges:
   seller_name: Airtable
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/airtable
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - airtable
+      status: released
+      sync_types:
+      - Object fields
+      - Objects
+      sync_modes:
+      - insert
+      - update
+      - upsert
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 templates:
 - title: Add subscribers to Mailchimp via new Airtable records
   url: https://zapier.com/apps/airtable/integrations/mailchimp/12911/add-subscribers-to-mailchimp-via-new-airtable-records

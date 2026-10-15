@@ -464,7 +464,7 @@
     app_slug: airtable
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: airtable-n8n
   label: n8n
@@ -491,7 +491,7 @@
     builder: n8n (built-in node)
     other_nodes:
     - Airtable/v1
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: airtable-pipedream
   label: Pipedream
@@ -517,5 +517,5 @@
     actions: true
     sources: true
     builder: Pipedream repo (component)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null

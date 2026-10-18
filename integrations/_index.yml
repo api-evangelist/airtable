@@ -553,7 +553,7 @@
       type: source
       lapsed: false
       cloud: true
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: airtable-fivetran
   label: Fivetran
@@ -579,7 +579,7 @@
     - connectors/applications/airtable
     vendor_link: https://airtable.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: airtable-meltano
   label: Meltano
@@ -614,5 +614,5 @@
     - gold
     - silver
     builder: 'community (Meltano Hub variant maintainers: airbyte, goes-funky, hotgluexyz, tomasvotava)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null

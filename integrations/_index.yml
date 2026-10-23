@@ -90,19 +90,6 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
-- slug: airtable-okta-own
-  label: Okta (own)
-  partner: okta
-  partner_name: Okta (own)
-  category: Single Sign-On
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.okta.com/integrations/airtable/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: airtable-mcp-registry
   label: MCP Registry
   partner: mcp
@@ -991,5 +978,56 @@
     signal_note: one edge per (builder, platform); listings and badges are context, never read
     detected_by: sweep-airtable-marketplace.py
     detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-ifttt
+  label: IFTTT
+  partner: ifttt
+  partner_name: IFTTT
+  type: marketplace
+  marketplace: ifttt-services
+  channel: ipaas-listing
+  evidence: https://ifttt.com/airtable
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: IFTTT service directory (ifttt.com/explore/services; ifttt.com/<service>)
+    spec_file: null
+    role: ipaas-connector:ifttt
+    registered_name: Airtable
+    matched_domain: airtable.com
+    matched_by: domain
+    app_slug: airtable
+    ifttt_category: Project management & to-dos
+    builder: unknown (the service page does not say who built it)
+    detected_by: sweep-ifttt-services.py
+    detected: '2026-10-23'
+    signal_note: one edge per (provider, platform); triggers, actions and applet counts are context, never read
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-okta-own
+  label: Okta (own)
+  partner: okta
+  partner_name: Okta (own)
+  category: Single Sign-On
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.okta.com/integrations/airtable/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-adobe-creative-cloud-own
+  label: Adobe Creative Cloud (own)
+  partner: adobe-creative-cloud
+  partner_name: Adobe Creative Cloud (own)
+  category: Adobe Exchange Creative Cloud listing (Express)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://exchange.adobe.com/apps/cc/dc6687b0/airtable
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null

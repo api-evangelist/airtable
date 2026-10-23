@@ -29,6 +29,10 @@ checked:
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugins.json
 - https://airtable.com/v0.3/blocksGallery/publishedBlocks
 - https://www.airtable.com/sitemap.xml
+- https://ifttt.com/airtable
+- https://ifttt.com/explore/services
+- https://ifttt.com/sitemap_services.xml
+- adobe-creative-cloud/integrations/adobe-creative-cloud-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -165,34 +169,6 @@ edges:
   seller_name: Airtable
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: Okta (own)
-  partner: okta
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.okta.com/integrations/airtable/
-  mirror_of: okta/integrations/okta-integration-edges.yml
-  apps:
-  - Airtable
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Single Sign-On
-  badges:
-  - OKTA_VERIFIED
-  features:
-  - CREATE
-  - DEACTIVATE
-  - GROUP_PUSH
-  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
-  - SAML
-  - SECURE_IDENTITY_INTEGRATIONS_FUNDAMENTAL
-  - UPDATE
-  - WORKFLOWS_CONNECTORS
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -1135,6 +1111,76 @@ edges:
     detected: '2026-10-23'
   detected_by: sweep-airtable-marketplace.py
   detected: '2026-10-23'
+- partner_name: IFTTT
+  partner: ifttt
+  partner_match: aggregator
+  type: marketplace
+  marketplace: ifttt-services
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://ifttt.com/airtable
+  category: null
+  contract_reference:
+    register: IFTTT service directory (ifttt.com/explore/services; ifttt.com/<service>)
+    spec_file: null
+    role: ipaas-connector:ifttt
+    registered_name: Airtable
+    matched_domain: airtable.com
+    matched_by: domain
+    app_slug: airtable
+    ifttt_category: Project management & to-dos
+    builder: unknown (the service page does not say who built it)
+    detected_by: sweep-ifttt-services.py
+    detected: '2026-10-23'
+    signal_note: one edge per (provider, platform); triggers, actions and applet counts are context, never read
+  detected_by: sweep-ifttt-services.py
+  first_seen: '2026-10-23'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/airtable/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Airtable
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - GROUP_PUSH
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
+  - SAML
+  - SECURE_IDENTITY_INTEGRATIONS_FUNDAMENTAL
+  - UPDATE
+  - WORKFLOWS_CONNECTORS
+- partner_name: Adobe Creative Cloud (own)
+  partner: adobe-creative-cloud
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://exchange.adobe.com/apps/cc/dc6687b0/airtable
+  mirror_of: adobe-creative-cloud/integrations/adobe-creative-cloud-integration-edges.yml
+  apps:
+  - Airtable
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Adobe Exchange Creative Cloud listing (Express)
 templates:
 - title: Add subscribers to Mailchimp via new Airtable records
   url: https://zapier.com/apps/airtable/integrations/mailchimp/12911/add-subscribers-to-mailchimp-via-new-airtable-records

@@ -681,3 +681,315 @@
     detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
+- slug: airtable-carbone-io
+  label: Carbone.io
+  partner: carbone
+  partner_name: Carbone.io
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkDYrh9J4DbPp5Jq/document-generator-carbone
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Carbone.io
+    matched_domain: carbone.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - 'Document Generator '
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-clicksend
+  label: ClickSend
+  partner: clicksend
+  partner_name: ClickSend
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkMx7V6Zmm8C8EkV/clicksend-sms
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: ClickSend
+    matched_domain: clicksend.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - ClickSend SMS
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-craftmypdf-com
+  label: CraftMyPDF.com
+  partner: craftmypdf
+  partner_name: CraftMyPDF.com
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkLz6A97ssjTt0z2/craft-my-pdf
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: CraftMyPDF.com
+    matched_domain: craftmypdf.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - CraftMyPDF.com
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-dataforseo
+  label: DataForSEO
+  partner: dataforseo
+  partner_name: DataForSEO
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blk5TpbCnrcUvTnpj/seo-toolkit-by-data-for-seo
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: DataForSEO
+    matched_domain: dataforseo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - SEO Toolkit by DataForSEO
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-documint-llc
+  label: Documint LLC
+  partner: documint
+  partner_name: Documint LLC
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkTK0uVJlZrho1Bu/documint
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Documint LLC
+    matched_domain: documint.me
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Documint
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-involve-me
+  label: involve.me
+  partner: involve-me
+  partner_name: involve.me
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkOJg7nPhfSvO5iE/involve-dot-me
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: involve.me
+    matched_domain: involve.me
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - involve.me
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-lob
+  label: Lob
+  partner: lob
+  partner_name: Lob
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blk3bzbNyiDRvWqWB/address-cleanser
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Lob
+    matched_domain: lob.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Address Cleanser by Lob
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-mailersend
+  label: MailerSend
+  partner: mailersend
+  partner_name: MailerSend
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkBzyV5En3l2Sfo5/mailersend
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: MailerSend
+    matched_domain: mailersend.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - MailerSend
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-actual-reports
+  label: Actual Reports
+  partner: pdfgeneratorapi
+  partner_name: Actual Reports
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkVfvKHYITm7m8JL/pdf-generator-api
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Actual Reports
+    matched_domain: pdfgeneratorapi.com
+    matched_by: domain+product
+    listings: 1
+    sample_apps:
+    - PDF Generator API
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-quickchart
+  label: QuickChart
+  partner: quickchart
+  partner_name: QuickChart
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkZ5M0k1EDRSE8D7/qr-code-maker
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: QuickChart
+    matched_domain: quickchart.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - QR Code Maker
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-vizion-api
+  label: Vizion API
+  partner: vizion
+  partner_name: Vizion API
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blk4vTe3eUjqUEwtf/vizion-container-tracking
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Vizion API
+    matched_domain: vizionapi.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Vizion
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
+- slug: airtable-whippy-ai
+  label: Whippy AI
+  partner: whippy
+  partner_name: Whippy AI
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkvsUTFN9QtWcOvm/whippy-ai
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Whippy AI
+    matched_domain: whippy.ai
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Whippy AI
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null

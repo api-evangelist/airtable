@@ -27,6 +27,8 @@ checked:
 - https://raw.githubusercontent.com/<repo>/HEAD/manifest.json
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugin-stats.json
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugins.json
+- https://airtable.com/v0.3/blocksGallery/publishedBlocks
+- https://www.airtable.com/sitemap.xml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -138,6 +140,15 @@ marketplace_apps:
   - key: AIRTABLE_VIEW_DELETED_TRIGGER
   - key: AIRTABLE_VIEW_METADATA_CHANGED_TRIGGER
   - key: AIRTABLE_WHO_AM_I
+- marketplace: own
+  channel: partner-built
+  app: airtable
+  url: https://airtable.com/marketplace
+  app_count: 205
+  adapter: 'sweep-airtable-marketplace.py:v0.3/blocksGallery/publishedBlocks (the marketplace page''s own public
+    JSON: publisherName, publisherEmail, supportUrl)'
+  listed: 12
+  note: 205 listings read; only domain-linked builders / vendors are written
 edges:
 - partner_name: AWS Marketplace
   partner: amazon-web-services
@@ -812,6 +823,318 @@ edges:
   apps:
   - Auto Note Importer
   - Airtable Tabula
+- partner_name: Carbone.io
+  app: 'Document Generator '
+  partner: carbone
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkDYrh9J4DbPp5Jq/document-generator-carbone
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Carbone.io
+    matched_domain: carbone.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - 'Document Generator '
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: ClickSend
+  app: ClickSend SMS
+  partner: clicksend
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkMx7V6Zmm8C8EkV/clicksend-sms
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: ClickSend
+    matched_domain: clicksend.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - ClickSend SMS
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: CraftMyPDF.com
+  app: CraftMyPDF.com
+  partner: craftmypdf
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkLz6A97ssjTt0z2/craft-my-pdf
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: CraftMyPDF.com
+    matched_domain: craftmypdf.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - CraftMyPDF.com
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: DataForSEO
+  app: SEO Toolkit by DataForSEO
+  partner: dataforseo
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blk5TpbCnrcUvTnpj/seo-toolkit-by-data-for-seo
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: DataForSEO
+    matched_domain: dataforseo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - SEO Toolkit by DataForSEO
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: Documint LLC
+  app: Documint
+  partner: documint
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkTK0uVJlZrho1Bu/documint
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Documint LLC
+    matched_domain: documint.me
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Documint
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: involve.me
+  app: involve.me
+  partner: involve-me
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkOJg7nPhfSvO5iE/involve-dot-me
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: involve.me
+    matched_domain: involve.me
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - involve.me
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: Lob
+  app: Address Cleanser by Lob
+  partner: lob
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blk3bzbNyiDRvWqWB/address-cleanser
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Lob
+    matched_domain: lob.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Address Cleanser by Lob
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: MailerSend
+  app: MailerSend
+  partner: mailersend
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkBzyV5En3l2Sfo5/mailersend
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: MailerSend
+    matched_domain: mailersend.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - MailerSend
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: Actual Reports
+  app: PDF Generator API
+  partner: pdfgeneratorapi
+  partner_match: domain+product
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkVfvKHYITm7m8JL/pdf-generator-api
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Actual Reports
+    matched_domain: pdfgeneratorapi.com
+    matched_by: domain+product
+    listings: 1
+    sample_apps:
+    - PDF Generator API
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: QuickChart
+  app: QR Code Maker
+  partner: quickchart
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkZ5M0k1EDRSE8D7/qr-code-maker
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: QuickChart
+    matched_domain: quickchart.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - QR Code Maker
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: Vizion API
+  app: Vizion
+  partner: vizion
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blk4vTe3eUjqUEwtf/vizion-container-tracking
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Vizion API
+    matched_domain: vizionapi.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Vizion
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
+- partner_name: Whippy AI
+  app: Whippy AI
+  partner: whippy
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://airtable.com/marketplace/blkvsUTFN9QtWcOvm/whippy-ai
+  category: Airtable extension
+  contract_reference:
+    register: Airtable Marketplace (airtable.com/marketplace; v0.3/blocksGallery/publishedBlocks public JSON)
+    spec_file: null
+    role: airtable-app
+    registered_name: Whippy AI
+    matched_domain: whippy.ai
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Whippy AI
+    signal_note: one edge per (builder, platform); listings and badges are context, never read
+    detected_by: sweep-airtable-marketplace.py
+    detected: '2026-10-23'
+  detected_by: sweep-airtable-marketplace.py
+  detected: '2026-10-23'
 templates:
 - title: Add subscribers to Mailchimp via new Airtable records
   url: https://zapier.com/apps/airtable/integrations/mailchimp/12911/add-subscribers-to-mailchimp-via-new-airtable-records

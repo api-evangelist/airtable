@@ -1,0 +1,90 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://airtable.com/pricing
+sources:
+- https://airtable.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Team
+published: true
+note: Pricing FAQ text states per-seat pricing; charged for users with edit permissions, prorated. Enterprise
+  Scale pricing is custom.
+plan_count: 4
+currency: USD
+plans:
+- name: Free
+  price_text: no charge
+  period: month
+  unit: user
+  included_quota: key building blocks to help you build applications; formulated for individual users,
+    very small teams, or those with lightweight needs
+- name: Team
+  price_text: $20/user/month when billed annually
+  price: 20
+  currency: USD
+  period: month
+  unit: user
+  included_quota: more capacity than Free plan
+- name: Business
+  price_text: $45/user/month when billed annually
+  price: 45
+  currency: USD
+  period: month
+  unit: user
+  included_quota: additional customization, data scale, flexibility, and administrative features
+- name: Enterprise Scale
+  price_text: Contact Sales
+  period: none
+  unit: user
+  included_quota: unlimited org units, workspaces and bases
+rate_limit_statements:
+- For automations and API limits, you will be capped at the usage limit on your current plan.
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - seat
+  units:
+  - seat
+  plans:
+  - name: Free
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Team
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Business
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Enterprise Scale
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - none
